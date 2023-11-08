@@ -37,3 +37,23 @@ img:nth-child(1){
     cursor: pointer;
 }
 
+/*Nav bar*/
+.navbar {
+    display: flex;
+    justify-content: space-evenly;
+    background-color: #333;
+    overflow: hidden;
+    margin: 1rem;
+}
+.navbar a {
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+.navbar a:hover {
+    background-color: #ddd;
+    color: black;
+}

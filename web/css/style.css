@@ -1,0 +1,39 @@
+/*Estilos generales*/
+/*Header*/
+.header{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+img:nth-child(1){
+    height: 3rem;   
+}
+
+.search{
+    background-color: violet;
+    display: flex;
+    align-items: center;
+    border-radius: 60px;
+    padding: 1rem;
+}
+
+.search input{
+    background: transparent;
+    flex: 1;
+    border: 0;
+    outline: none;
+    padding: .1rem 1rem;
+    font-size: 1rem;
+    color: #cac7ff;
+    font-size: 2rem;
+}
+
+.search button{
+    border: 0;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+}
+

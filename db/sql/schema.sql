@@ -2,14 +2,15 @@ SET time_zone = 'Europe/Madrid';
 
 DROP TABLE IF EXISTS reviews;
 DROP TABLE IF EXISTS images;
-DROP TABLE IF EXISTS category;
+DROP TABLE IF EXISTS advert_category;
+DROP TABLE IF EXISTS categories;
 DROP TABLE IF EXISTS advert_contacts;
 DROP TABLE IF EXISTS addresses;
 DROP TABLE IF EXISTS business_contacts;
 DROP TABLE IF EXISTS cities;
-DROP TABLE IF EXISTS accounts;
 DROP TABLE IF EXISTS adverts;
 DROP TABLE IF EXISTS businesses;
+DROP TABLE IF EXISTS accounts;
 
 CREATE TABLE accounts (
     account_id INT(5) NOT NULL AUTO_INCREMENT,
@@ -32,10 +33,10 @@ CREATE TABLE cities (
 CREATE TABLE businesses (
     business_id INT(5) NOT NULL AUTO_INCREMENT,
     account_id INT(5) NOT NULL,
-    name VARCHAR(100) NOT NULL UNIQUE,
+    name VARCHAR(100) NOT NULL /*UNIQUE*/,
     description VARCHAR(500),
     PRIMARY KEY (business_id),
-    FOREIGN KEY (account_id) REFERENCES Account (account_id)
+    FOREIGN KEY (account_id) REFERENCES accounts (account_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 CREATE TABLE adverts (
@@ -71,12 +72,18 @@ CREATE TABLE business_contacts (
     FOREIGN KEY (business_id) REFERENCES businesses (business_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE category (
-    category_id INT(10) NOT NULL AUTO_INCREMENT,
-    advert_id INT(10) NOT NULL,
+CREATE TABLE categories (
+    category_id INT(5) NOT NULL AUTO_INCREMENT,
     name VARCHAR(100) NOT NULL UNIQUE,
-    PRIMARY KEY (category_id),
-    FOREIGN KEY (advert_id) REFERENCES adverts (advert_id)
+    PRIMARY KEY (category_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+CREATE TABLE advert_category (
+    category_id INT(10) NOT NULL,
+    advert_id INT(10) NOT NULL,
+    PRIMARY KEY (category_id, advert_id),
+    FOREIGN KEY (advert_id) REFERENCES adverts (advert_id),
+    FOREIGN KEY (category_id) REFERENCES categories (category_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 CREATE TABLE images (
@@ -104,6 +111,6 @@ CREATE TABLE reviews (
     creation_date TIMESTAMP NOT NULL,
     rating INT(3) NOT NULL,
     PRIMARY KEY (account_id, advert_id),
-    FOREIGN KEY (account_id) REFERENCES Account (account_id),
+    FOREIGN KEY (account_id) REFERENCES accounts (account_id),
     FOREIGN KEY (advert_id) REFERENCES adverts (advert_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

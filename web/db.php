@@ -20,7 +20,7 @@ function connect($host, $dbname, $user, $pass, $port){
 
 function getAdverts($dbh) {
     try {
-        $query = "SELECT title, description, cover_img FROM adverts where advert_id = 1";
+        $query = "SELECT title, description, cover_img FROM adverts";
         $stmt = $dbh->prepare($query);
         $stmt->execute();
         $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -30,6 +30,7 @@ function getAdverts($dbh) {
         return false;
     }
 }
+
 
 
 /*

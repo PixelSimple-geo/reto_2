@@ -6,15 +6,6 @@
                 <input type="text" name="search" placeholder="¿Que deseas buscar?">
                 <button type="submit"><img src="/reto_2/web/media/search.svg" alt="search"></button>
             </form>
-            <!--Lenguage-->            
-                <ul>
-                    <li><a href="#"><img src="/reto_2/web/media/lang.svg" alt="lang"> &dtrif;</a>
-                    <ul>
-                        <li><a href="./Spanish.html">Español</a></li>
-                        <li><a href="./English.html">Ingles</a></li>
-                    </ul>
-                    </li>
-                </ul>
             <!--Noc/Diu-->
             <div class="nocdiu">
                 <div id="idSun" class="mode diu">

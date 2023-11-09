@@ -28,7 +28,7 @@ CREATE TABLE authorities (
 
 CREATE TABLE accounts (
     account_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(50) NOT NULL,
+    username VARCHAR(50) NOT NULL UNIQUE,
     email VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(60) NOT NULL,
     creation_date TIMESTAMP NOT NULL,

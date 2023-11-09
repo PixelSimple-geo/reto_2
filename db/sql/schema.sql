@@ -1,116 +1,174 @@
-SET time_zone = 'Europe/Madrid';
-
-DROP TABLE IF EXISTS reviews;
-DROP TABLE IF EXISTS images;
-DROP TABLE IF EXISTS advert_category;
-DROP TABLE IF EXISTS categories;
-DROP TABLE IF EXISTS advert_contacts;
-DROP TABLE IF EXISTS addresses;
-DROP TABLE IF EXISTS business_contacts;
-DROP TABLE IF EXISTS cities;
-DROP TABLE IF EXISTS adverts;
-DROP TABLE IF EXISTS businesses;
-DROP TABLE IF EXISTS accounts;
-
 CREATE TABLE accounts (
-    account_id INT(5) NOT NULL AUTO_INCREMENT,
-    username VARCHAR(50) NOT NULL UNIQUE,
-    email VARCHAR(100) NOT NULL UNIQUE,
+    account_id INT NOT NULL AUTO_INCREMENT,
+    username VARCHAR(50) NOT NULL,
+    email VARCHAR(100) NOT NULL,
     password VARCHAR(60) NOT NULL,
     creation_date TIMESTAMP NOT NULL,
     last_login TIMESTAMP NOT NULL,
-    verified TINYINT(1) NOT NULL,
+    verified TINYINT NOT NULL,
     PRIMARY KEY (account_id),
-    CONSTRAINT acc_ver_ck CHECK (verified = 0 OR verified = 1)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+    UNIQUE INDEX (username),
+    UNIQUE INDEX (email)
+) ENGINE=InnoDB CHARSET=utf8;
 
-CREATE TABLE cities (
-    city_id INT(3) NOT NULL AUTO_INCREMENT,
-    name VARCHAR(100) NOT NULL,
-    PRIMARY KEY (city_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+CREATE TABLE addresses (
+    address_id INT NOT NULL AUTO_INCREMENT,
+    business_id INT NOT NULL,
+    city_id INT NOT NULL,
+    address VARCHAR(100) NOT NULL,
+    postal_code INT NOT NULL,
+    PRIMARY KEY (address_id),
+    CONSTRAINT add_bus_fk FOREIGN KEY (business_id) REFERENCES businesses (business_id),
+    CONSTRAINT add_cit_fk FOREIGN KEY (city_id) REFERENCES cities (city_id)
+) ENGINE=InnoDB CHARSET=utf8;
 
-CREATE TABLE businesses (
-    business_id INT(5) NOT NULL AUTO_INCREMENT,
-    account_id INT(5) NOT NULL,
-    name VARCHAR(100) NOT NULL /*UNIQUE*/,
-    description VARCHAR(500),
-    PRIMARY KEY (business_id),
-    FOREIGN KEY (account_id) REFERENCES accounts (account_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+CREATE TABLE advert_categories (
+    advert_id INT NOT NULL,
+    category_id INT NOT NULL,
+    PRIMARY KEY (advert_id, category_id),
+    CONSTRAINT adv_adv_fk FOREIGN KEY (advert_id) REFERENCES adverts (advert_id),
+    CONSTRAINT adv_cat_fk FOREIGN KEY (category_id) REFERENCES businesses_advert_categories (category_id)
+) ENGINE=InnoDB CHARSET=utf8;
 
 CREATE TABLE adverts (
-    advert_id INT(10) NOT NULL AUTO_INCREMENT,
-    business_id INT(10) NOT NULL,
+    advert_id INT NOT NULL AUTO_INCREMENT,
+    business_id INT NOT NULL,
     title VARCHAR(70) NOT NULL,
     description VARCHAR(500) NOT NULL,
     cover_img VARCHAR(255),
-    active TINYINT(1) NOT NULL,
+    active TINYINT NOT NULL,
     creation_date TIMESTAMP NULL,
     modified_date TIMESTAMP NOT NULL,
     PRIMARY KEY (advert_id),
-    FOREIGN KEY (business_id) REFERENCES businesses (business_id),
-    CONSTRAINT adv_act_ck CHECK ( active = 0 OR active = 1 )
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+    CONSTRAINT adv_bus_fk FOREIGN KEY (business_id) REFERENCES businesses (business_id)
+) ENGINE=InnoDB CHARSET=utf8;
 
-CREATE TABLE addresses (
-    advert_id INT(10) NOT NULL,
-    city_id INT(3) NOT NULL,
-    address VARCHAR(100) NOT NULL,
-    postal_code INT(6),
-    PRIMARY KEY (advert_id),
-    FOREIGN KEY (advert_id) REFERENCES adverts (advert_id),
-    FOREIGN KEY (city_id) REFERENCES cities (city_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE adverts_characteristics (
+    characteristic_id INT NOT NULL AUTO_INCREMENT,
+    advert_id INT NOT NULL,
+    type VARCHAR(50) NOT NULL,
+    value VARCHAR(100) NOT NULL,
+    PRIMARY KEY (characteristic_id),
+    CONSTRAINT adv_cha_fk FOREIGN KEY (advert_id) REFERENCES adverts (advert_id)
+) ENGINE=InnoDB CHARSET=utf8;
+
+CREATE TABLE article_categories (
+    category_id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL UNIQUE,
+    PRIMARY KEY (category_id)
+) ENGINE=InnoDB CHARSET=utf8;
+
+CREATE TABLE articles (
+    article_id INT NOT NULL AUTO_INCREMENT,
+    account_id INT NOT NULL,
+    title VARCHAR(100) NOT NULL,
+    description LONGTEXT NOT NULL,
+    created_date TIMESTAMP NOT NULL,
+    modified_date TIMESTAMP NULL,
+    PRIMARY KEY (article_id),
+    CONSTRAINT art_acc_fk FOREIGN KEY (account_id) REFERENCES accounts (account_id)
+) ENGINE=InnoDB CHARSET=utf8;
+
+CREATE TABLE articles_categories_mapping (
+    article_id INT NOT NULL,
+    category_id INT NOT NULL,
+    PRIMARY KEY (article_id, category_id),
+    CONSTRAINT art_cat_fk FOREIGN KEY (article_id) REFERENCES articles (article_id),
+    CONSTRAINT art_cat_ FOREIGN KEY (category_id) REFERENCES article_categories (category_id)
+) ENGINE=InnoDB CHARSET=utf8;
+
+CREATE TABLE authorities (
+    authority_id INT NOT NULL AUTO_INCREMENT,
+    role VARCHAR(30) NOT NULL UNIQUE,
+    PRIMARY KEY (authority_id)
+) ENGINE=InnoDB CHARSET=utf8;
+
+CREATE TABLE authorities_granted (
+    authority_id INT NOT NULL,
+    account_id INT NOT NULL,
+    PRIMARY KEY (authority_id, account_id),
+    CONSTRAINT aut_acc_fk FOREIGN KEY (authority_id) REFERENCES authorities (authority_id),
+    CONSTRAINT aut_acc_fk FOREIGN KEY (account_id) REFERENCES accounts (account_id)
+) ENGINE=InnoDB CHARSET=utf8;
 
 CREATE TABLE business_contacts (
-    business_contact_id INT(10) NOT NULL AUTO_INCREMENT,
-    business_id INT(5) NOT NULL,
+    contact_id INT NOT NULL AUTO_INCREMENT,
+    business_id INT NOT NULL,
     type VARCHAR(100) NOT NULL,
-    value VARCHAR(100) NOT NULL,
-    PRIMARY KEY (business_contact_id),
-    FOREIGN KEY (business_id) REFERENCES businesses (business_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+    value VARCHAR(255) NOT NULL,
+    PRIMARY KEY (contact_id),
+    CONSTRAINT bus_con_fk FOREIGN KEY (business_id) REFERENCES businesses (business_id)
+) ENGINE=InnoDB CHARSET=utf8;
 
-CREATE TABLE categories (
-    category_id INT(5) NOT NULL AUTO_INCREMENT,
+CREATE TABLE businesses (
+    business_id INT NOT NULL AUTO_INCREMENT,
+    account_id INT NOT NULL,
+    name VARCHAR(100) NOT NULL UNIQUE,
+    description VARCHAR(500),
+    PRIMARY KEY (business_id),
+    CONSTRAINT bus_acc_fk FOREIGN KEY (account_id) REFERENCES accounts (account_id)
+) ENGINE=InnoDB CHARSET=utf8;
+
+CREATE TABLE businesses_advert_categories (
+    category_id INT NOT NULL AUTO_INCREMENT,
+    business_id INT NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    PRIMARY KEY (category_id),
+    CONSTRAINT bus_adv_fk FOREIGN KEY (business_id) REFERENCES businesses (business_id)
+) ENGINE=InnoDB CHARSET=utf8;
+
+CREATE TABLE businesses_categories (
+    category_id INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(100) NOT NULL UNIQUE,
     PRIMARY KEY (category_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB CHARSET=utf8;
 
-CREATE TABLE advert_category (
-    category_id INT(10) NOT NULL,
-    advert_id INT(10) NOT NULL,
-    PRIMARY KEY (category_id, advert_id),
-    FOREIGN KEY (advert_id) REFERENCES adverts (advert_id),
-    FOREIGN KEY (category_id) REFERENCES categories (category_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+CREATE TABLE businesses_categories_mapping (
+    category_id INT NOT NULL,
+    business_id INT NOT NULL,
+    PRIMARY KEY (category_id, business_id),
+    CONSTRAINT bus_cat_fk FOREIGN KEY (category_id) REFERENCES businesses_categories (category_id),
+    CONSTRAINT bus_cat_fk FOREIGN KEY (business_id) REFERENCES businesses (business_id)
+) ENGINE=InnoDB CHARSET=utf8;
 
-CREATE TABLE images (
-    image_id INT(10) NOT NULL AUTO_INCREMENT,
-    advert_id INT(10) NOT NULL,
-    url VARCHAR(255) NOT NULL,
-    PRIMARY KEY (image_id),
-    FOREIGN KEY (advert_id) REFERENCES adverts (advert_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE cities (
+    city_id INT NOT NULL AUTO_INCREMENT,
+    name INT NOT NULL,
+    PRIMARY KEY (city_id)
+) ENGINE=InnoDB CHARSET=utf8;
 
-CREATE TABLE advert_contacts (
-    contact_id INT(10) NOT NULL AUTO_INCREMENT,
-    advert_id INT(10) NOT NULL,
-    type VARCHAR(100) NOT NULL,
-    value VARCHAR(100) NOT NULL,
-    PRIMARY KEY (contact_id),
-    FOREIGN KEY (advert_id) REFERENCES adverts (advert_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-CREATE TABLE reviews (
-    account_id INT(5) NOT NULL,
-    advert_id INT(10) NOT NULL,
+CREATE TABLE commentaries (
+    article_id INT NOT NULL,
+    account_id INT NOT NULL,
     title VARCHAR(50) NOT NULL,
     description VARCHAR(500) NOT NULL,
     creation_date TIMESTAMP NOT NULL,
-    rating INT(3) NOT NULL,
-    PRIMARY KEY (account_id, advert_id),
-    FOREIGN KEY (account_id) REFERENCES accounts (account_id),
-    FOREIGN KEY (advert_id) REFERENCES adverts (advert_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+    modified_date TIMESTAMP NULL,
+    likes INT NOT NULL,
+    dislikes INT,
+    PRIMARY KEY (article_id, account_id),
+    CONSTRAINT com_art_fk FOREIGN KEY (article_id) REFERENCES articles (article_id),
+    CONSTRAINT com_acc_fk FOREIGN KEY (account_id) REFERENCES accounts (account_id)
+) ENGINE=InnoDB CHARSET=utf8;
+
+CREATE TABLE images (
+    image_id INT NOT NULL AUTO_INCREMENT,
+    advert_id INT NOT NULL,
+    url VARCHAR(255) NOT NULL,
+    PRIMARY KEY (image_id),
+    CONSTRAINT ima_adv_fk FOREIGN KEY (advert_id) REFERENCES adverts (advert_id)
+) ENGINE=InnoDB CHARSET=utf8;
+
+CREATE TABLE reviews (
+    account_id INT NOT NULL,
+    business_id INT NOT NULL,
+    title VARCHAR(70) NOT NULL,
+    description VARCHAR(500) NOT NULL,
+    creation_date TIMESTAMP NOT NULL,
+    modified_date TIMESTAMP NOT NULL,
+    rating INT NOT NULL,
+    PRIMARY KEY (account_id, business_id),
+    CONSTRAINT rev_acc_fk FOREIGN KEY (account_id) REFERENCES accounts (account_id),
+    CONSTRAINT rev_bus_fk FOREIGN KEY (business_id) REFERENCES businesses (business_id)
+) ENGINE=InnoDB CHARSET=utf8;
+

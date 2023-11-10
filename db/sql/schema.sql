@@ -11,6 +11,8 @@ DROP TABLE IF EXISTS authorities_granted;
 DROP TABLE IF EXISTS articles;
 DROP TABLE IF EXISTS authorities;
 DROP TABLE IF EXISTS businesses_advert_categories;
+DROP TABLE IF EXISTS advert_category;
+DROP TABLE IF EXISTS advert_contacts;
 DROP TABLE IF EXISTS adverts;
 DROP TABLE IF EXISTS business_contacts;
 DROP TABLE IF EXISTS businesses_categories_mapping;

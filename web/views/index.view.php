@@ -3,14 +3,14 @@
 
     <head>
         <?php require "db.php"; ?>
-        <?php require "views/partials/head.php" ?>
+        <?php require "partials/head.php" ?>
         <title>Inicio | Reto 2</title>
     </head>
     
 
     <body>
 
-           <?php require "/laragon/www/reto_2/web/views/partials/navvar.php"; ?>
+           <?php require "partials/navvar.php"; ?>
 
            <main>
                 <div class="principal">
@@ -31,7 +31,7 @@
                                 echo '<p>' . htmlspecialchars($advert['description']) . '</p>';
                                 echo '</div>';
                                 echo '</div>';
-                            }
+                            }   
 
                         } else {
                             echo '<p>No se encontraron anuncios.</p>';
@@ -42,7 +42,7 @@
             </main>
 
             
-            <script src="js/map.js"></script>
+            <script src="/statics/js/map.js"></script>
             <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD81ODWIXrm6wljDOEnI6Rr5OpmglGJHz8&callback=initMap"></script>
 
         <?php require "views/partials/footer.php" ?>    

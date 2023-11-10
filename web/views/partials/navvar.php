@@ -24,6 +24,6 @@
             <a href="/views/noticias.view.php">Noticias</a>
             <a href="#">Historia</a>
             <a href="#">Calle Gorbeia</a>
-            <a href="/reto_2/web/views/comerces.view.php">Comercios</a>
+            <a href="/views/comerces.view.php">Comercios</a>
             <a href="#">Contacto</a>    
         </div>

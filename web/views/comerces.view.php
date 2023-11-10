@@ -2,13 +2,13 @@
 <html lang="en">
 
     <head>
-        <?php require "/laragon/www/reto_2/web/db.php"; ?>
-        <?php require "/laragon/www/reto_2/web/views/partials/head.php" ?>
+        <?php require "../db.php"; ?>
+        <?php require "partials/head.php" ?>
         <title>Comercios | Reto 2</title>
     </head>
     
     <body>
-        <?php require "/laragon/www/reto_2/web/views/partials/navvar.php"; ?>
+        <?php require "partials/navvar.php"; ?>
     
         <div class="categorias">
             <?php
@@ -34,7 +34,7 @@
         </div>
 
 
-    <?php require "/laragon/www/reto_2/web/views/partials/footer.php" ?>    
+    <?php require "partials/footer.php" ?>    
 
     </body>
 </html>

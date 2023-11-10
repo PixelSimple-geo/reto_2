@@ -1,20 +1,21 @@
 <?php
 // Realiza la conexión a la base de datos
 $host = "127.0.0.1";
-$user = "root";
-$pass = "test";
+$user = "admin";
+$pass = "admin";
 $dbname = "reto_2";
-$port = "3333"; 
+$port = "3306"; 
 
 $mensaje = "";
 
 function connect($host, $dbname, $user, $pass, $port){
     try {
-        $dbh = new PDO("mysql:host=$host;port=$port;dbname=$dbname", $user, $pass);
+        $dbh = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
         return $dbh;
     }
     catch(PDOException $e) {
         echo $e->getMessage();
+        echo "hello";
     }
 }
 

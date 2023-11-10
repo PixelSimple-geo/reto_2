@@ -2,6 +2,7 @@
 html{
     height: 100vh;
 }
+
 /*Header*/
 .header{
     display: flex;
@@ -116,12 +117,20 @@ img:nth-child(1){
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
 }
 
-.product-image {
+.product img{
     width: 80%; 
     height: 10px; 
     object-fit: cover;
 }
 
+/*Categorias*/
+.categorias{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    margin: 1rem;
+    grid-gap: 1rem;
+    text-align: center;
+}
 
 /*Map*/
 #map{

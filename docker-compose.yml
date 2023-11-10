@@ -1,22 +1,24 @@
 version: '3.3'
 services:
   web:
-    image: php:7.3-apache
-    container_name: php73
+    build: .
     volumes:
-      - ../web:/var/www/html
+      - ./web:/var/www/html
     ports:
-      - 8080:80
+      - "8080:80"
+    links:
+      - db
+    networks:
+      - default
   db:
     image: mysql
-    container_name: mysqlDB
     ports:
       - "3306:3306"
     environment:
       MYSQL_DATABASE: reto_2
       MYSQL_USER: admin
       MYSQL_PASSWORD: admin
-      MYSQL_ROOT_PASSWORD: reto_2
+      MYSQL_ROOT_PASSWORD: root
     volumes:
       - persistent:/var/lib/mysql
     networks:
@@ -24,12 +26,12 @@ services:
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     links:
-      - db
+      - db:db
     ports:
-      - 8000:80
+      - "8000:80"
     environment:
       MYSQL_USER: admin
       MYSQL_PASSWORD: admin
-      MYSQL_ROOT_PASSWORD: reto_2
+      MYSQL_ROOT_PASSWORD: root
 volumes:
   persistent:

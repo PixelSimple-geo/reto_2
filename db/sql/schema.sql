@@ -25,7 +25,7 @@ CREATE TABLE authorities (
     authority_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     role VARCHAR(30) NOT NULL,
     UNIQUE INDEX (role)
-) ENGINE=InnoDB;
+) ENGINE=InnoDB CHARSET=utf8;
 
 CREATE TABLE accounts (
     account_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,

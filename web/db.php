@@ -33,6 +33,19 @@ function getAdverts($dbh) {
 }
 
 
+//Noticias
+function getArticles($dbh) {
+    try {
+        $query = "SELECT * FROM articles";
+        $stmt = $dbh->prepare($query);
+        $stmt->execute();
+        $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $productos;
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+        return false;
+    }
+}
 
 //Categories
 function getBusinessCaregories($dbh) {

@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <?php require "db.php"; ?>
-    <?php require "views/partials/head.php" ?>
+    <head>
+        <?php require "db.php"; ?>
+        <?php require "views/partials/head.php" ?>
+        <title>Inicio | Reto 2</title>
+    </head>
+    
 
     <body>
 

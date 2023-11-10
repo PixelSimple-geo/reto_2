@@ -21,7 +21,7 @@
         <!--Navegator-->
         <div class="navbar">
             <a href="/reto_2/web/index.php">Inicio</a>
-            <a href="#">Noticias</a>
+            <a href="/reto_2/web/views/noticias.view.php">Noticias</a>
             <a href="#">Historia</a>
             <a href="#">Calle Gorbeia</a>
             <a href="/reto_2/web/views/comerces.view.php">Comercios</a>

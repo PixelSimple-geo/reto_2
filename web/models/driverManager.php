@@ -6,11 +6,7 @@ $database = "reto_2";
 $username = "admin";
 $password = "admin";
 
-function getConnection(){
+function getConnection(): PDO {
     global $hostName, $port, $username, $password, $database;
-    try {
-    return new PDO("mysql:host=$hostName;dbname=$database", $username, $password);
-    } catch (PDOException $exception) {
-        echo $exception->getMessage();
-    }
+    return new PDO("mysql:host=$hostName;port=$port;dbname=$database", $username, $password);
 }

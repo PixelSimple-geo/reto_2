@@ -22,7 +22,7 @@
         <div class="navbar">
             <a href="/index.php">Inicio</a>
             <a href="/views/noticias.view.php">Noticias</a>
-            <a href="#">Historia</a>
+            <a href="/views/historia.view.php">Historia</a>
             <a href="#">Calle Gorbeia</a>
             <a href="/views/comerces.view.php">Comercios</a>
             <a href="/views/contacto.view.php">Contacto</a>    

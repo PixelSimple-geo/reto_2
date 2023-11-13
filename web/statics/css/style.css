@@ -3,12 +3,17 @@ html {
     height: 100vh;
 }
 
+/*Modo noche*/
+body.noche {
+
+}
+
 /* Header */
 .header {
     display: flex;
     align-items: center;
     justify-content: space-around;
-    background-color: gray;
+    background-color: var(--color-primario);
     margin: 1rem;
     margin-bottom: 0;
     padding: 1rem;
@@ -19,7 +24,7 @@ html {
 }
 
 .search {
-    background-color: antiquewhite;
+    background-color: var(--color-secundario);
     display: flex;
     align-items: center;
     border-radius: 60px;
@@ -33,7 +38,7 @@ html {
     outline: none;
     padding: 0.1rem 1rem;
     font-size: 1rem;
-    color: #cac7ff;
+    color: var(--color-secundario);
     font-size: 2rem;
 }
 
@@ -42,7 +47,8 @@ html {
     border-radius: 50%;
     width: 60px;
     height: 60px;
-    cursor: pointer;
+    cursor: pointer; 
+    background-color: var(--color-secundario);   
 }
 
 .nocdiu {
@@ -61,7 +67,7 @@ html {
 }
 
 .mode:hover {
-    background-color: rgb(148, 148, 148);
+    background-color: var(--color-hover);
 }
 
 .diu {
@@ -78,7 +84,7 @@ html {
 .navbar {
     display: flex;
     justify-content: space-evenly;
-    background-color: gray;
+    background-color: var(--color-primario);
     overflow: hidden;
     margin: 1rem;
     margin-top: 0;
@@ -91,10 +97,11 @@ html {
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
+    width: 100%;
 }
 
 .navbar a:hover {
-    background-color: #ddd;
+    background-color: var(--color-hover);
     color: black;
 }
 
@@ -167,7 +174,6 @@ html {
     display: flex;
     flex-direction: column;
     margin: 0 auto;
-    background-color: blue;
     width: 100%;
     height: 100%;
 }
@@ -224,6 +230,29 @@ html {
     height: 5rem;
 }
 
+
+/* Historia*/
+.historia {
+    width: 70%;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.historia h1, .historia h2, .historia h3{
+    color:  var(--color-h);
+}
+
+.historia p, .historia ul{
+    margin: 1rem;
+}
+
+.historia li{
+    list-style-type: disc; 
+    margin-left: 2rem;
+
+}
 /* Contacto*/
 .contacto {
     width: 50%;
@@ -239,7 +268,7 @@ html {
 }
 
 .contacto h3 {
-    color: #007bff;
+    color: var(--color-h);
 }
 
 .contacto form {
@@ -260,7 +289,7 @@ html {
 }
 
 .contacto button {
-    background-color: #007bff;
+    background-color: var(--color-h);
     color: #fff;
     padding: .5rem 1rem;
     border-radius: 1rem;
@@ -285,7 +314,7 @@ html {
 
 /* Footer */
 footer>p {
-    background-color: #2245c7;
+    background-color: var(--color-primario);
     color: #fff;
     padding: 10px 20px;
     border-radius: 5px;

@@ -45,7 +45,6 @@
             <div class="social">
                 <a href="https://www.instagram.com/vigasteiz/"><img src="../statics/media/ig.webp"></a>
                 <a href="https://www.facebook.com/gasteiz.vitoria/?locale=es_ES"><img src="../statics/media/fb.png"></a>
-
             </div>
         </div>
     </div>

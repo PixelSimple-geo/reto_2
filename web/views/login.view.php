@@ -14,14 +14,15 @@
         <div class="shape"></div>
         <div class="shape"></div>
     </div>
-    <form>
+    <?php if(isset($errorMessage)) echo "<p>$errorMessage</p>" ?>
+    <form action="/login" method="post">
         <h3 id="form-title">Login</h3>
 
         <label for="usuario">Usuario</label>
-        <input type="text" id="usuario">
+        <input type="text" id="usuario" name="username">
 
         <label for="password">Contraseña</label>
-        <input type="password" id="password">
+        <input type="password" id="password" name="password">
 
         <button id="submitButton">Iniciar Sesión</button>
         <div class="social">

@@ -1,6 +1,6 @@
 <?php
 
-$hostName = "localhost";
+$hostName = "mysql";
 $port = "3306";
 $database = "reto_2";
 $username = "admin";

@@ -1,8 +1,6 @@
 <?php
 
-require_once "driverManager.php";
-
-function getAccounts() {
+function getAccounts() :array {
     try {
         $sql = "SELECT account_id AS accountId, username, email, password, creation_date AS creationDate, 
        last_login AS lastLogin, verified, active FROM accounts";
@@ -32,7 +30,7 @@ function getAccountByUsername($username) :array {
     }
 }
 
-function addAccount($username, $email, $password) {
+function addAccount($username, $email, $password) :void {
     try {
         $sql = "INSERT INTO accounts(username, email, password) VALUES(:username, :email, :password)";
         $statement = getConnection()->prepare($sql);
@@ -48,7 +46,7 @@ function addAccount($username, $email, $password) {
     }
 }
 
-function deleteAccount($accountId) {
+function deleteAccount($accountId) :void {
     try {
         $sql = "DELETE FROM accounts WHERE account_id = :accountId";
         $statement = getConnection()->prepare($sql);

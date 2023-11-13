@@ -1,37 +1,41 @@
-version: '3.3'
+version: '3'
+
 services:
-  web:
-    build: .
-    volumes:
-      - ./web:/var/www/html
+
+  webserver:
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "8080:80"
-    links:
-      - db
-    networks:
-      - default
-  db:
+    volumes:
+      - ../web:/var/www/html
+    depends_on:
+      - mysql
+
+  mysql:
     image: mysql
     ports:
       - "3306:3306"
     environment:
+      MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: reto_2
       MYSQL_USER: admin
       MYSQL_PASSWORD: admin
-      MYSQL_ROOT_PASSWORD: root
     volumes:
       - persistent:/var/lib/mysql
-    networks:
-     - default
+
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     links:
-      - db:db
+      - mysql:db
     ports:
-      - "8000:80"
+      - "8079:80"
     environment:
+      PMA_ARBITRARY: 1
+      MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: admin
       MYSQL_PASSWORD: admin
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: reto_2
 volumes:
   persistent:

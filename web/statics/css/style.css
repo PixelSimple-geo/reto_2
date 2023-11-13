@@ -171,10 +171,11 @@ html {
 
 /* Login y registro*/
 .login_container, .register_container {
-    width: 20%;
-    margin: 100px auto;
-    padding: 20px;
+    width: 23rem;
+    margin: 10rem auto;
+    padding: 1rem;
     border: 1px solid #ccc;
+    border-radius: 10px;
     background-color: #f4f4f4;
     text-align: center;
 }
@@ -182,11 +183,11 @@ html {
 .login_container #log_form, .register_container #reg_form{
     display: flex;
     flex-direction: column;
-    margin-top: 20px;
+    margin-top: 2rem;
 }
 
 .login_container label, .register_container label {
-    margin-bottom: 5px;
+    margin-bottom: .3rem;
     font-weight: bold;
 }
 
@@ -215,6 +216,9 @@ html {
     margin-top: 10px;
 }
 
+.home img{
+    height: 5rem;
+}
 /* Footer */
 footer>p {
     background-color: #2245c7;

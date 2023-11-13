@@ -13,6 +13,10 @@
 </head>
 <body>
 
+        <a href="../index.php" class="home">
+            <img src= "../statics/media/logo2.png" alt="Volver al Home">
+        </a>
+
     <div class="register_container">
         <h2>Registro</h2>
         <form id="reg_form" action="../index.php" method="POST">

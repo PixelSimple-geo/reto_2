@@ -12,12 +12,12 @@
 
 </head>
 <body>
-        <a href="../index.php">
+        <a href="../index.php" class="home">
             <img src= "../statics/media/logo2.png" alt="Volver al Home">
         </a>
     
     <div class="login_container">
-        <h2>Inicio de Sesions</h2>
+        <h2>Inicio de Sesion</h2>
         <form id="log_form" action="../index.php" method="POST" >
 
             <label for="usuario">Usuario</label>

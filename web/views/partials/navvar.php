@@ -1,6 +1,6 @@
         <div class="header">
             <!--Logo-->
-            <img src="/statics/media/logo2.png" alt="logo">
+            <a href="../index.php"><img src="/statics/media/logo2.png" alt="logo"></a>
             <!--Searchbar-->
             <form action="index.view.php" method="POST" class="search">
                 <input type="text" name="search" placeholder="¿Que deseas buscar?">

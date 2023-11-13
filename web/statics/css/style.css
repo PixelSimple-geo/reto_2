@@ -225,7 +225,63 @@ html {
 }
 
 /* Contacto*/
+.contacto {
+    width: 50%;
+    margin: 0 auto;
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1rem;
+}
 
+.contacto div {
+    margin-bottom: 2rem;
+}
+
+.contacto h3 {
+    color: #007bff;
+}
+
+.contacto form {
+    margin-top: 2rem;
+}
+
+.contacto label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.contacto input, .contacto textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+.contacto button {
+    background-color: #007bff;
+    color: #fff;
+    padding: .5rem 1rem;
+    border-radius: 1rem;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.contacto button:hover {
+    background-color: #0056b3;
+}
+
+.social{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 3rem;
+}
+
+.social a img{
+    width: 10rem;
+    cursor: pointer;
+}
 
 /* Footer */
 footer>p {

@@ -1,5 +1,5 @@
 <?php
-
+require_once "models/driverManager.php";
 $accountUrl = "/accounts";
 $login = "/login";
 $indexUrl = "/";
@@ -8,11 +8,10 @@ $path = $_SERVER['REQUEST_URI'];
 
 if (stristr($path, $login)) {
     require_once "controller/mainController.php";
-    $login();
+    login();
 } else if (stristr($path, $indexUrl)) {
 
 }
-
 ?>
 
 

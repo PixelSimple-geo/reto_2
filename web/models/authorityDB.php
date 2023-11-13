@@ -1,5 +1,7 @@
 <?php
 
+
+
 function getAuthorities($connection) :array {
     $statement = $connection->query("SELECT * FROM authorities");
     return $statement->fetchAll();

@@ -19,7 +19,7 @@
 
     <div class="register_container">
         <h2>Registro</h2>
-        <form id="reg_form" action="../index.php" method="POST">
+        <form id="reg_form" action="./index.php" method="POST">
 
             <label for="usuario">Usuario</label>
             <input type="text" id="usuario" required>

@@ -3,7 +3,7 @@
 function getAccounts() :array {
     try {
         $sql = "SELECT account_id AS accountId, username, email, password, creation_date AS creationDate, 
-       last_login AS lastLogin, verified, active FROM accounts";
+        last_login AS lastLogin, verified, active FROM accounts";
         $statement = getConnection()->query($sql);
         if ($statement->rowCount() === 0)
             throw new PDOException("No accounts found");

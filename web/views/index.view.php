@@ -4,6 +4,7 @@
     <head>
         <?php require "db.php"; ?>
         <?php require "partials/head.php" ?>
+        <?php require "partials/mapa.php"?>
         <title>Inicio | Reto 2</title>
     </head>
     

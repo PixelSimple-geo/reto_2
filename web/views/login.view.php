@@ -16,11 +16,10 @@
     <a href="/index" class="home">
         <img src= "/statics/media/logo2.png" alt="Volver al Home">
     </a>
-    
+
     <div class="login_container">
-
         <h2>Inicio de sesión</h2>
-
+        <?php if(isset($errorMessage)) echo $errorMessage ?>
         <form id="log_form" action="/login" method="POST" >
 
             <label for="usuario">Usuario</label>

@@ -1,1 +1,2 @@
-<h1>Hello</h1>
+<?php if (isset($message)) echo $message ?>
+<h1>hi</h1>

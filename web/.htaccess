@@ -1,2 +1,9 @@
-RewriteEngine on
-RewriteRule . urlDispatcher.php
+RewriteEngine On
+
+# Allow access to existing files and directories
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Rewrite non-existing resources to urlDispatcher.php
+RewriteRule . urlDispatcher.php [L]

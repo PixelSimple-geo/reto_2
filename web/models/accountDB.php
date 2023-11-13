@@ -5,8 +5,6 @@ function getAccounts() :array {
         $sql = "SELECT account_id AS accountId, username, email, password, creation_date AS creationDate, 
         last_login AS lastLogin, verified, active FROM accounts";
         $statement = getConnection()->query($sql);
-        if ($statement->rowCount() === 0)
-            throw new PDOException("No accounts found");
         return $statement->fetchAll();
     } catch (PDOException $exception) {
         error_log("Database error: " . $exception->getMessage());
@@ -22,10 +20,10 @@ function getAccountByUsername($username) :array {
         $statement->bindValue("username", $username);
         $statement->execute();
         if ($statement->rowCount() === 0)
-            throw new PDOException("No account found with [$username]");
+            throw new PDOException("No account found");
         return $statement->fetchAll();
     } catch (PDOException $exception) {
-        echo $exception->getMessage();
+        echo error_log("Database error: [$username] " . $exception->getMessage());
         throw $exception;
     }
 }
@@ -41,7 +39,7 @@ function addAccount($username, $email, $password) :void {
         if ($statement->rowCount() === 0)
             throw new PDOException("Could not add account");
     } catch (PDOException $exception) {
-        error_log("Database error: " . $exception->getMessage());
+        error_log("Database error: [$username, $email]" . $exception->getMessage());
         throw $exception;
     }
 }
@@ -53,9 +51,9 @@ function deleteAccount($accountId) :void {
         $statement->bindValue('accountId', $accountId, PDO::PARAM_INT);
         $statement->execute();
         if ($statement->rowCount() === 0)
-            throw new PDOException("No account with id" . $accountId . " found");
+            throw new PDOException("Could not delete account");
     } catch (PDOException $exception) {
-        error_log("Database error: " . $exception->getMessage());
+        error_log("Database error: [$accountId]" . $exception->getMessage());
         throw $exception;
     }
 }

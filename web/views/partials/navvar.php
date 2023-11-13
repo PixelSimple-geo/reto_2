@@ -16,6 +16,7 @@
                 </div>
             </div>
             <!--Sesion-->
+
             <a href="views/login.view.php"><img src="/statics/media/profile.svg" alt="Profile"></a>
         </div>
         <!--Navegator-->

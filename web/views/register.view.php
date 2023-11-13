@@ -19,26 +19,29 @@
 
     <div class="register_container">
         <h2>Registro</h2>
-        <form id="reg_form" action="./index.php" method="POST">
+
+        <?php if(isset($errorMessage)) echo $errorMessage ?>
+
+        <form id="reg_form" action="/register" method="POST">
 
             <label for="usuario">Usuario</label>
-            <input type="text" id="usuario" required>
+            <input type="text" id="usuario" required name="username">
 
             <label for="password">Contraseña</label>
-            <input type="password" id="password" required>
+            <input type="password" id="password" required name="password">
 
             <label for="conpassword">Confirmar Contraseña</label>
             <input type="password" id="conpassword" required>
 
             <label for="email">Email</label>
-            <input type="email" id="email" required>
+            <input type="email" id="email" required name="email">
 
             <div>
                 <input id="terminos" type="checkbox" required>
                 <label for="terminos">*Acepto los terminos y condiciones</label>
             </div>
             
-            <button id="submitReg">Registrarse</button>
+            <button id="submitReg" type="submit">Registrarse</button>
 
         </form>
 

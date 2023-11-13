@@ -3,47 +3,46 @@
 <head>
     <title>Login y Registro</title>
  
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/reset.css">
-    <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="../statics/css/reset.css">
+    <link rel="stylesheet" href="../statics/css/style.css">
+
 </head>
 <body>
-    <div class="background">
-        <div class="shape"></div>
-        <div class="shape"></div>
+    <div>
+        <button id="login">Inicior Sesion</button>
+        <button id="register">Registrarse</button>
+
+        <form id="log_form" action="../index.php" method="POST">
+
+            <label for="usuario">Usuario</label>
+            <input type="text" id="usuario">
+
+            <label for="password">Contraseña</label>
+            <input type="password" id="password">
+
+            <button id="submitLog">Iniciar Sesión</button>
+            <a href="#">¿Has olvidado tu contraseña?</a>
+
+        </form>
+
+        <form id="reg_form" action="../index.php" method="POST">
+
+            <label for="usuario">Usuario</label>
+            <input type="text" id="usuario">
+
+            <label for="password">Contraseña</label>
+            <input type="password" id="password">
+
+            <label for="conpassword">Confirmar Contraseña</label>
+            <input type="password" id="conpassword">
+
+            <button id="submitReg">Registrarse</button>
+
+            <input id="terminos" type="checkbox">
+            <label for="terminos">Acepto los <a href="#">terminos y condiciones</a></label>
+
+        </form>
     </div>
-    <form>
-        <h3 id="form-title">Login</h3>
-
-        <label for="usuario">Usuario</label>
-        <input type="text" id="usuario">
-
-        <label for="password">Contraseña</label>
-        <input type="password" id="password">
-
-        <button id="submitButton">Iniciar Sesión</button>
-        <div class="social">
-          <div class="enlace">¿Has olvidado tu contraseña?</div>
-        </div>
-    </form>
-
-    <script>
-        const formTitle = document.getElementById('form-title');
-        const submitButton = document.getElementById('submitButton');
-
-        function toggleForm() {
-            if (formTitle.textContent === 'Login') {
-                formTitle.textContent = 'Registro';
-                submitButton.textContent = 'Registrarse';
-            } else {
-                formTitle.textContent = 'Login';
-                submitButton.textContent = 'Iniciar Sesión';
-            }
-        }
-
-        formTitle.addEventListener('click', toggleForm);
-    </script>
+    
 </body>
 </html>

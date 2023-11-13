@@ -1,6 +1,6 @@
 <?php
 // Realiza la conexión a la base de datos
-$host = "127.0.0.1";
+$host = "mysql";
 $user = "admin";
 $pass = "admin";
 $dbname = "reto_2";

@@ -34,41 +34,5 @@
         <a href="register.view.php">¿No tienes cuenta? Registrate</a>
         
     </div>
-<<<<<<< HEAD
-    
-=======
-    <?php if(isset($errorMessage)) echo "<p>$errorMessage</p>" ?>
-    <form action="/login" method="post">
-        <h3 id="form-title">Login</h3>
-
-        <label for="usuario">Usuario</label>
-        <input type="text" id="usuario" name="username">
-
-        <label for="password">Contraseña</label>
-        <input type="password" id="password" name="password">
-
-        <button id="submitButton">Iniciar Sesión</button>
-        <div class="social">
-          <div class="enlace">¿Has olvidado tu contraseña?</div>
-        </div>
-    </form>
-
-    <script>
-        const formTitle = document.getElementById('form-title');
-        const submitButton = document.getElementById('submitButton');
-
-        function toggleForm() {
-            if (formTitle.textContent === 'Login') {
-                formTitle.textContent = 'Registro';
-                submitButton.textContent = 'Registrarse';
-            } else {
-                formTitle.textContent = 'Login';
-                submitButton.textContent = 'Iniciar Sesión';
-            }
-        }
-
-        formTitle.addEventListener('click', toggleForm);
-    </script>
->>>>>>> 702f3e9708e0baa20f546a64785dee7514125fa7
 </body>
 </html>

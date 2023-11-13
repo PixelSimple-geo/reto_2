@@ -13,27 +13,33 @@
 </head>
 <body>
 
-    <form id="reg_form" action="../index.php" method="POST">
+    <div class="register_container">
+        <h2>Registro</h2>
+        <form id="reg_form" action="../index.php" method="POST">
 
-        <label for="usuario">Usuario</label>
-        <input type="text" id="usuario" required>
+            <label for="usuario">Usuario</label>
+            <input type="text" id="usuario" required>
 
-        <label for="password">Contraseña</label>
-        <input type="password" id="password" required>
+            <label for="password">Contraseña</label>
+            <input type="password" id="password" required>
 
-        <label for="conpassword">Confirmar Contraseña</label>
-        <input type="password" id="conpassword" required>
+            <label for="conpassword">Confirmar Contraseña</label>
+            <input type="password" id="conpassword" required>
 
-        <label for="email">Email</label>
-        <input type="email" id="email" required>
+            <label for="email">Email</label>
+            <input type="email" id="email" required>
 
-        <button id="submitReg">Registrarse</button>
+            <div>
+                <input id="terminos" type="checkbox" required>
+                <label for="terminos">*Acepto los terminos y condiciones</label>
+            </div>
+            
+            <button id="submitReg">Registrarse</button>
 
-        <input id="terminos" type="checkbox" required>
-        <label for="terminos">*Acepto los <a href="#">terminos y condiciones</a></label>
+        </form>
 
-    </form>
+        <a href="login.view.php">¿Ya tienes cuenta? Inicia Sesion</a>
+    </div>
     
-    <a href="login.view.php">¿Ya tienes cuenta? Inicia Sesion</a>
 </body>
 </html>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <title>Login</title>
-    
+
     <!--CSS-->
     <link rel="stylesheet" href="../statics/css/reset.css">
     <link rel="stylesheet" href="../statics/css/style.css">
@@ -12,21 +12,28 @@
 
 </head>
 <body>
+        <a href="../index.php">
+            <img src= "../statics/media/logo2.png" alt="Volver al Home">
+        </a>
     
-    <form id="log_form" action="../index.php" method="POST" >
+    <div class="login_container">
+        <h2>Inicio de Sesions</h2>
+        <form id="log_form" action="../index.php" method="POST" >
 
-        <label for="usuario">Usuario</label>
-        <input type="text" id="usuario" required>
+            <label for="usuario">Usuario</label>
+            <input type="text" id="usuario" required>
 
-        <label for="password">Contraseña</label>
-        <input type="password" id="password" required>
+            <label for="password">Contraseña</label>
+            <input type="password" id="password" required>
 
-        <button id="submitLog">Iniciar Sesión</button>
+            <button id="submitLog">Iniciar Sesión</button>
 
-    </form>
+        </form>
 
-    <a href="#">¿Has olvidado tu contraseña?</a>
-    <a href="register.view.php">¿No tienes cuenta? Registrate</a>
+        <a href="#">¿Has olvidado tu contraseña?</a>
+        <a href="register.view.php">¿No tienes cuenta? Registrate</a>
+        
+    </div>
     
 </body>
 </html>

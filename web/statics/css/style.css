@@ -168,6 +168,53 @@ html {
     height: 100%;
 }
 
+
+/* Login y registro*/
+.login_container, .register_container {
+    width: 20%;
+    margin: 100px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background-color: #f4f4f4;
+    text-align: center;
+}
+
+.login_container #log_form, .register_container #reg_form{
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.login_container label, .register_container label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.login_container input, .register_container input {
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+.login_container button, .register_container button {
+    padding: 10px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.login_container button:hover, .register_container button:hover  {
+    background-color: #45a049;
+}
+
+.login_container a, .register_container a {
+    text-decoration: none;
+    color: #2196F3;
+    display: block;
+    margin-top: 10px;
+}
+
 /* Footer */
 footer>p {
     background-color: #2245c7;

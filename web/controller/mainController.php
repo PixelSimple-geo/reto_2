@@ -7,8 +7,11 @@ function login() :void {
         $password = $_POST["password"];
         try {
             $account = getAccountByUsername($username);
-            if ($password === $account[0]["password"])
+            if ($password === $account[0]["password"]) {
+                startSession();
+                addUserAccountSession($account);
                 include_once $_SERVER['DOCUMENT_ROOT'] . "/views/index.php";
+            }
             else {
                 $errorMessage = "La contraseña no es válida";
                 include_once $_SERVER['DOCUMENT_ROOT'] . "/views/login.view.php";
@@ -28,7 +31,7 @@ function register() :void {
         $email = $_POST["email"];
         try {
             addAccount($username, $email, $password);
-            $message = "Enhorabuena te has registrado";
+            $message = "Enhorabuena su cuenta se ha registrado correctamente";
             include_once $_SERVER['DOCUMENT_ROOT'] . "/views/index.php";
         } catch (PDOException $exception) {
             $errorMessage = "No se ha podido registrar la cuenta. Si el error persiste contacta con el soporte";

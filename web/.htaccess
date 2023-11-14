@@ -6,4 +6,4 @@ RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^ - [L]
 
 # Rewrite non-existing resources to requestDispatcher.php
-RewriteRule . requestDispatcher.php [L]
+RewriteRule . handlers/requestDispatcher.php [L]

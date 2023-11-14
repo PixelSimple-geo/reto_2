@@ -9,6 +9,8 @@ $register = "/register";
 $indexUrl = "/index";
 $perfilUrl = "/perfil";
 $negociosUrl = "/negocios";
+$crearNegocioUrl = "/crearNegocio";
+
 
 
 
@@ -30,6 +32,9 @@ if (stristr($path, $login)) {
     die();
 }else if (stristr($path, $negociosUrl)){
     require_once $_SERVER['DOCUMENT_ROOT'] . "/views/negocios.view.php";
+    die();
+}else if (stristr($path, $crearNegocioUrl)){
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/views/crearNegocio.view.php";
     die();
 }
 ?>

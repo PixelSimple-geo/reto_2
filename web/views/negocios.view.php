@@ -9,7 +9,7 @@
     <?php require "partials/navvar.php"; ?>
 
     <main>
-        <button>+ Crear Nuevo Negocio</button>
+        <a href="/crearNegocio">+ Crear Nuevo Negocio</a>
         <h2>Mis Negocios</h2>
         <?php
             if (isset($negocios)) {

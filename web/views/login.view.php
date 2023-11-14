@@ -13,7 +13,7 @@
 </head>
 <body>
 
-    <a href="/index" class="home">
+    <a href="/views/index.view.php" class="home">
         <img src= "/statics/media/logo2.png" alt="Volver al Home">
     </a>
 

@@ -3,11 +3,10 @@
 
     <head>
         <?php require $_SERVER['DOCUMENT_ROOT'] . "/db.php"; ?>
-        <?php require "partials/head.php" ?>
-        <?php require "partials/mapa.php"?>
+        <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/head.php" ?>
+        <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/mapa.php"?>
         <title>Inicio | Reto 2</title>
     </head>
-    
 
     <body>
 
@@ -46,7 +45,7 @@
             <script src="/statics/js/map.js"></script>
             <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD81ODWIXrm6wljDOEnI6Rr5OpmglGJHz8&callback=initMap"></script>
 
-        <?php require "views/partials/footer.php" ?>    
+        <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/footer.php" ?>    
 
     </body>
 </html>

@@ -17,18 +17,18 @@ function getAccountByUsername($username) :array {
         $sql = "SELECT account_id AS accountId, username, email, password, creation_date AS creationDate FROM accounts
         WHERE username = :username";
         $statement = getConnection()->prepare($sql);
-        $statement->bindValue("username", $username);
+        $statement->bindValue("username", $username, PDO::PARAM_STR);
         $statement->execute();
         if ($statement->rowCount() === 0)
             throw new PDOException("No account found");
-        return $statement->fetchAll();
+        return $statement->fetchAll()[0];
     } catch (PDOException $exception) {
         echo error_log("Database error: [$username] " . $exception->getMessage());
         throw $exception;
     }
 }
 
-function addAccount($username, $email, $password) :void {
+function persistAccount($username, $email, $password) :void {
     try {
         $sql = "INSERT INTO accounts(username, email, password) VALUES(:username, :email, :password)";
         $statement = getConnection()->prepare($sql);

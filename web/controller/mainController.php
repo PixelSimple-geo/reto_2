@@ -7,7 +7,7 @@ function login() :void {
         $password = $_POST["password"];
         try {
             $userAccount = getAccountByUsername($username);
-            if ($password === $userAccount[0]["password"]) {
+            if ($password === $userAccount["password"]) {
                 startSession();
                 addUserAccountSession($userAccount);
                 include_once $_SERVER['DOCUMENT_ROOT'] . "/views/index.view.php";

@@ -6,10 +6,10 @@ function login() :void {
         $username = $_POST["username"];
         $password = $_POST["password"];
         try {
-            $account = getAccountByUsername($username);
-            if ($password === $account[0]["password"]) {
+            $userAccount = getAccountByUsername($username);
+            if ($password === $userAccount[0]["password"]) {
                 startSession();
-                addUserAccountSession($account);
+                addUserAccountSession($userAccount);
                 include_once $_SERVER['DOCUMENT_ROOT'] . "/views/index.php";
             }
             else {

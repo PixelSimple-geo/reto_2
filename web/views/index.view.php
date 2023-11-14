@@ -2,7 +2,7 @@
 <html lang="en">
 
     <head>
-        <?php require "db.php"; ?>
+        <?php require $_SERVER['DOCUMENT_ROOT'] . "/db.php"; ?>
         <?php require "partials/head.php" ?>
         <?php require "partials/mapa.php"?>
         <title>Inicio | Reto 2</title>

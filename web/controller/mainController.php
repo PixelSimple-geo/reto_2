@@ -10,7 +10,8 @@ function login() :void {
             if ($password === $userAccount[0]["password"]) {
                 startSession();
                 addUserAccountSession($userAccount);
-                include_once $_SERVER['DOCUMENT_ROOT'] . "/views/index.view.php";
+                header("HTTP/1.1 303 See Other");
+                header("Location: /index");
             }
             else {
                 $errorMessage = "La contraseña no es válida";
@@ -32,13 +33,11 @@ function register() :void {
         try {
             persistAccount($username, $email, $password);
             $message = "Enhorabuena su cuenta se ha registrado correctamente";
-            include_once $_SERVER['DOCUMENT_ROOT'] . "/views/index.php";
+            header("HTTP/1.1 303 See Other");
+            header("Location: /index");
         } catch (PDOException $exception) {
             $errorMessage = "No se ha podido registrar la cuenta. Si el error persiste contacta con el soporte";
             include_once $_SERVER['DOCUMENT_ROOT'] . "/views/register.view.php";
         }
-    } else {
-        include_once $_SERVER['DOCUMENT_ROOT'] . "/views/register.view.php";
-    }
+    } else include_once $_SERVER['DOCUMENT_ROOT'] . "/views/register.view.php";
 }
-

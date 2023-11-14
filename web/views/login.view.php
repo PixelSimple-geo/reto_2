@@ -34,6 +34,5 @@
         <a href="register.view.php">¿No tienes cuenta? Registrate</a>
         
     </div>
-    
 </body>
 </html>

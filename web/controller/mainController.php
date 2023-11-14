@@ -1,32 +1,43 @@
 <?php
 
 function index() :void {
-    startSession();
-    $userAccount = getUserAccountSession();
+    try {
+        $userAccount = getUserAccountFromSession();
+    } catch (Exception $exception) {
+        $userAccount = null;
+    }
     include_once $_SERVER["DOCUMENT_ROOT"] . "/views/index.view.php";
 }
 
-function login() :void {
+function getLogin() :void {
+    if (isUserAccountInSession()) header("Location: /index", true, 303);
+    else include_once $_SERVER['DOCUMENT_ROOT'] . "/views/login.view.php";
+}
+
+function postLogin() :void {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/models/accountDB.php";
-    if (isset($_POST["username"]) && isset($_POST["password"])) {
-        $username = $_POST["username"];
-        $password = $_POST["password"];
-        try {
-            $userAccount = getAccountByUsername($username);
-            if ($password === $userAccount["password"]) {
-                startSession();
-                addUserAccountSession($userAccount);
-                header("Location: /index", true, 303);
-            }
-            else {
-                $errorMessage = "La contraseña no es válida";
-                include_once $_SERVER['DOCUMENT_ROOT'] . "/views/login.view.php";
-            }
-        } catch (PDOException $exception) {
-            $errorMessage = "Usuario no encontrado";
+    $username = $_POST["username"];
+    $password = $_POST["password"];
+    try {
+        $userAccount = getAccountByUsername($username);
+        if ($password === $userAccount["password"]) {
+            startSession();
+            addUserAccountToSession($userAccount);
+            header("Location: /index", true, 303);
+        }
+        else {
+            $errorMessage = "La contraseña no es válida";
             include_once $_SERVER['DOCUMENT_ROOT'] . "/views/login.view.php";
         }
-    } else include_once $_SERVER['DOCUMENT_ROOT'] . "/views/login.view.php";
+    } catch (PDOException $exception) {
+        $errorMessage = "Usuario no encontrado";
+        include_once $_SERVER['DOCUMENT_ROOT'] . "/views/login.view.php";
+    }
+}
+
+function logout() :void {
+    destroySession();
+    header("Location: /index", true, 303);
 }
 
 function register() :void {

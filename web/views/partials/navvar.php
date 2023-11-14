@@ -18,14 +18,14 @@
             <!--Sesion-->
             <?php
                 if (!isset($userAccount)) {
-                    echo '<a href="views/login.view.php"><img src="/statics/media/profile.svg" alt="Profile"></a>';
+                    echo '<a href="/login"><img src="/statics/media/profile.svg" alt="Profile"></a>';
                 } else {
                     echo '<div class="dropdown">';
                     echo '  <button class="dropbtn"><img src="/statics/media/profile.svg" alt="Profile"></button>';
                     echo '  <div class="dropdown-content">';
-                    echo '    <a href="/perfil">Editar Perfil</a>';
+                    echo '    <a href="/profile">Editar Perfil</a>';
                     echo '    <a href="/negocios">Ver Negocios</a>';
-                    echo '    <a href="#">Cerrar Sesion</a>';
+                    echo '    <a href="/logout">Cerrar Sesion</a>';
                     echo '  </div>';
                     echo '</div>';
                 }

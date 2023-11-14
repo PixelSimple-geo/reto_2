@@ -33,7 +33,7 @@
         </form>
 
         <a href="#">¿Has olvidado tu contraseña?</a>
-        <a href="/register">¿No tienes cuenta? Registrate</a>
+        <a href="/signIn">¿No tienes cuenta? Registrate</a>
         
     </div>
 </body>

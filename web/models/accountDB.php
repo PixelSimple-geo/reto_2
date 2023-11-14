@@ -32,9 +32,9 @@ function persistAccount($username, $email, $password) :void {
     try {
         $sql = "INSERT INTO accounts(username, email, password) VALUES(:username, :email, :password)";
         $statement = getConnection()->prepare($sql);
-        $statement->bindValue('username', $username);
-        $statement->bindValue('email', $email);
-        $statement->bindValue('password', $password);
+        $statement->bindValue('username', $username, PDO::PARAM_STR);
+        $statement->bindValue('email', $email, PDO::PARAM_STR);
+        $statement->bindValue('password', $password, PDO::PARAM_STR);
         $statement->execute();
         if ($statement->rowCount() === 0)
             throw new PDOException("Could not add account");

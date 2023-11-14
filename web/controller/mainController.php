@@ -30,7 +30,7 @@ function register() :void {
         $password = $_POST["password"];
         $email = $_POST["email"];
         try {
-            addAccount($username, $email, $password);
+            persistAccount($username, $email, $password);
             $message = "Enhorabuena su cuenta se ha registrado correctamente";
             include_once $_SERVER['DOCUMENT_ROOT'] . "/views/index.php";
         } catch (PDOException $exception) {

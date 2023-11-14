@@ -13,10 +13,8 @@ $crearNegocioUrl = "/crearNegocio";
 $editarNegocioUrl = "/editarNegocio";
 $articulosURL = "/articulos";
 $crearArticuloURL = "/crearArticulo";
+$editarArticuloUrl = "/editarArticulo";
 $anunciosUrl = "/anuncios";
-
-
-
 
 
 $path = $_SERVER['REQUEST_URI'];
@@ -53,6 +51,9 @@ else if (stristr($path, $negociosUrl)){
     die();
 }else if (stristr($path, $crearArticuloURL)){
     require_once $_SERVER['DOCUMENT_ROOT'] . "/views/crearArticulo.view.php";
+    die();
+}else if (stristr($path, $editarArticuloUrl)){
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/views/editarArticulo.view.php";
     die();
 }else if (stristr($path, $anunciosUrl)){
     require_once $_SERVER['DOCUMENT_ROOT'] . "/views/anuncios.view.php";

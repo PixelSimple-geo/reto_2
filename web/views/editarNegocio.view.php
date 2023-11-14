@@ -14,6 +14,7 @@
         <h2>Editar Negocio</h2>
 
         <?php
+            //TODO necesito la funcion para recibir los datos del negocio a editar
             if (isset($_GET['id'])) {
                 $negocioId = $_GET['id'];
                 $negocioDetalles = obtenerDetallesNegocioPorId($negocioId);

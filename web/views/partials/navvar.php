@@ -25,11 +25,28 @@
                     echo '  <div class="dropdown-content">';
                     echo '    <a href="/perfil">Editar Perfil</a>';
                     echo '    <a href="/negocios">Ver Negocios</a>';
-                    echo '    <a href="#">Cerrar Sesion</a>';
+                    
+                    /* TODO necesito esta select para saber si un usuario es publisher y asi mostrar en el dropdown la opcion de ver los articulos
+                    Verifica si el usuario tiene el rol de "publisher"
+                    $query = "SELECT * FROM authorities_granted WHERE account_id = :account_id AND authority_id = (SELECT authority_id FROM authorities WHERE role = 'publisher')";
+                    $statement = $conn->prepare($query);
+                    $statement->bindParam(':account_id', $userAccount['account_id'], PDO::PARAM_INT);
+                    $statement->execute();
+                    $isPublisher = $statement->fetch(PDO::FETCH_ASSOC);
+                    */
+                    /*
+                    if ($isPublisher) {
+                        echo '    <a href="/articulos?publisher=' . $userAccount['account_id'] . '">Ver Artículos</a>';
+                    }
+                    */
+
+                    echo '    <a href="#">Cerrar Sesión</a>';
                     echo '  </div>';
                     echo '</div>';
                 }
             ?>
+
+
 
         </div>
         <!--Navegator-->
@@ -37,7 +54,6 @@
             <a href="/views/index.view.php">Inicio</a>
             <a href="/views/noticias.view.php">Noticias</a>
             <a href="/views/historia.view.php">Historia</a>
-            <a href="#">Calle Gorbeia</a>
             <a href="/views/comerces.view.php">Comercios</a>
             <a href="/views/contacto.view.php">Contacto</a>    
         </div>

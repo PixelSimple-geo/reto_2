@@ -10,6 +10,10 @@ $indexUrl = "/index";
 $perfilUrl = "/perfil";
 $negociosUrl = "/negocios";
 $crearNegocioUrl = "/crearNegocio";
+$articulosURL = "/articulos";
+$crearArticuloURL = "/crearArticulo";
+
+
 
 
 $path = $_SERVER['REQUEST_URI'];
@@ -30,11 +34,19 @@ if (stristr($path, $login)) {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/controller/accountController.php";
     perfil();
     die();
-}else if (stristr($path, $negociosUrl)){
+}
+//TODO hay que hacer los controladores para estos
+else if (stristr($path, $negociosUrl)){
     require_once $_SERVER['DOCUMENT_ROOT'] . "/views/negocios.view.php";
     die();
 }else if (stristr($path, $crearNegocioUrl)){
     require_once $_SERVER['DOCUMENT_ROOT'] . "/views/crearNegocio.view.php";
+    die();
+}else if (stristr($path, $articulosURL)){
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/views/articles.view.php";
+    die();
+}else if (stristr($path, $crearArticuloURL)){
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/views/crearArticulo.view.php";
     die();
 }
 ?>

@@ -24,6 +24,7 @@ html {
     align-items: center;
     border-radius: 60px;
     width: 80rem;
+    margin-top: 0;
 }
 
 .search input {
@@ -267,24 +268,24 @@ html {
     color: var(--color-h);
 }
 
-.contacto form, .crear-negocio form  {
+form  {
     margin-top: 2rem;
 }
 
-.contacto label, .crear-negocio label  {
+label  {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
 }
 
-.contacto input, .contacto textarea, .crear-negocio input, .crear-negocio textarea {
+input, textarea{
     width: 100%;
     padding: 8px;
     margin-bottom: 10px;
     box-sizing: border-box;
 }
 
-.contacto button, .crear-negocio button {
+button {
     background-color: var(--color-h);
     color: #fff;
     padding: .5rem 1rem;
@@ -293,7 +294,7 @@ html {
     font-size: 16px;
 }
 
-.contacto button:hover, .crear-negocio button:hover {
+button:hover {
     background-color: #0056b3;
 }
 
@@ -310,7 +311,7 @@ html {
 
 
 /* Crear Negocio*/
-.crear-negocio {
+.formulario {
     width: 30%;
     margin: 0 auto;
     padding: 2rem;

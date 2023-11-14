@@ -1,7 +1,12 @@
 <?php
 
 function startSession() :void {
-    session_start();
+    if (!isset($_SESSION)) session_start();
+}
+
+function doesSessionExist() :bool {
+    if (isset($_SESSION)) return true;
+    return false;
 }
 
 function getUserAccountSession() :array {
@@ -11,11 +16,10 @@ function getUserAccountSession() :array {
 }
 
 function addUserAccountSession($userAccount) :void {
-    //TODO arreglar esto
-    /*if (!is_array($userAccount))
+    if (!is_array($userAccount))
         throw new RuntimeException("Not a valid argument");
     if (isset($_SESSION["userAccount"]))
-        throw new RuntimeException("There is already an existing account");*/
+        throw new RuntimeException("There is already an existing account");
     $_SESSION["userAccount"] = $userAccount;
 }
 

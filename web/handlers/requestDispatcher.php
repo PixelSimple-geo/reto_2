@@ -10,8 +10,6 @@ $indexUrl = "/index";
 $perfilUrl = "/perfil";
 $negociosUrl = "/negocios";
 
-
-
 $path = $_SERVER['REQUEST_URI'];
 
 if (stristr($path, $login)) {
@@ -23,10 +21,12 @@ if (stristr($path, $login)) {
     register();
     die();
 }else if (stristr($path, $indexUrl)){
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/views/index.view.php";
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/controller/mainController.php";
+    index();
     die();
 }else if (stristr($path, $perfilUrl)){
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/views/perfil.view.php";
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/controller/accountController.php";
+    perfil();
     die();
 }else if (stristr($path, $negociosUrl)){
     require_once $_SERVER['DOCUMENT_ROOT'] . "/views/negocios.view.php";

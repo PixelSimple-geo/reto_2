@@ -1,6 +1,6 @@
         <div class="header">
             <!--Logo-->
-            <a href="../index.php"><img src="/statics/media/logo2.png" alt="logo"></a>
+            <a href="/views/index.view.php"><img src="/statics/media/logo2.png" alt="logo"></a>
             <!--Searchbar-->
             <form action="index.view.php" method="POST" class="search">
                 <input type="text" name="search" placeholder="¿Que deseas buscar?">
@@ -21,7 +21,7 @@
         </div>
         <!--Navegator-->
         <div class="navbar">
-            <a href="/index.php">Inicio</a>
+            <a href="/views/index.view.php">Inicio</a>
             <a href="/views/noticias.view.php">Noticias</a>
             <a href="/views/historia.view.php">Historia</a>
             <a href="#">Calle Gorbeia</a>

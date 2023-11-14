@@ -12,13 +12,11 @@
         <h2>Editar Perfil</h2>
 
         <?php
-            // Obtener el objeto de usuario de la sesión
-            $userAccount = $_SESSION['userAccount'];
-
+        if (isset($userAccount)) {
             // Mostrar el formulario de edición de perfil
             echo '<form action="procesar_edicion_perfil.php" method="POST">';
             echo '  <label for="nombre">Nombre:</label>';
-            echo '  <input type="text" id="nombre" name="nombre" value="' . $userAccount["nombre"] . '">';
+            echo '  <input type="text" id="nombre" name="username" value="' . $userAccount["nombre"] . '">';
 
             echo '  <label for="email">Correo Electrónico:</label>';
             echo '  <input type="email" id="email" name="email" value="' . $userAccount["email"] . '">';
@@ -27,6 +25,7 @@
 
             echo '  <button type="submit">Guardar Cambios</button>';
             echo '</form>';
+        }
         ?>
     </main>
 

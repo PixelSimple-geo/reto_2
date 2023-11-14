@@ -41,3 +41,4 @@ function register() :void {
         include_once $_SERVER['DOCUMENT_ROOT'] . "/views/register.view.php";
     }
 }
+

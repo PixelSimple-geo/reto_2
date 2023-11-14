@@ -10,7 +10,7 @@ function login() :void {
             if ($password === $userAccount[0]["password"]) {
                 startSession();
                 addUserAccountSession($userAccount);
-                include_once $_SERVER['DOCUMENT_ROOT'] . "/views/index.php";
+                include_once $_SERVER['DOCUMENT_ROOT'] . "/views/index.view.php";
             }
             else {
                 $errorMessage = "La contraseña no es válida";

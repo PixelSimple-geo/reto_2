@@ -11,17 +11,23 @@
     <main>
         <h2>Editar Perfil</h2>
 
-        <form action="perfil.view.php" method="POST">
-            <!-- Campos de formulario (puedes agregar más según tus necesidades) -->
-            <label for="nombre">Nombre:</label>
-            <input type="text" id="nombre" name="nombre" value="Nombre Actual del Usuario">
+        <?php
+            // Obtener el objeto de usuario de la sesión
+            $userAccount = $_SESSION['userAccount'];
 
-            <label for="email">Correo Electrónico:</label>
-            <input type="email" id="email" name="email" value="correo@ejemplo.com">
+            // Mostrar el formulario de edición de perfil
+            echo '<form action="procesar_edicion_perfil.php" method="POST">';
+            echo '  <label for="nombre">Nombre:</label>';
+            echo '  <input type="text" id="nombre" name="nombre" value="' . $userAccount["nombre"] . '">';
 
+            echo '  <label for="email">Correo Electrónico:</label>';
+            echo '  <input type="email" id="email" name="email" value="' . $userAccount["email"] . '">';
 
-            <button type="submit">Guardar Cambios</button>
-        </form>
+            // Puedes agregar más campos aquí
+
+            echo '  <button type="submit">Guardar Cambios</button>';
+            echo '</form>';
+        ?>
     </main>
 
     <?php require "partials/footer.php" ?>

@@ -9,25 +9,33 @@
     <?php require "partials/navvar.php"; ?>
 
     <main>
-        <h2>Editar Perfil</h2>
+    <h2>Editar Perfil</h2>
 
-        <?php
-        if (isset($userAccount)) {
-            // Mostrar el formulario de edición de perfil
-            echo '<form action="procesar_edicion_perfil.php" method="POST">';
-            echo '  <label for="nombre">Nombre:</label>';
-            echo '  <input type="text" id="nombre" name="username" value="' . $userAccount["nombre"] . '">';
+    <?php
+    if (isset($userAccount)) {
+        // Mostrar el formulario de edición de perfil
+        echo '<form action="procesar_edicion_perfil.php" method="POST">';
+        echo '  <label for="nombre">Nombre:</label>';
+        echo '  <input type="text" id="nombre" name="username" value="' . $userAccount["nombre"] . '">';
 
-            echo '  <label for="email">Correo Electrónico:</label>';
-            echo '  <input type="email" id="email" name="email" value="' . $userAccount["email"] . '">';
+        echo '  <label for="email">Correo Electrónico:</label>';
+        echo '  <input type="email" id="email" name="email" value="' . $userAccount["email"] . '">';
+        
+        // Nuevos campos para la contraseña
+        echo '  <label for="password_actual">Contraseña Actual:</label>';
+        echo '  <input type="password" id="password_actual" name="password_actual" required>';
 
-            // Puedes agregar más campos aquí
+        echo '  <label for="password_nueva">Nueva Contraseña:</label>';
+        echo '  <input type="password" id="password_nueva" name="password_nueva" required>';
 
-            echo '  <button type="submit">Guardar Cambios</button>';
-            echo '</form>';
-        }
-        ?>
-    </main>
+        echo '  <label for="password_confirmar">Confirmar Nueva Contraseña:</label>';
+        echo '  <input type="password" id="password_confirmar" name="password_confirmar" required>';
+        
+        echo '  <button type="submit">Guardar Cambios</button>';
+        echo '</form>';
+    }
+    ?>
+</main>
 
     <?php require "partials/footer.php" ?>
 

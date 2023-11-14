@@ -7,7 +7,7 @@ function login() :void {
         $password = $_POST["password"];
         try {
             $userAccount = getAccountByUsername($username);
-            if ($password === $userAccount[0]["password"]) {
+            if ($password === $userAccount["password"]) {
                 startSession();
                 addUserAccountSession($userAccount);
                 header("HTTP/1.1 303 See Other");

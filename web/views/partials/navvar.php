@@ -16,8 +16,21 @@
                 </div>
             </div>
             <!--Sesion-->
+            <?php
+                if (!isset($userAccount)) {
+                    echo '<a href="views/login.view.php"><img src="/statics/media/profile.svg" alt="Profile"></a>';
+                } else {
+                    echo '<div class="dropdown">';
+                    echo '  <button class="dropbtn"><img src="/statics/media/profile.svg" alt="Profile"></button>';
+                    echo '  <div class="dropdown-content">';
+                    echo '    <a href="#">Editar Perfil</a>';
+                    echo '    <a href="#">Ver Negocios</a>';
+                    echo '    <a href="#">Cerrar Sesion</a>';
+                    echo '  </div>';
+                    echo '</div>';
+                }
+            ?>
 
-            <a href="views/login.view.php"><img src="/statics/media/profile.svg" alt="Profile"></a>
         </div>
         <!--Navegator-->
         <div class="navbar">

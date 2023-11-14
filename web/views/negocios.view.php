@@ -18,6 +18,7 @@
                     echo '  <h3>' . $negocio['name'] . '</h3>';
                     echo '  <p>Dirección: ' . $negocio['description'] . '</p>';
                     echo '  <a href="/anuncios/' . $negocio['id'] . '">Ver Anuncios</a>';
+                    echo '  <a href="/editarNegocio/' . $negocio['id'] . '">Editar Negocio</a>';
                     echo '</div>';
                 }
             } else {

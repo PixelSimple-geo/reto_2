@@ -1,5 +1,11 @@
 <?php
 
+function index() :void {
+    startSession();
+    $userAccount = getUserAccountSession();
+    include_once $_SERVER["DOCUMENT_ROOT"] . "/views/index.view.php";
+}
+
 function login() :void {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/models/accountDB.php";
     if (isset($_POST["username"]) && isset($_POST["password"])) {
@@ -10,8 +16,7 @@ function login() :void {
             if ($password === $userAccount["password"]) {
                 startSession();
                 addUserAccountSession($userAccount);
-                header("HTTP/1.1 303 See Other");
-                header("Location: /index");
+                header("Location: /index", true, 303);
             }
             else {
                 $errorMessage = "La contraseña no es válida";

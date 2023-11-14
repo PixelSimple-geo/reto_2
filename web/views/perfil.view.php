@@ -16,7 +16,7 @@
         // Mostrar el formulario de edición de perfil
         echo '<form action="procesar_edicion_perfil.php" method="POST">';
         echo '  <label for="nombre">Nombre:</label>';
-        echo '  <input type="text" id="nombre" name="username" value="' . $userAccount["nombre"] . '">';
+        echo '  <input type="text" id="nombre" name="username" value="' . $userAccount["username"] . '">';
 
         echo '  <label for="email">Correo Electrónico:</label>';
         echo '  <input type="email" id="email" name="email" value="' . $userAccount["email"] . '">';

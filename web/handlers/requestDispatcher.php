@@ -14,7 +14,7 @@ $logout = "/logout";
 $signIn = "/signIn";
 $indexUrl = "/index";
 $profileURI = "/profile";
-$negociosUrl = "/negocios";
+$businessesURI = "/businesses";
 $_404_URI = "/error=404";
 $_400_URI = "/error=400";
 $crearNegocioUrl = "/crearNegocio";
@@ -68,12 +68,13 @@ if (stristr($path, $login)) {
         postProfile();
     }
     die();
+} else if (stristr($path, $businessesURI)){
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/controller/businessesController.php";
+    if ($requestMethod === "GET") getBusinesses();
+    die();
 }
 //TODO hay que hacer los controladores para estos
-else if (stristr($path, $negociosUrl)){
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/views/negocios.view.php";
-    die();
-}else if (stristr($path, $crearNegocioUrl)){
+else if (stristr($path, $crearNegocioUrl)){
     require_once $_SERVER['DOCUMENT_ROOT'] . "/views/crearNegocio.view.php";
     die();
 }else if (stristr($path, $editarNegocioUrl)){
@@ -92,7 +93,6 @@ else if (stristr($path, $negociosUrl)){
     require_once $_SERVER['DOCUMENT_ROOT'] . "/views/anuncios.view.php";
     die();
 }
-?>
 
 
 

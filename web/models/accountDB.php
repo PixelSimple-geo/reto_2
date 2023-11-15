@@ -23,7 +23,7 @@ function getAccountByUsername($username) :array {
             throw new PDOException("No account found");
         return $statement->fetchAll()[0];
     } catch (PDOException $exception) {
-        echo error_log("Database error: [$username] " . $exception->getMessage());
+        error_log("Database error: [$username] " . $exception->getMessage());
         throw $exception;
     }
 }

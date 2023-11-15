@@ -24,7 +24,7 @@
                     echo '  <button class="dropbtn"><img src="/statics/media/profile.svg" alt="Profile"></button>';
                     echo '  <div class="dropdown-content">';
                     echo '    <a href="/profile">Editar Perfil</a>';
-                    echo '    <a href="/negocios">Ver Negocios</a>';
+                    echo '    <a href="/businesses">Ver Negocios</a>';
                     echo '    <a href="/logout">Cerrar Sesion</a>';
 
                     /* TODO necesito esta select para saber si un usuario es publisher y asi mostrar en el dropdown la opcion de ver los articulos
@@ -41,7 +41,6 @@
                     }
                     */
 
-                    echo '    <a href="#">Cerrar Sesión</a>';
                     echo '  </div>';
                     echo '</div>';
                 }

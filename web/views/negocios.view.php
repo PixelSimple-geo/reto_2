@@ -9,16 +9,17 @@
     <?php require "partials/navvar.php"; ?>
 
     <main>
+        <?php if(isset($errorMessage)) echo "<p>$errorMessage</p>"?>
         <a href="/crearNegocio">+ Crear Nuevo Negocio</a>
         <h2>Mis Negocios</h2>
         <?php
-            if (isset($negocios)) {
-                foreach ($negocios as $negocio) {
+            if (isset($businesses)) {
+                foreach ($businesses as $business) {
                     echo '<div>';
-                    echo '  <h3>' . $negocio['name'] . '</h3>';
-                    echo '  <p>Dirección: ' . $negocio['description'] . '</p>';
-                    echo '  <a href="/anuncios/' . $negocio['id'] . '">Ver Anuncios</a>';
-                    echo '  <a href="/editarNegocio/' . $negocio['id'] . '">Editar Negocio</a>';
+                    echo '  <h3>' . $business['name'] . '</h3>';
+                    echo '  <p>Dirección: ' . $business['description'] . '</p>';
+                    echo '  <a href="/anuncios/' . $business['businessId'] . '">Ver Anuncios</a>';
+                    echo '  <a href="/editarNegocio/' . $business['businessId'] . '">Editar Negocio</a>';
                     echo '</div>';
                 }
             } else {

@@ -8,6 +8,8 @@
     <?php require "partials/navvar.php"; ?>
 
     <main>
+        <a href="/businesses">+ Crear Nuevo Negocio</a>
+
         <a href="/businesses">Volver a Mis Negocios</a>
 
         <?php
@@ -26,6 +28,7 @@
                     echo '<div>';
                     echo '  <h3>' . $anuncio['titulo'] . '</h3>';
                     echo '  <p>' . $anuncio['descripcion'] . '</p>';
+                    echo '  <a href="/adverts/' . $anuncio['anuncioId'] . '">Editar Anuncio</a>';
                     //TODO terminar el enlace de eliminacion
                     echo '  <a href="/.php?id=' . $anuncio['advertId'] . '" onclick="return confirm(\'¿Estás seguro de que deseas eliminar este anuncio?\')" class="eliminar">Eliminar Anuncio</a>';
                     echo '</div>';

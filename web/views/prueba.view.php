@@ -1,35 +1,36 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <?php require "partials/head.php" ?>
-    <title>Mis Articulos</title>
+<?php require "partials/head.php" ?>
+
+    <title>Editar Articulo</title>
 </head>
 <body>
-    <?php require "partials/navvar.php"; ?>
 
-    <main>
-        <a href="/crearArticulo">+ Crear Nuevo Articulo</a>
-        <h2>Mis Articulos</h2>
+    <main class="formulario">
+
+        <a href="/articles">Volver a mis articulos</a>
+        <h2>Editar Articulo</h2>
+
+        <form action="/guardarEdicionArticulo" method="POST">
+            <label for="titulo">Titulo del Articulo:</label>
+            <input type="text" id="titulo" name="titulo" value="Mi Articulo" required>
+
+            <label for="categoria">Categoría:</label>
+            <select id="categoria" name="categoria" required>
+                <option value="tecnologia" selected>Tecnología</option>
+                <option value="moda">Moda</option>
+                <option value="deporte">Deporte</option>
+            </select>
+
+            <label for="descripcion">Descripción del Articulo:</label>
+            <textarea id="descripcion" name="descripcion" rows="4" required>Descripción de mi artículo.</textarea>
+
+
+            <button type="submit">Guardar Cambios</button>
+        </form>
         
-        <div>
-            <h3>Articulo 1</h3>
-            <p>Descripción del Articulo 1</p>
-            <a href="/editarArticulo/1">Editar</a>
-        </div>
-
-        <div>
-            <h3>Articulo 2</h3>
-            <p>Descripción del Articulo 2</p>
-            <a href="/editarArticulo/2">Editar</a>
-        </div>
-
-        <!-- Puedes agregar más bloques similares según sea necesario -->
-
-        <!-- O, si no hay artículos registrados -->
-        <!-- <p>No tienes artículos registrados.</p> -->
     </main>
-
-    <?php require "partials/footer.php" ?>
 
 </body>
 </html>

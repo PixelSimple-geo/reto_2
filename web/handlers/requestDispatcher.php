@@ -17,6 +17,15 @@ $profileURI = "/profile";
 $negociosUrl = "/negocios";
 $_404_URI = "/error=404";
 $_400_URI = "/error=400";
+$crearNegocioUrl = "/crearNegocio";
+$editarNegocioUrl = "/editarNegocio";
+$articulosURL = "/articulos";
+$crearArticuloURL = "/crearArticulo";
+$editarArticuloUrl = "/editarArticulo";
+$anunciosUrl = "/anuncios";
+
+
+$path = $_SERVER['REQUEST_URI'];
 
 if (stristr($path, $login)) {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/controller/accountController.php";
@@ -59,8 +68,33 @@ if (stristr($path, $login)) {
         postProfile();
     }
     die();
-} else if (stristr($path, $negociosUrl)){
+}
+//TODO hay que hacer los controladores para estos
+else if (stristr($path, $negociosUrl)){
     require_once $_SERVER['DOCUMENT_ROOT'] . "/views/negocios.view.php";
     die();
+}else if (stristr($path, $crearNegocioUrl)){
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/views/crearNegocio.view.php";
+    die();
+}else if (stristr($path, $editarNegocioUrl)){
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/views/editarNegocio.view.php";
+    die();
+}else if (stristr($path, $articulosURL)){
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/views/articles.view.php";
+    die();
+}else if (stristr($path, $crearArticuloURL)){
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/views/crearArticulo.view.php";
+    die();
+}else if (stristr($path, $editarArticuloUrl)){
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/views/editarArticulo.view.php";
+    die();
+}else if (stristr($path, $anunciosUrl)){
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/views/anuncios.view.php";
+    die();
 }
+?>
+
+
+
+
 

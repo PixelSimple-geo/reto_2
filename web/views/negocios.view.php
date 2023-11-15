@@ -9,15 +9,16 @@
     <?php require "partials/navvar.php"; ?>
 
     <main>
-        <button>+ Crear Nuevo Negocio</button>
+        <a href="/crearNegocio">+ Crear Nuevo Negocio</a>
         <h2>Mis Negocios</h2>
         <?php
             if (isset($negocios)) {
                 foreach ($negocios as $negocio) {
                     echo '<div>';
-                    echo '  <h3>' . $negocio['nombre'] . '</h3>';
-                    echo '  <p>Dirección: ' . $negocio['direccion'] . '</p>';
-                    echo '  <p>Categoría: ' . $negocio['categoria'] . '</p>';
+                    echo '  <h3>' . $negocio['name'] . '</h3>';
+                    echo '  <p>Dirección: ' . $negocio['description'] . '</p>';
+                    echo '  <a href="/anuncios/' . $negocio['id'] . '">Ver Anuncios</a>';
+                    echo '  <a href="/editarNegocio/' . $negocio['id'] . '">Editar Negocio</a>';
                     echo '</div>';
                 }
             } else {

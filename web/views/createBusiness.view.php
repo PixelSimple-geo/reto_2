@@ -34,13 +34,12 @@
                     echo "</select>";
                 }
                 ?>
-                <form id="contactForm">
-                    <fieldset>
+                <fieldset>
                     <legend>Contacto</legend>
-                        <button type="button" onclick="agregarContacto()">+</button>
-                        <div id="contactsContainer"></div>
-                    </fieldset>
-                </form>
+                    <button type="button" onclick="agregarContacto()">+</button>
+                    <div id="contactsContainer"></div>
+
+                </fieldset>
 
                 <fieldset>
                     <legend>Dirección</legend>

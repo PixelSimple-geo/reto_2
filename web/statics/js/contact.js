@@ -1,5 +1,4 @@
 function agregarContacto() {
-  // Crear elementos para el nuevo contacto
   let nuevoContacto = document.createElement('div');
 
   let tipoInput = document.createElement('input');
@@ -10,6 +9,8 @@ function agregarContacto() {
   direccionInput.type = 'text';
   direccionInput.placeholder = 'Dirección de medio';
 
+  let fieldsetContacto = document.createElement('fieldset');
+
   let guardarContacto = document.createElement('button');
   guardarContacto.textContent = 'Guardar';
 
@@ -18,18 +19,19 @@ function agregarContacto() {
     let direccion = direccionInput.value;
 
     let contactoTexto = document.createElement('p');
-    contactoTexto.textContent = tipo + ': ' + direccion;
+    contactoTexto.innerHTML = 'Tipo: ' + tipo + '<br>Dirección de medio: ' + direccion;
 
     let eliminarButton = document.createElement('button');
     eliminarButton.textContent = 'Eliminar';
     eliminarButton.addEventListener('click', function () {
-
-      nuevoContacto.remove();
+      fieldsetContacto.remove();
     });
 
+    fieldsetContacto.appendChild(contactoTexto);
+    fieldsetContacto.appendChild(eliminarButton);
+
     nuevoContacto.innerHTML = '';
-    nuevoContacto.appendChild(contactoTexto);
-    nuevoContacto.appendChild(eliminarButton);
+    nuevoContacto.appendChild(fieldsetContacto);
   });
 
   nuevoContacto.appendChild(tipoInput);

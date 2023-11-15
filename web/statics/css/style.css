@@ -308,6 +308,9 @@ button:hover {
     cursor: pointer;
 }
 
+fieldset{
+    margin: 1rem 0;
+}
 
 /* Crear Negocio*/
 .formulario {

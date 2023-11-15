@@ -13,11 +13,24 @@ function getBusiness($businessId) {
     }
 }
 
+function getAllBusinesses() :array {
+    try {
+        $sql = "SELECT business_id AS businessId, name, description FROM businesses";
+        $statement = getConnection()->prepare($sql);
+        $statement->execute();
+        return $statement->fetchAll();
+    } catch (PDOException $exception) {
+        error_log("Database error:" . $exception->getMessage());
+        throw $exception;
+    }
+}
+
 function getAllAccountBusinesses($accountId) :array {
     try {
         $sql = "SELECT business_id AS businessId, name, description FROM businesses WHERE account_id = :account_id";
         $statement = getConnection()->prepare($sql);
         $statement->bindValue("account_id", $accountId, PDO::PARAM_INT);
+        $statement->execute();
         return $statement->fetchAll();
     } catch (PDOException $exception) {
         error_log("Database error: [$accountId] " . $exception->getMessage());

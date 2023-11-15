@@ -18,14 +18,15 @@
             <!--Sesion-->
             <?php
                 if (!isset($userAccount)) {
-                    echo '<a href="views/login.view.php"><img src="/statics/media/profile.svg" alt="Profile"></a>';
+                    echo '<a href="/login"><img src="/statics/media/profile.svg" alt="Profile"></a>';
                 } else {
                     echo '<div class="dropdown">';
                     echo '  <button class="dropbtn"><img src="/statics/media/profile.svg" alt="Profile"></button>';
                     echo '  <div class="dropdown-content">';
                     echo '    <a href="/profile">Editar Perfil</a>';
                     echo '    <a href="/businesses">Ver Negocios</a>';
-                    
+                    echo '    <a href="/logout">Cerrar Sesion</a>';
+
                     /* TODO necesito esta select para saber si un usuario es publisher y asi mostrar en el dropdown la opcion de ver los articulos
                     Verifica si el usuario tiene el rol de "publisher"
                     $query = "SELECT * FROM authorities_granted WHERE account_id = :account_id AND authority_id = (SELECT authority_id FROM authorities WHERE role = 'publisher')";
@@ -54,5 +55,5 @@
             <a href="/views/news.view.php">Noticias</a>
             <a href="/views/history.view.php">Historia</a>
             <a href="/views/comerces.view.php">Comercios</a>
-            <a href="/views/contact.view.php">Contacto</a>    
+            <a href="/views/contact.view.php">Contacto</a>
         </div>

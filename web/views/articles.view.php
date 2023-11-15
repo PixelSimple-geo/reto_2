@@ -9,7 +9,7 @@
     <?php require "partials/navvar.php"; ?>
 
     <main>
-        <a href="/crearArticulo">+ Crear Nuevo Articulo</a>
+        <a href="/articles">+ Crear Nuevo Articulo</a>
         <h2>Mis Articulos</h2>
         <?php
             if (isset($articulos)) {

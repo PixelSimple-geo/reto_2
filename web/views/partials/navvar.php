@@ -23,8 +23,8 @@
                     echo '<div class="dropdown">';
                     echo '  <button class="dropbtn"><img src="/statics/media/profile.svg" alt="Profile"></button>';
                     echo '  <div class="dropdown-content">';
-                    echo '    <a href="/perfil">Editar Perfil</a>';
-                    echo '    <a href="/negocios">Ver Negocios</a>';
+                    echo '    <a href="/profile">Editar Perfil</a>';
+                    echo '    <a href="/businesses">Ver Negocios</a>';
                     
                     /* TODO necesito esta select para saber si un usuario es publisher y asi mostrar en el dropdown la opcion de ver los articulos
                     Verifica si el usuario tiene el rol de "publisher"
@@ -40,7 +40,6 @@
                     }
                     */
 
-                    echo '    <a href="#">Cerrar Sesión</a>';
                     echo '  </div>';
                     echo '</div>';
                 }
@@ -52,8 +51,8 @@
         <!--Navegator-->
         <div class="navbar">
             <a href="/views/index.view.php">Inicio</a>
-            <a href="/views/noticias.view.php">Noticias</a>
-            <a href="/views/historia.view.php">Historia</a>
+            <a href="/views/news.view.php">Noticias</a>
+            <a href="/views/history.view.php">Historia</a>
             <a href="/views/comerces.view.php">Comercios</a>
-            <a href="/views/contacto.view.php">Contacto</a>    
+            <a href="/views/contact.view.php">Contacto</a>    
         </div>

@@ -9,7 +9,7 @@
     <?php require "partials/navvar.php"; ?>
 
     <main>
-        <a href="/crearNegocio">+ Crear Nuevo Negocio</a>
+        <a href="/businesses">+ Crear Nuevo Negocio</a>
         <h2>Mis Negocios</h2>
         <?php
             if (isset($negocios)) {
@@ -17,8 +17,8 @@
                     echo '<div>';
                     echo '  <h3>' . $negocio['name'] . '</h3>';
                     echo '  <p>Dirección: ' . $negocio['description'] . '</p>';
-                    echo '  <a href="/anuncios/' . $negocio['id'] . '">Ver Anuncios</a>';
-                    echo '  <a href="/editarNegocio/' . $negocio['id'] . '">Editar Negocio</a>';
+                    echo '  <a href="/articles/' . $negocio['id'] . '">Ver Anuncios</a>';
+                    echo '  <a href="/businesses/' . $negocio['id'] . '">Editar Negocio</a>';
                     echo '</div>';
                 }
             } else {

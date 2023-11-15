@@ -10,7 +10,7 @@
 
     <main class="formulario">
 
-        <a href="/negocios">Volver a mis negocios</a>
+        <a href="/businesses">Volver a mis negocios</a>
         <h2>Editar Negocio</h2>
 
         <?php

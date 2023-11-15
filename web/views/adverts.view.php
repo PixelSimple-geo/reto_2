@@ -9,7 +9,7 @@
     <?php require "partials/navvar.php"; ?>
 
     <main>
-        <a href="/negocios">Volver a Mis Negocios</a>
+        <a href="/businesses">Volver a Mis Negocios</a>
 
         <?php
         //TODO necesito las funciones necesarias para que me salgan los anuncios pertenecientes a los negocios seleccionados

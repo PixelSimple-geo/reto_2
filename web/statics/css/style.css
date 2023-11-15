@@ -318,6 +318,10 @@ button:hover {
     flex-direction: column;
 }
 
+.formulario button {
+    margin: 1rem auto;
+}
+
 
 /* Footer */
 footer>p {

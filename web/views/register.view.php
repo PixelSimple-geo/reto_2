@@ -13,7 +13,7 @@
 </head>
 <body>
 
-        <a href="../index.php" class="home">
+        <a href="/index" class="home">
             <img src= "../statics/media/logo2.png" alt="Volver al Home">
         </a>
 
@@ -45,7 +45,7 @@
 
         </form>
 
-        <a href="login.view.php">¿Ya tienes cuenta? Inicia Sesion</a>
+        <a href="/login">¿Ya tienes cuenta? Inicia Sesion</a>
     </div>
     
 </body>

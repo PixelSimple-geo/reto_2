@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <?php require "../db.php"; ?>
     <?php require "partials/head.php" ?>
     <title>Mis Negocios</title>
 </head>

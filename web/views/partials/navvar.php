@@ -1,8 +1,8 @@
         <div class="header">
             <!--Logo-->
-            <a href="/views/index.view.php"><img src="/statics/media/logo2.png" alt="logo"></a>
+            <a href="/index"><img src="/statics/media/logo2.png" alt="logo"></a>
             <!--Searchbar-->
-            <form action="index.view.php" method="POST" class="search">
+            <form action="/index" method="POST" class="search">
                 <input type="text" name="search" placeholder="¿Que deseas buscar?">
                 <button type="submit"><img src="/statics/media/search.svg" alt="search"></button>
             </form>
@@ -27,16 +27,8 @@
                     echo '    <a href="/businesses">Ver Negocios</a>';
                     echo '    <a href="/logout">Cerrar Sesion</a>';
 
-                    /* TODO necesito esta select para saber si un usuario es publisher y asi mostrar en el dropdown la opcion de ver los articulos
-                    Verifica si el usuario tiene el rol de "publisher"
-                    $query = "SELECT * FROM authorities_granted WHERE account_id = :account_id AND authority_id = (SELECT authority_id FROM authorities WHERE role = 'publisher')";
-                    $statement = $conn->prepare($query);
-                    $statement->bindParam(':account_id', $userAccount['account_id'], PDO::PARAM_INT);
-                    $statement->execute();
-                    $isPublisher = $statement->fetch(PDO::FETCH_ASSOC);
-                    */
                     /*
-                    if ($isPublisher) {
+                    if ($userAccount) {
                         echo '    <a href="/articulos?publisher=' . $userAccount['account_id'] . '">Ver Artículos</a>';
                     }
                     */
@@ -51,9 +43,10 @@
         </div>
         <!--Navegator-->
         <div class="navbar">
-            <a href="/views/index.view.php">Inicio</a>
+            <a href="/index">Inicio</a>
             <a href="/views/news.view.php">Noticias</a>
             <a href="/views/history.view.php">Historia</a>
-            <a href="/views/comerces.view.php">Comercios</a>
+            <?php //TODO ?>
+            <a href="#">Comercios</a>
             <a href="/views/contact.view.php">Contacto</a>
         </div>

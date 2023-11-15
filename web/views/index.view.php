@@ -2,7 +2,6 @@
 <html lang="en">
 
     <head>
-        <?php require $_SERVER['DOCUMENT_ROOT'] . "/db.php"; ?>
         <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/head.php" ?>
         <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/mapa.php"?>
         <title>Inicio | Reto 2</title>
@@ -17,7 +16,6 @@
                     <div id="map"></div>
                     <div class="productos">
                         <?php
-                        $adverts = getAdverts($dbh);
                         if ($adverts) {
                             $advertsCount = count($adverts); 
                             $limit = min(8, $advertsCount); 

@@ -14,7 +14,8 @@ $logout = "/logout";
 $signIn = "/signIn";
 $indexUrl = "/index";
 $profileURI = "/profile";
-$businessesURI = "/businesses";
+$businessesURI = "/account/businesses";
+$businessesAddURI = "/account/businesses/add";
 $_404_URI = "/error=404";
 $_400_URI = "/error=400";
 $crearNegocioUrl = "/crearNegocio";
@@ -67,6 +68,11 @@ if (stristr($path, $login)) {
         }
         postProfile();
     }
+    die();
+} else if (stristr($path, $businessesAddURI)) {
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/controller/businessesController.php";
+    if ($requestMethod === "GET") getAddBusinesses();
+    else if ($requestMethod === "POST") postBusiness();
     die();
 } else if (stristr($path, $businessesURI)){
     require_once $_SERVER['DOCUMENT_ROOT'] . "/controller/businessesController.php";

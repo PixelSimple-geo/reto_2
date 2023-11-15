@@ -38,17 +38,60 @@ function getAllAccountBusinesses($accountId) :array {
     }
 }
 
-function persistBusiness($accountId, $name, $description) :void {
+function persistBusiness($accountId, $name, $description, $categoryId, array $contacts, array $addresses) :void {
     try {
         $sql = "INSERT INTO businesses(business_id, account_id, name, description) 
         VALUES (DEFAULT, :account_id, :name, :description)";
-        $statement = getConnection()->prepare($sql);
+
+        $connection = getConnection();
+        $connection->beginTransaction();
+
+        $statement = $connection->prepare($sql);
         $statement->bindValue("account_id", $accountId, PDO::PARAM_INT);
         $statement->bindValue("name", $name, PDO::PARAM_STR);
         $statement->bindValue("description", $description, PDO::PARAM_STR);
         $statement->execute();
         if ($statement->rowCount() === 0) throw new PDOException("Could not persist business");
+
+        $businessPrimaryKey = $connection->lastInsertId();
+        if (isset($categoryId)) {
+            $sqlBusinessCategory = "INSERT INTO businesses_categories_mapping(category_id, business_id) 
+            VALUES (:category_id, :business_id)";
+            $statementCategory = $connection->prepare($sqlBusinessCategory);
+            $statementCategory->bindValue("category_id", $categoryId, PDO::PARAM_INT);
+            $statementCategory->bindValue("business_id", $businessPrimaryKey, PDO::PARAM_INT);
+            $statementCategory->execute();
+            if ($statementCategory->rowCount() === 0) throw new PDOException("Could not persist business");
+        }
+
+        if (!empty($contacts)) {
+            $sqlContacts = "INSERT INTO business_contacts(business_id, type, value) 
+            VALUES(:business_id, :type, :value)";
+            $statementContacts = $connection->prepare($sqlContacts);
+            foreach ($contacts as $contact) {
+                $statementContacts->bindValue("business_id", $businessPrimaryKey, PDO::PARAM_INT);
+                $statementContacts->bindValue("type", $contact["type"]);
+                $statementContacts->bindValue("value", $contact["value"]);
+                $statementContacts->execute();
+            }
+        }
+
+        if (!empty($addresses)) {
+            $sqlAddresses = "INSERT INTO addresses(business_id, city_id, address, postal_code) 
+            VALUES(:business_id, :city_id, :address, :postal_code)";
+            $statementAddresses = $connection->prepare($sqlAddresses);
+            foreach ($addresses as $address) {
+                $statementAddresses->bindValue("business_id", $businessPrimaryKey, PDO::PARAM_INT);
+                $statementAddresses->bindValue("city_id", $address["cityId"], PDO::PARAM_INT);
+                $statementAddresses->bindValue("address", $address["address"]);
+                $statementAddresses->bindValue("postal_code", $address["postalCode"], PDO::PARAM_INT);
+                $statementAddresses->execute();
+            }
+        }
+
+        $connection->commit();
     } catch (PDOException $exception) {
+        echo $exception->getMessage();
         error_log("Database error: [$accountId, $name] " . $exception->getMessage());
         throw $exception;
     }
@@ -64,6 +107,17 @@ function deleteBusiness($accountId, $business_id) :void {
         if ($statement->rowCount() === 0) throw new PDOException("Could not delete business");
     } catch (PDOException $exception) {
         error_log("Database error: [$accountId, $business_id] " . $exception->getMessage());
+        throw $exception;
+    }
+}
+
+function getAllBusinessCategories() :array {
+    try {
+        $sql = "SELECT category_id AS categoryId, name FROM businesses_categories;";
+        $statement = getConnection()->query($sql);
+        return $statement->fetchAll();
+    } catch (PDOException $exception) {
+        error_log("Database error: " . $exception->getMessage());
         throw $exception;
     }
 }

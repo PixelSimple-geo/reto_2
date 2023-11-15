@@ -47,7 +47,7 @@ function postSignIn() :void {
 
 function getProfile() :void {
     $userAccount = getUserAccountFromSession();
-    include_once $_SERVER['DOCUMENT_ROOT'] . "/views/perfil.view.php";
+    include_once $_SERVER['DOCUMENT_ROOT'] . "/views/profile.view.php";
 }
 
 function postProfile() :void {
@@ -77,5 +77,5 @@ function postProfile() :void {
         }
     } else $errorMessage = "Contraseña no válida";
 
-    include_once $_SERVER['DOCUMENT_ROOT'] . "/views/perfil.view.php";
+    include_once $_SERVER['DOCUMENT_ROOT'] . "/views/profile.view.php";
 }

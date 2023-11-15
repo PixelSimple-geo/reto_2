@@ -3,9 +3,7 @@
 <head>
     <title>Registro</title>
  
-    <!--CSS-->
-    <link rel="stylesheet" href="../statics/css/reset.css">
-    <link rel="stylesheet" href="../statics/css/style.css">
+    <?php require "partials/head.php" ?>
 
     <!--JS-->
     <script src="../statics/js/logreg.js" defer></script>

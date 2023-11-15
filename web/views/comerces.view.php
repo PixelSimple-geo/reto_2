@@ -2,7 +2,6 @@
 <html lang="en">
 
     <head>
-        <?php require "../db.php"; ?>
         <?php require "partials/head.php" ?>
         <title>Comercios | Reto 2</title>
     </head>

@@ -312,6 +312,45 @@ fieldset{
     margin: 1rem 0;
 }
 
+/* Contents */
+.contentsContainer {
+    width: 50%;
+    margin: 0 auto;
+    text-align: center  ;
+}
+
+.contents {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-auto-rows: auto;
+    grid-gap: 2rem;
+    text-align: left;
+    margin: 1rem auto;
+}
+
+.contents h2 {
+    color: #333;
+}
+
+.contents div {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+.contents a {
+    display: block;
+    margin-bottom: 10px;
+    color: #3498db;
+    text-decoration: none;
+}
+
+.contents a.eliminar {
+    color: #e74c3c;
+}
+
+
 /* Crear Negocio*/
 .formulario {
     width: 30%;
@@ -323,11 +362,6 @@ fieldset{
 
 .formulario button {
     margin: 1rem auto;
-}
-
-/*Boton Eliminar*/
-.eliminar{
-    color: red;
 }
 
 /* Footer */

@@ -6,25 +6,56 @@
     <title>Editar Anuncio</title>
 </head>
 <body>
+    <main>
+        <?php require "partials/navvar.php"; ?> 
+        <div class="contentsContainer">
+            <a href="#">+ Crear Nuevo Negocio</a>
+            <h2>Mis Negocios</h2>
 
-    <main class="formulario">
-        <a href="/businesses">Volver a Mis Negocios</a>
+            <div class="contents">
 
-        <h2>Editar Anuncio</h2>
+                <div>
+                    <h3>Nombre del Negocio 1</h3>
+                    <p>Descripción: Descripción del Negocio 1</p>
+                    <a href="#">Ver Anuncios</a>
+                    <a href="#">Editar Negocio</a>
+                    <a href="#" onclick="return confirm('¿Estás seguro de que deseas eliminar este negocio?')" class="eliminar">Eliminar Negocio</a>
+                </div>
 
-        <form action="/guardarEdicionAnuncio" method="POST">
-            <label for="titulo">Título del Anuncio:</label>
-            <input type="text" id="titulo" name="titulo" placeholder="Anuncio de Descuento" required>
+                <div>
+                    <h3>Nombre del Negocio 2</h3>
+                    <p>Descripción: Descripción del Negocio 2</p>
+                    <a href="#">Ver Anuncios</a>
+                    <a href="#">Editar Negocio</a>
+                    <a href="#" onclick="return confirm('¿Estás seguro de que deseas eliminar este negocio?')" class="eliminar">Eliminar Negocio</a>
+                </div>
 
-            <label for="descripcion">Descripción del Anuncio:</label>
-            <textarea id="descripcion" name="descripcion" rows="4" required></textarea>
+                <div>
+                    <h3>Nombre del Negocio 3</h3>
+                    <p>Descripción: Descripción del Negocio 2</p>
+                    <a href="#">Ver Anuncios</a>
+                    <a href="#">Editar Negocio</a>
+                    <a href="#" onclick="return confirm('¿Estás seguro de que deseas eliminar este negocio?')" class="eliminar">Eliminar Negocio</a>
+                </div>
 
-            <label for="cover_img">URL de la Imagen de Portada:</label>
-            <input type="file" id="cover_img" name="cover_img" placeholder="ruta/a/la/imagen.jpg" required>
+                <div>
+                    <h3>Nombre del Negocio 4</h3>
+                    <p>Descripción: Descripción del Negocio 2</p>
+                    <a href="#">Ver Anuncios</a>
+                    <a href="#">Editar Negocio</a>
+                    <a href="#" onclick="return confirm('¿Estás seguro de que deseas eliminar este negocio?')" class="eliminar">Eliminar Negocio</a>
+                </div>
 
-            <button type="submit">Guardar Cambios</button>
-        </form>
+                <div>
+                    <h3>Nombre del Negocio 5</h3>
+                    <p>Descripción: Descripción del Negocio 2</p>
+                    <a href="#">Ver Anuncios</a>
+                    <a href="#">Editar Negocio</a>
+                    <a href="#" onclick="return confirm('¿Estás seguro de que deseas eliminar este negocio?')" class="eliminar">Eliminar Negocio</a>
+                </div>
+            </div>
+        </div>
+        
     </main>
-
 </body>
 </html>

@@ -16,6 +16,7 @@ $indexUrl = "/index";
 $profileURI = "/profile";
 $businessesURI = "/account/businesses";
 $businessesAddURI = "/account/businesses/add";
+$businessesEditURI = "/account/businesses/edit";
 $_404_URI = "/error=404";
 $_400_URI = "/error=400";
 $crearNegocioUrl = "/crearNegocio";
@@ -69,6 +70,11 @@ if (stristr($path, $login)) {
         postProfile();
     }
     die();
+} else if (stristr($path, $businessesEditURI)) {
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/controller/businessesController.php";
+    if ($requestMethod === "GET") {
+        getEditBusiness();
+    }
 } else if (stristr($path, $businessesAddURI)) {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/controller/businessesController.php";
     if ($requestMethod === "GET") getAddBusinesses();

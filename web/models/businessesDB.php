@@ -3,10 +3,37 @@
 function getBusiness($businessId) {
     try {
         $sql = "SELECT business_id AS businessId, name, description FROM businesses WHERE business_id = :business_id";
-        $statement = getConnection()->prepare($sql);
+        $connection = getConnection();
+        $statement = $connection->prepare($sql);
         $statement->bindValue("business_id", $businessId, PDO::PARAM_INT);
+        $statement->execute();
+
         if ($statement->rowCount() === 0) throw new PDOException("No business found");
-        return $statement->fetchAll()[0];
+        $business = $statement->fetchAll()[0];
+
+        $sqlCategory = "SELECT bcm.category_id AS categoryId, name FROM businesses_categories_mapping AS bcm
+        INNER JOIN businesses_categories AS bbc ON bcm.category_id = bbc.category_id
+        WHERE business_id = :business_id";
+        $statementCategory = $connection->prepare($sqlCategory);
+        $statementCategory->bindValue("business_id", $businessId, PDO::PARAM_INT);
+        $statementCategory->execute();
+        $business["categories"] = $statementCategory->fetchAll()[0];
+
+        $sqlContacts = "SELECT contact_id AS contactId, type, value FROM business_contacts 
+                                            WHERE business_id = :business_id";
+        $statementContacts = $connection->prepare($sqlContacts);
+        $statementContacts->bindValue("business_id", $businessId, PDO::PARAM_INT);
+        $statementContacts->execute();
+        $business["contacts"] = $statementContacts->fetchAll();
+
+        $sqlAddresses = "SELECT address_id AS addressId, city_id AS cityId, address, postal_code AS postalCode
+        FROM addresses WHERE business_id = :business_id";
+        $statementAddresses = $connection->prepare($sqlAddresses);
+        $statementAddresses->bindValue("business_id", $businessId, PDO::PARAM_INT);
+        $statementAddresses->execute();
+        $business["addresses"] = $statementAddresses->fetchAll();
+
+        return $business;
     } catch (PDOException $exception) {
         error_log("Database error: [$businessId] " . $exception->getMessage());
         throw $exception;

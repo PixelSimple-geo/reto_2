@@ -56,3 +56,12 @@ function postBusiness() :void {
         }
     }
 }
+
+function getEditBusiness() {
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/models/businessesDB.php";
+    $businessId = $_GET["business_id"];
+    $business = getBusiness($businessId);
+    print_r($business);
+    $categories = getAllBusinessCategories();
+    include_once $_SERVER["DOCUMENT_ROOT"] . "/views/editBusiness.view.php";
+}

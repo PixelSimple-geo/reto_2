@@ -15,10 +15,10 @@
             if (isset($businesses)) {
                 foreach ($businesses as $business) {
                     echo '<div>';
-                    echo '  <h3>' . $business['name'] . '</h3>';
-                    echo '  <p>Descripción: ' . $business['description'] . '</p>';
-                    echo '  <a href="/articles/' . $business['businessId'] . '">Ver Anuncios</a>';
-                    echo '  <a href="/businesses/' . $business['businessId'] . '">Editar Negocio</a>';
+                    echo ' <h3>' . $business['name'] . '</h3>';
+                    echo ' <p>Descripción: ' . $business['description'] . '</p>';
+                    echo ' <a href="/articles/' . $business['businessId'] . '">Ver Anuncios</a>';
+                    echo ' <a href="/account/businesses/edit?business_id=' . $business["businessId"] . '">Editar Negocio</a>';
                     echo '</div>';
                 }
             } else {

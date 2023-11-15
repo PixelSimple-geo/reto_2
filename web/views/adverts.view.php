@@ -8,7 +8,7 @@
     <?php require "partials/navvar.php"; ?>
 
     <main>
-        <a href="/businesses">+ Crear Nuevo Negocio</a>
+        <a href="/businesses">+ Crear Nuevo Anuncio</a>
 
         <a href="/businesses">Volver a Mis Negocios</a>
 
@@ -26,13 +26,20 @@
 
                 foreach ($anuncios as $anuncio) {
                     echo '<div>';
+                    echo '<img src="' . $anuncio['cover_img'] . '" alt="Portada del Anuncio">';
+                
                     echo '  <h3>' . $anuncio['titulo'] . '</h3>';
                     echo '  <p>' . $anuncio['descripcion'] . '</p>';
+                
+                    echo '  <a href="/ver_anuncio.php?id=' . $anuncio['advertId'] . '">Ver Anuncio</a>';
+
                     echo '  <a href="/adverts/' . $anuncio['anuncioId'] . '">Editar Anuncio</a>';
-                    //TODO terminar el enlace de eliminacion
-                    echo '  <a href="/.php?id=' . $anuncio['advertId'] . '" onclick="return confirm(\'¿Estás seguro de que deseas eliminar este anuncio?\')" class="eliminar">Eliminar Anuncio</a>';
+
+                    // TODO: Terminar el enlace de eliminación
+                    echo '  <a href="/eliminar_anuncio.php?id=' . $anuncio['advertId'] . '" onclick="return confirm(\'¿Estás seguro de que deseas eliminar este anuncio?\')" class="eliminar">Eliminar Anuncio</a>';
                     echo '</div>';
                 }
+                
             } else {
                 echo '<p>No hay anuncios registrados para este negocio.</p>';
             }

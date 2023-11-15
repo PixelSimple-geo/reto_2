@@ -7,46 +7,56 @@
 <body>
     <?php require "partials/navvar.php"; ?>
 
+    <?php if(isset($errorMessage)) echo "<p>$errorMessage</p>";?>
+
     <div class="formulario">
-        <a href="/businesses">Volver a mis negocios</a>
-        <h2>Crear Nuevo Negocio</h2>
+            <a href="/account/businesses">Volver a mis negocios</a>
+            <h2>Crear Nuevo Negocio</h2>
 
-        <form action="/businesses" method="POST">
-            <label for="nombre">Nombre del Negocio:</label>
-            <input type="text" id="nombre" name="nombre" required>
+            <form action="/account/businesses/add" method="POST">
+                <label for="nombre">Nombre del Negocio:</label>
+                <input type="text" id="nombre" name="name" required>
 
-            <label for="categoria">Categoría del Negocio:</label>
-            <select id="categoria" name="categoria" required>
+                <label for="descripcion">Descripción del Negocio:</label>
+                <textarea id="descripcion" name="description" rows="4" required></textarea>
+
                 <?php
-                // TODO: Necesitas la función que te devuelva las categorías de los negocios
-                foreach ($categorias as $categoria) {
-                    echo '<option value="' . $categoria . '">' . $categoria . '</option>';
+                if (isset($businessCategories)) {
+                    echo "<label for='category'>Categoría</label>";
+                    echo "<select id='category' name='business_category'>";
+                    foreach ($businessCategories as $value) {
+                        echo "<option value='$value[categoryId]'>$value[name]</option>";
+                    }
+                    echo "</select>";
                 }
                 ?>
-            </select>
+                <fieldset>
+                    <legend>Contacto</legend>
+                    <label for="type">Tipo de contacto</label>
+                    <input id="type" name="contacts[type][]">
+                    <label for="value">Dirección de medio</label>
+                    <input id="value" name="contacts[value][]">
+                </fieldset>
 
-            <label for="direccion">Dirección del Negocio:</label>
-            <input type="text" id="direccion" name="direccion" required>
+                <fieldset>
+                    <legend>Dirección</legend>
+                    <?php
+                    if (isset($cities)) {
+                        echo "<select name='addresses[city_id][]'>";
+                        foreach ($cities as $city) {
+                            echo "<option value='$city[cityId]'>$city[name]</option>";
+                        }
+                        echo "</select>";
+                    }
+                    ?>
+                    <label for="address">Dirección</label>
+                    <input id="address" name="addresses[address][]">
+                    <label for="postal_code">Código postal</label>
+                    <input type="number" id="postal_code" name="addresses[postal_code][]">
+                </fieldset>
 
-            <h3 for="contactos">Contacto:</h3>
-            <div id="contactos">
-                <div>
-                    <label for="tipo_contacto1">Tipo de Contacto:</label>
-                    <select id="tipo_contacto1" name="tipo_contacto[]">
-                        <option value="gmail">Gmail</option>
-                        <option value="telefono">Teléfono</option>
-                        <option value="red_social">Red Social</option>
-                    </select>
-                    <label for="valor_contacto1">Valor de Contacto:</label>
-                    <input type="text" id="valor_contacto1" name="valor_contacto[]" required>
-                </div>
-            </div>
-
-            <label for="descripcion">Descripción del Negocio:</label>
-            <textarea id="descripcion" name="descripcion" rows="4" required></textarea>
-
-            <button type="submit">Crear Negocio</button>
-        </form>
+                <button type="submit">Crear Negocio</button>
+            </form>
     </div>
 
     <?php require "partials/footer.php" ?>

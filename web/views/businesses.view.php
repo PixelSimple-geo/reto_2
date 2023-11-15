@@ -17,8 +17,10 @@
                     echo '<div>';
                     echo '  <h3>' . $business['name'] . '</h3>';
                     echo '  <p>Dirección: ' . $business['description'] . '</p>';
-                    echo '  <a href="/articles/' . $business['businessId'] . '">Ver Anuncios</a>';
+                    echo '  <a href="/adverts/' . $business['businessId'] . '">Ver Anuncios</a>';
                     echo '  <a href="/businesses/' . $business['businessId'] . '">Editar Negocio</a>';
+                    //TODO terminar el enlace de eliminacion
+                    echo '  <a href="/.php?id=' . $business['businessId'] . '" onclick="return confirm(\'¿Estás seguro de que deseas eliminar este negocio?\')" class="eliminar">Eliminar Negocio</a>';
                     echo '</div>';
                 }
             } else {

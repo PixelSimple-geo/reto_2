@@ -322,6 +322,10 @@ button:hover {
     margin: 1rem auto;
 }
 
+/*Boton Eliminar*/
+.eliminar{
+    color: red;
+}
 
 /* Footer */
 footer>p {

@@ -26,6 +26,8 @@
                     echo '<div>';
                     echo '  <h3>' . $anuncio['titulo'] . '</h3>';
                     echo '  <p>' . $anuncio['descripcion'] . '</p>';
+                    //TODO terminar el enlace de eliminacion
+                    echo '  <a href="/.php?id=' . $anuncio['advertId'] . '" onclick="return confirm(\'¿Estás seguro de que deseas eliminar este anuncio?\')" class="eliminar">Eliminar Anuncio</a>';
                     echo '</div>';
                 }
             } else {

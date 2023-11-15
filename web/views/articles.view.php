@@ -16,6 +16,8 @@
                     echo '<div>';
                     echo '  <h3>' . $articulo['title'] . '</h3>';
                     echo '  <p>Dirección: ' . $articulo['description'] . '</p>';
+                    //TODO terminar el enlace de eliminacion
+                    echo '  <a href="/.php?id=' . $articulo['articleId'] . '" onclick="return confirm(\'¿Estás seguro de que deseas eliminar este articulo?\')" class="eliminar">Eliminar Articulo</a>';
                     echo '</div>';
                 }
             } else {

@@ -3,6 +3,10 @@
 <head>
     <?php require "partials/head.php" ?>
     <title>Crear Negocio</title>
+
+    <script src="/statics/js/contact.js"></script>
+    <script src="/statics/js/adress.js"></script>
+
 </head>
 <body>
     <?php require "partials/navvar.php"; ?>
@@ -30,29 +34,18 @@
                     echo "</select>";
                 }
                 ?>
-                <fieldset>
+                <form id="contactForm">
+                    <fieldset>
                     <legend>Contacto</legend>
-                    <label for="type">Tipo de contacto</label>
-                    <input id="type" name="contacts[type][]">
-                    <label for="value">Dirección de medio</label>
-                    <input id="value" name="contacts[value][]">
-                </fieldset>
+                        <button type="button" onclick="agregarContacto()">+</button>
+                        <div id="contactsContainer"></div>
+                    </fieldset>
+                </form>
 
                 <fieldset>
                     <legend>Dirección</legend>
-                    <?php
-                    if (isset($cities)) {
-                        echo "<select name='addresses[city_id][]'>";
-                        foreach ($cities as $city) {
-                            echo "<option value='$city[cityId]'>$city[name]</option>";
-                        }
-                        echo "</select>";
-                    }
-                    ?>
-                    <label for="address">Dirección</label>
-                    <input id="address" name="addresses[address][]">
-                    <label for="postal_code">Código postal</label>
-                    <input type="number" id="postal_code" name="addresses[postal_code][]">
+                    <button type="button" onclick="agregarDireccion()">+</button>
+                    <div id="addressesContainer"></div>
                 </fieldset>
 
                 <button type="submit">Crear Negocio</button>

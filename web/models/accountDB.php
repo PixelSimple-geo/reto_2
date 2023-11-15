@@ -39,6 +39,7 @@ function persistAccount($username, $email, $password) :void {
         if ($statement->rowCount() === 0)
             throw new PDOException("Could not add account");
     } catch (PDOException $exception) {
+        echo $exception->getMessage();
         error_log("Database error: [$username, $email]" . $exception->getMessage());
         throw $exception;
     }

@@ -1,61 +1,36 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<?php require "partials/head.php" ?>
-
-    <title>Editar Anuncio</title>
+    <?php require "../db.php"; ?>
+    <?php require "partials/head.php" ?>
+    <title>Mis Articulos</title>
 </head>
 <body>
+    <?php require "partials/navBar.php"; ?>
+
     <main>
-        <?php require "partials/navvar.php"; ?> 
-        <div class="contentsContainer">
-            <a href="#">+ Crear Nuevo Negocio</a>
-            <h2>Mis Negocios</h2>
-
-            <div class="contents">
-
-                <div>
-                    <h3>Nombre del Negocio 1</h3>
-                    <p>Descripción: Descripción del Negocio 1</p>
-                    <a href="#">Ver Anuncios</a>
-                    <a href="#">Editar Negocio</a>
-                    <a href="#" onclick="return confirm('¿Estás seguro de que deseas eliminar este negocio?')" class="eliminar">Eliminar Negocio</a>
-                </div>
-
-                <div>
-                    <h3>Nombre del Negocio 2</h3>
-                    <p>Descripción: Descripción del Negocio 2</p>
-                    <a href="#">Ver Anuncios</a>
-                    <a href="#">Editar Negocio</a>
-                    <a href="#" onclick="return confirm('¿Estás seguro de que deseas eliminar este negocio?')" class="eliminar">Eliminar Negocio</a>
-                </div>
-
-                <div>
-                    <h3>Nombre del Negocio 3</h3>
-                    <p>Descripción: Descripción del Negocio 2</p>
-                    <a href="#">Ver Anuncios</a>
-                    <a href="#">Editar Negocio</a>
-                    <a href="#" onclick="return confirm('¿Estás seguro de que deseas eliminar este negocio?')" class="eliminar">Eliminar Negocio</a>
-                </div>
-
-                <div>
-                    <h3>Nombre del Negocio 4</h3>
-                    <p>Descripción: Descripción del Negocio 2</p>
-                    <a href="#">Ver Anuncios</a>
-                    <a href="#">Editar Negocio</a>
-                    <a href="#" onclick="return confirm('¿Estás seguro de que deseas eliminar este negocio?')" class="eliminar">Eliminar Negocio</a>
-                </div>
-
-                <div>
-                    <h3>Nombre del Negocio 5</h3>
-                    <p>Descripción: Descripción del Negocio 2</p>
-                    <a href="#">Ver Anuncios</a>
-                    <a href="#">Editar Negocio</a>
-                    <a href="#" onclick="return confirm('¿Estás seguro de que deseas eliminar este negocio?')" class="eliminar">Eliminar Negocio</a>
-                </div>
-            </div>
-        </div>
+        <a href="/crearArticulo">+ Crear Nuevo Articulo</a>
+        <h2>Mis Articulos</h2>
         
+        <div>
+            <h3>Articulo 1</h3>
+            <p>Descripción del Articulo 1</p>
+            <a href="/editarArticulo/1">Editar</a>
+        </div>
+
+        <div>
+            <h3>Articulo 2</h3>
+            <p>Descripción del Articulo 2</p>
+            <a href="/editarArticulo/2">Editar</a>
+        </div>
+
+        <!-- Puedes agregar más bloques similares según sea necesario -->
+
+        <!-- O, si no hay artículos registrados -->
+        <!-- <p>No tienes artículos registrados.</p> -->
     </main>
+
+    <?php require "partials/footer.php" ?>
+
 </body>
 </html>

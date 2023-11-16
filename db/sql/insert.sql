@@ -11,8 +11,6 @@ INSERT INTO businesses (account_id, name, description) VALUES
 
 INSERT INTO businesses_categories (name) VALUES ('Category1'), ('Category2');
 
-INSERT INTO cities (name) VALUES ('City1'), ('City2');
-
 INSERT INTO article_categories (name) VALUES ('CategoryA'), ('CategoryB');
 
 INSERT INTO businesses_categories_mapping (category_id, business_id) VALUES (1, 1), (2, 2);
@@ -31,9 +29,9 @@ INSERT INTO articles (account_id, title, description, created_date, modified_dat
 
 INSERT INTO articles_categories_mapping (article_id, category_id) VALUES (1, 1), (2, 2);
 
-INSERT INTO addresses (business_id, city_id, address, postal_code) VALUES
-(1, 1, '123 Main St', 12345),
-(2, 2, '456 Oak St', 67890);
+INSERT INTO addresses (business_id, address, postal_code) VALUES
+(1, '123 Main St', 12345),
+(2, '456 Oak St', 67890);
 
 INSERT INTO commentaries (article_id, commentator_id, title, description, creation_date, modified_date) VALUES
 (1, 1, 'Commentary1', 'Description for Commentary1', NOW(), NULL),

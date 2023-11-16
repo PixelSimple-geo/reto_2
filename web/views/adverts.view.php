@@ -5,7 +5,7 @@
     <title>Ver Anuncios</title>
 </head>
 <body>
-    <?php require "partials/navvar.php"; ?>
+    <?php require "partials/navBar.php"; ?>
 
     <main>
         <div class="contentsContainer">

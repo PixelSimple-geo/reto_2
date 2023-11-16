@@ -9,7 +9,7 @@
 </head>
 <body>
 
-    <?php require "partials/navvar.php"; ?>
+    <?php require "partials/navBar.php"; ?>
 
     <div class="historia">
         <h1>Asociación de Comerciantes, Hosteleros y Empresas de Servicios de Vitoria</h1>

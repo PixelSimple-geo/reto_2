@@ -1,5 +1,7 @@
 <?php
 
+require_once $_SERVER["DOCUMENT_ROOT"] . "/models/driverManager.php";
+
 $hostName = "mysql";
 $port = "3306";
 $database = "reto_2";

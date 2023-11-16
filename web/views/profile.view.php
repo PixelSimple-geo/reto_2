@@ -5,7 +5,7 @@
     <title>Editar Perfil</title>
 </head>
 <body>
-    <?php require "partials/navvar.php"; ?>
+    <?php require "partials/navBar.php"; ?>
 
     <main>
     <h2>Editar Perfil</h2>
@@ -15,7 +15,7 @@
     <?php
     if (isset($userAccount)) {
         // Mostrar el formulario de edición de perfil
-        echo '<form action="/profile" method="POST">';
+        echo '<form action="/account" method="POST">';
         echo '  <label for="nombre">Nombre:</label>';
         echo '  <input type="text" id="nombre" name="username" placeholder="' . $userAccount["username"] . '">';
 

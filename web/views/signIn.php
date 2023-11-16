@@ -22,7 +22,7 @@
 
         <?php if(isset($errorMessage)) echo $errorMessage ?>
 
-        <form id="reg_form" action="/register" method="POST">
+        <form id="reg_form" action="/signIn" method="POST">
 
             <label for="usuario">Usuario</label>
             <input type="text" id="usuario" required name="username">

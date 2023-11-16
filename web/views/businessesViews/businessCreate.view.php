@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <?php require "partials/head.php" ?>
+    <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/head.php" ?>
     <title>Crear Negocio</title>
 </head>
 <body>
-    <?php require "partials/navvar.php"; ?>
+    <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/navBar.php"; ?>
 
     <?php if(isset($errorMessage)) echo "<p>$errorMessage</p>";?>
 
     <div class="formulario">
-            <a href="/account/businesses">Volver a mis negocios</a>
+            <a href="/businesses/account/get">Volver a mis negocios</a>
             <h2>Crear Nuevo Negocio</h2>
 
-            <form action="/account/businesses/add" method="POST">
+            <form action="/businesses/account/add" method="POST">
                 <label for="nombre">Nombre del Negocio:</label>
                 <input type="text" id="nombre" name="name" required>
 
@@ -21,7 +21,7 @@
                 <textarea id="descripcion" name="description" rows="4" required></textarea>
 
                 <?php
-                if (isset($businessCategories)) {
+                if (!empty($businessCategories)) {
                     echo "<label for='category'>Categoría</label>";
                     echo "<select id='category' name='business_category'>";
                     foreach ($businessCategories as $value) {
@@ -30,36 +30,28 @@
                     echo "</select>";
                 }
                 ?>
+
                 <fieldset>
                     <legend>Contacto</legend>
                     <label for="type">Tipo de contacto</label>
-                    <input id="type" name="contacts[type][]">
+                    <input id="type" name="contact_type[]">
                     <label for="value">Dirección de medio</label>
-                    <input id="value" name="contacts[value][]">
+                    <input id="value" name="contact_value[]">
                 </fieldset>
 
                 <fieldset>
                     <legend>Dirección</legend>
-                    <?php
-                    if (isset($cities)) {
-                        echo "<select name='addresses[city_id][]'>";
-                        foreach ($cities as $city) {
-                            echo "<option value='$city[cityId]'>$city[name]</option>";
-                        }
-                        echo "</select>";
-                    }
-                    ?>
                     <label for="address">Dirección</label>
-                    <input id="address" name="addresses[address][]">
+                    <input id="address" name="addresses[]">
                     <label for="postal_code">Código postal</label>
-                    <input type="number" id="postal_code" name="addresses[postal_code][]">
+                    <input type="number" id="postal_code" name="postal_codes[]">
                 </fieldset>
 
                 <button type="submit">Crear Negocio</button>
             </form>
     </div>
 
-    <?php require "partials/footer.php" ?>
+    <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/footer.php" ?>
 
 </body>
 </html>

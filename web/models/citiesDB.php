@@ -1,5 +1,7 @@
 <?php
 
+require_once $_SERVER["DOCUMENT_ROOT"] . "/models/driverManager.php";
+
 function getAllCities() :array {
     try {
         $sql = "SELECT city_id AS cityId, name FROM cities;";

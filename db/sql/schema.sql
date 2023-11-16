@@ -44,18 +44,12 @@ CREATE TABLE businesses (
     account_id INT NOT NULL,
     name VARCHAR(100) NOT NULL UNIQUE,
     description VARCHAR(500),
-    CONSTRAINT bus_acc_fk FOREIGN KEY (account_id) REFERENCES accounts (account_id)
+    CONSTRAINT bus_acc_fk FOREIGN KEY (account_id) REFERENCES accounts (account_id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
 CREATE TABLE businesses_categories (
     category_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL UNIQUE,
-    UNIQUE INDEX (name)
-) ENGINE=InnoDB;
-
-CREATE TABLE cities (
-    city_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
     UNIQUE INDEX (name)
 ) ENGINE=InnoDB;
 
@@ -69,8 +63,8 @@ CREATE TABLE businesses_categories_mapping (
     category_id INT NOT NULL,
     business_id INT NOT NULL,
     CONSTRAINT bcm_cat_bus_pk PRIMARY KEY (category_id, business_id),
-    CONSTRAINT bcm_cat_fk FOREIGN KEY (category_id) REFERENCES businesses_categories (category_id),
-    CONSTRAINT bcm_bus_fk FOREIGN KEY (business_id) REFERENCES businesses (business_id)
+    CONSTRAINT bcm_cat_fk FOREIGN KEY (category_id) REFERENCES businesses_categories (category_id) ON DELETE CASCADE ,
+    CONSTRAINT bcm_bus_fk FOREIGN KEY (business_id) REFERENCES businesses (business_id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
 CREATE TABLE business_contacts (
@@ -78,22 +72,22 @@ CREATE TABLE business_contacts (
     business_id INT NOT NULL,
     type VARCHAR(100) NOT NULL,
     value VARCHAR(255) NOT NULL,
-    CONSTRAINT buc_bus_fk FOREIGN KEY (business_id) REFERENCES businesses (business_id)
+    CONSTRAINT buc_bus_fk FOREIGN KEY (business_id) REFERENCES businesses (business_id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
 CREATE TABLE businesses_advert_categories (
     category_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     business_id INT NOT NULL,
     name VARCHAR(100) NOT NULL,
-    CONSTRAINT bac_bus_fk FOREIGN KEY (business_id) REFERENCES businesses (business_id)
+    CONSTRAINT bac_bus_fk FOREIGN KEY (business_id) REFERENCES businesses (business_id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
 CREATE TABLE authorities_granted (
     authority_id INT NOT NULL,
     account_id INT NOT NULL,
     CONSTRAINT aug_aut_acc_pk PRIMARY KEY (authority_id, account_id),
-    CONSTRAINT aug_acc_fk FOREIGN KEY (account_id) REFERENCES accounts (account_id),
-    CONSTRAINT aug_aut_fk FOREIGN KEY (authority_id) REFERENCES authorities (authority_id)
+    CONSTRAINT aug_acc_fk FOREIGN KEY (account_id) REFERENCES accounts (account_id) ON DELETE CASCADE,
+    CONSTRAINT aug_aut_fk FOREIGN KEY (authority_id) REFERENCES authorities (authority_id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
 CREATE TABLE articles (
@@ -103,25 +97,23 @@ CREATE TABLE articles (
     description LONGTEXT NOT NULL,
     created_date TIMESTAMP NOT NULL,
     modified_date TIMESTAMP NULL,
-    CONSTRAINT art_acc_fk FOREIGN KEY (account_id) REFERENCES accounts (account_id)
+    CONSTRAINT art_acc_fk FOREIGN KEY (account_id) REFERENCES accounts (account_id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
 CREATE TABLE articles_categories_mapping (
     article_id INT NOT NULL,
     category_id INT NOT NULL,
     CONSTRAINT acm_art_cat_pk PRIMARY KEY (article_id, category_id),
-    CONSTRAINT acm_art_fk FOREIGN KEY (article_id) REFERENCES articles (article_id),
-    CONSTRAINT acm_cat_fk FOREIGN KEY (category_id) REFERENCES article_categories (category_id)
+    CONSTRAINT acm_art_fk FOREIGN KEY (article_id) REFERENCES articles (article_id) ON DELETE CASCADE,
+    CONSTRAINT acm_cat_fk FOREIGN KEY (category_id) REFERENCES article_categories (category_id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
 CREATE TABLE addresses (
     address_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     business_id INT NOT NULL,
-    city_id INT NOT NULL,
     address VARCHAR(100) NOT NULL,
     postal_code INT NOT NULL,
-    CONSTRAINT add_bus_fk FOREIGN KEY (business_id) REFERENCES businesses (business_id),
-    CONSTRAINT add_cit_fk FOREIGN KEY (city_id) REFERENCES cities (city_id)
+    CONSTRAINT add_bus_fk FOREIGN KEY (business_id) REFERENCES businesses (business_id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
 CREATE TABLE commentaries (
@@ -132,8 +124,8 @@ CREATE TABLE commentaries (
     description VARCHAR(500) NOT NULL,
     creation_date TIMESTAMP NOT NULL,
     modified_date TIMESTAMP NULL,
-    CONSTRAINT com_art_fk FOREIGN KEY (article_id) REFERENCES articles (article_id),
-    CONSTRAINT com_com_fk FOREIGN KEY (commentator_id) REFERENCES accounts (account_id)
+    CONSTRAINT com_art_fk FOREIGN KEY (article_id) REFERENCES articles (article_id) ON DELETE CASCADE,
+    CONSTRAINT com_com_fk FOREIGN KEY (commentator_id) REFERENCES accounts (account_id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
 CREATE TABLE commentaries_likes (
@@ -141,8 +133,8 @@ CREATE TABLE commentaries_likes (
     commentary_id INT NOT NULL,
     is_liked TINYINT NOT NULL,
     CONSTRAINT col_lik_com_pk PRIMARY KEY (liker_id, commentary_id),
-    CONSTRAINT col_comm_fk FOREIGN KEY (commentary_id) REFERENCES commentaries (commentary_id),
-    CONSTRAINT col_lik_fk FOREIGN KEY (liker_id) REFERENCES accounts (account_id)
+    CONSTRAINT col_comm_fk FOREIGN KEY (commentary_id) REFERENCES commentaries (commentary_id) ON DELETE CASCADE,
+    CONSTRAINT col_lik_fk FOREIGN KEY (liker_id) REFERENCES accounts (account_id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
 CREATE TABLE adverts (
@@ -154,7 +146,7 @@ CREATE TABLE adverts (
     active TINYINT NOT NULL,
     creation_date TIMESTAMP NOT NULL,
     modified_date TIMESTAMP NULL,
-    CONSTRAINT adv_bus_fk FOREIGN KEY (business_id) REFERENCES businesses (business_id)
+    CONSTRAINT adv_bus_fk FOREIGN KEY (business_id) REFERENCES businesses (business_id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
 CREATE TABLE adverts_characteristics (
@@ -162,22 +154,22 @@ CREATE TABLE adverts_characteristics (
     advert_id INT NOT NULL,
     type VARCHAR(50) NOT NULL,
     value VARCHAR(100) NOT NULL,
-    CONSTRAINT adc_adv_fk FOREIGN KEY (advert_id) REFERENCES adverts (advert_id)
+    CONSTRAINT adc_adv_fk FOREIGN KEY (advert_id) REFERENCES adverts (advert_id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
 CREATE TABLE advert_categories (
     advert_id INT NOT NULL,
     category_id INT NOT NULL,
     CONSTRAINT adc_adv_cat_pk PRIMARY KEY (advert_id, category_id),
-    CONSTRAINT adca_adv_fk FOREIGN KEY (advert_id) REFERENCES adverts (advert_id),
-    CONSTRAINT adc_cat_fk FOREIGN KEY (category_id) REFERENCES businesses_advert_categories (category_id)
+    CONSTRAINT adca_adv_fk FOREIGN KEY (advert_id) REFERENCES adverts (advert_id) ON DELETE CASCADE ,
+    CONSTRAINT adc_cat_fk FOREIGN KEY (category_id) REFERENCES businesses_advert_categories (category_id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
 CREATE TABLE images (
     image_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     advert_id INT NOT NULL,
     url VARCHAR(255) NOT NULL,
-    CONSTRAINT ima_adv_fk FOREIGN KEY (advert_id) REFERENCES adverts (advert_id)
+    CONSTRAINT ima_adv_fk FOREIGN KEY (advert_id) REFERENCES adverts (advert_id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
 CREATE TABLE reviews (
@@ -189,8 +181,8 @@ CREATE TABLE reviews (
     creation_date TIMESTAMP NOT NULL,
     modified_date TIMESTAMP NULL,
     rating INT NOT NULL,
-    CONSTRAINT rev_acc_fk FOREIGN KEY (account_id) REFERENCES accounts (account_id),
-    CONSTRAINT rev_bus_fk FOREIGN KEY (business_id) REFERENCES businesses (business_id)
+    CONSTRAINT rev_acc_fk FOREIGN KEY (account_id) REFERENCES accounts (account_id) ON DELETE CASCADE,
+    CONSTRAINT rev_bus_fk FOREIGN KEY (business_id) REFERENCES businesses (business_id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
 CREATE TABLE reviews_likes (
@@ -198,6 +190,6 @@ CREATE TABLE reviews_likes (
     review_id INT NOT NULL,
     is_liked TINYINT NOT NULL,
     CONSTRAINT rel_comm_rev_pk PRIMARY KEY (commentator_id, review_id),
-    CONSTRAINT rel_rev_fk FOREIGN KEY (review_id) REFERENCES reviews (review_id),
-    CONSTRAINT rel_comm_fk FOREIGN KEY (commentator_id) REFERENCES accounts (account_id)
+    CONSTRAINT rel_rev_fk FOREIGN KEY (review_id) REFERENCES reviews (review_id) ON DELETE CASCADE ,
+    CONSTRAINT rel_comm_fk FOREIGN KEY (commentator_id) REFERENCES accounts (account_id) ON DELETE CASCADE
 ) ENGINE=InnoDB;

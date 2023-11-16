@@ -3,15 +3,16 @@
 require_once $_SERVER["DOCUMENT_ROOT"] . "/models/driverManager.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/handlers/sessionHandler.php";
 
+function matchURI($URI) :bool {
+    return str_starts_with($_SERVER['REQUEST_URI'], $URI);
+}
+
 startSession();
 
 $path = $_SERVER["REQUEST_URI"];
 $requestMethod = $_SERVER["REQUEST_METHOD"];
 
 $accountUrl = "/accounts";
-$login = "/login";
-$logout = "/logout";
-$signIn = "/signIn";
 $indexUrl = "/index";
 $profileURI = "/profile";
 $businessesURI = "/account/businesses";
@@ -26,65 +27,70 @@ $crearArticuloURL = "/crearArticulo";
 $editarArticuloUrl = "/editarArticulo";
 $anunciosUrl = "/anuncios";
 
-
 $path = $_SERVER['REQUEST_URI'];
 
-if (stristr($path, $login)) {
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/controller/accountController.php";
-    if ($requestMethod === "GET") getLogin();
-    else if ($requestMethod === "POST") {
-        if (!isset($_POST["username"]) || !isset($_POST["password"])) {
-            include_once $_SERVER['DOCUMENT_ROOT'] . "/views/error_400.view.php";
-            die();
-        }
-        postLogin();
+if (matchURI("/login")) {
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/accountController.php";
+    switch ($requestMethod) {
+        case "GET":
+            getLogin();
+            break;
+        case "POST":
+            postLogin();
+            break;
     }
-    die();
-} else if (stristr($path, $logout)) {
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/controller/mainController.php";
+} else if (matchURI("/logout")) {
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/mainController.php";
     logout();
-    die();
-} else if (stristr($path, $signIn)) {
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/controller/accountController.php";
-    if ($requestMethod === "GET") getSignIn();
-    else if ($requestMethod === "POST") {
-        if (!isset($_POST["username"]) || !isset($_POST["password"]) || !isset($_POST["email"])) {
-            include_once $_SERVER['DOCUMENT_ROOT'] . "/views/error_400.view.php";
-            die();
-        }
-        postSignIn();
+} else if (matchURI("/signIn")) {
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/accountController.php";
+    switch ($requestMethod) {
+        case "GET":
+            getSignIn();
+            break;
+        case "POST":
+            postSignIn();
+            break;
     }
-    die();
-} else if (stristr($path, $indexUrl)){
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/controller/mainController.php";
+} else if (matchURI("/index")){
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/mainController.php";
     index();
-    die();
-} else if (stristr($path, $profileURI)){
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/controller/accountController.php";
-    if ($requestMethod === "GET") getProfile();
-    else if ($requestMethod === "POST") {
-        if (!isset($_POST["password"])) {
-            include_once $_SERVER['DOCUMENT_ROOT'] . "/views/error_400.view.php";
-            die();
-        }
-        postProfile();
+} else if (matchURI("/account")){
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/accountController.php";
+    switch ($requestMethod) {
+        case "GET":
+            getProfile();
+            break;
+        case "POST":
+            postProfile();
+            break;
+        case "DELETE":
+            deleteUserAccount();
+            break;
     }
-    die();
-} else if (stristr($path, $businessesEditURI)) {
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/controller/businessesController.php";
-    if ($requestMethod === "GET") {
-        getEditBusiness();
-    }
-} else if (stristr($path, $businessesAddURI)) {
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/controller/businessesController.php";
+} else if (matchURI("/businesses/account/get")) {
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/businessesController.php";
+    if ($requestMethod === "GET") getAccountBusinesses();
+} else if (matchURI("/businesses/account/add")) {
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/businessesController.php";
     if ($requestMethod === "GET") getAddBusinesses();
     else if ($requestMethod === "POST") postBusiness();
     die();
-} else if (stristr($path, $businessesURI)){
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/controller/businessesController.php";
-    if ($requestMethod === "GET") getBusinesses();
-    die();
+} else if (matchURI("/businesses/account/edit")) {
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/businessesController.php";
+    switch ($requestMethod) {
+        case "GET":
+            getEditBusiness();
+            break;
+        case "POST":
+            postEditBusiness();
+            break;
+    }
+} else if (matchURI("/businesses/account/delete")) {
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/businessesController.php";
+    deleteAccountBusiness();
 }
+/*
 //TODO hay que hacer los controladores para estos
 else if (stristr($path, $crearNegocioUrl)){
     require_once $_SERVER['DOCUMENT_ROOT'] . "/views/crearNegocio.view.php";
@@ -105,6 +111,7 @@ else if (stristr($path, $crearNegocioUrl)){
     require_once $_SERVER['DOCUMENT_ROOT'] . "/views/anuncios.view.php";
     die();
 }
+*/
 
 
 

@@ -6,7 +6,7 @@
     <title>Mis Articulos</title>
 </head>
 <body>
-    <?php require "partials/navvar.php"; ?>
+    <?php require "partials/navBar.php"; ?>
 
     <main>
         <a href="/crearArticulo">+ Crear Nuevo Articulo</a>

@@ -6,7 +6,7 @@
     <title>Crear Articulo</title>
 </head>
 <body>
-    <?php require "partials/navvar.php"; ?>
+    <?php require "partials/navBar.php"; ?>
 
     <div class="formulario">
             <a href="/articles">Volver a mis Articulos</a>

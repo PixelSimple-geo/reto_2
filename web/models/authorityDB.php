@@ -1,6 +1,6 @@
 <?php
 
-
+require_once $_SERVER["DOCUMENT_ROOT"] . "/models/driverManager.php";
 
 function getAuthorities($connection) :array {
     $statement = $connection->query("SELECT * FROM authorities");

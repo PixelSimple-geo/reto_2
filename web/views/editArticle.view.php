@@ -5,7 +5,7 @@
     <title>Editar Articulo</title>
 </head>
 <body>
-    <?php require "partials/navvar.php"; ?>
+    <?php require "partials/navBar.php"; ?>
 
     <main class="formulario">
 

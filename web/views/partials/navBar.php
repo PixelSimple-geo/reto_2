@@ -23,8 +23,8 @@
                     echo '<div class="dropdown">';
                     echo '  <button class="dropbtn"><img src="/statics/media/profile.svg" alt="Profile"></button>';
                     echo '  <div class="dropdown-content">';
-                    echo '    <a href="/profile">Editar Perfil</a>';
-                    echo '    <a href="/account/businesses">Ver Negocios</a>';
+                    echo '    <a href="/account">Editar Perfil</a>';
+                    echo '    <a href="/businesses/account/get">Ver Negocios</a>';
                     echo '    <a href="/logout">Cerrar Sesion</a>';
 
                     /*

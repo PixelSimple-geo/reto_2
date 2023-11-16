@@ -7,7 +7,7 @@
 </head>
 
 <body>
-    <?php require "partials/navvar.php"; ?>
+    <?php require "partials/navBar.php"; ?>
 
     <div class="articles">
         <?php

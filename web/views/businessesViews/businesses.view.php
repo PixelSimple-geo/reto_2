@@ -17,7 +17,7 @@
                     echo '<div>';
                     echo ' <h3>' . $business['name'] . '</h3>';
                     echo ' <p>Descripción: ' . $business['description'] . '</p>';
-                    echo ' <a href="/articles/' . $business['businessId'] . '">Ver Anuncios</a>';
+                    echo " <a href='/adverts/account/business?business_id=$business[businessId]'>Ver Anuncios</a>";
                     echo ' <a href="/businesses/account/edit?business_id=' . $business["businessId"] . '">Editar Negocio</a>';
                     echo ' <a href="/businesses/account/delete?business_id=' . $business["businessId"] . '">Eliminar negocio</a>';
                     echo '</div>';

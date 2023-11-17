@@ -3,9 +3,7 @@
 require_once $_SERVER["DOCUMENT_ROOT"] . "/models/driverManager.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/handlers/sessionHandler.php";
 
-function matchURI($URI) :bool {
-    return str_starts_with($_SERVER['REQUEST_URI'], $URI);
-}
+function matchURI($URI) :bool {return str_starts_with($_SERVER['REQUEST_URI'], $URI);}
 
 startSession();
 
@@ -15,13 +13,8 @@ $requestMethod = $_SERVER["REQUEST_METHOD"];
 $accountUrl = "/accounts";
 $indexUrl = "/index";
 $profileURI = "/profile";
-$businessesURI = "/account/businesses";
-$businessesAddURI = "/account/businesses/add";
-$businessesEditURI = "/account/businesses/edit";
 $_404_URI = "/error=404";
 $_400_URI = "/error=400";
-$crearNegocioUrl = "/crearNegocio";
-$editarNegocioUrl = "/editarNegocio";
 $articulosURL = "/articulos";
 $crearArticuloURL = "/crearArticulo";
 $editarArticuloUrl = "/editarArticulo";
@@ -42,6 +35,7 @@ if (matchURI("/login")) {
 } else if (matchURI("/logout")) {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/mainController.php";
     logout();
+
 } else if (matchURI("/signIn")) {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/accountController.php";
     switch ($requestMethod) {
@@ -68,37 +62,41 @@ if (matchURI("/login")) {
             deleteUserAccount();
             break;
     }
-} else if (matchURI("/businesses/account/get")) {
+} else if (matchURI("/businesses")) {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/businessesController.php";
-    if ($requestMethod === "GET") getAccountBusinesses();
-} else if (matchURI("/businesses/account/add")) {
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/businessesController.php";
-    if ($requestMethod === "GET") getAddBusinesses();
-    else if ($requestMethod === "POST") postBusiness();
-    die();
-} else if (matchURI("/businesses/account/edit")) {
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/businessesController.php";
-    switch ($requestMethod) {
-        case "GET":
-            getEditBusiness();
-            break;
-        case "POST":
-            postEditBusiness();
-            break;
+    if (matchURI("/businesses/account/get")) {
+        if ($requestMethod === "GET") getAccountBusinesses();
+    } else if (matchURI("/businesses/account/add")) {
+        if ($requestMethod === "GET") getAddBusinesses();
+        else if ($requestMethod === "POST") postBusiness();
+        die();
+    } else if (matchURI("/businesses/account/edit")) {
+        switch ($requestMethod) {
+            case "GET":
+                getEditBusiness();
+                break;
+            case "POST":
+                postEditBusiness();
+                break;
+        }
+    } else if (matchURI("/businesses/account/delete")) {
+        deleteAccountBusiness();
     }
-} else if (matchURI("/businesses/account/delete")) {
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/businessesController.php";
-    deleteAccountBusiness();
+} else if (matchURI("/adverts")) {
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/advertsController.php";
+    if (matchURI("/adverts/account/business/add")) {
+        if ($requestMethod === "GET") getAddAdvertBusinessAccount();
+        else if ($requestMethod === "POST") postAddAdvertBusinessAccount();
+    } else if (matchURI("/adverts/account/business/edit")) {
+      if ($requestMethod === "GET") ;
+      else if ($requestMethod === "POST");
+    } else if (matchURI("/adverts/account/business")) {
+        if ($requestMethod === "GET") getAdvertBusinessAccount();
+    }
 }
 /*
 //TODO hay que hacer los controladores para estos
-else if (stristr($path, $crearNegocioUrl)){
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/views/crearNegocio.view.php";
-    die();
-}else if (stristr($path, $editarNegocioUrl)){
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/views/editarNegocio.view.php";
-    die();
-}else if (stristr($path, $articulosURL)){
+else if (stristr($path, $articulosURL)){
     require_once $_SERVER['DOCUMENT_ROOT'] . "/views/articles.view.php";
     die();
 }else if (stristr($path, $crearArticuloURL)){

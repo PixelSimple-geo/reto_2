@@ -1,36 +1,34 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-    <?php require "../db.php"; ?>
-    <?php require "partials/head.php" ?>
-    <title>Mis Articulos</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Name - Business Details</title>
 </head>
 <body>
-    <?php require "partials/navBar.php"; ?>
+    <h1>Business Name</h1>
+    
+    <!-- Display category navbar (Simulated) -->
+    <nav>
+        <ul>
+            <li>Category 1</li>
+            <li>Category 2</li>
+            <!-- Add more categories as needed -->
+        </ul>
+    </nav>
 
-    <main>
-        <a href="/crearArticulo">+ Crear Nuevo Articulo</a>
-        <h2>Mis Articulos</h2>
-        
-        <div>
-            <h3>Articulo 1</h3>
-            <p>Descripción del Articulo 1</p>
-            <a href="/editarArticulo/1">Editar</a>
-        </div>
+    <h2>Business Information</h2>
+    <p>Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
 
-        <div>
-            <h3>Articulo 2</h3>
-            <p>Descripción del Articulo 2</p>
-            <a href="/editarArticulo/2">Editar</a>
-        </div>
-
-        <!-- Puedes agregar más bloques similares según sea necesario -->
-
-        <!-- O, si no hay artículos registrados -->
-        <!-- <p>No tienes artículos registrados.</p> -->
-    </main>
-
-    <?php require "partials/footer.php" ?>
-
+    <h2>Adverts</h2>
+    <div>
+        <h3>Advert 1</h3>
+        <p>Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+    </div>
+    <div>
+        <h3>Advert 2</h3>
+        <p>Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+    </div>
+    <!-- Add more adverts as needed -->
 </body>
 </html>

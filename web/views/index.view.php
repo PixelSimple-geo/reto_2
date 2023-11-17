@@ -46,4 +46,4 @@
         <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/footer.php" ?>    
 
     </body>
-</html>
+</html> 

@@ -10,16 +10,12 @@
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/navBar.php"; ?>
 
     <?php
-    $baseURL = "/categories.view.php?categoria=";
+    $baseURL = "/categories.view.php?categoryId=";
 
     echo '<div class="categorias">';
     if ($categories) {
-        $categoriesCount = count($categories);
-        $limit = min(8, $categoriesCount);
-
-        for ($i = 0; $i < $limit; $i++) {
-            $category = $categories[$i];
-            echo '<a href="' . $baseURL . urlencode($category['name']) . '" class="categoria">';
+        foreach ($categories as $category) {
+            echo '<a href="' . $baseURL . urlencode($category['categoryId']) . '" class="categoria">';
             echo '<h2>' . htmlspecialchars($category['name']) . '</h2>';
             echo '</a>';
         }

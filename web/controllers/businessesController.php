@@ -126,3 +126,22 @@ function getCategories() :void {
     }
     include_once $_SERVER['DOCUMENT_ROOT'] . "/views/comerces.view.php";
 }
+
+function getBusinessesByCategorie() :void {
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/models/businessesDB.php";
+    $errorMessage = null;
+    $businessesByCategorie = []; 
+
+    try {
+        if (isset($_GET['categoryId'])) {
+            $categoryId = $_GET['categoryId'];
+            $businessesByCategorie = getAllBusinessesByCategory($categoryId);
+        }
+    } catch (PDOException $exception) {
+        $errorMessage = "Hubo un error al intentar extraer tus negocios";
+    } catch (RuntimeException $exception) {
+        $errorMessage = "No se ha encontrado ninguna sesión";
+    }
+
+    include_once $_SERVER['DOCUMENT_ROOT'] . "/views/categories.view.php";
+}

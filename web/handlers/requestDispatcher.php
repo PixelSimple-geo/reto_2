@@ -95,6 +95,9 @@ if (matchURI("/login")) {
 }else if (matchURI("/comerces")){
     require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/businessesController.php";
     getCategories();
+}else if (matchURI("/categories")){
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/businessesController.php";
+    getBusinessesByCategorie();
 }
 
 

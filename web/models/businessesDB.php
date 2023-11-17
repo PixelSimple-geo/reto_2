@@ -210,3 +210,21 @@ function getAllBusinessCategories() :array {
         throw $exception;
     }
 }
+
+function getAllBusinessesByCategory($categoryId) {
+    try {
+        $sql = "SELECT b.business_id AS businessId, b.name, b.description 
+                FROM businesses b
+                INNER JOIN businesses_categories_mapping bcm ON b.business_id = bcm.business_id
+                WHERE bcm.category_id = :category_id";
+
+        $statement = getConnection()->prepare($sql);
+        $statement->bindValue("category_id", $categoryId, PDO::PARAM_INT);
+        $statement->execute();
+
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $exception) {
+        error_log("Database error: [$categoryId] " . $exception->getMessage());
+        throw $exception;
+    }
+}

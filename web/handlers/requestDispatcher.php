@@ -89,6 +89,9 @@ if (matchURI("/login")) {
 } else if (matchURI("/businesses/account/delete")) {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/businessesController.php";
     deleteAccountBusiness();
+}else if (matchURI("/articleClient")){
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/articlesController.php";
+    getArticles();
 }
 /*
 //TODO hay que hacer los controladores para estos

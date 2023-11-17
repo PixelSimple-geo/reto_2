@@ -44,7 +44,7 @@
         <!--Navegator-->
         <div class="navbar">
             <a href="/index">Inicio</a>
-            <a href="/views/news.view.php">Noticias</a>
+            <a href="/articleClient">Noticias</a>
             <a href="/views/history.view.php">Historia</a>
             <?php //TODO ?>
             <a href="#">Comercios</a>

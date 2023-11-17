@@ -2,17 +2,15 @@
 <html lang="en">
 
 <head>
-    <?php require "partials/head.php" ?>
+    <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/head.php" ?>
     <title>Noticias | Reto 2</title>
 </head>
 
 <body>
-    <?php require "partials/navBar.php"; ?>
+    <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/navBar.php"; ?>
 
     <div class="articles">
         <?php
-        $articles = getArticles($dbh);
-
         if ($articles) {
             foreach ($articles as $article) {
                 echo '<div class="article">';
@@ -27,7 +25,7 @@
         ?>
     </div>
 
-    <?php require "partials/footer.php" ?>
+    <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/footer.php" ?>
 
 </body>
 

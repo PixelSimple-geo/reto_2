@@ -15,13 +15,8 @@ $requestMethod = $_SERVER["REQUEST_METHOD"];
 $accountUrl = "/accounts";
 $indexUrl = "/index";
 $profileURI = "/profile";
-$businessesURI = "/account/businesses";
-$businessesAddURI = "/account/businesses/add";
-$businessesEditURI = "/account/businesses/edit";
 $_404_URI = "/error=404";
 $_400_URI = "/error=400";
-$crearNegocioUrl = "/crearNegocio";
-$editarNegocioUrl = "/editarNegocio";
 $articulosURL = "/articulos";
 $crearArticuloURL = "/crearArticulo";
 $editarArticuloUrl = "/editarArticulo";
@@ -68,8 +63,37 @@ if (matchURI("/login")) {
             deleteUserAccount();
             break;
     }
-} else if (matchURI("/businesses/account/get")) {
+} else if (matchURI("/businesses")) {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/businessesController.php";
+    if (matchURI("/businesses/account/get")) {
+        if ($requestMethod === "GET") getAccountBusinesses();
+    } else if (matchURI("/businesses/account/add")) {
+        if ($requestMethod === "GET") getAddBusinesses();
+        else if ($requestMethod === "POST") postBusiness();
+        die();
+    } else if (matchURI("/businesses/account/edit")) {
+        switch ($requestMethod) {
+            case "GET":
+                getEditBusiness();
+                break;
+            case "POST":
+                postEditBusiness();
+                break;
+        }
+    } else if (matchURI("/businesses/account/delete")) {
+        deleteAccountBusiness();
+    }
+} else if (matchURI("/adverts")) {
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/advertsController.php";
+    if (matchURI("/adverts/account/business/add")) {
+        if ($requestMethod === "GET") getAddAdvertBusinessAccount();
+        else if ($requestMethod === "POST") postAddAdvertBusinessAccount();
+    } else if (matchURI("/adverts/account/business/edit")) {
+      if ($requestMethod === "GET") getEditAdvertBusinessAccount();
+      else if ($requestMethod === "POST");
+    } else if (matchURI("/adverts/account/business")) {
+        if ($requestMethod === "GET") getAdvertBusinessAccount();
+    }
     if ($requestMethod === "GET") getAccountBusinesses();
 } else if (matchURI("/businesses/account/add")) {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/businessesController.php";
@@ -102,7 +126,6 @@ if (matchURI("/login")) {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/businessesController.php";
     businessClient();
 }
-
 
 
 /*

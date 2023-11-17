@@ -1,25 +1,51 @@
 <?php
-function getAdvert($advertId) {
+function getAdvert($advertId): array {
     try {
-        $sql = "SELECT advert_id AS advertId, business_id AS businessId, title, description, cover_img, active, creation_date, modified_date
-                FROM adverts 
-                WHERE advert_id = :advert_id";
+        $sql = "SELECT advert_id AS advertId, business_id AS businessId, title, description, cover_img AS coverImg, 
+       active, creation_date AS creationDate, modified_date AS modifiedDate 
+        FROM adverts 
+        WHERE advert_id = :advert_id";
         $statement = getConnection()->prepare($sql);
         $statement->bindValue("advert_id", $advertId, PDO::PARAM_INT);
+        $statement->execute();
         if ($statement->rowCount() === 0) throw new PDOException("No advert found");
-        return $statement->fetchAll()[0];
+        $advert = $statement->fetchAll()[0];
+
+        $sqlImages = "SELECT image_id AS imageId, advert_id AS advertId, url FROM images WHERE advert_id = :advert_id";
+        $statementImages = getConnection()->prepare($sqlImages);
+        $statementImages->bindValue("advert_id", $advertId, PDO::PARAM_INT);
+        $statementImages->execute();
+        if ($statementImages->rowCount() > 0)
+            $advert["images"] = $statementImages->fetchAll();
+
+        $sqlCharacteristics = "SELECT characteristic_id AS characteristicId, advert_id AS advertId, type, value 
+        FROM adverts_characteristics WHERE advert_id = :advert_id";
+        $statementCharacteristics = getConnection()->prepare($sqlCharacteristics);
+        $statementCharacteristics->bindValue("advert_id", $advertId, PDO::PARAM_INT);
+        $statementCharacteristics->execute();
+        if ($statementCharacteristics->rowCount() > 0)
+            $advert["characteristics"] = $statementCharacteristics->fetchAll();
+
+        $sqlCategories = "SELECT category_id AS categoryId, name FROM businesses_advert_categories WHERE category_id IN 
+                                            (SELECT category_id FROM advert_categories WHERE advert_id = :advert_id)";
+        $statementCategories = getConnection()->prepare($sqlCategories);
+        $statementCategories->bindValue("advert_id", $advertId, PDO::PARAM_INT);
+        $statementCategories->execute();
+        if ($statementCategories->rowCount() > 0)
+            $advert["categories"] = $statementCategories->fetchAll();
+        return $advert;
     } catch (PDOException $exception) {
         error_log("Database error: [$advertId] " . $exception->getMessage());
         throw $exception;
     }
 }
 
-function getAllAdverts() :array {
+function getAllAdverts(): array {
     try {
-        $sql = "SELECT advert_id AS advertId, business_id AS businessId, title, description, cover_img, active, creation_date, modified_date
-                FROM adverts";
-        $statement = getConnection()->prepare($sql);
-        $statement->execute();
+        $sql = "SELECT advert_id AS advertId, business_id AS businessId, title, description, cover_img AS coverImg, 
+       active, creation_date AS creationDate, modified_date AS modifiedDate 
+        FROM adverts";
+        $statement = getConnection()->query($sql);
         return $statement->fetchAll();
     } catch (PDOException $exception) {
         error_log("Database error:" . $exception->getMessage());
@@ -27,10 +53,11 @@ function getAllAdverts() :array {
     }
 }
 
-function getAdvertByBusinessId($businessId) :array {
+function getAdvertsByBusinessId($businessId): array {
     try {
-        $sql = "SELECT advert_id AS advertId, business_id AS businessId, title, description, cover_img, active, creation_date, modified_date
-                FROM adverts 
+        $sql = "SELECT advert_id AS advertId, business_id AS businessId, title, description, cover_img AS coverImg, 
+       active, creation_date AS creationDate, modified_date AS modifiedDate 
+                FROM adverts
                 WHERE business_id = :business_id";
         $statement = getConnection()->prepare($sql);
         $statement->bindValue("business_id", $businessId, PDO::PARAM_INT);
@@ -42,19 +69,21 @@ function getAdvertByBusinessId($businessId) :array {
     }
 }
 
-function persistAdvert($businessId, $title, $description, $coverImg, $active, $characteristics, $categories, $images) :void {
+function persistAdvert($businessId, $title, $description, $coverImg, $active, $categoryId,
+                       array $characteristics, array $images): void {
     try {
         $sql = "INSERT INTO adverts(advert_id, business_id, title, description, cover_img, active, creation_date) 
                 VALUES (DEFAULT, :business_id, :title, :description, :cover_img, :active, CURRENT_TIMESTAMP)";
-
         $connection = getConnection();
         $connection->beginTransaction();
 
         $statement = $connection->prepare($sql);
         $statement->bindValue("business_id", $businessId, PDO::PARAM_INT);
-        $statement->bindValue("title", $title, PDO::PARAM_STR);
-        $statement->bindValue("description", $description, PDO::PARAM_STR);
-        $statement->bindValue("cover_img", $coverImg, PDO::PARAM_STR);
+        $statement->bindValue("title", $title);
+        $statement->bindValue("description", $description);
+        if (isset($coverImg))
+            $statement->bindValue("cover_img", $coverImg);
+        else $statement->bindValue("cover_img", null);
         $statement->bindValue("active", $active, PDO::PARAM_INT);
         $statement->execute();
         if ($statement->rowCount() === 0) throw new PDOException("Could not persist advert");
@@ -67,30 +96,26 @@ function persistAdvert($businessId, $title, $description, $coverImg, $active, $c
             $statementCharacteristics = $connection->prepare($sqlCharacteristics);
             foreach ($characteristics as $characteristic) {
                 $statementCharacteristics->bindValue("advert_id", $advertPrimaryKey, PDO::PARAM_INT);
-                $statementCharacteristics->bindValue("type", $characteristic["type"], PDO::PARAM_STR);
-                $statementCharacteristics->bindValue("value", $characteristic["value"], PDO::PARAM_STR);
+                $statementCharacteristics->bindValue("type", $characteristic["type"]);
+                $statementCharacteristics->bindValue("value", $characteristic["value"]);
                 $statementCharacteristics->execute();
             }
         }
 
-        if (!empty($categories)) {
-            $sqlCategories = "INSERT INTO advert_categories(advert_id, category_id) 
-                              VALUES(:advert_id, :category_id)";
+        if (isset($categoryId)) {
+            $sqlCategories = "INSERT INTO advert_categories(advert_id, category_id) VALUES(:advert_id, :category_id)";
             $statementCategories = $connection->prepare($sqlCategories);
-            foreach ($categories as $categoryId) {
-                $statementCategories->bindValue("advert_id", $advertPrimaryKey, PDO::PARAM_INT);
-                $statementCategories->bindValue("category_id", $categoryId, PDO::PARAM_INT);
-                $statementCategories->execute();
-            }
+            $statementCategories->bindValue("advert_id", $advertPrimaryKey, PDO::PARAM_INT);
+            $statementCategories->bindValue("category_id", $categoryId, PDO::PARAM_INT);
+            $statementCategories->execute();
         }
 
         if (!empty($images)) {
-            $sqlImages = "INSERT INTO images(advert_id, url) 
-                          VALUES(:advert_id, :url)";
+            $sqlImages = "INSERT INTO images(advert_id, url) VALUES(:advert_id, :url)";
             $statementImages = $connection->prepare($sqlImages);
-            foreach ($images as $image) {
+            foreach ($images as $index => $image) {
                 $statementImages->bindValue("advert_id", $advertPrimaryKey, PDO::PARAM_INT);
-                $statementImages->bindValue("url", $image["url"], PDO::PARAM_STR);
+                $statementImages->bindValue("url", $image);
                 $statementImages->execute();
             }
         }

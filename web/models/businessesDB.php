@@ -228,3 +228,18 @@ function getAllBusinessesByCategory($categoryId) {
         throw $exception;
     }
 }
+
+
+function getAllBusinessAdvertCategories($businessId): array {
+    try {
+        $sql = "SELECT category_id AS categoryId, name FROM businesses_advert_categories 
+                                       WHERE business_id = :business_id";
+        $statement = getConnection()->prepare($sql);
+        $statement->bindValue("business_id", $businessId, PDO::PARAM_INT);
+        $statement->execute();
+        return $statement->fetchAll();
+    } catch (PDOException $exception) {
+        error_log("Database error: " . $exception->getMessage());
+        throw $exception;
+    }
+}

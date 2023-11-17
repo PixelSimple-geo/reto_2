@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <?php require "partials/head.php" ?>
+    <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/head.php" ?>
     <title>Crear Articulo</title>
 </head>
 <body>
-    <?php require "partials/navBar.php"; ?>
+    <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/navBar.php"; ?>
 
     <div class="formulario">
         <a href="/articles">Volver a mis Articulos</a>
@@ -32,6 +32,6 @@
         </form>
     </div>
 
-    <?php require "partials/footer.php" ?>
+    <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/footer.php" ?>
 </body>
 </html>

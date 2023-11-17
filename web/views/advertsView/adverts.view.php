@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <?php require "partials/head.php" ?>
+    <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/head.php" ?>
     <title>Ver Anuncios</title>
 </head>
 <body>
-    <?php require "partials/navBar.php"; ?>
+    <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/navBar.php"; ?>
 
     <main>
         <div class="contentsContainer">
@@ -53,6 +53,6 @@
 
     </main>
 
-    <?php require "partials/footer.php" ?>
+    <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/footer.php" ?>
 </body>
 </html>

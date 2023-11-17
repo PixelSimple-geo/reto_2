@@ -4,43 +4,23 @@ function agregarDireccion() {
     let direccionInput = document.createElement('input');
     direccionInput.type = 'text';
     direccionInput.placeholder = 'Dirección';
+    direccionInput.name = 'addresses[]';
 
     let codigoInput = document.createElement('input');
     codigoInput.type = 'number';
-    codigoInput.name = 'codigoPostal';
+    codigoInput.name = 'postal_codes[]';
     codigoInput.required = true;
-    codigoInput.maxLength = '5';
+    codigoInput.max = '99999';
 
-    let nuevoFieldset = document.createElement('fieldset');
-
-    let guardarDireccion = document.createElement('button');
-    guardarDireccion.textContent = 'Guardar';
-
-    guardarDireccion.addEventListener('click', function () {
-        let direccion = direccionInput.value;
-        let codigo = codigoInput.value;
-
-        let direccionTexto = document.createElement('p');
-        direccionTexto.innerHTML = 'Dirección: ' + direccion + '<br>Código: ' + codigo;
-
-        let eliminarButton = document.createElement('button');
-        eliminarButton.textContent = 'Eliminar';
-        eliminarButton.addEventListener('click', function () {
-            nuevoFieldset.remove();
-        });
-
-        nuevoFieldset.appendChild(direccionTexto);
-        nuevoFieldset.appendChild(eliminarButton);
-
-        nuevaDireccion.innerHTML = '';
-        nuevaDireccion.appendChild(nuevoFieldset);
+    let eliminarButton = document.createElement('button');
+    eliminarButton.textContent = 'Eliminar';
+    eliminarButton.addEventListener('click', function () {
+        nuevaDireccion.remove();
     });
 
     nuevaDireccion.appendChild(direccionInput);
     nuevaDireccion.appendChild(codigoInput);
-    nuevaDireccion.appendChild(guardarDireccion);
+    nuevaDireccion.appendChild(eliminarButton);
 
-    nuevoFieldset.appendChild(nuevaDireccion);
-
-    document.getElementById('addressesContainer').appendChild(nuevoFieldset);
+    document.getElementById('addressesContainer').appendChild(nuevaDireccion);
 }

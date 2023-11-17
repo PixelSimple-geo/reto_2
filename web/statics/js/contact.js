@@ -4,39 +4,22 @@ function agregarContacto() {
   let tipoInput = document.createElement('input');
   tipoInput.type = 'text';
   tipoInput.placeholder = 'Tipo de contacto';
+  tipoInput.name = 'contact_type[]';
 
   let direccionInput = document.createElement('input');
   direccionInput.type = 'text';
   direccionInput.placeholder = 'Dirección de medio';
+  direccionInput.name = 'contact_value[]';
 
-  let fieldsetContacto = document.createElement('fieldset');
-
-  let guardarContacto = document.createElement('button');
-  guardarContacto.textContent = 'Guardar';
-
-  guardarContacto.addEventListener('click', function () {
-    let tipo = tipoInput.value;
-    let direccion = direccionInput.value;
-
-    let contactoTexto = document.createElement('p');
-    contactoTexto.innerHTML = 'Tipo: ' + tipo + '<br>Dirección de medio: ' + direccion;
-
-    let eliminarButton = document.createElement('button');
-    eliminarButton.textContent = 'Eliminar';
-    eliminarButton.addEventListener('click', function () {
-      fieldsetContacto.remove();
-    });
-
-    fieldsetContacto.appendChild(contactoTexto);
-    fieldsetContacto.appendChild(eliminarButton);
-
-    nuevoContacto.innerHTML = '';
-    nuevoContacto.appendChild(fieldsetContacto);
+  let eliminarButton = document.createElement('button');
+  eliminarButton.textContent = 'Eliminar';
+  eliminarButton.addEventListener('click', function () {
+    nuevoContacto.remove();
   });
 
   nuevoContacto.appendChild(tipoInput);
   nuevoContacto.appendChild(direccionInput);
-  nuevoContacto.appendChild(guardarContacto);
+  nuevoContacto.appendChild(eliminarButton);
 
   document.getElementById('contactsContainer').appendChild(nuevoContacto);
 }

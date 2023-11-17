@@ -24,7 +24,7 @@ function getAddBusinesses() :void {
 function postBusiness() :void {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/models/businessesDB.php";
     if (empty($_POST["name"]) || empty($_POST["description"]) || empty($_POST["business_category"])) {
-        include_once $_SERVER['DOCUMENT_ROOT'] . "/views/error_400.view.php";
+        include_once $_SERVER['DOCUMENT_ROOT'] . "/views/error_400.view.php"; 
         return;
     }
     try {
@@ -112,4 +112,39 @@ function processAddresses(array $addresses, array $postalCodes) :array {
         }
     }
     return $processedAddresses;
+}
+
+function getCategories() :void {
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/models/businessesDB.php";
+    $errorMessage = null;
+    $businesses = []; 
+
+    try {
+        $categories = getAllBusinessCategories();
+        $businesses = getAllBusinesses();
+    } catch (PDOException $exception) {
+        $errorMessage = "Hubo un error al intentar extraer tus categorias";
+    } catch (RuntimeException $exception) {
+        $errorMessage = "No se ha encontrado ninguna sesión";
+    }
+    include_once $_SERVER['DOCUMENT_ROOT'] . "/views/comerces.view.php";
+}
+
+function getBusinessesByCategorie() :void {
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/models/businessesDB.php";
+    $errorMessage = null;
+    $businessesByCategorie = []; 
+
+    try {
+        if (isset($_GET['categoryId'])) {
+            $categoryId = $_GET['categoryId'];
+            $businessesByCategorie = getAllBusinessesByCategory($categoryId);
+        }
+    } catch (PDOException $exception) {
+        $errorMessage = "Hubo un error al intentar extraer tus negocios";
+    } catch (RuntimeException $exception) {
+        $errorMessage = "No se ha encontrado ninguna sesión";
+    }
+
+    include_once $_SERVER['DOCUMENT_ROOT'] . "/views/categories.view.php";
 }

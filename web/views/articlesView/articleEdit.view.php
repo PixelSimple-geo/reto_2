@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <?php require "partials/head.php" ?>
+    <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/head.php" ?>
     <title>Editar Articulo</title>
 </head>
 <body>
-    <?php require "partials/navBar.php"; ?>
+    <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/navBar.php"; ?>
 
     <main class="formulario">
 
@@ -51,6 +51,6 @@
         ?>  
     </main>
 
-    <?php require "partials/footer.php" ?>
+    <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/footer.php" ?>
 </body>
 </html>

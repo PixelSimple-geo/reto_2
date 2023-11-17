@@ -17,7 +17,7 @@
             <a href="/account/businesses">Volver a mis negocios</a>
             <h2>Crear Nuevo Negocio</h2>
 
-            <form action="/account/businesses/add" method="POST">
+            <form action="/businesses/account/add" method="POST">
                 <label for="nombre">Nombre del Negocio:</label>
                 <input type="text" id="nombre" name="name" required>
 

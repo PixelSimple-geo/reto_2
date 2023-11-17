@@ -10,7 +10,7 @@ function agregarDireccion() {
     codigoInput.type = 'number';
     codigoInput.name = 'postal_codes[]';
     codigoInput.required = true;
-    codigoInput.maxLength = '5';
+    codigoInput.max = '99999';
 
     let eliminarButton = document.createElement('button');
     eliminarButton.textContent = 'Eliminar';

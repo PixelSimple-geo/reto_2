@@ -24,7 +24,7 @@ function getAddBusinesses() :void {
 function postBusiness() :void {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/models/businessesDB.php";
     if (empty($_POST["name"]) || empty($_POST["description"]) || empty($_POST["business_category"])) {
-        include_once $_SERVER['DOCUMENT_ROOT'] . "/views/error_400.view.php";
+        include_once $_SERVER['DOCUMENT_ROOT'] . "/views/error_400.view.php"; 
         return;
     }
     try {

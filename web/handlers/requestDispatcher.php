@@ -88,7 +88,7 @@ if (matchURI("/login")) {
         if ($requestMethod === "GET") getAddAdvertBusinessAccount();
         else if ($requestMethod === "POST") postAddAdvertBusinessAccount();
     } else if (matchURI("/adverts/account/business/edit")) {
-      if ($requestMethod === "GET") ;
+      if ($requestMethod === "GET") getEditAdvertBusinessAccount();
       else if ($requestMethod === "POST");
     } else if (matchURI("/adverts/account/business")) {
         if ($requestMethod === "GET") getAdvertBusinessAccount();

@@ -7,8 +7,33 @@ function getAdvert($advertId): array {
         WHERE advert_id = :advert_id";
         $statement = getConnection()->prepare($sql);
         $statement->bindValue("advert_id", $advertId, PDO::PARAM_INT);
+        $statement->execute();
         if ($statement->rowCount() === 0) throw new PDOException("No advert found");
-        return $statement->fetchAll()[0];
+        $advert = $statement->fetchAll()[0];
+
+        $sqlImages = "SELECT image_id AS imageId, advert_id AS advertId, url FROM images WHERE advert_id = :advert_id";
+        $statementImages = getConnection()->prepare($sqlImages);
+        $statementImages->bindValue("advert_id", $advertId, PDO::PARAM_INT);
+        $statementImages->execute();
+        if ($statementImages->rowCount() > 0)
+            $advert["images"] = $statementImages->fetchAll();
+
+        $sqlCharacteristics = "SELECT characteristic_id AS characteristicId, advert_id AS advertId, type, value 
+        FROM adverts_characteristics WHERE advert_id = :advert_id";
+        $statementCharacteristics = getConnection()->prepare($sqlCharacteristics);
+        $statementCharacteristics->bindValue("advert_id", $advertId, PDO::PARAM_INT);
+        $statementCharacteristics->execute();
+        if ($statementCharacteristics->rowCount() > 0)
+            $advert["characteristics"] = $statementCharacteristics->fetchAll();
+
+        $sqlCategories = "SELECT category_id AS categoryId, name FROM businesses_advert_categories WHERE category_id IN 
+                                            (SELECT category_id FROM advert_categories WHERE advert_id = :advert_id)";
+        $statementCategories = getConnection()->prepare($sqlCategories);
+        $statementCategories->bindValue("advert_id", $advertId, PDO::PARAM_INT);
+        $statementCategories->execute();
+        if ($statementCategories->rowCount() > 0)
+            $advert["categories"] = $statementCategories->fetchAll();
+        return $advert;
     } catch (PDOException $exception) {
         error_log("Database error: [$advertId] " . $exception->getMessage());
         throw $exception;

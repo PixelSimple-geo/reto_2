@@ -31,7 +31,7 @@
                             echo "<img src='$advert[coverImg]' alt='Portada del anuncio'>";
                             echo "<h2>$advert[title]</h2>";
                             echo "<p>$advert[description]</p>";
-                            echo "<a href='/adverts/account/business/edit=advert_id=$advert[advertId]'>Edit anuncio</a>";
+                            echo "<a href='/adverts/account/business/edit?advert_id=$advert[advertId]'>Edit anuncio</a>";
                             echo '</div>';
                         }
                 }

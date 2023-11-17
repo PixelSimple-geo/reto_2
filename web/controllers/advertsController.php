@@ -31,17 +31,13 @@ function postAddAdvertBusinessAccount(): void {
     $businessId = $_POST["business_id"];
     $title = $_POST["title"];
     $description = $_POST["description"];
+    $imagesURI = (saveImages());
     $coverURI = null;
-    $imagesURI = [];
     $categoryId = null;
     $characteristic = [];
 
     if ($_FILES["cover_img"]["error"] === UPLOAD_ERR_OK) {
         $coverURI = saveImage();
-    }
-
-    if ($_FILES["images"]["error"] === UPLOAD_ERR_OK) {
-        $imagesURI = (saveImages());
     }
 
     if (isset($_POST["characteristic_type"]) && isset($_POST["characteristic_value"])
@@ -61,9 +57,14 @@ function postAddAdvertBusinessAccount(): void {
 }
 
 function getEditAdvertBusinessAccount(): void {
-    if ($_GET["advertId"]) {
-
+    if (empty($_GET["advert_id"])) {
+        include_once $_SERVER['DOCUMENT_ROOT'] . "/views/error_400.view.php";
+        return;
     }
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/models/advertsDB.php";
+    $advert = getAdvert($_GET["advert_id"]);
+    print_r($advert);
+    include_once $_SERVER['DOCUMENT_ROOT'] . "/views/advertsViews/advertsEdit.view.php";
 }
 
 function saveImage(): string {

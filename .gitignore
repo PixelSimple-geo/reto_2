@@ -2,3 +2,4 @@
 /db/visual_paradigm/.*
 .idea
 .idea/*
+/web/statics/uploads/*

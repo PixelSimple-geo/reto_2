@@ -113,3 +113,16 @@ function processAddresses(array $addresses, array $postalCodes) :array {
     }
     return $processedAddresses;
 }
+
+function getCategories() :void {
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/models/businessesDB.php";
+    $errorMessage = null;
+    try {
+        $categories = getAllBusinessCategories();
+    } catch (PDOException $exception) {
+        $errorMessage = "Hubo un error al intentar extraer tus categorias";
+    } catch (RuntimeException $exception) {
+        $errorMessage = "No se ha encontrado ninguna sesión";
+    }
+    include_once $_SERVER['DOCUMENT_ROOT'] . "/views/comerces.view.php";
+}

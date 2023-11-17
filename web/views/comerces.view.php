@@ -1,39 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <?php require "partials/head.php" ?>
-        <title>Comercios | Reto 2</title>
-    </head>
-    
-    <body>
-        <?php require "partials/navBar.php"; ?>
-    
-        <div class="categorias">
-            <?php
-            $categories = getBusinessCaregories($dbh);
-            if ($categories) {
-                $categoriesCount = count($categories); 
-                $limit = min(8, $categoriesCount); 
+<head>
+    <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/head.php" ?>
+    <title>Comercios | Reto 2</title>
+</head>
 
-                for ($i = 0; $i < $limit; $i++) {
-                    $category = $categories[$i];
-                    echo '<div class="categoria">';
-                    //echo '<img class="product-image" src="' . htmlspecialchars($advert['cover_img']) . '" alt="' . htmlspecialchars($advert['title']) . '">';
-                    echo '<h2>' . htmlspecialchars($category['name']) . '</h2>';
-                    echo '</div>';
-                }
+<body>
+    <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/navBar.php"; ?>
 
-            } else {
-                echo '<p>No se encontraron categorías de negocios.</p>';
-            }
-            ?>
-            <p>16</p>
-            <p>12</p>
-        </div>
+    <?php
+    $baseURL = "/categories.view.php?categoria=";
 
+    echo '<div class="categorias">';
+    if ($categories) {
+        $categoriesCount = count($categories);
+        $limit = min(8, $categoriesCount);
 
-    <?php require "partials/footer.php" ?>    
+        for ($i = 0; $i < $limit; $i++) {
+            $category = $categories[$i];
+            echo '<a href="' . $baseURL . urlencode($category['name']) . '" class="categoria">';
+            echo '<h2>' . htmlspecialchars($category['name']) . '</h2>';
+            echo '</a>';
+        }
+    } else {
+        echo '<p>No se encontraron categorías de negocios.</p>';
+    }
+    echo '<p>16</p>';
+    echo '<p>12</p>';
+    echo '</div>';
+    ?>
 
-    </body>
+    <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/footer.php" ?>
+
+</body>
+
 </html>

@@ -47,6 +47,6 @@
             <a href="/articleClient">Noticias</a>
             <a href="/views/history.view.php">Historia</a>
             <?php //TODO ?>
-            <a href="#">Comercios</a>
+            <a href="/comerces">Comercios</a>
             <a href="/views/contact.view.php">Contacto</a>
         </div>

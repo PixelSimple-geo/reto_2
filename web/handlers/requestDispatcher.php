@@ -92,7 +92,12 @@ if (matchURI("/login")) {
 }else if (matchURI("/articleClient")){
     require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/articlesController.php";
     getArticles();
+}else if (matchURI("/comerces")){
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/businessesController.php";
+    getCategories();
 }
+
+
 /*
 //TODO hay que hacer los controladores para estos
 else if (stristr($path, $crearNegocioUrl)){

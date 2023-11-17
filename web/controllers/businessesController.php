@@ -117,8 +117,11 @@ function processAddresses(array $addresses, array $postalCodes) :array {
 function getCategories() :void {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/models/businessesDB.php";
     $errorMessage = null;
+    $businesses = []; 
+
     try {
         $categories = getAllBusinessCategories();
+        $businesses = getAllBusinesses();
     } catch (PDOException $exception) {
         $errorMessage = "Hubo un error al intentar extraer tus categorias";
     } catch (RuntimeException $exception) {

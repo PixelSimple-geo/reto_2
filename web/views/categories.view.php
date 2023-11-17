@@ -16,7 +16,7 @@
             <?php
             if ($businessesByCategorie) {
                 foreach ($businessesByCategorie as $business) {
-                    echo '<div class="business">';
+                    echo '<div">';
                     echo '<h3>' . htmlspecialchars($business['name']) . '</h3>';
                     echo '<p>' . htmlspecialchars($business['description']) . '</p>';
                     echo ' <a href="#">Ver Negocio</a>';

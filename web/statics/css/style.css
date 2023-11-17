@@ -98,7 +98,7 @@ html {
 
 .navbar a:hover {
     background-color: var(--color-hover);
-    color: black;
+    color: var(--color-secundario);
 }
 
 
@@ -259,6 +259,12 @@ html {
 
 }
 
+/* Business */
+.business{
+    color: black;
+}
+
+
 /* Contacto*/
 .contacto {
     width: 50%;
@@ -325,7 +331,7 @@ fieldset{
 .contentsContainer {
     width: 50%;
     margin: 0 auto;
-    text-align: center  ;
+    text-align: center;
 }
 
 .contents {
@@ -346,6 +352,7 @@ fieldset{
     border: 1px solid #ddd;
     border-radius: 5px;
     background-color: #fff;
+    transition: background-color 0.3s, color 0.3s
 }
 
 .contents a {
@@ -353,6 +360,11 @@ fieldset{
     margin-bottom: 10px;
     color: #3498db;
     text-decoration: none;
+}
+
+.contents a:hover div {
+    background-color: var(--color-hover);
+    color: var(--color-secundario);
 }
 
 .contents a.eliminar {

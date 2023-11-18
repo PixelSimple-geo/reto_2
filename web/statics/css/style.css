@@ -86,7 +86,7 @@ html {
     display: flex;
     justify-content: space-evenly;
     background-color: var(--color-primario);
-    overflow: hidden;
+    overflow-x: auto;
     margin: 1rem;
     margin-top: 0;
 }
@@ -99,13 +99,13 @@ html {
     padding: 14px 16px;
     text-decoration: none;
     width: 100%;
+    transition: background-color 0.3s ease;
 }
 
 .navbar a:hover {
     background-color: var(--color-hover);
     color: var(--color-secundario);
 }
-
 
 /* Principal */
 .principal {
@@ -153,31 +153,6 @@ html {
 
 .article p:last-child{
     text-align: right;
-}
-
-/* Categorías */
-.categorias {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    align-items: center;
-    background-color: #f0f0f0;
-    padding: 10px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.categoria {
-    text-decoration: none;
-    color: #333;
-    font-weight: bold;
-    padding: 10px;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-    margin: 5px; /* Añadido para separación entre categorías */
-}
-
-.categoria:hover {
-    background-color: #ddd;
 }
 
 /* Map */

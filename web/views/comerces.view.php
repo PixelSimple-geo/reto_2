@@ -10,12 +10,12 @@
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/navBar.php"; ?>
 
     <div>
-        <div class="categorias">
+        <div class="navbar">
             <?php
             $baseURL = "/categories.view.php?categoryId=";
             if ($categories) {
                 foreach ($categories as $category) {
-                    echo '<a href="' . $baseURL . urlencode($category['categoryId']) . '" class="categoria">';
+                    echo '<a href="' . $baseURL . urlencode($category['categoryId']) . '">';
                     echo '<h2>' . htmlspecialchars($category['name']) . '</h2>';
                     echo '</a>';
                 }

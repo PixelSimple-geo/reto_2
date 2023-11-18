@@ -18,13 +18,11 @@
         <div class="contents">
             <?php
             foreach ($advertsByBusiness as $advert) {
-                echo '<a href="#">';
                 echo '<div>';
-                //echo '<img src="' . htmlspecialchars($advert['cover_img']) . '" alt="' . htmlspecialchars($advert['title']) . '">';
+                echo "<img src='$advert[coverImg]' alt='Portada del anuncio'>";
                 echo '<h3>' . $advert['title'] . '</h3>';
                 echo '<p>Description: ' . $advert['description'] . '</p>';
                 echo '</div>';
-                echo '</a>';
             }
             ?>
         </div>

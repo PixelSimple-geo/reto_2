@@ -12,7 +12,8 @@
             if (isset($business))
                 echo "<a href='/adverts/account/business/add?business_id=$business[businessId]'>+ Crear Nuevo Anuncio</a>";
             ?>
-
+            <br>
+            <br>
             <a href="/businesses/account/get">Volver a Mis Negocios</a>
             <?php
             if (isset($business)) {

@@ -15,25 +15,24 @@
                 <div class="principal">
                     <div id="map"></div>
                     <div class="productos">
-                    <?php
-                        if ($adverts) {
-                            $advertsCount = count($adverts); 
-                            $limit = min(8, $advertsCount); 
+                        <?php
+                            if ($adverts) {
+                                $advertsCount = count($adverts); 
+                                $limit = min(8, $advertsCount); 
 
-                            for ($i = 0; $i < $limit; $i++) {
-                                $advert = $adverts[$i];
-                                echo '<div class="producto">';
-                                echo "<img src='$advert[coverImg]' alt='Portada del anuncio'>";
-                                echo '<div class="descripcion">';
-                                echo '<h2>' . htmlspecialchars($advert['title']) . '</h2>';
-                                echo '<p>' . htmlspecialchars($advert['description']) . '</p>';
-                                echo '</div>';
-                                echo '</div>';
-                            }   
-
-                        } else {
-                            echo '<p>No se encontraron anuncios.</p>';
-                        }
+                                for ($i = 0; $i < $limit; $i++) {
+                                    $advert = $adverts[$i];
+                                    echo '<div class="producto">';
+                                    echo "<img src='$advert[coverImg]' alt='Portada del anuncio'>";
+                                    echo '<div class="descripcion">';
+                                    echo '<h2>' . htmlspecialchars($advert['title']) . '</h2>';
+                                    echo '<p>' . htmlspecialchars($advert['description']) . '</p>';
+                                    echo '</div>';
+                                    echo '</div>';
+                                }
+                            } else {
+                                echo '<p>No se encontraron anuncios.</p>';
+                            }
                         ?>
                     </div>
                 </div>

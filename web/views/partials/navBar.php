@@ -6,15 +6,6 @@
                 <input type="text" name="search" placeholder="¿Que deseas buscar?">
                 <button type="submit"><img src="/statics/media/search.svg" alt="search"></button>
             </form>
-            <!--Noc/Diu-->
-            <div class="nocdiu">
-                <div id="idSun" class="mode diu">
-                    <img src="/statics/media/sun.svg" alt="sun">
-                </div>
-                <div id="idMoon" class="mode noc">
-                    <img src="/statics/media/moon.svg" alt="moon">
-                </div>
-            </div>
             <!--Sesion-->
             <?php
                 if (!isset($userAccount)) {
@@ -37,8 +28,6 @@
                     echo '</div>';
                 }
             ?>
-
-
 
         </div>
         <!--Navegator-->

@@ -33,6 +33,9 @@
                 <label for="email">Email:</label>
                 <input type="email" id="email" name="email" required>
 
+                <label for="asunto">Asunto:</label>
+                <input id="asunto" name="asunto" required></input>
+
                 <label for="mensaje">Mensaje:</label>
                 <textarea id="mensaje" name="mensaje" rows="4" required></textarea>
 

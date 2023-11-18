@@ -15,7 +15,7 @@
                 <div class="principal">
                     <div id="map"></div>
                     <div class="productos">
-                        <?php
+                    <?php
                         if ($adverts) {
                             $advertsCount = count($adverts); 
                             $limit = min(8, $advertsCount); 
@@ -23,7 +23,7 @@
                             for ($i = 0; $i < $limit; $i++) {
                                 $advert = $adverts[$i];
                                 echo '<div class="producto">';
-                                echo '<img src="' . htmlspecialchars($advert['cover_img']) . '" alt="' . htmlspecialchars($advert['title']) . '">';
+                                //echo '<img src="' . htmlspecialchars($advert['cover_img']) . '" alt="' . htmlspecialchars($advert['title']) . '">';
                                 echo '<div class="descripcion">';
                                 echo '<h2>' . htmlspecialchars($advert['title']) . '</h2>';
                                 echo '<p>' . htmlspecialchars($advert['description']) . '</p>';

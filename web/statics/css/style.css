@@ -34,7 +34,7 @@ html {
     outline: none;
     padding: 0.1rem 1rem;
     font-size: 1rem;
-    color: var(--color-secundario);
+    color: var(--color-hover);
     font-size: 2rem;
 }
 
@@ -46,6 +46,11 @@ html {
     cursor: pointer; 
     background-color: var(--color-secundario);   
 }
+
+::-webkit-input-placeholder{
+    color: var(--color-hover);
+}
+
 
 .nocdiu {
     display: flex;

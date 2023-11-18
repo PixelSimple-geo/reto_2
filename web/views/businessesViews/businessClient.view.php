@@ -6,24 +6,30 @@
 </head>
 <body>
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/navBar.php"; ?>
-    <a href="/comerces">Volver a los comercios</a>
+    
+    <div class="contentsContainer">
+        <a href="/comerces">Volver a los comercios</a>
 
-    <h1><?php echo $businessesClient['name']; ?></h1>
+        <h1><?php echo $businessesClient['name']; ?></h1>
 
-    <h2>Business Information</h2>
-    <p>Description: <?php echo $businessesClient['description']; ?></p>
+        <p>Description: <?php echo $businessesClient['description']; ?></p>
+        <h2>Adverts:</h2>
 
-    <h2>Adverts</h2>
-    <!-- TODO
-    <?php
-    foreach ($businessAdverts as $advert) {
-        echo '<div>';
-        echo '<h3>' . $advert['title'] . '</h3>';
-        echo '<p>Description: ' . $advert['description'] . '</p>';
-        echo '</div>';
-    }
-    ?>
-    -->
+        <div class="contents">
+            <?php
+            foreach ($advertsByBusiness as $advert) {
+                echo '<a href="#">';
+                echo '<div>';
+                //echo '<img src="' . htmlspecialchars($advert['cover_img']) . '" alt="' . htmlspecialchars($advert['title']) . '">';
+                echo '<h3>' . $advert['title'] . '</h3>';
+                echo '<p>Description: ' . $advert['description'] . '</p>';
+                echo '</div>';
+                echo '</a>';
+            }
+            ?>
+        </div>
+    </div>
+    
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/footer.php" ?>
 
 </body>

@@ -151,13 +151,17 @@ function getBusinessesByCategorie() :void {
 
 function businessClient(){
     require_once $_SERVER['DOCUMENT_ROOT'] . "/models/businessesDB.php";
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/models/advertsDB.php";
+
     $errorMessage = null;
     $businessesClient = []; 
+    $advertsByBusiness = [];
 
     try {
         if (isset($_GET['businessId'])) {
             $businessId = $_GET['businessId'];
             $businessesClient = getBusiness($businessId);
+            $advertsByBusiness = getAdvertsByBusinessId($businessId);
         }
     } catch (PDOException $exception) {
         $errorMessage = "Hubo un error al intentar extraer tus categorias";
@@ -165,4 +169,4 @@ function businessClient(){
         $errorMessage = "No se ha encontrado ninguna sesión";
     }
     include_once $_SERVER['DOCUMENT_ROOT'] . "/views/businessesViews/businessClient.view.php";
-}
+} 

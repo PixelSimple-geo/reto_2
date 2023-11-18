@@ -127,7 +127,7 @@ if (matchURI("/login")) {
     businessClient();
 }
 
-
+ 
 /*
 //TODO hay que hacer los controladores para estos
 else if (stristr($path, $crearNegocioUrl)){

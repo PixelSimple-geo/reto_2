@@ -7,11 +7,11 @@
 <body>
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/navBar.php"; ?>
 
-    <div class="formulario">
-        <a href=#>Volver a mis Anuncios</a>
+    <main>
+        <a href="/businesses/crud/business?business_id=<?=$businessId?>">Volver a mis Anuncios</a>
         <h2>Crear Nuevo Anuncio</h2>
 
-        <form action="/adverts/account/business/add" method="POST" enctype="multipart/form-data">
+        <form method="POST" enctype="multipart/form-data">
             <?php
             if (isset($businessId))
                 echo "<input name='business_id' value='$businessId'>";
@@ -23,20 +23,18 @@
             <label for="descripcion">Descripción del Anuncio:</label>
             <textarea id="descripcion" name="description" rows="4" required></textarea>
 
-            <?php
-            if (isset($categories)) {
-                echo "<fieldset>";
-                echo "<legend>Categoría</legend>";
-                echo "<label for='category'>Categoría</label>";
-                echo "<select id='category' name='advert_category'>";
-                echo "<option value='' disabled hidden selected>Sin categoria</option>";
-                foreach ($categories as $category) {
-                    echo "<option value='$category[categoryId]'>$category[name]</option>";
-                }
-                echo "</select>";
-                echo "</fieldset>";
-            }
-            ?>
+            <?php if (isset($categories)) : ?>
+                <fieldset>
+                    <legend>Categoría</legend>
+                    <label for='category'>Categoría</label>
+                    <select id='category' name='advert_category'>
+                        <option value='' disabled hidden selected>Sin categoría</option>
+                        <?php foreach ($categories as $category) : ?>
+                            <option value='<?= $category['categoryId'] ?>'><?= $category['name'] ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </fieldset>
+            <?php endif; ?>
 
             <fieldset>
                 <legend>Características</legend>
@@ -54,7 +52,7 @@
 
             <button type="submit">Crear Anuncio</button>
         </form>
-    </div>
+    </main>
 
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/footer.php" ?>
 </body>

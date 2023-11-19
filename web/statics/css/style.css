@@ -108,7 +108,6 @@ html {
     color: white;
     text-align: center;
     padding: 14px 16px;
-    text-decoration: none;
     width: 100%;
     transition: background-color 0.3s ease;
 }
@@ -382,7 +381,6 @@ fieldset{
     display: block;
     margin-bottom: 10px;
     color: #3498db;
-    text-decoration: none;
 }
 
 .contents a:hover div {

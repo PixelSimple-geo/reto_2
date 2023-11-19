@@ -31,8 +31,7 @@ function getAdvert($advertId): array {
         $statementCategories = getConnection()->prepare($sqlCategories);
         $statementCategories->bindValue("advert_id", $advertId, PDO::PARAM_INT);
         $statementCategories->execute();
-        if ($statementCategories->rowCount() > 0)
-            $advert["categories"] = $statementCategories->fetchAll();
+        $advert["categories"] = $statementCategories->fetchAll();
         return $advert;
     } catch (PDOException $exception) {
         error_log("Database error: [$advertId] " . $exception->getMessage());
@@ -122,22 +121,84 @@ function persistAdvert($businessId, $title, $description, $coverImg, $active, $c
 
         $connection->commit();
     } catch (PDOException $exception) {
-        echo $exception->getMessage();
         error_log("Database error: [$businessId, $title] " . $exception->getMessage());
         throw $exception;
     }
 }
 
-function deleteAdvert($businessId, $advertId) :void {
+function updateAdvert($advertId, $title, $description, $coverImg, $categoryId, array $characteristics,
+                      array $images, array $imagesToDelete) {
+    $sql = "UPDATE adverts SET title = :title, description = :description, cover_img = :cover_img, modified_date = NOW()
+               WHERE advert_id = :advert_id";
+
+    $connection = getConnection();
+    $statement = $connection->prepare($sql);
+    $statement->bindValue("title", $title);
+    $statement->bindValue("description", $description);
+    $statement->bindValue("cover_img", $coverImg);
+    $statement->bindValue("advert_id", $advertId);
+    $statement->execute();
+
+    $sqlDeleteCategory = "DELETE FROM advert_categories WHERE advert_id = :advert_id";
+    $statementCategoryDelete = $connection->prepare($sqlDeleteCategory);
+    $statementCategoryDelete->bindValue("advert_id", $advertId, PDO::PARAM_INT);
+    $statementCategoryDelete->execute();
+
+    if (!empty($categoryId)) {
+        $sqlCategories = "INSERT INTO advert_categories(advert_id, category_id) VALUES(:advert_id, :category_id)";
+        $statementCategories = $connection->prepare($sqlCategories);
+        $statementCategories->bindValue("advert_id", $advertId, PDO::PARAM_INT);
+        $statementCategories->bindValue("category_id", $categoryId, PDO::PARAM_INT);
+        $statementCategories->execute();
+    }
+
+    $sqlCharacteristicsDelete = "DELETE FROM adverts_characteristics WHERE advert_id = :advert_id";
+    $statementCharacteristicsDelete = $connection->prepare($sqlCharacteristicsDelete);
+    $statementCharacteristicsDelete->bindValue("advert_id", $advertId, PDO::PARAM_INT);
+    $statementCharacteristicsDelete->execute();
+
+    if (!empty($characteristics)) {
+        $sqlCharacteristics = "INSERT INTO adverts_characteristics(advert_id, type, value) 
+                                   VALUES(:advert_id, :type, :value)";
+        $statementCharacteristics = $connection->prepare($sqlCharacteristics);
+        foreach ($characteristics as $characteristic) {
+            $statementCharacteristics->bindValue("advert_id", $advertId, PDO::PARAM_INT);
+            $statementCharacteristics->bindValue("type", $characteristic["type"]);
+            $statementCharacteristics->bindValue("value", $characteristic["value"]);
+            $statementCharacteristics->execute();
+        }
+    }
+
+    if (!empty($imagesToDelete)) {
+        $placeholders = implode(',', array_fill(0, count($imagesToDelete), '?'));
+        $sqlDeleteImages = "DELETE FROM images WHERE image_id IN ({$placeholders})";
+        $statementDeleteImages = $connection->prepare($sqlDeleteImages);
+        foreach ($imagesToDelete as $index => $value)
+            $statementDeleteImages->bindValue(($index + 1), $value);
+        $statementDeleteImages->execute();
+    }
+
+    if (!empty($images)) {
+        $sqlImages = "INSERT INTO images(advert_id, url) VALUES(:advert_id, :url)";
+        $statementImages = $connection->prepare($sqlImages);
+        foreach ($images as $index => $image) {
+            $statementImages->bindValue("advert_id", $advertId, PDO::PARAM_INT);
+            $statementImages->bindValue("url", $image);
+            $statementImages->execute();
+        }
+    }
+
+}
+
+function deleteAdvert($advertId) :void {
     try {
-        $sql = "DELETE FROM adverts WHERE business_id = :business_id AND advert_id = :advert_id";
+        $sql = "DELETE FROM adverts WHERE advert_id = :advert_id";
         $statement = getConnection()->prepare($sql);
-        $statement->bindValue("business_id", $businessId, PDO::PARAM_INT);
         $statement->bindValue("advert_id", $advertId, PDO::PARAM_INT);
         $statement->execute();
         if ($statement->rowCount() === 0) throw new PDOException("Could not delete advert");
     } catch (PDOException $exception) {
-        error_log("Database error: [$businessId, $advertId] " . $exception->getMessage());
+        error_log("Database error: [$advertId] " . $exception->getMessage());
         throw $exception;
     }
 }

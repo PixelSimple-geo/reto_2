@@ -14,7 +14,7 @@ function getBusiness($businessId) {
         $business = $statement->fetchAll()[0];
 
         $sqlCategory = "SELECT bcm.category_id AS categoryId, name FROM businesses_categories_mapping AS bcm
-        INNER JOIN businesses_categories AS bbc ON bcm.category_id = bbc.category_id
+        LEFT JOIN businesses_categories AS bbc ON bcm.category_id = bbc.category_id
         WHERE business_id = :business_id";
         $statementCategory = $connection->prepare($sqlCategory);
         $statementCategory->bindValue("business_id", $businessId, PDO::PARAM_INT);
@@ -34,6 +34,13 @@ function getBusiness($businessId) {
         $statementAddresses->bindValue("business_id", $businessId, PDO::PARAM_INT);
         $statementAddresses->execute();
         $business["addresses"] = $statementAddresses->fetchAll();
+
+        $sqlAdvertCategories = "SELECT category_id AS categoryId, business_id as businessId, name 
+        FROM businesses_advert_categories WHERE business_id = :business_id";
+        $statementAdvertCategory = getConnection()->prepare($sqlAdvertCategories);
+        $statementAdvertCategory->bindValue("business_id", $businessId, PDO::PARAM_INT);
+        $statementAdvertCategory->execute();
+        $business["advertCategories"] = $statementAdvertCategory->fetchAll();
 
         return $business;
     } catch (PDOException $exception) {
@@ -229,7 +236,6 @@ function getAllBusinessesByCategory($categoryId) {
     }
 }
 
-
 function getAllBusinessAdvertCategories($businessId): array {
     try {
         $sql = "SELECT category_id AS categoryId, name FROM businesses_advert_categories 
@@ -240,6 +246,31 @@ function getAllBusinessAdvertCategories($businessId): array {
         return $statement->fetchAll();
     } catch (PDOException $exception) {
         error_log("Database error: " . $exception->getMessage());
+        throw $exception;
+    }
+}
+
+function persistBusinessAdvertCategory($businessId, $name): void {
+    try {
+        $sql = "INSERT INTO businesses_advert_categories(business_id, name) VALUES(:business_id, :name)";
+        $statement = getConnection()->prepare($sql);
+        $statement->bindValue("business_id", $businessId, PDO::PARAM_INT);
+        $statement->bindValue("name", $name);
+        $statement->execute();
+    } catch (PDOException $exception) {
+        error_log("Database error [$businessId, $name]: " . $exception->getMessage());
+        throw $exception;
+    }
+}
+
+function deleteBusinessAdvertCategory($categoryId): void {
+    try {
+        $sql = "DELETE FROM businesses_advert_categories WHERE category_id = :category_id";
+        $statement = getConnection()->prepare($sql);
+        $statement->bindValue("category_id", $categoryId, PDO::PARAM_INT);
+        $statement->execute();
+    } catch (PDOException $exception) {
+        error_log("Database error [$categoryId]" . $exception->getMessage());
         throw $exception;
     }
 }

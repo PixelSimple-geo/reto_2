@@ -9,6 +9,7 @@ function getBusinessesCrudRead(): void {
     $addresses = $business["addresses"];
     $category = $business["category"];
     $advertCategories = $business["advertCategories"];
+    $adverts = getAdvertsByBusinessId($business["businessId"]);
     include_once $_SERVER['DOCUMENT_ROOT'] . "/views/businessesViews/businessesCrudRead.view.php";
 }
 
@@ -119,6 +120,32 @@ function getBusinessesCrudDelete(): void {
         header("Location: /businesses/crud/all?feedback=$errorMessage", true, 303);
     } catch (RuntimeException $exception) {
         header("Location: /login", true, 303);
+    }
+}
+
+function postBusinessesAdvertCategoryCrudAdd(): void {
+    validateRequiredParameters(["business_id", "name"]);
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/models/businessesDB.php";
+    $businessid = $_POST["business_id"];
+    $name = $_POST["name"];
+    try {
+        persistBusinessAdvertCategory($businessid, $name);
+        header("Location: /businesses/crud/business?business_id=$businessid", true, 303);
+    } catch (PDOException $exception) {
+        include_once $_SERVER["DOCUMENT_ROOT"] . "/views/error_400.view.php";
+    }
+}
+
+function deleteBusinessesAdvertCategoryCrudDelete(): void {
+    validateRequiredParameters(["category_id", "business_id"], "GET");
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/models/businessesDB.php";
+    $categoryId = $_GET["category_id"];
+    $businessid = $_GET["business_id"];
+    try {
+        deleteBusinessAdvertCategory($categoryId);
+        header("Location: /businesses/crud/business?business_id=$businessid", true, 303);
+    } catch (PDOException $exception) {
+        include_once $_SERVER["DOCUMENT_ROOT"] . "/views/error_400.view.php";
     }
 }
 

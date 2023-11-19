@@ -10,22 +10,18 @@ function getAdvertBusinessAccount(): void {
     include_once $_SERVER['DOCUMENT_ROOT'] . "/views/advertsViews/adverts.view.php";
 }
 
-function getAddAdvertBusinessAccount(): void {
+function getAdvertsCrudAdd(): void {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/models/businessesDB.php";
-    if (empty($_GET["business_id"])) {
-        include_once $_SERVER['DOCUMENT_ROOT'] . "/views/error_400.view.php";
-        return;
-    }
-    $businessId = $_GET["business_id"];
-    $categories = getAllBusinessAdvertCategories($businessId);
-    include_once $_SERVER['DOCUMENT_ROOT'] . "/views/advertsViews/advertsCreate.view.php";
+    validateRequiredParameters(["business_id"], "GET");
+    try {
+        $businessId = $_GET["business_id"];
+        $categories = getAllBusinessAdvertCategories($businessId);
+        include_once $_SERVER['DOCUMENT_ROOT'] . "/views/advertsViews/advertsCrudAdd.view.php";
+    } catch (PDOException $exception) {}
 }
 
-function postAddAdvertBusinessAccount(): void {
-    if (empty($_POST["title"]) || empty($_POST["description"]) || empty($_POST["business_id"]) ) {
-        include_once $_SERVER['DOCUMENT_ROOT'] . "/views/error_400.view.php";
-        return;
-    }
+function postAdvertsCrudAdd(): void {
+    validateRequiredParameters(["title", "description", "business_id"]);
     include_once $_SERVER['DOCUMENT_ROOT'] . "/models/advertsDB.php";
 
     $businessId = $_POST["business_id"];
@@ -49,22 +45,90 @@ function postAddAdvertBusinessAccount(): void {
         }
     }
 
-    if (isset($_POST["advert_category"]))
-        $categoryId = $_POST["advert_category"];
+    if (isset($_POST["advert_category"])) $categoryId = $_POST["advert_category"];
+    try {
+        persistAdvert($businessId, $title, $description, $coverURI, 1, $categoryId, $characteristic, $imagesURI);
+        header("Location: /businesses/crud/business?business_id=$businessId", true, 303);
+    } catch (PDOException $exception) {
 
-    persistAdvert($businessId, $title, $description, $coverURI, 1, $categoryId, $characteristic, $imagesURI);
-    header("Location: /adverts/account/business?business_id=$businessId", true, 303);
+    }
 }
 
-function getEditAdvertBusinessAccount(): void {
-    if (empty($_GET["advert_id"])) {
-        include_once $_SERVER['DOCUMENT_ROOT'] . "/views/error_400.view.php";
-        return;
-    }
+function getAdvertsCrudEdit(): void {
+    validateRequiredParameters(["advert_id", "business_id"], "GET");
     require_once $_SERVER['DOCUMENT_ROOT'] . "/models/advertsDB.php";
-    $advert = getAdvert($_GET["advert_id"]);
-    print_r($advert);
-    include_once $_SERVER['DOCUMENT_ROOT'] . "/views/advertsViews/advertsEdit.view.php";
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/models/businessesDB.php";
+    try {
+        $advert = getAdvert($_GET["advert_id"]);
+        $businessId = $_GET["business_id"];
+        $categories = getAllBusinessAdvertCategories($businessId);
+        $advertSelectedCategories = [];
+        foreach ($advert["categories"] as $category) {
+            $advertSelectedCategories[] = $category["categoryId"];
+        }
+        include_once $_SERVER['DOCUMENT_ROOT'] . "/views/advertsViews/advertsCrudEdit.view.php";
+    } catch (PDOException $exception) {
+        echo $exception->getMessage();
+    }
+}
+
+function postAdvertsCrudEdit(): void {
+    validateRequiredParameters(["title", "description", "business_id", "advert_id"]);
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/models/advertsDB.php";
+
+    $businessId = $_POST["business_id"];
+    $advertId = $_POST["advert_id"];
+    $title = $_POST["title"];
+    $description = $_POST["description"];
+    $imagesURI = (saveImages());
+    $characteristic = [];
+    $categoryId = null;
+    $imagesToDelete = [];
+    $coverURI = null;
+
+    if (isset($_POST["cover_img_url"])) {
+        $coverURI = $_POST["cover_img_url"];
+    } else if ($_FILES["cover_img"]["error"] === UPLOAD_ERR_OK) {
+        $coverURI = saveImage();
+    }
+
+    if (isset($_POST["images_ids"])) {
+        $imagesToDelete = $_POST["images_ids"];
+    }
+
+    if (isset($_POST["characteristic_type"]) && isset($_POST["characteristic_value"])
+        && count($_POST["characteristic_type"]) === count($_POST["characteristic_value"])) {
+        $characteristicType = $_POST["characteristic_type"];
+        $characteristicValue = $_POST["characteristic_value"];
+        foreach ($characteristicType as $index => $type) {
+            $characteristic[] = ["type" => $type, "value" => $characteristicValue[$index]];
+        }
+    }
+
+    if (isset($_POST["advert_category"])) $categoryId = $_POST["advert_category"];
+    try {
+        updateAdvert($advertId, $title, $description, $coverURI, $categoryId,
+            $characteristic, $imagesURI, $imagesToDelete);
+        header("Location: /businesses/crud/business?business_id=$businessId", true, 303);
+    } catch (PDOException $exception) {
+        echo $exception->getMessage();
+    }
+}
+
+function getAdvertsCrudDelete(): void {
+    validateRequiredParameters(["business_id", "advert_id"], "GET");
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/models/advertsDB.php";
+
+    $businessId = $_GET["business_id"];
+    $advertId = $_GET["advert_id"];
+
+    try {
+        deleteAdvert($advertId);
+        header("Location: /businesses/crud/business?business_id=$businessId", true, 303);
+    } catch (PDOException $exception) {
+
+    }
+
 }
 
 function saveImage(): string {
@@ -85,7 +149,6 @@ function saveImage(): string {
 function saveImages(): array {
     $images = [];
     $targetDirectory = $_SERVER["DOCUMENT_ROOT"] . "/statics/uploads/";
-    print_r($_FILES["images"]);
     foreach ($_FILES["images"]["tmp_name"] as $key => $tmp_name) {
         $fileName = uniqid() . "_" . basename($_FILES["images"]["name"][$key]);
         $targetFile = $targetDirectory . $fileName;

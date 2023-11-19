@@ -84,17 +84,26 @@ if (matchURI("/login")) {
         } else if (matchURI("/businesses/crud/delete")) {
             if ($requestMethod === "GET") getBusinessesCrudDelete();
         }
+    } else if (matchURI("/businesses/advertCategory")) {
+        if(matchURI("/businesses/advertCategory/add")) postBusinessesAdvertCategoryCrudAdd();
+        else if(matchURI("/businesses/advertCategory/delete")) deleteBusinessesAdvertCategoryCrudDelete();
     }
 } else if (matchURI("/adverts")) {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/advertsController.php";
-    if (matchURI("/adverts/account/business/add")) {
-        if ($requestMethod === "GET") getAddAdvertBusinessAccount();
-        else if ($requestMethod === "POST") postAddAdvertBusinessAccount();
-    } else if (matchURI("/adverts/account/business/edit")) {
-      if ($requestMethod === "GET") getEditAdvertBusinessAccount();
-      else if ($requestMethod === "POST");
-    } else if (matchURI("/adverts/account/business")) {
-        if ($requestMethod === "GET") getAdvertBusinessAccount();
+    if (matchURI("/adverts/advert")) {
+        // For client
+    } else if (matchURI("/adverts/all")) {
+
+    } else if (matchURI("/adverts/crud")) {
+        if (matchURI("/adverts/crud/add")) {
+            if($requestMethod === "GET") getAdvertsCrudAdd();
+            else if ($requestMethod === "POST") postAdvertsCrudAdd();
+        } else if (matchURI("/adverts/crud/edit")) {
+            if ($requestMethod === "GET") getAdvertsCrudEdit();
+            else if ($requestMethod === "POST") postAdvertsCrudEdit();
+        } else if (matchURI("/adverts/crud/delete")) {
+            if ($requestMethod === "GET") getAdvertsCrudDelete();
+        }
     }
 } else if (matchURI("/articleClient")){
     require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/articlesController.php";
@@ -109,32 +118,4 @@ if (matchURI("/login")) {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/businessesController.php";
     businessClient();
 }
-
- 
-/*
-//TODO hay que hacer los controladores para estos
-else if (stristr($path, $crearNegocioUrl)){
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/views/crearNegocio.view.php";
-    die();
-}else if (stristr($path, $editarNegocioUrl)){
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/views/editarNegocio.view.php";
-    die();
-}else if (stristr($path, $articulosURL)){
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/views/articles.view.php";
-    die();
-}else if (stristr($path, $crearArticuloURL)){
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/views/crearArticulo.view.php";
-    die();
-}else if (stristr($path, $editarArticuloUrl)){
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/views/editarArticulo.view.php";
-    die();
-}else if (stristr($path, $anunciosUrl)){
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/views/anuncios.view.php";
-    die();
-}
-*/
-
-
-
-
 

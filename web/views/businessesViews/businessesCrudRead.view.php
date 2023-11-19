@@ -9,10 +9,14 @@
 <main>
     <nav>
     <?php if (isset($business)): ?>
-        <a href='/adverts/account/business/add?business_id=$business[businessId]'>+ Crear Nuevo Anuncio</a>
+        <a href='/adverts/crud/add?business_id=<?=$business["businessId"]?>'>+ Crear Nuevo Anuncio</a>
     <?php endif; ?>
         <a href="/businesses/crud/all">Volver a Mis Negocios</a>
     </nav>
+
+    <?php if(!empty($feedback)): ?>
+    <p style="color: red"><?=$feedback?></p>
+    <?php endif; ?>
 
     <?php if(!empty($business)): ?>
     <h2><?= htmlspecialchars($business["name"]) ?></h2>
@@ -40,30 +44,47 @@
     </section>
     <?php endif; ?>
 
-    <?php if (!empty($advertCategories)): ?>
     <section>
+        <form action="/businesses/advertCategory/add" method="POST">
+            <input type="hidden" name="business_id" value=<?= $business["businessId"] ?>>
+            <label for="advert_category_name">Añadir categoría de anuncio</label>
+            <input id="advert_category_name" name="name" pattern="([\u{00C0}-\u{00FF}]|\w)([\u{00C0}-\u{00FF}]|\w|\s){3,100}"
+                   title="Ingresa entre 3 y 100 caracteres. Puedes usar letras, números caracteres y '_'">
+            <button type="submit">Crear categoría</button>
+        </form>
         <h3>Categorías de anuncio</h3>
+        <?php if (!empty($advertCategories)): ?>
         <ul>
             <?php foreach ($advertCategories as $advertCategory): ?>
-            <li id="<?= $advertCategory["categoryId"] ?>"><?= $advertCategory["name"] ?></li>
+            <li id="<?= $advertCategory["categoryId"] ?>">
+                <?= $advertCategory["name"] ?>
+                <a href="/businesses/advertCategory/delete?category_id=<?=$advertCategory["categoryId"]?>&business_id=<?=$business["businessId"]?>"
+                >Eliminar</a>
+            </li>
             <?php endforeach; ?>
         </ul>
+        <?php endif; ?>
     </section>
-    <?php endif; ?>
+
 
     <?php if (isset($adverts)): ?>
-        <div class="contents">
+        <div >
             <h3>Anuncios</h3>
+            <div class="contents">
             <?php foreach ($adverts as $advert): ?>
                 <article>
                     <img src='<?= htmlspecialchars($advert['coverImg']) ?>' alt='Portada del anuncio'>
                     <h2><?= htmlspecialchars($advert['title']) ?></h2>
                     <p><?= htmlspecialchars($advert['description']) ?></p>
-                    <a href='/adverts/account/business/edit?advert_id=<?= $advert['advertId'] ?>'>
+                    <a href='/adverts/crud/edit?advert_id=<?= $advert['advertId'] ?>&business_id=<?=$business["businessId"]?>'>
                         Editar anuncio
+                    </a>
+                    <a href="/adverts/crud/delete?advert_id=<?=$advert["advertId"]?>&business_id=<?=$business["businessId"]?>">
+                        Eliminar anuncio
                     </a>
                 </article>
             <?php endforeach; ?>
+            </div>
         </div>
     <?php endif; ?>
 

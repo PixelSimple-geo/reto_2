@@ -55,8 +55,7 @@ function postBusinessesCrudAdd(): void {
             $feedback = "Ya existe un negocio con ese nombre. Elige otro";
             $businessCategories = getAllBusinessCategories();
             include_once $_SERVER["DOCUMENT_ROOT"] . "/views/businessesViews/businessesCrudAdd.view.php";
-        }
-        include_once $_SERVER["DOCUMENT_ROOT"] . "/views/error_400.view.php";
+        } else include_once $_SERVER["DOCUMENT_ROOT"] . "/views/error_400.view.php";
     } catch (RuntimeException $exception) {
         header("Location: /login", true, 303);
     }
@@ -66,7 +65,6 @@ function getBusinessesCrudEdit(): void {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/models/businessesDB.php";
     validateRequiredParameters(["business_id"], "GET");
     try {
-        $userAccount = getUserAccountFromSession();
         $businessId = $_GET["business_id"];
         $business = getBusiness($businessId);
         $categories = getAllBusinessCategories();
@@ -95,8 +93,13 @@ function postBusinessesCrudEdit(): void {
         updateBusiness($userAccount["accountId"], $businessId, $name, $description, $category, $contacts, $addresses);
         header("Location: /businesses/crud/all", true, 303);
     } catch (PDOException $exception) {
-        $errorMessage = $exception->getMessage();
-        header("Location: /businesses/crud/all?feedback=$errorMessage", true, 303);
+        if ($exception->getCode() == 23000) {
+            $feedback = "Ya existe un negocio con ese nombre. Elige otro";
+            $categories = getAllBusinessCategories();
+            $business = ["businessId" => $businessId, "name" => $name, "description" => $description,
+                "category" => ["categoryId" => $category], "contacts" => $contacts, "addresses" => $addresses];
+            include_once $_SERVER["DOCUMENT_ROOT"] . "/views/businessesViews/businessesCrudEdit.view.php";
+        } else include_once $_SERVER["DOCUMENT_ROOT"] . "/views/error_400.view.php";
     } catch (RuntimeException $exception) {
         header("Location: /login", true, 303);
         include_once $_SERVER["DOCUMENT_ROOT"] . "/views/businessesViews/businessesCrudEdit.view.php";

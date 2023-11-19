@@ -13,11 +13,17 @@
         <a href="/businesses/crud/all">Volver a mis negocios</a>
         <h2>Editar Negocio</h2>
 
+        <?php if(isset($feedback)): ?>
+            <p style="color: red"><?=($feedback)?></p>
+        <?php endif; ?>
+
         <?php if (isset($business)): ?>
             <form method="POST">
                 <input type='hidden' name='business_id' value='<?= $business['businessId'] ?>'>
                 <label for="nombre">Nombre del Negocio:</label>
-                <input type="text" id="nombre" name="name" value="<?= $business['name'] ?>" required>
+                <input type="text" id="nombre" name="name" value="<?= $business['name'] ?>" required
+                       pattern="([\u{00C0}-\u{00FF}]|\w)([\u{00C0}-\u{00FF}]|\w|\s){3,100}"
+                       title="Ingresa entre 3 y 100 caracteres. Puedes usar letras, números caracteres y '_'">
                 <label for="descripcion">Descripción del Negocio:</label>
                 <textarea id="descripcion" name="description" rows="4" required minlength="5" maxlength="1500"><?= $business['description'] ?></textarea>
 
@@ -25,8 +31,8 @@
                     <label for="category">Categorías</label>
                     <select id="category" name="business_category">
                         <?php foreach ($categories as $category): ?>
-                            <?php $isSelected = ($business['category']['categoryId'] === $category['categoryId']); ?>
-                            <option value="<?= $category['categoryId'] ?>" <?= ($isSelected) ? 'selected' : '' ?>>
+                            <?php $selected = ($business['category']['categoryId'] == $category['categoryId'] ? "selected" : ""); ?>
+                            <option value="<?= $category['categoryId'] ?>" <?=$selected?>>
                                 <?= $category['name'] ?>
                             </option>
                         <?php endforeach; ?>

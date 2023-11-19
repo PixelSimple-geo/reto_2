@@ -21,10 +21,10 @@
         <label for="name">Nombre del Negocio:</label>
         <?php if(!empty($name)): ?>
         <input id="name" name="name" pattern="([\u{00C0}-\u{00FF}]|\w)([\u{00C0}-\u{00FF}]|\w|\s){3,100}" required
-               title="Ingresa entre 3 y 100 caracteres. Puede usar letras, números caracteres y '_'" value="<?=$name?>">
+               title="Ingresa entre 3 y 100 caracteres. Puedes usar letras, números caracteres y '_'" value="<?=$name?>">
         <?php else: ?>
         <input id="name" name="name" pattern="([\u{00C0}-\u{00FF}]|\w)([\u{00C0}-\u{00FF}]|\w|\s){3,100}" required
-               title="Ingresa entre 3 y 100 caracteres. Puede usar letras, números caracteres y '_'">
+               title="Ingresa entre 3 y 100 caracteres. Puedes usar letras, números caracteres y '_'">
         <?php endif; ?>
 
         <label for="description">Descripción del Negocio:</label>

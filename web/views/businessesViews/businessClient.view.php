@@ -17,12 +17,35 @@
 
         <div class="contents">
             <?php
-            foreach ($advertsByBusiness as $advert) {
-                echo '<div>';
-                echo "<img src='$advert[coverImg]' alt='Portada del anuncio'>";
-                echo '<h3>' . $advert['title'] . '</h3>';
-                echo '<p>Description: ' . $advert['description'] . '</p>';
-                echo '</div>';
+            $itemsPerPage = 6;
+            $totalAdverts = count($advertsByBusiness);
+
+            $currentPage = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1;
+            $offset = ($currentPage - 1) * $itemsPerPage;
+
+            $pagedAdverts = array_slice($advertsByBusiness, $offset, $itemsPerPage);
+
+            if (isset($pagedAdverts) && !empty($pagedAdverts)) {
+                foreach ($pagedAdverts as $advert) {
+                    echo '<div>';
+                    echo "<img src='$advert[coverImg]' alt='Portada del anuncio'>";
+                    echo '<h3>' . $advert['title'] . '</h3>';
+                    echo '<p>Description: ' . $advert['description'] . '</p>';
+                    echo '</div>';
+                }
+
+                $totalPages = ceil($totalAdverts / $itemsPerPage);
+
+                if ($totalPages > 1) {
+                    echo '<ul class="paginas">';
+                    for ($i = 1; $i <= $totalPages; $i++) {
+                        $class = ($i == $currentPage) ? 'current' : '';
+                        echo '<li><a href="?page=' . $i . '" class="' . $class . '">' . $i . '</a></li>';
+                    }
+                    echo '</ul>';
+                }
+            } else {
+                echo '<p>No hay anuncios disponibles para este negocio.</p>';
             }
             ?>
         </div>

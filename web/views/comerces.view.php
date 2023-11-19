@@ -4,16 +4,6 @@
 <head>
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/head.php" ?>
     <title>Comercios | Reto 2</title>
-    <style>
-        .pagination {
-            display: flex;
-            list-style: none;
-        }
-
-        .pagination li {
-            margin-right: 5px;
-        }
-    </style>
 </head>
 
 <body>

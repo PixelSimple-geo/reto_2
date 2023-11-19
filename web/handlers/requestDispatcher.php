@@ -7,22 +7,23 @@ function matchURI($URI) :bool {
     return str_starts_with($_SERVER['REQUEST_URI'], $URI);
 }
 
-startSession();
+function validateRequiredParameters(array $parameters, $source = "POST"): void {
+    $source = strtoupper($source);
+    $requestData = ($source === "GET") ? $_GET : $_POST;
+    foreach ($parameters as $parameter)
+        if (empty($requestData[$parameter])) {
+            include_once $_SERVER["DOCUMENT_ROOT"] . "/views/error_400.view.php";
+            die();
+        }
+}
 
-$path = $_SERVER["REQUEST_URI"];
 $requestMethod = $_SERVER["REQUEST_METHOD"];
-
-$accountUrl = "/accounts";
-$indexUrl = "/index";
-$profileURI = "/profile";
-$_404_URI = "/error=404";
-$_400_URI = "/error=400";
-$articulosURL = "/articulos";
-$crearArticuloURL = "/crearArticulo";
-$editarArticuloUrl = "/editarArticulo";
-$anunciosUrl = "/anuncios";
-
-$path = $_SERVER['REQUEST_URI'];
+startSession();
+try {
+    $userAccount = getUserAccountFromSession();
+} catch (RuntimeException $exception) {
+    $userAccount = null;
+}
 
 if (matchURI("/login")) {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/accountController.php";
@@ -65,23 +66,24 @@ if (matchURI("/login")) {
     }
 } else if (matchURI("/businesses")) {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/businessesController.php";
-    if (matchURI("/businesses/account/get")) {
-        if ($requestMethod === "GET") getAccountBusinesses();
-    } else if (matchURI("/businesses/account/add")) {
-        if ($requestMethod === "GET") getAddBusinesses();
-        else if ($requestMethod === "POST") postBusiness();
-        die();
-    } else if (matchURI("/businesses/account/edit")) {
-        switch ($requestMethod) {
-            case "GET":
-                getEditBusiness();
-                break;
-            case "POST":
-                postEditBusiness();
-                break;
+    if (matchURI("/businesses/business")) {
+        // For client
+    } else if (matchURI("/businesses/all")) {
+        // For client
+    } else if (matchURI("/businesses/crud")) {
+        if (matchURI("/businesses/crud/all")) {
+            if ($requestMethod === "GET") getBusinessesCrudReadAll();
+        } else if (matchURI("/businesses/crud/business")) {
+            if ($requestMethod === "GET") getBusinessesCrudRead();
+        } else if (matchURI("/businesses/crud/add")) {
+            if ($requestMethod === "GET") getBusinessesCrudAdd();
+            else if ($requestMethod === "POST") postBusinessesCrudAdd();
+        } else if (matchURI("/businesses/crud/edit")) {
+            if ($requestMethod === "GET") getBusinessesCrudEdit();
+            else if ($requestMethod === "POST") postBusinessesCrudEdit();
+        } else if (matchURI("/businesses/crud/delete")) {
+            if ($requestMethod === "GET") getBusinessesCrudDelete();
         }
-    } else if (matchURI("/businesses/account/delete")) {
-        deleteAccountBusiness();
     }
 } else if (matchURI("/adverts")) {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/advertsController.php";
@@ -94,26 +96,7 @@ if (matchURI("/login")) {
     } else if (matchURI("/adverts/account/business")) {
         if ($requestMethod === "GET") getAdvertBusinessAccount();
     }
-    if ($requestMethod === "GET") getAccountBusinesses();
-} else if (matchURI("/businesses/account/add")) {
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/businessesController.php";
-    if ($requestMethod === "GET") getAddBusinesses();
-    else if ($requestMethod === "POST") postBusiness();
-    die();
-} else if (matchURI("/businesses/account/edit")) {
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/businessesController.php";
-    switch ($requestMethod) {
-        case "GET":
-            getEditBusiness();
-            break;
-        case "POST":
-            postEditBusiness();
-            break;
-    }
-} else if (matchURI("/businesses/account/delete")) {
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/businessesController.php";
-    deleteAccountBusiness();
-}else if (matchURI("/articleClient")){
+} else if (matchURI("/articleClient")){
     require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/articlesController.php";
     getArticles();
 }else if (matchURI("/comerces")){

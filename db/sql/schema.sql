@@ -43,7 +43,7 @@ CREATE TABLE businesses (
     business_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     account_id INT NOT NULL,
     name VARCHAR(100) NOT NULL UNIQUE,
-    description VARCHAR(500),
+    description VARCHAR(1500),
     CONSTRAINT bus_acc_fk FOREIGN KEY (account_id) REFERENCES accounts (account_id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 

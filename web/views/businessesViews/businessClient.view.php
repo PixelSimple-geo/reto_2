@@ -73,7 +73,8 @@
                         echo '<ul class="paginas">';
                         for ($i = 1; $i <= $totalPages; $i++) {
                             $class = ($i == $currentPage) ? 'current' : '';
-                            echo '<li><a href="?page=' . $i . '" class="' . $class . '">' . $i . '</a></li>';
+                            $queryParams = http_build_query(array_merge($_GET, ['page' => $i]));
+                            echo '<li><a href="?'.$queryParams.'" class="' . $class . '">' . $i . '</a></li>';
                         }
                         echo '</ul>';
                     }

@@ -425,7 +425,7 @@ fieldset{
 
 /* Crear Negocio*/
 .formulario {
-    width: 30%;
+    width: 50%;
     margin: 0 auto;
     padding: 2rem;
     display: flex;
@@ -444,4 +444,55 @@ footer>p {
     border-radius: 5px;
     text-align: center;
     margin: 1rem;
+}
+
+@media screen and (max-width: 1600px) {
+    .header {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        text-align: center;
+    }
+
+    .header a{
+        width: auto;
+        margin: 0 auto;
+    }
+
+    .search {
+        grid-column: span 2;
+        order: 1;
+        width: auto;
+        margin-top: 1rem;
+    }
+
+    .search input {
+        width: auto;
+    }
+
+    .search button {
+        margin-left: 1rem;
+    }
+
+}
+
+@media screen and (max-width: 1000px) {
+    .principal{
+        display: flex;
+        flex-direction: column;
+    }
+    #map{
+        height: 20rem;
+        width: 30rem;
+    }
+}
+
+@media screen and (max-width: 510px) {
+    .principal{
+        display: flex;
+        flex-direction: column;
+    }
+    #map{
+        height: 10rem;
+        width: 20rem;
+    }
 }

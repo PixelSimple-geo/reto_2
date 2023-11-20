@@ -51,7 +51,7 @@
                 <input type="hidden" name="business_id" value=<?= $business["businessId"] ?>>
                 <label for="advert_category_name">Añadir categoría de anuncio</label>
                 <input id="advert_category_name" name="name" pattern="([\u{00C0}-\u{00FF}]|\w)([\u{00C0}-\u{00FF}]|\w|\s){3,100}"
-                    title="Ingresa entre 3 y 100 caracteres. Puedes usar letras, números caracteres y '_'">
+                    title="Ingresa entre 3 y 100 caracteres. Puedes usar letras, números caracteres y '_'" required>
                 <button type="submit">Crear categoría</button>
             </form>
             <h3>Categorías de anuncio</h3>

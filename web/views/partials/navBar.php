@@ -10,34 +10,32 @@
     </form>
     <!--Sesion-->
     <?php
-        if (!isset($userAccount)) {
-            echo '<a href="/login"><img src="/statics/media/profile.svg" alt="Profile"></a>';
-        } else {
-            echo '<div class="dropdown">';
-            echo '  <button class="dropbtn"><img src="/statics/media/profile.svg" alt="Profile"></button>';
-            echo '  <div class="dropdown-content">';
-            echo '    <a href="/account">Editar Perfil</a>';
-            echo '    <a href="/businesses/crud/all">Ver Negocios</a>';
-            echo '    <a href="/logout">Cerrar Sesion</a>';
+    if (!isset($userAccount)) :
+        ?>
+        <a href="/login">
+            <img src="/statics/media/profile.svg" alt="Profile">
+        </a>
+    <?php else : ?>
+        <div class="dropdown">
+            <button class="dropbtn">
+                <img src="/statics/media/profile.svg" alt="Profile">
+            </button>
+            <div class="dropdown-content">
+                <a href="/account">Editar Perfil</a>
+                <a href="/businesses/crud/all">Ver Negocios</a>
+                <a href="/articles/crud/all">Ver tus artículos</a>
+                <a href="/logout">Cerrar Sesion</a>
+            </div>
+        </div>
+    <?php endif; ?>
 
-            /*
-            if ($userAccount) {
-                echo '    <a href="/articulos?publisher=' . $userAccount['account_id'] . '">Ver Artículos</a>';
-            }
-            */
-
-            echo '  </div>';
-            echo '</div>';
-        }
-    ?>
 
 </div>
 <!--Navegator-->
-<div class="navbar">
+<nav class="navbar">
     <a href="/index">Inicio</a>
     <a href="/articleClient">Noticias</a>
-    <a href="/views/history.view.php">Historia</a>
-    <?php //TODO ?>
-    <a href="/comerces">Comercios</a>
-    <a href="/views/contact.view.php">Contacto</a>
-</div>
+    <a href="/history">Historia</a>
+    <a href="/businesses/all">Comercios</a>
+    <a href="/contact">Contacto</a>
+</nav>

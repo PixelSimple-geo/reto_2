@@ -415,3 +415,12 @@ footer>p {
     text-align: center;
     margin: 1rem;
 }
+
+/* utility classes */
+.text-centered {
+    text-align: center;
+}
+
+.text-left {
+    text-align: left;
+}

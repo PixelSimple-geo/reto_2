@@ -9,7 +9,6 @@
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/navBar.php"; ?>
 
     <main>
-        <div class="contentsContainer">
             <?php if(isset($errorMessage)): ?>
                 <p style="color:red;"><?=($errorMessage)?></p>
             <?php endif; ?>
@@ -38,8 +37,6 @@
                     <?php endforeach; ?>
                 <?php endif; ?>
             </div>
-        </div>
-        
     </main>
 
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/footer.php" ?>

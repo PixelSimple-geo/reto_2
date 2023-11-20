@@ -10,5 +10,94 @@ function getArticles() :void {
     } catch (RuntimeException $exception) {
         $errorMessage = "No se ha encontrado ninguna sesión";
     }
-    include_once $_SERVER['DOCUMENT_ROOT'] . "/views/articlesView/articleClient.view.php";
+    include_once $_SERVER['DOCUMENT_ROOT'] . "/views/articlesViews/articleClient.view.php";
+}
+
+function getArticlesCrudReadAll(): void {
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/models/articlesDB.php";
+    try {
+        $userAccount = getUserAccountFromSession();
+        $articles = getArticlesByAccountId($userAccount["accountId"]);
+        include_once $_SERVER['DOCUMENT_ROOT'] . "/views/articlesViews/articlesCrudReadAll.view.php";
+    } catch (PDOException $exception) {
+        //TODO
+        echo $exception->getMessage();
+    } catch (RuntimeException $exception) {
+        echo $exception->getMessage();
+    }
+}
+
+function getArticlesCrudAdd(): void {
+    include_once $_SERVER['DOCUMENT_ROOT'] . "/models/articlesDB.php";
+    try {
+        $categories = getAllArticlesCategories();
+        include_once $_SERVER['DOCUMENT_ROOT'] . "/views/articlesViews/articlesCrudAdd.view.php";
+    } catch (PDOException $exception) {
+        //TODO
+    }
+
+}
+
+function postArticlesCrudAdd(): void {
+    validateRequiredParameters(["title", "description", "category_id"]);
+    include_once $_SERVER['DOCUMENT_ROOT'] . "/models/articlesDB.php";
+    $title = $_POST["title"];
+    $description = $_POST["description"];
+    $categoryId = $_POST["category_id"];
+    try {
+        $userAccount = getUserAccountFromSession();
+        persistArticle($userAccount["accountId"], $title, $description, $categoryId);
+        header("Location: /articles/crud/all", true, 303);
+    } catch (PDOException $exception) {
+        //TODO
+        echo $exception->getMessage();
+    } catch (RuntimeException $exception){
+        echo $exception->getMessage();
+    }
+}
+
+function getArticlesCrudEdit(): void {
+    validateRequiredParameters(["article_id"], "GET");
+    include_once $_SERVER['DOCUMENT_ROOT'] . "/models/articlesDB.php";
+    $articleId = $_GET["article_id"];
+    try {
+        $article = getArticle($articleId);
+        $categories = getAllArticlesCategories();
+        include_once $_SERVER['DOCUMENT_ROOT'] . "/views/articlesViews/articlesCrudEdit.view.php";
+    } catch (PDOException $exception) {
+        //TODO
+        echo $exception->getMessage();
+    }
+}
+
+function postArticlesCrudEdit(): void {
+    validateRequiredParameters(["article_id", "title", "description", "category_id"]);
+    include_once $_SERVER['DOCUMENT_ROOT'] . "/models/articlesDB.php";
+    $articleId = $_POST["article_id"];
+    $title = $_POST["title"];
+    $description = $_POST["description"];
+    $categoryId = $_POST["category_id"];
+
+    try {
+        updateArticle($articleId, $title, $description, $categoryId);
+        header("Location: /articles/crud/all", true, 303);
+    } catch (PDOException $exception) {
+        echo $exception->getMessage();
+    }
+
+}
+
+function getArticlesCrudDelete(): void {
+    validateRequiredParameters(["article_id"], "GET");
+    include_once $_SERVER['DOCUMENT_ROOT'] . "/models/articlesDB.php";
+    $articleId = $_GET["article_id"];
+    try {
+        $userAccount = getUserAccountFromSession();
+        deleteArticle($userAccount["accountId"], $articleId);
+        header("Location: /articles/crud/all", true, 303);
+    } catch (PDOException $exception) {
+        echo $exception->getMessage();
+    } catch (RuntimeException $exception) {
+        echo $exception->getMessage();
+    }
 }

@@ -48,6 +48,12 @@ if (matchURI("/login")) {
             postSignIn();
             break;
     }
+} else if (matchURI("/history")) {
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/mainController.php";
+    if ($requestMethod === "GET") history();
+} else if (matchURI("/contact")) {
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/mainController.php";
+    if ($requestMethod === "GET") contact();
 } else if (matchURI("/index")){
     require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/mainController.php";
     index();
@@ -67,9 +73,9 @@ if (matchURI("/login")) {
 } else if (matchURI("/businesses")) {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/businessesController.php";
     if (matchURI("/businesses/business")) {
-        // For client
+        if ($requestMethod === "GET") getBusinessPage();
     } else if (matchURI("/businesses/all")) {
-        // For client
+        if ($requestMethod === "GET") getBusinesses();
     } else if (matchURI("/businesses/crud")) {
         if (matchURI("/businesses/crud/all")) {
             if ($requestMethod === "GET") getBusinessesCrudReadAll();
@@ -105,17 +111,27 @@ if (matchURI("/login")) {
             if ($requestMethod === "GET") getAdvertsCrudDelete();
         }
     }
+} else if (matchURI("/articles")) {
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/articlesController.php";
+    if (matchURI("/articles/article")) {
+        // for client
+    } else if (matchURI("/articles/all")) {
+        // for client
+    } else if (matchURI("/articles/crud")) {
+        if (matchURI("/articles/crud/all")) {
+            if ($requestMethod === "GET") getArticlesCrudReadAll();
+        } else if (matchURI("/articles/crud/add")) {
+            if ($requestMethod === "GET") getArticlesCrudAdd();
+            else if ($requestMethod === "POST") postArticlesCrudAdd();
+        } else if (matchURI("/articles/crud/edit")) {
+            if ($requestMethod === "GET") getArticlesCrudEdit();
+            else if ($requestMethod === "POST") postArticlesCrudEdit();
+        } else if (matchURI("/articles/crud/delete")) {
+            if ($requestMethod === "GET") getArticlesCrudDelete();
+        }
+    }
 } else if (matchURI("/articleClient")){
     require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/articlesController.php";
     getArticles();
-}else if (matchURI("/comerces")){
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/businessesController.php";
-    getCategories();
-}else if (matchURI("/categories")){
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/businessesController.php";
-    getBusinessesByCategorie();
-}else if (matchURI("/businessClient")){
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/businessesController.php";
-    businessClient();
 }
 

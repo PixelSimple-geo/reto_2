@@ -1,5 +1,40 @@
 <?php
 
+function getBusinessPage(): void {
+    validateRequiredParameters(["business_id"], "GET");
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/models/businessesDB.php";
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/models/advertsDB.php";
+    try {
+        $businessId = $_GET['business_id'];
+        $business = getBusiness($businessId);
+        $adverts = getAdvertsByBusinessId($businessId);
+        include_once $_SERVER['DOCUMENT_ROOT'] . "/views/businessesViews/business.view.php";
+    } catch (PDOException $exception) {
+        //TODO
+        $errorMessage = "Hubo un error al intentar extraer tus categorias";
+    } catch (RuntimeException $exception) {
+        $errorMessage = "No se ha encontrado ninguna sesión";
+    }
+
+}
+
+function getBusinesses(): void {
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/models/businessesDB.php";
+    $errorMessage = null;
+    try {
+        $categories = getAllBusinessCategories();
+        if (isset($_GET["category_id"])) {
+            $businesses = getAllBusinessesByCategory($_GET["category_id"]);
+        } else $businesses = getAllBusinesses();
+        include_once $_SERVER['DOCUMENT_ROOT'] . "/views/businessesViews/businesses.view.php";
+    } catch (PDOException $exception) {
+        //TODO
+        $errorMessage = "Hubo un error al intentar extraer tus categorias";
+    } catch (RuntimeException $exception) {
+        $errorMessage = "No se ha encontrado ninguna sesión";
+    }
+}
+
 function getBusinessesCrudRead(): void {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/models/businessesDB.php";
     require_once $_SERVER['DOCUMENT_ROOT'] . "/models/advertsDB.php";
@@ -172,60 +207,3 @@ function processAddresses(array $addresses, array $postalCodes): array {
     }
     return $processedAddresses;
 }
-
-function getCategories(): void {
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/models/businessesDB.php";
-    $errorMessage = null;
-    $businesses = []; 
-
-    try {
-        $categories = getAllBusinessCategories();
-        $businesses = getAllBusinesses();
-    } catch (PDOException $exception) {
-        $errorMessage = "Hubo un error al intentar extraer tus categorias";
-    } catch (RuntimeException $exception) {
-        $errorMessage = "No se ha encontrado ninguna sesión";
-    }
-    include_once $_SERVER['DOCUMENT_ROOT'] . "/views/comerces.view.php";
-}
-
-function getBusinessesByCategorie(): void {
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/models/businessesDB.php";
-    $errorMessage = null;
-    $businessesByCategorie = []; 
-
-    try {
-        if (isset($_GET['categoryId'])) {
-            $categoryId = $_GET['categoryId'];
-            $businessesByCategorie = getAllBusinessesByCategory($categoryId);
-        }
-    } catch (PDOException $exception) {
-        $errorMessage = "Hubo un error al intentar extraer tus negocios";
-    } catch (RuntimeException $exception) {
-        $errorMessage = "No se ha encontrado ninguna sesión";
-    }
-
-    include_once $_SERVER['DOCUMENT_ROOT'] . "/views/categories.view.php";
-}
-
-function businessClient(): void {
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/models/businessesDB.php";
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/models/advertsDB.php";
-
-    $errorMessage = null;
-    $businessesClient = []; 
-    $advertsByBusiness = [];
-
-    try {
-        if (isset($_GET['businessId'])) {
-            $businessId = $_GET['businessId'];
-            $businessesClient = getBusiness($businessId);
-            $advertsByBusiness = getAdvertsByBusinessId($businessId);
-        }
-    } catch (PDOException $exception) {
-        $errorMessage = "Hubo un error al intentar extraer tus categorias";
-    } catch (RuntimeException $exception) {
-        $errorMessage = "No se ha encontrado ninguna sesión";
-    }
-    include_once $_SERVER['DOCUMENT_ROOT'] . "/views/businessesViews/businessClient.view.php";
-} 

@@ -220,6 +220,10 @@ function businessClient(): void {
         if (isset($_GET['businessId'])) {
             $businessId = $_GET['businessId'];
             $businessesClient = getBusiness($businessId);
+            $contacts = $businessesClient["contacts"];
+            $addresses = $businessesClient["addresses"];
+            $category = $businessesClient["category"];
+            $advertCategories = $businessesClient["advertCategories"];
             $advertsByBusiness = getAdvertsByBusinessId($businessId);
         }
     } catch (PDOException $exception) {

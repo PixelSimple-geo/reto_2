@@ -8,7 +8,6 @@
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/navBar.php"; ?>
     
     <div class="business">
-        <a href="/comerces">Volver a los comercios</a>
         <div>
             <?php if(!empty($businessesClient)): ?>
             <h2><?= htmlspecialchars($businessesClient["name"]) ?></h2>
@@ -62,6 +61,13 @@
                     }
 
                     $totalPages = ceil($totalAdverts / $itemsPerPage);
+                } else {
+                    echo '<p>No hay anuncios disponibles para este negocio.</p>';
+                }
+                ?>
+            </div>
+            <?php
+                    $totalPages = ceil($totalAdverts / $itemsPerPage);
 
                     if ($totalPages > 1) {
                         echo '<ul class="paginas">';
@@ -71,11 +77,7 @@
                         }
                         echo '</ul>';
                     }
-                } else {
-                    echo '<p>No hay anuncios disponibles para este negocio.</p>';
-                }
-                ?>
-            </div>
+                ?>         
         </div>
     
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/footer.php" ?>

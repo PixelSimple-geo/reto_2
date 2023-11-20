@@ -178,7 +178,7 @@ CREATE TABLE reviews (
     business_id INT NOT NULL,
     title VARCHAR(70) NOT NULL,
     description VARCHAR(500) NOT NULL,
-    creation_date TIMESTAMP NOT NULL,
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
     modified_date TIMESTAMP NULL,
     rating INT NOT NULL,
     CONSTRAINT rev_acc_fk FOREIGN KEY (account_id) REFERENCES accounts (account_id) ON DELETE CASCADE,

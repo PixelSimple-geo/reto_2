@@ -29,13 +29,42 @@
                 <?php endif; ?>
             </div>
         </div>
-        <form method="POST">
+        <form action="/reviews/crud/add" method="POST">
+            <input type="hidden" name="business_id" value="<?=$business["businessId"]?>">
             <label for="title">Título</label>
             <input id="title" name="title">
             <label for="body">Cuerpo</label>
-            <textarea id="body" name="body" placeholder="Escribe un comentario"></textarea>
-            <button type="submit"></button>
+            <textarea id="body" name="description" placeholder="Escribe un comentario"></textarea>
+            <label for="rating">Volume</label>
+            <input type="range" id="rating" name="rating" min="1" max="5" />
+            <button type="submit">Enviar comentario</button>
         </form>
+
+        <section>
+            <?php if(isset($reviews)): ?>
+                <?php foreach ($reviews as $review): ?>
+                <article id="<?=$review["reviewId"]?>">
+                    <?php if(isset($review["modifiedDate"])):?>
+                    <p>Fecha: <?=$review["modifiedDate"]?></p>
+                    <?php else: ?>
+                        <p>Fecha: <?=$review["creationDate"]?></p>
+                    <?php endif; ?>
+                    <p>Valoración: <?=$review["rating"]?></p>
+                    <h2><?=$review["title"]?></h2>
+                    <p><?=$review["description"]?></p>
+                    <p>Número de likes: <?=$review["likeCount"]?></p>
+                    <p>Número de dislikes: <?=$review["dislikeCount"]?></p>
+                    <form action="/likes/crud/add" method="POST">
+                        <?php //TODO show if the user has already liked or disliked this review?>
+                        <input type="hidden" name="business_id" value="<?=$business["businessId"]?>">
+                        <input type="hidden" name="review_id" value="<?=$review["reviewId"]?>">
+                        <label>Like<input type="checkbox" name="is_liked"></label>
+                        <button type="submit">Enviar like</button>
+                    </form>
+                </article>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </section>
     </main>
     
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/footer.php" ?>

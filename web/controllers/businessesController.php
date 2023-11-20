@@ -4,10 +4,12 @@ function getBusinessPage(): void {
     validateRequiredParameters(["business_id"], "GET");
     require_once $_SERVER['DOCUMENT_ROOT'] . "/models/businessesDB.php";
     require_once $_SERVER['DOCUMENT_ROOT'] . "/models/advertsDB.php";
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/models/reviewsDB.php";
     try {
         $businessId = $_GET['business_id'];
         $business = getBusiness($businessId);
         $adverts = getAdvertsByBusinessId($businessId);
+        $reviews = getAllBusinessReviews($businessId);
         include_once $_SERVER['DOCUMENT_ROOT'] . "/views/businessesViews/business.view.php";
     } catch (PDOException $exception) {
         //TODO

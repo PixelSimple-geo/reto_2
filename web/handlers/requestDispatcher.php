@@ -130,7 +130,13 @@ if (matchURI("/login")) {
             if ($requestMethod === "GET") getArticlesCrudDelete();
         }
     }
-} else if (matchURI("/articleClient")){
+} else if (matchURI("/reviews/crud")){
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/reviewsController.php";
+    if (matchURI("/reviews/crud/add")) postReviewCrudAdd();
+} else if (matchURI("/likes/crud")) {
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/reviewsController.php";
+    if (matchURI("/likes/crud/add")) postReviewLikeCrudAdd();
+} else if (matchURI("/articleClient")) {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/articlesController.php";
     getArticles();
 }

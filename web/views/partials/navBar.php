@@ -19,12 +19,8 @@
             echo '    <a href="/account">Editar Perfil</a>';
             echo '    <a href="/businesses/crud/all">Ver Negocios</a>';
             echo '    <a href="/logout">Cerrar Sesion</a>';
-
-            /*
-            if ($userAccount) {
-                echo '    <a href="/articulos?publisher=' . $userAccount['account_id'] . '">Ver Artículos</a>';
-            }
-            */
+            echo '    <a href="/articles?publisher=' . $userAccount['accountId'] . '">Ver Artículos</a>';
+         
 
             echo '  </div>';
             echo '</div>';
@@ -35,7 +31,7 @@
 <!--Navegator-->
 <div class="navbar">
     <a href="/index">Inicio</a>
-    <a href="/articleClient">Noticias</a>
+    <a href="/articleNews">Noticias</a>
     <a href="/views/history.view.php">Historia</a>
     <?php //TODO ?>
     <a href="/comerces">Comercios</a>

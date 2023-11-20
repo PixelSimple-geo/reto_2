@@ -6,8 +6,10 @@ function getArticle($articleId) {
                 WHERE article_id = :article_id";
         $statement = getConnection()->prepare($sql);
         $statement->bindValue("article_id", $articleId, PDO::PARAM_INT);
+        $statement->execute();
         if ($statement->rowCount() === 0) throw new PDOException("No article found");
         return $statement->fetchAll()[0];
+
     } catch (PDOException $exception) {
         error_log("Database error: [$articleId] " . $exception->getMessage());
         throw $exception;

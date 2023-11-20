@@ -11,21 +11,24 @@
         <div class="contentsContainer">
             <a href="/comerces">Volver a los comercios</a>
             <h2>Businesses in Category</h2>
-            <?php
-                if ($businessesByCategorie) {
-                    foreach ($businessesByCategorie as $business) {
-                        echo '<div">';
-                        echo '<h3>' . htmlspecialchars($business['name']) . '</h3>';
-                        echo '<p>' . htmlspecialchars($business['description']) . '</p>';
-                        echo ' <a href="#">Ver Negocio</a>';
-                        echo '</div>';
+            <div class="contents">
+                <?php
+                    if ($businessesByCategorie) {
+                        foreach ($businessesByCategorie as $business) {
+                            echo '<a href="/businessClient.php?businessId=' . urlencode($business['businessId']) . '">';
+                            echo '<div>';
+                            echo '<h3>' . htmlspecialchars($business['name']) . '</h3>';
+                            echo '<p>' . htmlspecialchars($business['description']) . '</p>';
+                            echo '</div>';
+                            echo '</a>';
+                        }
+                    } else {
+                        echo '<p>No businesses found in this category.</p>';
                     }
-                } else {
-                    echo '<p>No businesses found in this category.</p>';
-                }
-            ?>
+                ?>
+            </div>
         </div>
-
+        
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/footer.php" ?>
 
 </body>

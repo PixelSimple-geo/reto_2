@@ -22,45 +22,41 @@
                 <input type='hidden' name='business_id' value='<?= $business['businessId'] ?>'>
                 <label for="nombre">Nombre del Negocio:</label>
                 <input type="text" id="nombre" name="name" value="<?= $business['name'] ?>" required
-                       pattern="([\u{00C0}-\u{00FF}]|\w)([\u{00C0}-\u{00FF}]|\w|\s){3,100}"
-                       title="Ingresa entre 3 y 100 caracteres. Puedes usar letras, números caracteres y '_'">
+                    pattern="([\u{00C0}-\u{00FF}]|\w)([\u{00C0}-\u{00FF}]|\w|\s){3,100}"
+                    title="Ingresa entre 3 y 100 caracteres. Puedes usar letras, números caracteres y '_'">
+
                 <label for="descripcion">Descripción del Negocio:</label>
                 <textarea id="descripcion" name="description" rows="4" required minlength="5" maxlength="1500"><?= $business['description'] ?></textarea>
-
-                <?php if (isset($categories)): ?>
-                    <label for="category">Categorías</label>
-                    <select id="category" name="business_category">
-                        <?php foreach ($categories as $category): ?>
-                            <?php $selected = ($business['category']['categoryId'] == $category['categoryId'] ? "selected" : ""); ?>
-                            <option value="<?= $category['categoryId'] ?>" <?=$selected?>>
-                                <?= $category['name'] ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-                <?php endif; ?>
 
                 <fieldset>
                     <legend>Contacto</legend>
                     <?php foreach ($business['contacts'] as $contact): ?>
                         <div>
                             <label for='type_<?= $contact['contactId'] ?>'>Tipo de contacto</label>
-                            <input id='type_<?= $contact['contactId'] ?>' value='<?= $contact['type'] ?>' name='contact_type[]'>
+                            <input id='type_<?= $contact['contactId'] ?>' value='<?= $contact['type'] ?>' name='contact_type[]'
+                                pattern="^.{1,100}$" title="Ingresa entre 1 y 100 caracteres para el tipo de contacto">
+                            
                             <label for='value_<?= $contact['contactId'] ?>'>Dirección de medio</label>
-                            <input id='value_<?= $contact['contactId'] ?>' value='<?= $contact['value'] ?>' name='contact_value[]'>
+                            <input id='value_<?= $contact['contactId'] ?>' value='<?= $contact['value'] ?>' name='contact_value[]'
+                                pattern="^.{1,255}$" title="Ingresa entre 1 y 255 caracteres para la dirección de medio">
+                            
                             <button type='button' class='eliminarContacto'>Eliminar</button>
                         </div>
                     <?php endforeach; ?>
                 </fieldset>
-                <button type="button" id="agregarContacto">Agregar Contacto</button>
 
                 <fieldset>
                     <legend>Dirección</legend>
                     <?php foreach ($business['addresses'] as $address): ?>
                         <div>
                             <label for='address_<?= $address['addressId'] ?>'>Dirección</label>
-                            <input id='address_<?= $address['addressId'] ?>' value='<?= $address['address'] ?>' name='addresses[]'>
+                            <input id='address_<?= $address['addressId'] ?>' value='<?= $address['address'] ?>' name='addresses[]'
+                                pattern="^.{1,100}$" title="Ingresa entre 1 y 100 caracteres para la dirección">
+                            
                             <label for='postal_code_<?= $address['addressId'] ?>'>Código Postal</label>
-                            <input id='postal_code_<?= $address['addressId'] ?>' value='<?= $address['postalCode'] ?>' name='postal_codes[]'>
+                            <input id='postal_code_<?= $address['addressId'] ?>' value='<?= $address['postalCode'] ?>' name='postal_codes[]'
+                                pattern="[0-9]{5}" title="Ingresa un número de 5 dígitos para el código postal">
+                            
                             <button type='button' class='eliminarDireccion'>Eliminar</button>
                         </div>
                     <?php endforeach; ?>

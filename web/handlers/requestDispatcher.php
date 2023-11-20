@@ -105,7 +105,7 @@ if (matchURI("/login")) {
             if ($requestMethod === "GET") getAdvertsCrudDelete();
         }
     }
-} else if (matchURI("/articleClient")){
+} else if (matchURI("/articleNews")){
     require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/articlesController.php";
     getArticles();
 }else if (matchURI("/comerces")){
@@ -117,5 +117,8 @@ if (matchURI("/login")) {
 }else if (matchURI("/businessClient")){
     require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/businessesController.php";
     businessClient();
+}else if (matchURI("/articleClient")){
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/articlesController.php";
+    getArticleById();
 }
 

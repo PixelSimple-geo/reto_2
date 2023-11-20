@@ -150,15 +150,20 @@ html {
     display: grid;
     grid-template-columns: 1fr;
     grid-gap: 1rem;
-    max-width: 800px;
     margin: 20px auto;
 }
 
 .article {
+    width: 70%;
+    margin: 0 auto;
     border: 1px solid #ddd;
     padding: 10px;
     border-radius: 5px;
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+}
+
+.articles a{
+    text-decoration: none;
 }
 
 .article p:last-child{
@@ -320,17 +325,19 @@ input, textarea{
 }
 
 button {
-    background-color: var(--color-h);
+    background-color: #3498db;
     color: #fff;
-    padding: .5rem 1rem;
-    border-radius: 1rem;
+    padding: .5rem 1rem; 
+    border-radius: 10px;
     cursor: pointer;
     font-size: 16px;
+    border: none;
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #2980b9; /* Darker color on hover */
 }
+
 
 .social{
     display: grid;
@@ -349,7 +356,7 @@ fieldset{
 
 /* Contents */
 .contentsContainer {
-    width: 50%;
+    width: 80%;
     margin: 0 auto;
     text-align: center;
 }

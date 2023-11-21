@@ -7,23 +7,13 @@ function getArticle($articleId): array {
                 LEFT JOIN articles_categories_mapping acm ON articles.article_id = acm.article_id
                 LEFT JOIN article_categories ac ON acm.category_id = ac.category_id
                 WHERE articles.article_id = :article_id";
-        $sqlCommentaries = "SELECT commentary_id commentaryId, article_id articleId, commentator_id commentatorId,
-        title, description, creation_date creationDate, modified_date modifiedDate 
-        FROM commentaries WHERE article_id = :article_id";
         $connection = getConnection();
 
         $statement = $connection->prepare($sql);
         $statement->bindValue("article_id", $articleId, PDO::PARAM_INT);
         $statement->execute();
         if ($statement->rowCount() === 0) throw new PDOException("No article found");
-        $article = $statement->fetch();
-
-        $statementCommentaries = $connection->prepare($sqlCommentaries);
-        $statementCommentaries->bindValue("article_id", $articleId, PDO::PARAM_INT);
-        $statementCommentaries->execute();
-        $article["commentaries"] = $statementCommentaries->fetchAll();
-
-        return $article;
+        return $statement->fetch();
     } catch (PDOException $exception) {
         error_log("Database error: [$articleId] " . $exception->getMessage());
         throw $exception;

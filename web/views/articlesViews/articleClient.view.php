@@ -27,19 +27,60 @@
 
     <section>
         <h1>Comentarios</h1>
-        <?php foreach ($article["commentaries"] as $commentary):?>
-        <article id="<?=$commentary["commentaryId"]?>">
-            <?php if(!empty($commentary["creationDate"])): ?>
-            <p><?=$commentary["creationDate"]?></p>
-            <?php elseif(!empty($commentary["modifiedDate"])): ?>
-                <p><?=$commentary["modifiedDate"]?></p>
-            <?php endif; ?>
-            <h2><?=$commentary["title"]?></h2>
-            <p><?=$commentary["description"]?></p>
-        </article>
-        <?php endforeach; ?>
+        <?php if(isset($commentaries)): ?>
+            <?php foreach ($commentaries as $commentary):?>
+            <article id="<?=$commentary["commentaryId"]?>">
+                <?php if(!empty($commentary["creationDate"])): ?>
+                <p><?=$commentary["creationDate"]?></p>
+                <?php elseif(!empty($commentary["modifiedDate"])): ?>
+                    <p><?=$commentary["modifiedDate"]?></p>
+                <?php endif; ?>
+                <h2><?=$commentary["title"]?></h2>
+                <p><?=$commentary["description"]?></p>
+                <p>Número de likes: <?=$commentary["likeCount"]?></p>
+                <p>Número de dislike: <?=$commentary["dislikeCount"]?></p>
+                <form action="/likes/crud/add" method="POST">
+                    <input type="hidden" name="business_id" value="<?= $article["articleId"] ?>">
+                    <input type="hidden" name="review_id" value="<?= $commentary["commentaryId"] ?>">
+                    <div data-check>
+                        <input type="hidden" name="old_reaction" value="<?=isset($commentary["userFeedback"])?>">
+                        <input type="hidden" name="new_reaction" value="">
+                        <button type="submit" data-reaction="true"
+                            <?php if ($commentary["userFeedback"]) echo "checked"?>>
+                            Like
+                        </button>
+                        <button type="submit" data-reaction="false"
+                            <?php if (isset($commentary["userFeedback"]) && !$commentary["userFeedback"])
+                                echo "checked"?>>
+                            Dislike
+                        </button>
+                    </div>
+                </form>
+            </article>
+            <?php endforeach; ?>
+        <?php endif; ?>
     </section>
     
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/footer.php" ?>
 </body>
+<script>
+    document.querySelectorAll("[data-check] button").forEach((element => {
+        element.addEventListener("click", (event) => {
+            const element = event.target;
+            const parent = event.target.parentNode;
+            const input = parent.querySelector("input[name='new_reaction']")
+            parent.querySelectorAll("button").forEach((element => {
+                if (element !== event.target) element.removeAttribute("checked")
+            }))
+            if (element.hasAttribute("checked")) {
+                element.removeAttribute("checked")
+                input.value = "";
+            } else {
+                input.value =  element.getAttribute("data-reaction")
+                element.setAttribute("checked", "");
+            }
+            console.log(input.value);
+        });
+    }));
+</script>
 </html>

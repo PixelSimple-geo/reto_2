@@ -8,7 +8,7 @@
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/navBar.php"; ?>
 
     <div class="contentsContainer">
-        <h1><?php echo $article['title'] ?? 'No Title'; ?></h1>
+        <h1><?php echo $article['title'] ?? "Sin título"; ?></h1>
         <div class="formulario">
             
             <?php if (!empty($article['description'])): ?>
@@ -24,6 +24,21 @@
             <?php endif; ?>
         </div>
     </div>
+
+    <section>
+        <h1>Comentarios</h1>
+        <?php foreach ($article["commentaries"] as $commentary):?>
+        <article id="<?=$commentary["commentaryId"]?>">
+            <?php if(!empty($commentary["creationDate"])): ?>
+            <p><?=$commentary["creationDate"]?></p>
+            <?php elseif(!empty($commentary["modifiedDate"])): ?>
+                <p><?=$commentary["modifiedDate"]?></p>
+            <?php endif; ?>
+            <h2><?=$commentary["title"]?></h2>
+            <p><?=$commentary["description"]?></p>
+        </article>
+        <?php endforeach; ?>
+    </section>
     
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/footer.php" ?>
 </body>

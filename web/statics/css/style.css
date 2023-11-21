@@ -7,18 +7,18 @@ html {
 .header {
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
     background-color: var(--color-primario);
     margin: 1rem;
     margin-bottom: 0;
     padding: 1rem;
 }
 
-.header a[href="/index"] img  {
+.header a[href="/index"] img {
     height: 7rem;
 }
 
-.header a[href="/login"] img  {
+.header a[href="/login"] img {
     height: 3rem;
 }
 
@@ -47,11 +47,11 @@ html {
     border-radius: 50%;
     width: 60px;
     height: 60px;
-    cursor: pointer; 
-    background-color: var(--color-primario);   
+    cursor: pointer;
+    background-color: var(--color-primario);
 }
 
-::-webkit-input-placeholder{
+::-webkit-input-placeholder {
     color: var(--color-secundario);
 }
 
@@ -75,9 +75,9 @@ html {
     position: absolute;
     background-color: #f9f9f9;
     min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
-    right: 0; 
+    right: 0;
 }
 
 .dropdown-content a {
@@ -167,11 +167,11 @@ html {
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
 }
 
-.articles a{
+.articles a {
     text-decoration: none;
 }
 
-.article p:last-child{
+.article p:last-child {
     text-align: right;
 }
 
@@ -186,7 +186,8 @@ html {
 
 
 /* Login y registro*/
-.login_container, .register_container {
+.login_container,
+.register_container {
     width: 23rem;
     margin: 10rem auto;
     padding: 1rem;
@@ -196,24 +197,28 @@ html {
     text-align: center;
 }
 
-.login_container #log_form, .register_container #reg_form{
+.login_container #log_form,
+.register_container #reg_form {
     display: flex;
     flex-direction: column;
     margin-top: 2rem;
 }
 
-.login_container label, .register_container label {
+.login_container label,
+.register_container label {
     margin-bottom: .3rem;
     font-weight: bold;
 }
 
-.login_container input, .register_container input {
+.login_container input,
+.register_container input {
     padding: 8px;
     margin-bottom: 10px;
     box-sizing: border-box;
 }
 
-.login_container button, .register_container button {
+.login_container button,
+.register_container button {
     padding: 10px;
     background-color: #4caf50;
     color: white;
@@ -221,18 +226,20 @@ html {
     cursor: pointer;
 }
 
-.login_container button:hover, .register_container button:hover  {
+.login_container button:hover,
+.register_container button:hover {
     background-color: #45a049;
 }
 
-.login_container a, .register_container a {
+.login_container a,
+.register_container a {
     text-decoration: none;
     color: #2196F3;
     display: block;
     margin-top: 10px;
 }
 
-.home img{
+.home img {
     height: 5rem;
 }
 
@@ -245,22 +252,25 @@ html {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.historia h1, .historia h2, .historia h3{
-    color:  var(--color-h);
+.historia h1,
+.historia h2,
+.historia h3 {
+    color: var(--color-h);
 }
 
-.historia p, .historia ul{
+.historia p,
+.historia ul {
     margin: 1rem;
 }
 
-.historia li{
-    list-style-type: disc; 
+.historia li {
+    list-style-type: disc;
     margin-left: 2rem;
 
 }
 
 /* Business */
-.business{
+.business {
     color: black;
 }
 
@@ -309,7 +319,7 @@ html {
     color: #007BFF;
 }
 
-.business > div {
+.business>div {
     border: 1px solid #ccc;
     border-radius: 5px;
     flex: 1;
@@ -328,25 +338,28 @@ html {
     grid-gap: 1rem;
 }
 
-.contacto div, .crear-negocio div  {
+.contacto div,
+.crear-negocio div {
     margin-bottom: 2rem;
 }
 
-.contacto h3, .crear-negocio h3  {
+.contacto h3,
+.crear-negocio h3 {
     color: var(--color-h);
 }
 
-form  {
-    margin-top: 2rem;
+form {
+    margin: 1rem;
 }
 
-label  {
+label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
 }
 
-input, textarea{
+input,
+textarea {
     width: 100%;
     padding: 8px;
     box-sizing: border-box;
@@ -355,7 +368,7 @@ input, textarea{
 button {
     background-color: #3498db;
     color: #fff;
-    padding: .5rem 1rem; 
+    padding: .5rem 1rem;
     border-radius: 10px;
     cursor: pointer;
     font-size: 16px;
@@ -363,22 +376,23 @@ button {
 }
 
 button:hover {
-    background-color: #2980b9; /* Darker color on hover */
+    background-color: #2980b9;
+    /* Darker color on hover */
 }
 
 
-.social{
+.social {
     display: grid;
     grid-template-columns: 1fr 1fr;
     margin: 3rem;
 }
 
-.social a img{
+.social a img {
     width: 10rem;
     cursor: pointer;
 }
 
-fieldset{
+fieldset {
     margin: 1rem 0;
 }
 
@@ -409,7 +423,7 @@ fieldset{
     background-color: #fff;
     transition: background-color 0.3s, color 0.3s;
     height: 100%;
-    overflow: hidden; 
+    overflow: hidden;
 }
 
 .contents a {
@@ -429,7 +443,7 @@ fieldset{
 
 /* Crear Negocio*/
 .formulario {
-    width: 50%;
+    width: 40%;
     margin: 0 auto;
     padding: 2rem;
     display: flex;
@@ -437,8 +451,86 @@ fieldset{
     border: 1px solid #ddd;
 }
 
+.formulario div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+}
+
+.formulario div input{
+    width: 100%;
+}
+
 .formulario button {
     margin: 1rem auto;
+}
+
+/* Review*/
+button[type="submit"][data-reaction="false"][checked] {
+    background-color: red;
+}
+
+button[type="submit"][data-reaction="true"][checked] {
+    background-color: green;
+}
+
+input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+    width: 15rem;
+}
+
+/* Review*/
+input[type="range"]:focus {
+    outline: none;
+}
+
+/***** Chrome, Safari, Opera Edge *****/
+input[type="range"]::-webkit-slider-runnable-track {
+    background-color: #053a5f;
+    border-radius: 0.5rem;
+    height: 0.5rem;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    margin-top: -12px;
+    background-color: #5cd5eb;
+    height: 2rem;
+    width: 1rem;
+}
+
+input[type="range"]:focus::-webkit-slider-thumb {
+    border: 1px solid #053a5f;
+    outline: 3px solid #053a5f;
+    outline-offset: 0.125rem;
+}
+
+/******** Firefox  ********/
+input[type="range"]::-moz-range-track {
+    background-color: #053a5f;
+    border-radius: 0.5rem;
+    height: 0.5rem;
+}
+
+input[type="range"]::-moz-range-thumb {
+    border: none;
+    border-radius: 0;
+    background-color: #5cd5eb;
+    height: 2rem;
+    width: 1rem;
+}
+
+input[type="range"]:focus::-moz-range-thumb {
+    border: 1px solid #053a5f;
+    outline: 3px solid #053a5f;
+    outline-offset: 0.125rem;
 }
 
 /* Footer */
@@ -453,32 +545,37 @@ footer>p {
 
 
 @media screen and (max-width: 1000px) {
-    .principal{
+    .principal {
         display: flex;
         flex-direction: column;
     }
-    #map{
+
+    #map {
         height: 20rem;
         width: 30rem;
     }
+
     .contents {
         grid-template-columns: 1fr 1fr;
     }
 }
 
 @media screen and (max-width: 510px) {
-    .principal{
+    .principal {
         display: flex;
         flex-direction: column;
     }
-    .header{
+
+    .header {
         display: flex;
         flex-direction: column;
     }
-    #map{
+
+    #map {
         height: 10rem;
         width: 20rem;
     }
+
     .contents {
         grid-template-columns: 1fr;
     }

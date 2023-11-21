@@ -10,6 +10,7 @@
 
     <main>
 
+
         <div class="contentsContainer">
             <a href="/businesses/all">Volver a los comercios</a>
 
@@ -36,8 +37,10 @@
                 <input id="title" name="title" required>
                 <label for="body">Cuerpo</label>
                 <textarea id="body" name="description" placeholder="Escribe un comentario" required></textarea>
-                <label for="rating">Valoración</label>
-                <input type="range" id="rating" name="rating" min="1" max="5" />
+                <div>
+                    <label for="rating">Valoración</label>
+                    <input type="range" id="rating" name="rating" min="1" max="5" />
+                </div>
                 <button type="submit">Enviar comentario</button>
             </form>
         </div>
@@ -47,19 +50,13 @@
                         <?php foreach ($reviews as $review): ?>
                             <div>
                                 <article id="<?=$review["reviewId"]?>">
+                                    <!--TODO: esta bugeado, userAccount te coje la cuenta que esta iniciada, no la cuenta que ha hecho la review -->
                                     <?php if(isset($userAccount["username"])):?>
-                                    <p><?=$userAccount["username"]?></p>
-                                    <?php endif; ?>
-                                    <?php if(isset($review["modifiedDate"])):?>
-                                        <p>Fecha: <?= date("Y-m-d", strtotime($review["modifiedDate"])) ?></p>
-                                    <?php else: ?>
-                                        <p>Fecha: <?= date("Y-m-d", strtotime($review["creationDate"])) ?></p>
+                                    <h2><?=$userAccount["username"]?></h2>
                                     <?php endif; ?>
                                     <p>Valoración: <?=$review["rating"]?></p>
                                     <h2><?=$review["title"]?></h2>
                                     <p><?=$review["description"]?></p>
-                                    <p>Número de likes: <?=$review["likeCount"]?></p>
-                                    <p>Número de dislikes: <?=$review["dislikeCount"]?></p>
                                     <form action="/likes/crud/add" method="POST">
                                         <input type="hidden" name="business_id" value="<?= $review["businessId"] ?>">
                                         <input type="hidden" name="review_id" value="<?= $review["reviewId"] ?>">
@@ -68,15 +65,22 @@
                                             <input type="hidden" name="new_reaction" value="">
                                             <button type="submit" data-reaction="true"
                                                 <?php if ($review["userFeedback"]) echo "checked"?>>
+                                                <?=$review["likeCount"]?>
                                                 Like
                                             </button>
                                             <button type="submit" data-reaction="false"
                                                 <?php if (isset($review["userFeedback"]) && !$review["userFeedback"])
                                                     echo "checked"?>>
+                                                <?=$review["dislikeCount"]?>
                                                 Dislike
                                             </button>
                                         </section>
                                     </form>
+                                    <?php if(isset($review["modifiedDate"])):?>
+                                        <p>Fecha: <?= date("Y-m-d", strtotime($review["modifiedDate"])) ?></p>
+                                    <?php else: ?>
+                                        <p>Fecha: <?= date("Y-m-d", strtotime($review["creationDate"])) ?></p>
+                                    <?php endif; ?>
                                 </article>
                             </div>
                         <?php endforeach; ?>

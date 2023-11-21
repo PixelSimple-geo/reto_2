@@ -25,7 +25,7 @@
                     echo '<div class="article">';
                     echo '<h2>' . htmlspecialchars($article['title']) . '</h2>';
                     echo '<p>' . htmlspecialchars($article['description']) . '</p>';
-                    echo '<p>' . htmlspecialchars($article['created_date']) . '</p>';
+                    echo '<p>' . htmlspecialchars($article['createdDate']) . '</p>';
                     echo '</div>';
                     echo '</a>';
                 }

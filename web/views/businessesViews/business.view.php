@@ -29,55 +29,61 @@
                 <?php endif; ?>
             </div>
         </div>
-        <form action="/reviews/crud/add" method="POST">
-            <input type="hidden" name="business_id" value="<?=$business["businessId"]?>">
-            <label for="title">Título</label>
-            <input id="title" name="title">
-            <label for="body">Cuerpo</label>
-            <textarea id="body" name="description" placeholder="Escribe un comentario"></textarea>
-            <label for="rating">Valoración</label>
-            <input type="range" id="rating" name="rating" min="1" max="5" />
-            <button type="submit">Enviar comentario</button>
-        </form>
-
-        <section>
-            <?php if(isset($reviews)): ?>
-                <?php foreach ($reviews as $review): ?>
-                    <article id="<?=$review["reviewId"]?>">
-                        <?php if(isset($userAccount["username"])):?>
-                        <p><?=$userAccount["username"]?></p>
-                        <?php endif; ?>
-                        <?php if(isset($review["modifiedDate"])):?>
-                            <p>Fecha: <?=$review["modifiedDate"]?></p>
-                        <?php else: ?>
-                            <p>Fecha: <?=$review["creationDate"]?></p>
-                        <?php endif; ?>
-                        <p>Valoración: <?=$review["rating"]?></p>
-                        <h2><?=$review["title"]?></h2>
-                        <p><?=$review["description"]?></p>
-                        <p>Número de likes: <?=$review["likeCount"]?></p>
-                        <p>Número de dislikes: <?=$review["dislikeCount"]?></p>
-                        <form action="/likes/crud/add" method="POST">
-                            <input type="hidden" name="business_id" value="<?= $review["businessId"] ?>">
-                            <input type="hidden" name="review_id" value="<?= $review["reviewId"] ?>">
-                            <div data-check>
-                                <input type="hidden" name="old_reaction" value="<?=isset($review["userFeedback"])?>">
-                                <input type="hidden" name="new_reaction" value="">
-                                <button type="submit" data-reaction="true"
-                                    <?php if ($review["userFeedback"]) echo "checked"?>>
-                                    Like
-                                </button>
-                                <button type="submit" data-reaction="false"
-                                    <?php if (isset($review["userFeedback"]) && !$review["userFeedback"])
-                                        echo "checked"?>>
-                                    Dislike
-                                </button>
+        <div class="formulario">
+            <form action="/reviews/crud/add" method="POST">
+                <input type="hidden" name="business_id" value="<?=$business["businessId"]?>">
+                <label for="title">Título</label>
+                <input id="title" name="title" required>
+                <label for="body">Cuerpo</label>
+                <textarea id="body" name="description" placeholder="Escribe un comentario" required></textarea>
+                <label for="rating">Valoración</label>
+                <input type="range" id="rating" name="rating" min="1" max="5" />
+                <button type="submit">Enviar comentario</button>
+            </form>
+        </div>
+        <div class="contentsContainer">
+            <div class="contents">
+                    <?php if(isset($reviews)): ?>
+                        <?php foreach ($reviews as $review): ?>
+                            <div>
+                                <article id="<?=$review["reviewId"]?>">
+                                    <?php if(isset($userAccount["username"])):?>
+                                    <p><?=$userAccount["username"]?></p>
+                                    <?php endif; ?>
+                                    <?php if(isset($review["modifiedDate"])):?>
+                                        <p>Fecha: <?= date("Y-m-d", strtotime($review["modifiedDate"])) ?></p>
+                                    <?php else: ?>
+                                        <p>Fecha: <?= date("Y-m-d", strtotime($review["creationDate"])) ?></p>
+                                    <?php endif; ?>
+                                    <p>Valoración: <?=$review["rating"]?></p>
+                                    <h2><?=$review["title"]?></h2>
+                                    <p><?=$review["description"]?></p>
+                                    <p>Número de likes: <?=$review["likeCount"]?></p>
+                                    <p>Número de dislikes: <?=$review["dislikeCount"]?></p>
+                                    <form action="/likes/crud/add" method="POST">
+                                        <input type="hidden" name="business_id" value="<?= $review["businessId"] ?>">
+                                        <input type="hidden" name="review_id" value="<?= $review["reviewId"] ?>">
+                                        <section data-check>
+                                            <input type="hidden" name="old_reaction" value="<?=isset($review["userFeedback"])?>">
+                                            <input type="hidden" name="new_reaction" value="">
+                                            <button type="submit" data-reaction="true"
+                                                <?php if ($review["userFeedback"]) echo "checked"?>>
+                                                Like
+                                            </button>
+                                            <button type="submit" data-reaction="false"
+                                                <?php if (isset($review["userFeedback"]) && !$review["userFeedback"])
+                                                    echo "checked"?>>
+                                                Dislike
+                                            </button>
+                                        </section>
+                                    </form>
+                                </article>
                             </div>
-                        </form>
-                    </article>
-                <?php endforeach; ?>
-            <?php endif; ?>
-        </section>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+            </div>
+        </div>
+            
     </main>
     
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/footer.php" ?>

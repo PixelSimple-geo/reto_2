@@ -114,9 +114,9 @@ if (matchURI("/login")) {
 } else if (matchURI("/articles")) {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/articlesController.php";
     if (matchURI("/articles/article")) {
-        // for client
+        if ($requestMethod === "GET") getArticleById();
     } else if (matchURI("/articles/all")) {
-        // for client
+        if ($requestMethod === "GET") getArticles();
     } else if (matchURI("/articles/crud")) {
         if (matchURI("/articles/crud/all")) {
             if ($requestMethod === "GET") getArticlesCrudReadAll();
@@ -136,8 +136,9 @@ if (matchURI("/login")) {
 } else if (matchURI("/likes/crud")) {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/reviewsController.php";
     if (matchURI("/likes/crud/add")) postReviewLikeCrudAdd();
-} else if (matchURI("/articleClient")) {
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/articlesController.php";
-    getArticles();
+} else if (matchURI("/products")){
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/advertsController.php";
+    getAdverts();
 }
+
 

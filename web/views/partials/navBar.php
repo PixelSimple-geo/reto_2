@@ -2,12 +2,13 @@
 
 <div class="header">
     <!--Logo-->
-    <a href="/index"><img src="/statics/media/logo2.png" alt="logo"></a>
-    <!--Searchbar-->
+    <a href="/index"><img src="/statics/media/comvit.png" alt="logo"></a>
+    <!--Searchbar
     <form action="/index" method="POST" class="search">
         <input type="text" name="search" placeholder="¿Que deseas buscar?">
         <button type="submit"><img src="/statics/media/search.svg" alt="search"></button>
     </form>
+    -->
     <!--Sesion-->
     <?php
     if (!isset($userAccount)) :
@@ -34,8 +35,10 @@
 <!--Navegator-->
 <nav class="navbar">
     <a href="/index">Inicio</a>
-    <a href="/articleClient">Noticias</a>
+    <a href="/articleNews">Noticias</a>
     <a href="/history">Historia</a>
+    <?php //TODO ?>
+    <a href="/products">Productos</a>
     <a href="/businesses/all">Comercios</a>
     <a href="/contact">Contacto</a>
 </nav>

@@ -468,13 +468,18 @@ fieldset {
     margin: 1rem auto;
 }
 
+form section{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
 /* Review*/
 button[type="submit"][data-reaction="false"][checked] {
-    background-color: red;
+    background-color: rgb(239, 136, 151);
 }
 
 button[type="submit"][data-reaction="true"][checked] {
-    background-color: green;
+    background-color: rgb(110, 219, 110);
 }
 
 input[type="range"] {
@@ -543,6 +548,15 @@ footer>p {
     margin: 1rem;
 }
 
+@media screen and (max-width: 1300px) {
+    .formulario{
+        width: 50%;
+    }
+
+    .contacto{
+        width: 60%;
+    }
+}
 
 @media screen and (max-width: 1000px) {
     .principal {
@@ -557,6 +571,15 @@ footer>p {
 
     .contents {
         grid-template-columns: 1fr 1fr;
+    }
+
+    .formulario{
+        width: 60%;
+    }
+
+    .contacto{
+        width: 70%;
+        grid-template-columns: 1fr;
     }
 }
 
@@ -578,5 +601,9 @@ footer>p {
 
     .contents {
         grid-template-columns: 1fr;
+    }
+
+    .formulario{
+        width: 8    0%;
     }
 }

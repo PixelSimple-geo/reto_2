@@ -120,5 +120,8 @@ if (matchURI("/login")) {
 }else if (matchURI("/articleClient")){
     require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/articlesController.php";
     getArticleById();
+}else if (matchURI("/products")){
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/advertsController.php";
+    getAdverts();
 }
 

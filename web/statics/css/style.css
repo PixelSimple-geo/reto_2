@@ -14,16 +14,20 @@ html {
     padding: 1rem;
 }
 
-.header img:nth-child(1) {
+.header a[href="/index"] img  {
+    height: 7rem;
+}
+
+.header a[href="/login"] img  {
     height: 3rem;
 }
 
 .search {
-    background-color: var(--color-secundario);
+    background-color: var(--color-primario);
     display: flex;
     align-items: center;
     border-radius: 60px;
-    width: 80rem;
+    width: auto;
     margin-top: 0;
 }
 
@@ -34,7 +38,7 @@ html {
     outline: none;
     padding: 0.1rem 1rem;
     font-size: 1rem;
-    color: var(--color-hover);
+    color: var(--color-secundario);
     font-size: 2rem;
 }
 
@@ -44,11 +48,11 @@ html {
     width: 60px;
     height: 60px;
     cursor: pointer; 
-    background-color: var(--color-secundario);   
+    background-color: var(--color-primario);   
 }
 
 ::-webkit-input-placeholder{
-    color: var(--color-hover);
+    color: var(--color-secundario);
 }
 
 /* Dropdown */
@@ -107,6 +111,7 @@ html {
     display: block;
     color: white;
     text-align: center;
+    text-decoration: none;
     padding: 14px 16px;
     width: 100%;
     transition: background-color 0.3s ease;
@@ -286,7 +291,7 @@ html {
 }
 
 .paginas a.current {
-    background-color: #007BFF;
+    background-color: var(--color-primario);
     color: #fff;
 }
 
@@ -422,7 +427,6 @@ fieldset{
     color: #e74c3c;
 }
 
-
 /* Crear Negocio*/
 .formulario {
     width: 50%;
@@ -446,34 +450,6 @@ footer>p {
     margin: 1rem;
 }
 
-@media screen and (max-width: 1600px) {
-    .header {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        text-align: center;
-    }
-
-    .header a{
-        width: auto;
-        margin: 0 auto;
-    }
-
-    .search {
-        grid-column: span 2;
-        order: 1;
-        width: auto;
-        margin-top: 1rem;
-    }
-
-    .search input {
-        width: auto;
-    }
-
-    .search button {
-        margin-left: 1rem;
-    }
-
-}
 
 @media screen and (max-width: 1000px) {
     .principal{
@@ -484,6 +460,9 @@ footer>p {
         height: 20rem;
         width: 30rem;
     }
+    .contents {
+        grid-template-columns: 1fr 1fr;
+    }
 }
 
 @media screen and (max-width: 510px) {
@@ -491,8 +470,15 @@ footer>p {
         display: flex;
         flex-direction: column;
     }
+    .header{
+        display: flex;
+        flex-direction: column;
+    }
     #map{
         height: 10rem;
         width: 20rem;
+    }
+    .contents {
+        grid-template-columns: 1fr;
     }
 }

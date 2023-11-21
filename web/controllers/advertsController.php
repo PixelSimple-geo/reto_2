@@ -161,3 +161,16 @@ function saveImages(): array {
     }
     return $images;
 }
+
+function getAdverts() :void {
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/models/advertsDB.php";
+    $errorMessage = null;
+    try {
+        $adverts = getAllAdverts();
+    } catch (PDOException $exception) {
+        $errorMessage = "Hubo un error al intentar extraer tus productos";
+    } catch (RuntimeException $exception) {
+        $errorMessage = "No se ha encontrado ninguna sesión";
+    }
+    include_once $_SERVER['DOCUMENT_ROOT'] . "/views/advertsViews/products.view.php";
+}

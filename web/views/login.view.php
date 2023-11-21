@@ -12,7 +12,7 @@
 <body>
 
     <a href="/index" class="home">
-        <img src= "/statics/media/logo2.png" alt="Volver al Home">
+        <img src= "/statics/media/comvit.png" alt="Volver al Home">
     </a>
 
     <div class="login_container">

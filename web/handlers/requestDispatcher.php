@@ -17,6 +17,9 @@ function validateRequiredParameters(array $parameters, $source = "POST"): void {
         }
 }
 
+
+
+
 $requestMethod = $_SERVER["REQUEST_METHOD"];
 startSession();
 try {
@@ -24,6 +27,13 @@ try {
 } catch (RuntimeException $exception) {
     $userAccount = null;
 }
+
+$url = $_SERVER["REQUEST_URI"];
+$parsedUrl = parse_url($url);
+$pathSegments = explode("/", $parsedUrl["path"]);
+array_shift($pathSegments);
+print_r($pathSegments);
+
 
 if (matchURI("/login")) {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/accountController.php";
@@ -139,6 +149,15 @@ if (matchURI("/login")) {
 } else if (matchURI("/products")){
     require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/advertsController.php";
     getAdverts();
+} else if (matchURI("/commentaries/crud")) {
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/commentariesController.php";
+    if (matchURI("/commentaries/crud/add"))
+        if ($requestMethod === "POST") postCommentaryCrudAdd();
+} else if (matchURI("/commentariesLikes/crud/add")) {
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/commentariesController.php";
+    if (matchURI("/commentariesLikes/crud/add")) {
+        if ($requestMethod === "POST") postCommentaryLikeCrudAdd();
+    }
 }
 
 

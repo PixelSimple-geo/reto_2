@@ -122,7 +122,7 @@ CREATE TABLE commentaries (
     commentator_id INT NOT NULL,
     title VARCHAR(50) NOT NULL,
     description VARCHAR(500) NOT NULL,
-    creation_date TIMESTAMP NOT NULL,
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
     modified_date TIMESTAMP NULL,
     CONSTRAINT com_art_fk FOREIGN KEY (article_id) REFERENCES articles (article_id) ON DELETE CASCADE,
     CONSTRAINT com_com_fk FOREIGN KEY (commentator_id) REFERENCES accounts (account_id) ON DELETE CASCADE

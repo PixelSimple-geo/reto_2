@@ -22,7 +22,9 @@
                 <?php if(isset($adverts)):?>
                     <?php foreach ($adverts as $advert): ?>
                         <div>
-                            <img src="<?= $advert['coverImg'] ?>" alt="Portada del anuncio">
+                            <?php if(isset($advert["coverImg"])): ?>
+                                <img src="<?= $advert['coverImg']?>" alt="Portada del anuncio">
+                            <?php endif; ?>
                             <h3><?= $advert['title'] ?></h3>
                             <p>Description: <?= $advert['description'] ?></p>
                         </div>
@@ -32,6 +34,7 @@
         </div>
         <div class="formulario">
             <form action="/reviews/crud/add" method="POST">
+                <h2>Escribe una reseña</h2>
                 <input type="hidden" name="business_id" value="<?=$business["businessId"]?>">
                 <label for="title">Título</label>
                 <input id="title" name="title" required>
@@ -66,13 +69,13 @@
                                             <button type="submit" data-reaction="true"
                                                 <?php if ($review["userFeedback"]) echo "checked"?>>
                                                 <?=$review["likeCount"]?>
-                                                <img src="/statics/media/thumb_up.svg">
+                                                <!--<img src="/statics/media/thumb_up.svg">-->
                                             </button>
                                             <button type="submit" data-reaction="false"
                                                 <?php if (isset($review["userFeedback"]) && !$review["userFeedback"])
                                                     echo "checked"?>>
                                                 <?=$review["dislikeCount"]?>
-                                                <img src="/statics/media/thumb_down.svg">
+                                                <!--<img src="/statics/media/thumb_down.svg">-->
                                             </button>
                                         </section>
                                     </form>

@@ -2,19 +2,33 @@
 
 require_once $_SERVER["DOCUMENT_ROOT"] . "/models/driverManager.php";
 
-function getAllBusinessReviews($businessId): array {
+function getAllBusinessReviews($businessId, $userAccount): array {
     try {
         $sql = "SELECT r.review_id reviewId, account_id accountId, business_id businessId, title, description, 
-        creation_date creationDate, modified_date modifiedDate, rating, 
-        COUNT(CASE WHEN rl.is_liked = 1 THEN 1 END) AS likeCount,
-        COUNT(CASE WHEN rl.is_liked = 0 THEN 1 END) AS dislikeCount 
-        FROM reviews r
-            LEFT JOIN reviews_likes rl ON r.review_id = rl.review_id
-        WHERE business_id = :business_id GROUP BY r.review_id";
+        creation_date creationDate, modified_date modifiedDate, rating,
+        COUNT(CASE WHEN is_liked = 1 THEN 1 END) AS likeCount,
+        COUNT(CASE WHEN is_liked = 0 THEN 1 END) AS dislikeCount
+        FROM reviews r 
+        LEFT JOIN reviews_likes rl ON r.review_id = rl.review_id
+        WHERE business_id = :business_id
+        GROUP BY r.review_id";
+        $sqlReviewsLike = "SELECT is_liked liked FROM reviews_likes WHERE review_id = :review_id 
+                                           AND commentator_id = :account_id";
         $statement = getConnection()->prepare($sql);
+        $statementReviewsLike = getConnection()->prepare($sqlReviewsLike);
         $statement->bindValue("business_id", $businessId, PDO::PARAM_INT);
         $statement->execute();
-        return $statement->fetchAll();
+        $reviews = $statement->fetchAll();
+
+        foreach ($reviews as &$review) {
+            $statementReviewsLike->bindValue("review_id", $review["reviewId"], PDO::PARAM_INT);
+            $statementReviewsLike->bindValue("account_id", $userAccount["accountId"], PDO::PARAM_INT);
+            $statementReviewsLike->execute();
+            $record = $statementReviewsLike->fetch();
+            $review["userFeedback"] = !empty($record) ? $record['liked'] : null;
+        }
+
+        return $reviews;
     } catch (PDOException $exception) {
         error_log("Database error: [$businessId] " . $exception->getMessage());
         throw $exception;

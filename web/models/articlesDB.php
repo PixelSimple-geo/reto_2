@@ -1,18 +1,19 @@
 <?php
-function getArticle($articleId) {
+function getArticle($articleId): array {
     try {
         $sql = "SELECT articles.article_id AS articleId, account_id AS accountId, title, description, created_date creationDate, 
-       modified_date modifiedDate, ac.category_id categoryId, ac.name categoryName 
+        modified_date modifiedDate, ac.category_id categoryId, ac.name categoryName 
                 FROM articles 
                 LEFT JOIN articles_categories_mapping acm ON articles.article_id = acm.article_id
                 LEFT JOIN article_categories ac ON acm.category_id = ac.category_id
                 WHERE articles.article_id = :article_id";
-        $statement = getConnection()->prepare($sql);
+        $connection = getConnection();
+
+        $statement = $connection->prepare($sql);
         $statement->bindValue("article_id", $articleId, PDO::PARAM_INT);
         $statement->execute();
         if ($statement->rowCount() === 0) throw new PDOException("No article found");
-        return $statement->fetchAll()[0];
-
+        return $statement->fetch();
     } catch (PDOException $exception) {
         error_log("Database error: [$articleId] " . $exception->getMessage());
         throw $exception;

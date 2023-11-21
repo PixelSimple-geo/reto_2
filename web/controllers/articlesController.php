@@ -105,13 +105,16 @@ function getArticlesCrudDelete(): void {
 
 function getArticleById() {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/models/articlesDB.php";
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/models/commentariesDB.php";
     $errorMessage = null;
     $article = null;
 
     try {
         if (isset($_GET['articleId'])) {
+            $userAccount = getUserAccountFromSession();
             $articleId = $_GET['articleId'];
             $article = getArticle($articleId);
+            $commentaries = getAllArticleCommentaries($articleId, $userAccount);
         }
     } catch (PDOException $exception) {
         $errorMessage = "Hubo un error al intentar obtener el artículo.";

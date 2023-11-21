@@ -18,7 +18,6 @@ function getBusinessPage(): void {
     } catch (RuntimeException $exception) {
         $errorMessage = "No se ha encontrado ninguna sesión";
     }
-
 }
 
 function getBusinesses(): void {

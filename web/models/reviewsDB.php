@@ -52,17 +52,45 @@ function persistBusinessReview($businessId, $accountId, $title, $description, $r
     }
 }
 
-function persistReviewLike($accountId, $reviewId, $isLiked): void {
+function persistReviewLike($userAccount, $reviewId, $isLiked): void {
     try {
         $sql = "INSERT INTO reviews_likes(commentator_id, review_id, is_liked) 
         VALUES(:commentator_id, :review_id, :is_liked)";
         $statement = getConnection()->prepare($sql);
-        $statement->bindValue("commentator_id", $accountId, PDO::PARAM_INT);
+        $statement->bindValue("commentator_id", $userAccount["accountId"], PDO::PARAM_INT);
         $statement->bindValue("review_id", $reviewId, PDO::PARAM_INT);
         $statement->bindValue("is_liked", $isLiked, PDO::PARAM_BOOL);
         $statement->execute();
     } catch (PDOException $exception) {
-        error_log("Database error: [$accountId, $reviewId, $isLiked] " . $exception->getMessage());
+        error_log("Database error: [$userAccount[accountId], $reviewId, $isLiked] " . $exception->getMessage());
         throw $exception;
+    }
+}
+
+function updateReviewLike($userAccount, $reviewId, $isLiked): void {
+    try {
+        $sql = "UPDATE reviews_likes SET is_liked = :is_liked 
+                     WHERE review_id = :review_id AND commentator_id = :account_id";
+        $statement = getConnection()->prepare($sql);
+        $statement->bindValue("is_liked", $isLiked, PDO::PARAM_BOOL);
+        $statement->bindValue("review_id", $reviewId, PDO::PARAM_INT);
+        $statement->bindValue("account_id", $userAccount["accountId"], PDO::PARAM_INT);
+        $statement->execute();
+    } catch (PDOException $exception) {
+        error_log("Database error: [$userAccount[accountId], $reviewId, $isLiked] " . $exception->getMessage());
+        echo $exception->getMessage();
+    }
+}
+
+function deleteReviewLike($userAccount, $reviewId): void {
+    try {
+        $sql = "DELETE FROM reviews_likes WHERE review_id = :review_id AND commentator_id = :account_id";
+        $statement = getConnection()->prepare($sql);
+        $statement->bindValue("review_id", $reviewId, PDO::PARAM_INT);
+        $statement->bindValue("account_id", $userAccount["accountId"], PDO::PARAM_INT);
+        $statement->execute();
+    } catch (PDOException $exception) {
+        error_log("Database error: [$userAccount[accountId], $reviewId] " . $exception->getMessage());
+        echo $exception->getMessage();
     }
 }

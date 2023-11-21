@@ -11,7 +11,6 @@ function getBusinessPage(): void {
         $business = getBusiness($businessId);
         $adverts = getAdvertsByBusinessId($businessId);
         $reviews = getAllBusinessReviews($businessId, $userAccount);
-        print_r($reviews);
         include_once $_SERVER['DOCUMENT_ROOT'] . "/views/businessesViews/business.view.php";
     } catch (PDOException $exception) {
         //TODO

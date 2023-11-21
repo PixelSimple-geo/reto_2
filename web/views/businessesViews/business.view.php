@@ -58,19 +58,19 @@
                             <input type="hidden" name="business_id" value="<?= $review["businessId"] ?>">
                             <input type="hidden" name="review_id" value="<?= $review["reviewId"] ?>">
                             <div data-check>
-                                <input type="hidden" name="old_reaction" value="<?=$review["userFeedback"]?>">
+                                <input type="hidden" name="old_reaction" value="<?=isset($review["userFeedback"])?>">
                                 <input type="hidden" name="new_reaction" value="">
                                 <button type="submit" data-reaction="true"
                                     <?php if ($review["userFeedback"]) echo "checked"?>>
                                     Like
                                 </button>
                                 <button type="submit" data-reaction="false"
-                                    <?php if (isset($review["userFeedback"]) && !$review["userFeedback"]) echo "checked"?>>
+                                    <?php if (isset($review["userFeedback"]) && !$review["userFeedback"])
+                                        echo "checked"?>>
                                     Dislike
                                 </button>
                             </div>
                         </form>
-
                     </article>
                 <?php endforeach; ?>
             <?php endif; ?>
@@ -100,7 +100,6 @@
             console.log(input.value);
         });
     }));
-
 
 </script>
 </html>

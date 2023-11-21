@@ -12,6 +12,7 @@ function getArticle($articleId) {
         $statement->execute();
         if ($statement->rowCount() === 0) throw new PDOException("No article found");
         return $statement->fetchAll()[0];
+
     } catch (PDOException $exception) {
         error_log("Database error: [$articleId] " . $exception->getMessage());
         throw $exception;

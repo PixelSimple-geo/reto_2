@@ -1,62 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/head.php" ?>
-    <title>Noticias | Reto 2</title>
-    <style>
-        .pagination {
-            display: flex;
-            list-style: none;
-        }
-
-        .pagination li {
-            margin-right: 5px;
-        }
-    </style>
+    <title><?php echo $article['title'] ?? 'Article Details'; ?></title>
 </head>
-
 <body>
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/navBar.php"; ?>
 
-    <div class="articles">
-        <?php
-        $itemsPerPage = 6;
-        $totalItems = count($articles);
+    <div class="contentsContainer">
+        <h1><?php echo $article['title'] ?? 'No Title'; ?></h1>
+        <div class="formulario">
+            
+            <?php if (!empty($article['description'])): ?>
+                <p>Description: <?php echo $article['description']; ?></p>
+            <?php endif; ?>
 
-        $currentPage = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1;
-        $offset = ($currentPage - 1) * $itemsPerPage;
+            <?php if (!empty($article['created_date'])): ?>
+                <p>Created Date: <?php echo $article['created_date']; ?></p>
+            <?php endif; ?>
 
-        $pagedArticles = array_slice($articles, $offset, $itemsPerPage);
-
-        if (isset($pagedArticles) && !empty($pagedArticles)) {
-            foreach ($pagedArticles as $article) {
-                echo '<div class="article">';
-                echo '<h2>' . htmlspecialchars($article['title']) . '</h2>';
-                echo '<p>' . htmlspecialchars($article['description']) . '</p>';
-                echo '<p>' . htmlspecialchars($article['created_date']) . '</p>';
-                echo '</div>';
-            }
-
-            // Paginación
-            $totalPages = ceil($totalItems / $itemsPerPage);
-
-            if ($totalPages > 1) {
-                echo '<ul class="paginas">';
-                for ($i = 1; $i <= $totalPages; $i++) {
-                    $class = ($i == $currentPage) ? 'current' : '';
-                    echo '<li><a href="?page=' . $i . '" class="' . $class . '">' . $i . '</a></li>';
-                }
-                echo '</ul>';
-            }
-        } else {
-            echo '<p>No se encontraron noticias.</p>';
-        }
-        ?>
+            <?php if (!empty($article['modified_date'])): ?>
+                <p>Modified Date: <?php echo $article['modified_date']; ?></p>
+            <?php endif; ?>
+        </div>
     </div>
-
+    
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/footer.php" ?>
-
 </body>
-
 </html>

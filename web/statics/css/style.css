@@ -150,15 +150,20 @@ html {
     display: grid;
     grid-template-columns: 1fr;
     grid-gap: 1rem;
-    max-width: 800px;
     margin: 20px auto;
 }
 
 .article {
+    width: 70%;
+    margin: 0 auto;
     border: 1px solid #ddd;
     padding: 10px;
     border-radius: 5px;
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+}
+
+.articles a{
+    text-decoration: none;
 }
 
 .article p:last-child{
@@ -285,6 +290,29 @@ html {
     color: #fff;
 }
 
+.business {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 1rem;
+    display: flex;
+}
+
+.business a {
+    display: block;
+    margin-bottom: 1rem;
+    text-decoration: none;
+    color: #007BFF;
+}
+
+.business > div {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    flex: 1;
+    margin: 1rem;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
 /* Contacto*/
 .contacto {
     width: 50%;
@@ -320,17 +348,19 @@ input, textarea{
 }
 
 button {
-    background-color: var(--color-h);
+    background-color: #3498db;
     color: #fff;
-    padding: .5rem 1rem;
-    border-radius: 1rem;
+    padding: .5rem 1rem; 
+    border-radius: 10px;
     cursor: pointer;
     font-size: 16px;
+    border: none;
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #2980b9; /* Darker color on hover */
 }
+
 
 .social{
     display: grid;
@@ -349,14 +379,14 @@ fieldset{
 
 /* Contents */
 .contentsContainer {
-    width: 50%;
+    width: 80%;
     margin: 0 auto;
     text-align: center;
 }
 
 .contents {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: 1fr 1fr 1fr;
     grid-auto-rows: auto;
     grid-gap: 2rem;
     text-align: left;
@@ -395,7 +425,7 @@ fieldset{
 
 /* Crear Negocio*/
 .formulario {
-    width: 30%;
+    width: 50%;
     margin: 0 auto;
     padding: 2rem;
     display: flex;
@@ -416,11 +446,53 @@ footer>p {
     margin: 1rem;
 }
 
-/* utility classes */
-.text-centered {
-    text-align: center;
+@media screen and (max-width: 1600px) {
+    .header {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        text-align: center;
+    }
+
+    .header a{
+        width: auto;
+        margin: 0 auto;
+    }
+
+    .search {
+        grid-column: span 2;
+        order: 1;
+        width: auto;
+        margin-top: 1rem;
+    }
+
+    .search input {
+        width: auto;
+    }
+
+    .search button {
+        margin-left: 1rem;
+    }
+
 }
 
-.text-left {
-    text-align: left;
+@media screen and (max-width: 1000px) {
+    .principal{
+        display: flex;
+        flex-direction: column;
+    }
+    #map{
+        height: 20rem;
+        width: 30rem;
+    }
+}
+
+@media screen and (max-width: 510px) {
+    .principal{
+        display: flex;
+        flex-direction: column;
+    }
+    #map{
+        height: 10rem;
+        width: 20rem;
+    }
 }

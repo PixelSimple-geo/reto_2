@@ -21,7 +21,7 @@
 
             if (isset($pagedArticles) && !empty($pagedArticles)) {
                 foreach ($pagedArticles as $article) {
-                    echo '<a href="/articleClient?articleId=' . urlencode($article['articleId']) . '">';
+                    echo '<a href="/articles/article?articleId=' . urlencode($article['articleId']) . '">';
                     echo '<div class="article">';
                     echo '<h2>' . htmlspecialchars($article['title']) . '</h2>';
                     echo '<p>' . htmlspecialchars($article['description']) . '</p>';

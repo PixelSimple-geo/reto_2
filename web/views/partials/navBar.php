@@ -35,7 +35,7 @@
 <!--Navegator-->
 <nav class="navbar">
     <a href="/index">Inicio</a>
-    <a href="/articleNews">Noticias</a>
+    <a href="/articles/all">Noticias</a>
     <a href="/history">Historia</a>
     <?php //TODO ?>
     <a href="/products">Productos</a>

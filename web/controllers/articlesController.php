@@ -10,7 +10,7 @@ function getArticles() :void {
     } catch (RuntimeException $exception) {
         $errorMessage = "No se ha encontrado ninguna sesión";
     }
-    include_once $_SERVER['DOCUMENT_ROOT'] . "/views/articlesViews/articleClient.view.php";
+    include_once $_SERVER['DOCUMENT_ROOT'] . "/views/articlesViews/articleNews.view.php";
 }
 
 function getArticlesCrudReadAll(): void {
@@ -118,6 +118,5 @@ function getArticleById() {
     } catch (RuntimeException $exception) {
         $errorMessage = "No se ha encontrado ninguna sesión.";
     }
-    include_once $_SERVER['DOCUMENT_ROOT'] . "/views/articlesView/articleClient.view.php";
-
+    include_once $_SERVER['DOCUMENT_ROOT'] . "/views/articlesViews/articleClient.view.php";
 }

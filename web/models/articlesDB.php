@@ -21,7 +21,8 @@ function getArticle($articleId) {
 
 function getAllArticles() :array {
     try {
-        $sql = "SELECT article_id AS articleId, account_id AS accountId, title, description, created_date, modified_date 
+        $sql = "SELECT article_id AS articleId, account_id AS accountId, title, description, created_date createdDate, 
+       modified_date modifiedDate 
                 FROM articles";
         $statement = getConnection()->prepare($sql);
         $statement->execute();

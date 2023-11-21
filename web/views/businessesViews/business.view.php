@@ -44,6 +44,9 @@
             <?php if(isset($reviews)): ?>
                 <?php foreach ($reviews as $review): ?>
                     <article id="<?=$review["reviewId"]?>">
+                        <?php if(isset($userAccount["username"])):?>
+                        <p><?=$userAccount["username"]?></p>
+                        <?php endif; ?>
                         <?php if(isset($review["modifiedDate"])):?>
                             <p>Fecha: <?=$review["modifiedDate"]?></p>
                         <?php else: ?>

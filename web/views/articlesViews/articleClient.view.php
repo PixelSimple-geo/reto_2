@@ -15,12 +15,12 @@
                 <p>Description: <?php echo $article['description']; ?></p>
             <?php endif; ?>
 
-            <?php if (!empty($article['created_date'])): ?>
-                <p>Created Date: <?php echo $article['created_date']; ?></p>
+            <?php if (!empty($article['creationDate'])): ?>
+                <p>Created Date: <?php echo $article['creationDate']; ?></p>
             <?php endif; ?>
 
-            <?php if (!empty($article['modified_date'])): ?>
-                <p>Modified Date: <?php echo $article['modified_date']; ?></p>
+            <?php if (!empty($article['modifiedDate'])): ?>
+                <p>Modified Date: <?php echo $article['modifiedDate']; ?></p>
             <?php endif; ?>
         </div>
     </div>

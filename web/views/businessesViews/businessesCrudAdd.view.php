@@ -3,8 +3,7 @@
 <head>
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/head.php" ?>
     <title>Crear Negocio</title>
-    <script src="/statics/js/contact.js"></script>
-    <script src="/statics/js/adress.js"></script>
+    <script src="/statics/js/businessNeeds.js"></script>
 </head>
 <body>
 

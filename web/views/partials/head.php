@@ -4,4 +4,5 @@
     <!--CSS-->
     <?php require "head-css.php"; ?>
 
-    <?php require "darkModeJS.php"; ?>
+    <!--JS-->
+    <?php require "scriptJS.php"; ?>

@@ -1,0 +1,1 @@
+<script src="/statics/js/script.js"></script>

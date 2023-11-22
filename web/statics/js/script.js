@@ -1,3 +1,68 @@
+/* Login y registro*/
+document.addEventListener('DOMContentLoaded', function() {
+    var submitReg = document.getElementById('submitReg');
+    if (submitReg) {
+        submitReg.addEventListener('click', function(event) {
+            var usuarioInput = document.getElementById('usuario');
+            var passwordInput = document.getElementById('password');
+            var conpasswordInput = document.getElementById('conpassword');
+
+            if (!/^[a-zA-Z0-9_-]+$/.test(usuarioInput.value)) {
+                alert('Usuario Incorrecto');
+                event.preventDefault();
+                return;
+            }
+
+            var passwordValue = passwordInput.value.trim();
+            if (passwordValue === '' || !/\d/.test(passwordValue)) {
+                alert('La contraseña debe tener números y letras');
+                event.preventDefault();
+                return;
+            }
+
+            if (conpasswordInput.value.trim() !== passwordValue) {
+                alert('Contraseñas diferentes');
+                event.preventDefault();
+                return;
+            }
+        });
+    }
+
+    var submitLog = document.getElementById('submitLog');
+    if (submitLog) {
+        submitLog.addEventListener('click', function(event) {
+            var usuarioInput = document.getElementById('usuario');
+
+            if (!/^[a-zA-Z0-9_-]+$/.test(usuarioInput.value)) {
+                alert('Usuario Incorrecto');
+                event.preventDefault();
+                return;
+            }
+        });
+    }
+});
+
+/* Modo Oscuro */
+document.addEventListener('DOMContentLoaded', function () {
+    const toggleDarkModeButton = document.getElementById('toggleDarkMode');
+    const body = document.body;
+
+    if (localStorage.getItem('dark-mode') === 'enabled') {
+        body.classList.add('dark');
+    }
+
+    toggleDarkModeButton.addEventListener('click', function () {
+        body.classList.toggle('dark');
+
+        if (body.classList.contains('dark')) {
+            localStorage.setItem('dark-mode', 'enabled');
+        } else {
+            localStorage.setItem('dark-mode', 'disabled');
+        }
+    });
+});
+
+/* Business needs */
 function agregarContacto() {
     let nuevoContacto = document.createElement('div');
   

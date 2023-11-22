@@ -8,32 +8,38 @@
     
 <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/navBar.php"; ?>
 
-<div class="formulario">
-    <a href="/articles/crud/all">Volver a mis Articulos</a>
+    <main>
+        <div class="contentsContainer">
+            <a href="/articles/crud/all">Volver a mis Articulos</a>
+            <h2>Editar Artículo</h2>
+        </div>
 
-    <?php if(isset($article)):?>
-        <form method="POST">
-            <input type="hidden" name="article_id" value="<?=$article["articleId"]?>">
-            <label for="title">Titulo del Articulo:</label>
-            <input id="title" name="title" required value="<?=$article["title"]?>">
+        <div class="formulario">
+            <?php if(isset($article)):?>
+                <form method="POST">
+                    <input type="hidden" name="article_id" value="<?=$article["articleId"]?>">
+                    <label for="title">Titulo del Articulo:</label>
+                    <input id="title" name="title" required value="<?=$article["title"]?>">
 
-            <?php if(!empty($categories)): ?>
-                <label for="category">Categoría:</label>
-                <select id="category" name="category_id" required>
-                    <?php foreach($categories as $category): ?>
-                        <?php $selected = ($category["categoryId"] == $article["categoryId"] ? "selected" : ""); ?>
-                        <option value="<?=$category["categoryId"]?>" <?=$selected?>><?=$category["name"]?></option>
-                    <?php endforeach; ?>
-                </select>
+                    <?php if(!empty($categories)): ?>
+                        <label for="category">Categoría:</label>
+                        <select id="category" name="category_id" required>
+                            <?php foreach($categories as $category): ?>
+                                <?php $selected = ($category["categoryId"] == $article["categoryId"] ? "selected" : ""); ?>
+                                <option value="<?=$category["categoryId"]?>" <?=$selected?>><?=$category["name"]?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    <?php endif; ?>
+
+                    <label for="description">Descripción del Articulo:</label>
+                    <textarea id="description" name="description" rows="4" required><?=$article["description"]?></textarea>
+
+                    <button type="submit">Modificar artículo</button>
+                </form>
             <?php endif; ?>
+        </div>
+    </main>
 
-            <label for="description">Descripción del Articulo:</label>
-            <textarea id="description" name="description" rows="4" required><?=$article["description"]?></textarea>
-
-            <button type="submit">Modificar artículo</button>
-        </form>
-    <?php endif; ?>
-</div>
 
 <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/footer.php" ?>
 </body>

@@ -1,18 +1,11 @@
 :root {
     --color-fondo: white;
-    --color-letra: white;
+    --color-letra: black;
     --color-texto: black;
     --color-primario: #5e76cf; 
     --color-secundario: #75c7fe; 
     --color-hover: #2f66a1;
     --color-h: #007bff;
-    --color-borde: #ccc ;
+    --color-borde: #ccc;
+    --color-contents: white;
 }
-
-body.dark {
-    --border-color: #333;
-    --primary-color: #004fa3;
-    --text-color: #fff;
-    --background-color: #000;
-    --input-color: #333;
-  }

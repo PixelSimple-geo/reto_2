@@ -3,12 +3,7 @@
 <div class="header">
     <!--Logo-->
     <a href="/index"><img src="/statics/media/comvit.png" alt="logo"></a>
-    <!--Searchbar
-    <form action="/index" method="POST" class="search">
-        <input type="text" name="search" placeholder="¿Que deseas buscar?">
-        <button type="submit"><img src="/statics/media/search.svg" alt="search"></button>
-    </form>
-    -->
+
     <!--Sesion-->
     <?php
     if (!isset($userAccount)) :
@@ -29,6 +24,9 @@
             </div>
         </div>
     <?php endif; ?>
+
+    <!--Modo Noche-->
+    <button id="toggleDarkMode">Modo Noche</button>
 
 
 </div>

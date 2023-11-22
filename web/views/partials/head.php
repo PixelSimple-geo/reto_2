@@ -3,3 +3,5 @@
 
     <!--CSS-->
     <?php require "head-css.php"; ?>
+
+    <?php require "darkModeJS.php"; ?>

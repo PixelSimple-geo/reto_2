@@ -8,10 +8,12 @@
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/navBar.php"; ?>
 
     <main>
-        <div class="formulario">
+        <div class="contentsContainer">
             <a href="/businesses/crud/business?business_id=<?=$businessId?>">Volver a mis Anuncios</a>
             <h2>Crear Nuevo Anuncio</h2>
-
+        </div>
+        <div class="formulario">
+    
             <form method="POST" enctype="multipart/form-data">
                 <?php
                 if (isset($businessId))

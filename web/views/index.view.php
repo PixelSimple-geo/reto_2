@@ -38,9 +38,7 @@
                 </div>
             </main>
 
-            
-            <script src="/statics/js/map.js"></script>
-            <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD81ODWIXrm6wljDOEnI6Rr5OpmglGJHz8&callback=initMap"></script>
+        <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/mapsJS.php" ?>    
 
         <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/footer.php" ?>    
 

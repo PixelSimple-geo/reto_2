@@ -1,8 +1,3 @@
-.grid-page-structure {
-    display: grid;
-    grid-template-rows: auto 1fr auto;
-}
-
 /* Estilos generales */
 html {
     height: 100vh;
@@ -28,7 +23,8 @@ body.dark {
     --color-hover: #2f66a1;
     --color-h: #007bff;
     --color-borde: #333;
-    --color-contents: rgb(221, 221, 221);
+    --color-contents: rgb(182, 182, 182);
+    --color-inputs: #ccc;
 }
 
 #toggleDarkMode{
@@ -52,6 +48,10 @@ body.dark {
 
 .header a[href="/login"] img {
     height: 3rem;
+}
+
+input, textarea{
+    background-color: var(--color-inputs);
 }
 
 .search {
@@ -81,10 +81,6 @@ body.dark {
     height: 60px;
     cursor: pointer;
     background-color: var(--color-primario);
-}
-
-::-webkit-input-placeholder {
-    color: var(--color-secundario);
 }
  
 /* Dropdown */
@@ -131,7 +127,7 @@ body.dark {
 /* Nav bar */
 .navbar {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     background-color: var(--color-primario);
     overflow-x: auto;
     margin: 1rem;
@@ -182,6 +178,11 @@ body.dark {
 
 .articles a {
     text-decoration: none;
+    height: auto;
+}
+
+.articles a:hover {
+    background-color: var(--color-borde);
 }
 
 .article p:last-child {
@@ -471,6 +472,10 @@ fieldset {
     color: var(--color-h);
 }
 
+.contents a div{
+    color: var(--color-texto);
+}
+
 .contents a:hover div {
     background-color: var(--color-hover);
     color: var(--color-secundario);
@@ -491,7 +496,6 @@ fieldset {
     grid-template-columns: 1fr 1fr 1fr;
     margin: 0 auto;
 }
-
 
 /* Crear Negocio*/
 .formulario {
@@ -527,6 +531,7 @@ form section{
     justify-content: space-evenly;
     align-items: center;
 }
+
 /* Review*/
 button[type="submit"][data-reaction="false"], button[type="submit"][data-reaction="true"]{
     display: grid;

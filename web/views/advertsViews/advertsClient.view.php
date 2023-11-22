@@ -9,7 +9,7 @@
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/navBar.php"; ?>
 
     <div class="contentsContainer">
-
+        <?php print_r($categories) ?>
         <?php
         if ($advert) {
             echo '<div class="">';

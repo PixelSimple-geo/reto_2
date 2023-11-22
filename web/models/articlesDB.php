@@ -1,12 +1,14 @@
 <?php
 function getArticle($articleId): array {
     try {
-        $sql = "SELECT articles.article_id AS articleId, account_id AS accountId, title, description, created_date creationDate, 
-        modified_date modifiedDate, ac.category_id categoryId, ac.name categoryName 
+        $sql = "SELECT articles.article_id AS articleId, account_id AS accountId, title, description, 
+                        DATE(created_date) AS creationDate, DATE(modified_date) AS modifiedDate, 
+                        ac.category_id AS categoryId, ac.name AS categoryName 
                 FROM articles 
                 LEFT JOIN articles_categories_mapping acm ON articles.article_id = acm.article_id
                 LEFT JOIN article_categories ac ON acm.category_id = ac.category_id
                 WHERE articles.article_id = :article_id";
+
         $connection = getConnection();
 
         $statement = $connection->prepare($sql);
@@ -22,8 +24,8 @@ function getArticle($articleId): array {
 
 function getAllArticles() :array {
     try {
-        $sql = "SELECT article_id AS articleId, account_id AS accountId, title, description, created_date createdDate, 
-       modified_date modifiedDate 
+        $sql = "SELECT article_id AS articleId, account_id AS accountId, title, description, 
+                       DATE(created_date) AS createdDate, DATE(modified_date) AS modifiedDate
                 FROM articles";
         $statement = getConnection()->prepare($sql);
         $statement->execute();

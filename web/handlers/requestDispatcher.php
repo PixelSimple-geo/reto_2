@@ -138,7 +138,11 @@ $routeMapping = [
     ],
     "adverts" => [
         "controller" => "advertsController",
-        "advert" => [],
+        "advert" => [
+            "methods" => [
+                "GET" => "getAdvertPage"
+            ]
+        ],
         "all" => [],
         "crud" => [
             "security" => [

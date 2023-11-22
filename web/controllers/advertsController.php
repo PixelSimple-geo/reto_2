@@ -174,3 +174,19 @@ function getAdverts() :void {
     }
     include_once $_SERVER['DOCUMENT_ROOT'] . "/views/advertsViews/products.view.php";
 }
+
+function getAdvertPage() :void {
+    validateRequiredParameters(["advert_id"], "GET");
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/models/advertsDB.php";
+    $errorMessage = null;
+    try {
+        $advertId = $_GET['advert_id'];
+        $advert = getAdvert($advertId);
+        $advertImages = getAdvertImages($advertId);
+    } catch (PDOException $exception) {
+        $errorMessage = "Hubo un error al intentar extraer tus productos";
+    } catch (RuntimeException $exception) {
+        $errorMessage = "No se ha encontrado ninguna sesión";
+    }
+    include_once $_SERVER['DOCUMENT_ROOT'] . "/views/advertsViews/advertsClient.view.php";
+}

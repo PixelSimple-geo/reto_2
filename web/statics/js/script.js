@@ -42,13 +42,15 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-/* Modo Oscuro */
+/* Modo */
 document.addEventListener('DOMContentLoaded', function () {
     const toggleDarkModeButton = document.getElementById('toggleDarkMode');
     const body = document.body;
+    const modeIcon = document.getElementById('modeIcon');
 
     if (localStorage.getItem('dark-mode') === 'enabled') {
         body.classList.add('dark');
+        modeIcon.textContent = '🌙'; 
     }
 
     toggleDarkModeButton.addEventListener('click', function () {
@@ -56,8 +58,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (body.classList.contains('dark')) {
             localStorage.setItem('dark-mode', 'enabled');
+            modeIcon.textContent = '🌙'; 
         } else {
             localStorage.setItem('dark-mode', 'disabled');
+            modeIcon.textContent = '☀️'; 
         }
     });
 });

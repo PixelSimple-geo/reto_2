@@ -1,6 +1,12 @@
 <?php global $userAccount; ?>
 
 <div class="header">
+
+    <!--Modo Noche-->
+    <button id="toggleDarkMode">
+        <span id="modeIcon">☀️</span> 
+    </button>
+
     <!--Logo-->
     <a href="/index"><img src="/statics/media/comvit.png" alt="logo"></a>
 
@@ -24,12 +30,8 @@
             </div>
         </div>
     <?php endif; ?>
-
-    <!--Modo Noche-->
-    <button id="toggleDarkMode">Modo Noche</button>
-
-
 </div>
+
 <!--Navegator-->
 <nav class="navbar">
     <a href="/index">Inicio</a>

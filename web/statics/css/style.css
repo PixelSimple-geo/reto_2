@@ -6,18 +6,23 @@ html {
 body {
     background-color: var(--color-fondo);
     color: var(--color-letra);
+    transition: background-color 0.5s, color 0.5s; 
 }
 
 /* Estilos para el modo nocturno */
 body.dark {
-    --color-fondo: #000;
-    --color-letra: #fff;
+    --color-fondo: #222; /* Cambiado a un gris oscuro */
+    --color-letra: #f3f3f3; /* Cambiado a un blanco ligeramente apagado */
     --color-primario: #5e76cf;
     --color-secundario: #75c7fe;
     --color-hover: #2f66a1;
     --color-h: #007bff;
     --color-borde: #333;
     --color-contents: rgb(221, 221, 221);
+}
+
+#toggleDarkMode{
+    background-color: var(--color-primario);
 }
 
 /* Header */

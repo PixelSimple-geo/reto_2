@@ -42,7 +42,9 @@
                 <textarea id="body" name="description" placeholder="Escribe un comentario" required></textarea>
                 <div>
                     <label for="rating">Valoración</label>
-                    <input type="range" id="rating" name="rating" min="1" max="5" />
+                    <div>
+                        <input type="range" id="rating" name="rating" min="1" max="5" />
+                    </div>
                 </div>
                 <button type="submit">Enviar comentario</button>
             </form>

@@ -69,13 +69,13 @@
                                             <button type="submit" data-reaction="true"
                                                 <?php if ($review["userFeedback"]) echo "checked"?>>
                                                 <?=$review["likeCount"]?>
-                                                <!--<img src="/statics/media/thumb_up.svg">-->
+                                                <img src="/statics/media/thumb_up.svg" class="review-icon">
                                             </button>
                                             <button type="submit" data-reaction="false"
                                                 <?php if (isset($review["userFeedback"]) && !$review["userFeedback"])
                                                     echo "checked"?>>
                                                 <?=$review["dislikeCount"]?>
-                                                <!--<img src="/statics/media/thumb_down.svg">-->
+                                                <img src="/statics/media/thumb_down.svg" class="review-icon">
                                             </button>
                                         </section>
                                     </form>

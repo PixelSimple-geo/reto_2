@@ -29,11 +29,6 @@ try {
 }
 
 $url = $_SERVER["REQUEST_URI"];
-$parsedUrl = parse_url($url);
-$pathSegments = explode("/", $parsedUrl["path"]);
-array_shift($pathSegments);
-print_r($pathSegments);
-
 
 if (matchURI("/login")) {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/accountController.php";

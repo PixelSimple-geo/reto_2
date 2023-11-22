@@ -8,6 +8,11 @@ html {
     height: 100vh;
 }
 
+.structure{
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+}
+
 body {
     background-color: var(--color-fondo);
     color: var(--color-letra);
@@ -16,8 +21,8 @@ body {
 
 /* Estilos para el modo nocturno */
 body.dark {
-    --color-fondo: #222; /* Cambiado a un gris oscuro */
-    --color-letra: #f3f3f3; /* Cambiado a un blanco ligeramente apagado */
+    --color-fondo: #222;
+    --color-letra: #f3f3f3;
     --color-primario: #5e76cf;
     --color-secundario: #75c7fe;
     --color-hover: #2f66a1;
@@ -157,34 +162,11 @@ body.dark {
     grid-gap: 1rem;
 }
 
-.productos {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 1rem;
-}
-
-.producto {
-    background-color: var(--color-contents);
-    display: grid;
-    color: var(--color-texto);
-    grid-template-columns: 1fr 1fr;
-    border: 1px solid rgb(255, 255, 255);
-    border-radius: 5px;
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
-}
-
-.product img {
-    width: 80%;
-    height: 10px;
-    object-fit: cover;
-}
-
 /*Noticias*/
 .articles {
     display: grid;
     grid-template-columns: 1fr;
     grid-gap: 1rem;
-    margin: 20px auto;
 }
 
 .article {
@@ -412,9 +394,7 @@ button {
 
 button:hover {
     background-color: #2980b9;
-    /* Darker color on hover */
 }
-
 
 .social {
     display: grid;
@@ -454,6 +434,8 @@ fieldset {
 }
 
 .contents div {
+    display: grid;
+    grid-template-rows: 1fr auto;
     padding: 20px;
     border: 1px solid var(--color-borde);
     border-radius: 5px;
@@ -463,9 +445,17 @@ fieldset {
     overflow: hidden;
 }
 
+.contents img {
+    display: block;
+    margin: auto auto;
+    max-width: 100%; 
+    height: auto;
+}
+
 .contents a {
     display: block;
     margin-bottom: 10px;
+    text-decoration: none;
     color: var(--color-h);
 }
 
@@ -477,6 +467,19 @@ fieldset {
 .contents a.eliminar {
     color: #e74c3c;
 }
+
+/* Imagenes de adverts */
+[data-img] img {
+    max-width: 10rem;
+    margin: 1rem; 
+}
+
+.imgAdvertsCrud{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin: 0 auto;
+}
+
 
 /* Crear Negocio*/
 .formulario {

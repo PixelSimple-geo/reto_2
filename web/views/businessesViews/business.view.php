@@ -4,7 +4,7 @@
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/head.php" ?>
     <title><?=$business['name'];?> - Business Details</title>
 </head>
-<body>
+<body class="structure">
 
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/navBar.php"; ?>
 

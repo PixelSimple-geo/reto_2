@@ -4,7 +4,8 @@
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/head.php" ?>
     <title>Editar Anuncio</title>
 </head>
-<body>
+<body class="structure">
+    
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/navBar.php"; ?>
 
     <main>
@@ -56,7 +57,6 @@
                         <?php endforeach; ?>
                     </fieldset>
 
-
                     <label for='cover_img'>Imagen de Portada:</label>
                     <?php if(isset($advert["coverImg"])): ?>
                     <div data-img>
@@ -69,12 +69,14 @@
 
                     <label for='images'>Imágenes</label>
                     <?php if(isset($advert["images"])): ?>
-                        <?php foreach ($advert['images'] as $index => $image) : ?>
-                        <div data-img>
-                            <img src='<?= $image['url'] ?>' alt='Imagen de anuncio'>
-                            <button type="button" data-delete_img="<?=$image["imageId"]?>">Eliminar</button>
-                        </div>
-                        <?php endforeach; ?>
+                        <section class="imgAdvertsCrud">
+                            <?php foreach ($advert['images'] as $index => $image) : ?>
+                            <div data-img>
+                                <img src='<?= $image['url'] ?>' alt='Imagen de anuncio'>
+                                <button type="button" data-delete_img="<?=$image["imageId"]?>">Eliminar</button>
+                            </div>
+                            <?php endforeach; ?>
+                        </section>
                     <?php endif; ?>
                     <input type='file' id='images' name='images[]' accept='image/*' multiple>
 

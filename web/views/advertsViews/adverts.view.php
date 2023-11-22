@@ -4,7 +4,8 @@
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/head.php" ?>
     <title>Ver Anuncios</title>
 </head>
-<body>
+<body class="structure">
+
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/navBar.php"; ?>
     <main>
         <div class="contentsContainer">
@@ -24,7 +25,6 @@
             <div class="contents">
                 <?php
 
-                //TODO necesito las funciones necesarias para que me salgan los anuncios pertenecientes a los negocios seleccionados
                 if (isset($adverts)) {
 
                         foreach ($adverts as $advert) {
@@ -39,8 +39,6 @@
                 ?>
             </div>
         </div>
-        
-
     </main>
 
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/footer.php" ?>

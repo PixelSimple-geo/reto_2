@@ -7,7 +7,7 @@
     <title>Contacto</title>
 
 </head>
-<body>
+<body class="structure">
 
     <?php require "partials/navBar.php"; ?>
     

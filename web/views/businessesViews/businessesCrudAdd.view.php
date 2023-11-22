@@ -5,7 +5,7 @@
     <title>Crear Negocio</title>
     <script src="/statics/js/businessNeeds.js"></script>
 </head>
-<body>
+<body class="structure">
 
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/navBar.php"; ?>
 

@@ -8,7 +8,7 @@
 
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/navBar.php"; ?>
 
-    <main>
+    <main class="structure">
             <?php if(isset($errorMessage)): ?>
                 <p style="color:red;"><?=($errorMessage)?></p>
             <?php endif; ?>

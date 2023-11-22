@@ -7,28 +7,32 @@
         <title>Inicio | Reto 2</title>
     </head>
 
+<<<<<<< HEAD
     <body class="grid-page-structure">
+=======
+    <body class="structure">
+>>>>>>> client_develop
 
            <?php require "partials/navBar.php"; ?>
 
            <main>
                 <div class="principal">
                     <div id="map"></div>
-                    <div class="productos">
+                    <div class="contents">
                         <?php
                             if ($adverts) {
                                 $advertsCount = count($adverts); 
-                                $limit = min(8, $advertsCount); 
+                                $limit = min(6, $advertsCount); 
 
                                 for ($i = 0; $i < $limit; $i++) {
                                     $advert = $adverts[$i];
-                                    echo '<div class="producto">';
+                                    echo '<a href="/adverts/advert?advert_id=' . $advert['advertId'] . '">';
+                                    echo '<div>';
                                     echo "<img src='$advert[coverImg]' alt='Portada del anuncio'>";
-                                    echo '<div class="descripcion">';
                                     echo '<h2>' . htmlspecialchars($advert['title']) . '</h2>';
                                     echo '<p>' . htmlspecialchars($advert['description']) . '</p>';
                                     echo '</div>';
-                                    echo '</div>';
+                                    echo '</a>';
                                 }
                             } else {
                                 echo '<p>No se encontraron anuncios.</p>';

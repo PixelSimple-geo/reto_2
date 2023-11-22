@@ -10,7 +10,12 @@ $password = "admin";
 
 function getConnection(): PDO {
     global $hostName, $port, $username, $password, $database;
-    return new PDO("mysql:host=$hostName;port=$port;dbname=$database", $username, $password, array(
-        PDO::ATTR_PERSISTENT => true
-    ));
+    try {
+        return new PDO("mysql:host=$hostName;port=$port;dbname=$database", $username, $password, array(
+            PDO::ATTR_PERSISTENT => true
+        ));
+    } catch (PDOException $exception) {
+        include_once $_SERVER["DOCUMENT_ROOT"] . "/views/errorViews/error_500_.view.php";
+        die();
+    }
 }

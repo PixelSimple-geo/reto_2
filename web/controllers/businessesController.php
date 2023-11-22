@@ -118,6 +118,7 @@ function getBusinessesCrudEdit(): void {
 function postBusinessesCrudEdit(): void {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/models/businessesDB.php";
     validateRequiredParameters(["business_id", "name", "description", "business_category"]);
+    //TODO there is a problem with business_category parameter
     try {
         $userAccount = getUserAccountFromSession();
 
@@ -128,7 +129,7 @@ function postBusinessesCrudEdit(): void {
         $contacts = processContacts($_POST["contact_type"] ?? [], $_POST["contact_value"] ?? []);
         $addresses = processAddresses($_POST["addresses"] ?? [], $_POST["postal_codes"] ?? []);
 
-        updateBusiness($userAccount["accountId"], $businessId, $name, $description, $category, $contacts, $addresses);
+        updateBusiness($businessId, $name, $description, $category, $contacts, $addresses);
         header("Location: /businesses/crud/all", true, 303);
     } catch (PDOException $exception) {
         if ($exception->getCode() == 23000) {
@@ -149,8 +150,7 @@ function getBusinessesCrudDelete(): void {
     validateRequiredParameters(["business_id"], "GET");
     try {
         $businessId = $_GET["business_id"];
-        $userAccount = getUserAccountFromSession();
-        deleteBusiness($userAccount["accountId"], $businessId);
+        deleteBusiness($businessId);
         header("Location: /businesses/crud/all", true, 303);
     } catch (PDOException $exception) {
         $errorMessage = $exception->getMessage();

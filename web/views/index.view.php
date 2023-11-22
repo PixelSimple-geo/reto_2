@@ -7,7 +7,7 @@
         <title>Inicio | Reto 2</title>
     </head>
 
-    <body>
+    <body class="grid-page-structure">
 
            <?php require "partials/navBar.php"; ?>
 

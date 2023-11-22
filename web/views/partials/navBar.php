@@ -22,23 +22,23 @@
             <button class="dropbtn">
                 <img src="/statics/media/profile.svg" alt="Profile">
             </button>
-            <div class="dropdown-content">
+            <nav class="dropdown-content">
                 <a href="/account">Editar Perfil</a>
                 <a href="/businesses/crud/all">Ver Negocios</a>
                 <a href="/articles/crud/all">Ver tus artículos</a>
                 <a href="/logout">Cerrar Sesion</a>
-            </div>
+            </nav>
         </div>
     <?php endif; ?>
+    <!--Navegator-->
+    <nav class="navbar">
+        <a href="/index">Inicio</a>
+        <a href="/articles/all">Noticias</a>
+        <a href="/history">Historia</a>
+        <?php //TODO ?>
+        <a href="/products">Productos</a>
+        <a href="/businesses/all">Comercios</a>
+        <a href="/contact">Contacto</a>
+    </nav>
 </div>
 
-<!--Navegator-->
-<nav class="navbar">
-    <a href="/index">Inicio</a>
-    <a href="/articles/all">Noticias</a>
-    <a href="/history">Historia</a>
-    <?php //TODO ?>
-    <a href="/products">Productos</a>
-    <a href="/businesses/all">Comercios</a>
-    <a href="/contact">Contacto</a>
-</nav>

@@ -1,7 +1,7 @@
 <?php
 
 function getAdvertBusinessAccount(): void {
-    if (empty($_GET["business_id"])) include_once $_SERVER['DOCUMENT_ROOT'] . "/views/error_400.view.php";
+    if (empty($_GET["business_id"])) include_once $_SERVER['DOCUMENT_ROOT'] . "/views/error_400_.view.php";
     require_once $_SERVER['DOCUMENT_ROOT'] . "/models/advertsDB.php";
     require_once $_SERVER['DOCUMENT_ROOT'] . "/models/businessesDB.php";
     $userAccount = getUserAccountFromSession();

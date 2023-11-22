@@ -8,7 +8,7 @@ function getLogin() :void {
 function postLogin() :void {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/models/accountDB.php";
     if (empty($_POST["username"]) || empty($_POST["password"])) {
-        include_once $_SERVER['DOCUMENT_ROOT'] . "/views/error_400.view.php";
+        include_once $_SERVER['DOCUMENT_ROOT'] . "/views/error_400_.view.php";
         return;
     }
     $username = $_POST["username"];
@@ -36,7 +36,7 @@ function getSignIn() :void {
 function postSignIn() :void {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/models/accountDB.php";
     if (empty($_POST["username"]) || empty($_POST["password"]) || empty($_POST["email"])) {
-        include_once $_SERVER['DOCUMENT_ROOT'] . "/views/error_400.view.php";
+        include_once $_SERVER['DOCUMENT_ROOT'] . "/views/error_400_.view.php";
         return;
     }
     $username = $_POST["username"];
@@ -61,7 +61,7 @@ function getProfile() :void {
     try {
         $userAccount = getUserAccountFromSession();
     } catch (RuntimeException $exception) {
-        include_once $_SERVER['DOCUMENT_ROOT'] . "/views/error_404.view.php";
+        include_once $_SERVER['DOCUMENT_ROOT'] . "/views/error_404_.view.php";
         return;
     }
     include_once $_SERVER['DOCUMENT_ROOT'] . "/views/profile.view.php";
@@ -70,7 +70,7 @@ function getProfile() :void {
 function postProfile() :void {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/models/accountDB.php";
     if (empty($_POST["password"])) {
-        include_once $_SERVER['DOCUMENT_ROOT'] . "/views/error_400.view.php";
+        include_once $_SERVER['DOCUMENT_ROOT'] . "/views/error_400_.view.php";
         return;
     }
     $userAccount = getUserAccountFromSession();
@@ -114,6 +114,6 @@ function deleteUserAccount() :void {
         $errorMessage = "Se ha producido un error al intentar eliminar tu cuenta. Si el error persiste contacta con
         soporte";
     } catch (RuntimeException $exception) {
-        include_once $_SERVER['DOCUMENT_ROOT'] . "/views/error_400.view.php";
+        include_once $_SERVER['DOCUMENT_ROOT'] . "/views/error_400_.view.php";
     }
 }

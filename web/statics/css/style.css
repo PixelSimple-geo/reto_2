@@ -1,3 +1,8 @@
+.grid-page-structure {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+}
+
 /* Estilos generales */
 html {
     height: 100vh;

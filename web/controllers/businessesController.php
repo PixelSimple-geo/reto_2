@@ -93,7 +93,7 @@ function postBusinessesCrudAdd(): void {
             $feedback = "Ya existe un negocio con ese nombre. Elige otro";
             $businessCategories = getAllBusinessCategories();
             include_once $_SERVER["DOCUMENT_ROOT"] . "/views/businessesViews/businessesCrudAdd.view.php";
-        } else include_once $_SERVER["DOCUMENT_ROOT"] . "/views/error_400.view.php";
+        } else include_once $_SERVER["DOCUMENT_ROOT"] . "/views/error_400_.view.php";
     } catch (RuntimeException $exception) {
         header("Location: /login", true, 303);
     }
@@ -137,7 +137,7 @@ function postBusinessesCrudEdit(): void {
             $business = ["businessId" => $businessId, "name" => $name, "description" => $description,
                 "category" => ["categoryId" => $category], "contacts" => $contacts, "addresses" => $addresses];
             include_once $_SERVER["DOCUMENT_ROOT"] . "/views/businessesViews/businessesCrudEdit.view.php";
-        } else include_once $_SERVER["DOCUMENT_ROOT"] . "/views/error_400.view.php";
+        } else include_once $_SERVER["DOCUMENT_ROOT"] . "/views/error_400_.view.php";
     } catch (RuntimeException $exception) {
         header("Location: /login", true, 303);
         include_once $_SERVER["DOCUMENT_ROOT"] . "/views/businessesViews/businessesCrudEdit.view.php";
@@ -169,7 +169,7 @@ function postBusinessesAdvertCategoryCrudAdd(): void {
         persistBusinessAdvertCategory($businessid, $name);
         header("Location: /businesses/crud/business?business_id=$businessid", true, 303);
     } catch (PDOException $exception) {
-        include_once $_SERVER["DOCUMENT_ROOT"] . "/views/error_400.view.php";
+        include_once $_SERVER["DOCUMENT_ROOT"] . "/views/error_400_.view.php";
     }
 }
 
@@ -182,7 +182,7 @@ function deleteBusinessesAdvertCategoryCrudDelete(): void {
         deleteBusinessAdvertCategory($categoryId);
         header("Location: /businesses/crud/business?business_id=$businessid", true, 303);
     } catch (PDOException $exception) {
-        include_once $_SERVER["DOCUMENT_ROOT"] . "/views/error_400.view.php";
+        include_once $_SERVER["DOCUMENT_ROOT"] . "/views/error_400_.view.php";
     }
 }
 

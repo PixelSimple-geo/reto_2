@@ -22,11 +22,13 @@
 
                                 for ($i = 0; $i < $limit; $i++) {
                                     $advert = $adverts[$i];
+                                    echo '<a href="/adverts/advert?advert_id=' . $advert['advertId'] . '">';
                                     echo '<div>';
                                     echo "<img src='$advert[coverImg]' alt='Portada del anuncio'>";
                                     echo '<h2>' . htmlspecialchars($advert['title']) . '</h2>';
                                     echo '<p>' . htmlspecialchars($advert['description']) . '</p>';
                                     echo '</div>';
+                                    echo '</a>';
                                 }
                             } else {
                                 echo '<p>No se encontraron anuncios.</p>';

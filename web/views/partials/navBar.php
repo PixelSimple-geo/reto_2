@@ -16,17 +16,6 @@
             ?>
             <a href="/login">
                 <img src="/statics/media/profile.svg" alt="Profile">
-<<<<<<< HEAD
-            </button>
-            <nav class="dropdown-content">
-                <a href="/account">Editar Perfil</a>
-                <a href="/businesses/crud/all">Ver Negocios</a>
-                <a href="/articles/crud/all">Ver tus artículos</a>
-                <a href="/logout">Cerrar Sesion</a>
-            </nav>
-        </div>
-    <?php endif; ?>
-=======
             </a>
         <?php else : ?>
             <div class="dropdown">
@@ -43,7 +32,6 @@
         <?php endif; ?>
     </div>
     
->>>>>>> client_develop
     <!--Navegator-->
     <nav class="navbar">
         <a href="/index">Inicio</a>
@@ -54,9 +42,5 @@
         <a href="/businesses/all">Comercios</a>
         <a href="/contact">Contacto</a>
     </nav>
-<<<<<<< HEAD
-=======
-
->>>>>>> client_develop
 </div>
 

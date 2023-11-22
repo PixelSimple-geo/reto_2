@@ -30,15 +30,17 @@
             </div>
         </div>
     <?php endif; ?>
+
+    <!--Navegator-->
+    <nav class="navbar">
+        <a href="/index">Inicio</a>
+        <a href="/articles/all">Noticias</a>
+        <a href="/history">Historia</a>
+        <?php //TODO ?>
+        <a href="/products">Productos</a>
+        <a href="/businesses/all">Comercios</a>
+        <a href="/contact">Contacto</a>
+    </nav>
+
 </div>
 
-<!--Navegator-->
-<nav class="navbar">
-    <a href="/index">Inicio</a>
-    <a href="/articles/all">Noticias</a>
-    <a href="/history">Historia</a>
-    <?php //TODO ?>
-    <a href="/products">Productos</a>
-    <a href="/businesses/all">Comercios</a>
-    <a href="/contact">Contacto</a>
-</nav>

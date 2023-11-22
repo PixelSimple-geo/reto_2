@@ -4,7 +4,8 @@
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/head.php" ?>
     <title>Crear Articulo</title>
 </head>
-<body>
+<body class="structure">
+    
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/navBar.php"; ?>
 
     <div class="formulario">

@@ -7,7 +7,7 @@
     <title>Asociación de Comerciantes, Hosteleros y Empresas de Servicios de Vitoria</title>
 
 </head>
-<body>
+<body class="structure">
 
     <?php require "partials/navBar.php"; ?>
 

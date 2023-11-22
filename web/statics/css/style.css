@@ -3,6 +3,11 @@ html {
     height: 100vh;
 }
 
+.structure{
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+}
+
 body {
     background-color: var(--color-fondo);
     color: var(--color-letra);
@@ -11,8 +16,8 @@ body {
 
 /* Estilos para el modo nocturno */
 body.dark {
-    --color-fondo: #222; /* Cambiado a un gris oscuro */
-    --color-letra: #f3f3f3; /* Cambiado a un blanco ligeramente apagado */
+    --color-fondo: #222;
+    --color-letra: #f3f3f3;
     --color-primario: #5e76cf;
     --color-secundario: #75c7fe;
     --color-hover: #2f66a1;
@@ -179,7 +184,6 @@ body.dark {
     display: grid;
     grid-template-columns: 1fr;
     grid-gap: 1rem;
-    margin: 20px auto;
 }
 
 .article {

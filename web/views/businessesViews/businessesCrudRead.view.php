@@ -6,7 +6,7 @@
 </head>
 <body>
 <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/navBar.php"; ?>
-<main>
+<main class="structure">
     <nav class="contentsContainer">
     <?php if (isset($business)): ?>
         <a href='/adverts/crud/add?business_id=<?=$business["businessId"]?>'>+ Crear Nuevo Anuncio</a>

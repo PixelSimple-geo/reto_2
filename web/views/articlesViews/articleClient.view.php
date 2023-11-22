@@ -30,9 +30,9 @@
                     <input type="hidden" name="article_id" value="<?=$article["articleId"]?>">
                     <input type="hidden" name="commentator_id" value="<?=$userAccount["accountId"]?>">
                     <label for="title">Title</label>
-                    <input id="title" name="title">
+                    <input id="title" name="title" required>
                     <label for="description">Description</label>
-                    <textarea id="description" name="description" minlength="5" maxlength="500"></textarea>
+                    <textarea id="description" name="description" minlength="5" maxlength="500" required></textarea>
                     <button type="submit">Publicar comentario</button>
                 </form>
             <?php endif; ?>

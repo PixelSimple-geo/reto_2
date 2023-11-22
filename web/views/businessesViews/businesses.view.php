@@ -11,6 +11,7 @@
 
     <div>
         <nav class="navbar">
+        <a href="/businesses/all"><h2>Todo</h2></a>
             <?php if (isset($categories)): ?>
                 <?php foreach ($categories as $category): ?>
                     <a href="/businesses/all?category_id=<?=$category["categoryId"]?>">
@@ -18,7 +19,6 @@
                     </a>
                 <?php endforeach; ?>
             <?php endif; ?>
-
         </nav>
         <div class="contentsContainer">
             <div class="contents">

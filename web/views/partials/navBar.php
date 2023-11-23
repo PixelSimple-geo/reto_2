@@ -28,7 +28,7 @@
                             <a href="/businesses/crud/all">Ver Negocios</a>
                         <?php endif; ?>
                         <?php if (in_array('PUBLISHER', array_column($userAccount['authorities'], 'role'))) : ?>
-                            <a href="/articles/crud/all">Ver tus artículos</a>
+                            <a href="/articles/crud/all">Ver Artículos</a>
                         <?php endif; ?>
                         <?php if (in_array('ADMIN', array_column($userAccount['authorities'], 'role'))) : ?>
                             <a href="/admin-panel">Panel Admin</a>

@@ -733,6 +733,14 @@ footer>p {
         width: 50%;
     }
 
+    .contents {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .search{
+        width: 80%;
+    }
+
     .contacto{
         width: 60%;
     }
@@ -750,7 +758,11 @@ footer>p {
     }
 
     .contents {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr;
+    }
+
+    .search{
+        width: 100%;
     }
 
     .formulario{
@@ -779,11 +791,8 @@ footer>p {
         width: 20rem;
     }
 
-    .contents {
-        grid-template-columns: 1fr;
-    }
-
     .formulario{
-        width: 8    0%;
+        width: 90%;
+        padding: .5 rem;
     }
 }

@@ -12,55 +12,51 @@ function getBusinessPage(): void {
         $adverts = getAdvertsByBusinessId($businessId);
         $reviews = getAllBusinessReviews($businessId, $userAccount);
         include_once $_SERVER['DOCUMENT_ROOT'] . "/views/businessesViews/business.view.php";
-    } catch (PDOException $exception) {
-        //TODO
-        $errorMessage = "Hubo un error al intentar extraer tus categorias";
-    } catch (RuntimeException $exception) {
-        $errorMessage = "No se ha encontrado ninguna sesión";
+    } catch (Exception $exception) {
+        if (str_contains("No business found", $exception->getMessage())) {
+            include_once $_SERVER['DOCUMENT_ROOT'] . "/views/errorViews/error_400_.view.php";
+            die();
+        }
+        include_once $_SERVER['DOCUMENT_ROOT'] . "/views/errorViews/error_500_.view.php";
+        die();
     }
 }
 
 function getBusinesses(): void {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/models/businessesDB.php";
-    $errorMessage = null;
-    try {
-        $categories = getAllBusinessCategories();
-        if (isset($_GET["category_id"])) {
-            $businesses = getAllBusinessesByCategory($_GET["category_id"]);
-        } else $businesses = getAllBusinesses();
-        include_once $_SERVER['DOCUMENT_ROOT'] . "/views/businessesViews/businesses.view.php";
-    } catch (PDOException $exception) {
-        //TODO
-        $errorMessage = "Hubo un error al intentar extraer tus categorias";
-    } catch (RuntimeException $exception) {
-        $errorMessage = "No se ha encontrado ninguna sesión";
-    }
+    $categories = getAllBusinessCategories();
+    if (!empty($_GET["category_id"])) $businesses = getAllBusinessesByCategory($_GET["category_id"]);
+    else $businesses = getAllBusinesses();
+    include_once $_SERVER['DOCUMENT_ROOT'] . "/views/businessesViews/businesses.view.php";
 }
 
 function getBusinessesCrudRead(): void {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/models/businessesDB.php";
     require_once $_SERVER['DOCUMENT_ROOT'] . "/models/advertsDB.php";
-    validateRequiredParameters(["business_id"], "GET");
-    $business = getBusiness($_GET["business_id"]);
-    $contacts = $business["contacts"];
-    $addresses = $business["addresses"];
-    $category = $business["category"];
-    $advertCategories = $business["advertCategories"];
-    $adverts = getAdvertsByBusinessId($business["businessId"]);
-    include_once $_SERVER['DOCUMENT_ROOT'] . "/views/businessesViews/businessesCrudRead.view.php";
+    try {
+        validateRequiredParameters(["business_id"], "GET");
+        $business = getBusiness($_GET["business_id"]);
+        $contacts = $business["contacts"];
+        $addresses = $business["addresses"];
+        $category = $business["category"];
+        $advertCategories = $business["advertCategories"];
+        $adverts = getAdvertsByBusinessId($business["businessId"]);
+        include_once $_SERVER['DOCUMENT_ROOT'] . "/views/businessesViews/businessesCrudRead.view.php";
+    } catch (Exception $exception) {
+        if (str_contains("No business found", $exception->getMessage())) {
+            include_once $_SERVER['DOCUMENT_ROOT'] . "/views/errorViews/error_400_.view.php";
+            die();
+        }
+        include_once $_SERVER['DOCUMENT_ROOT'] . "/views/errorViews/error_500_.view.php";
+        die();
+    }
 }
 
 function getBusinessesCrudReadAll(): void {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/models/businessesDB.php";
     if (isset($_GET["feedback"])) $feedback = $_GET["feedback"];
-    try {
-        $userAccount = getUserAccountFromSession();
-        $businesses = getAllAccountBusinesses($userAccount["accountId"]);
-    } catch (PDOException $exception) {
-        $errorMessage = "Se ha producido un error al intentar extraer tus negocios";
-    } catch (RuntimeException $exception) {
-        header("Location: /login", true, 303);
-    }
+    $userAccount = getUserAccountFromSession();
+    $businesses = getAllAccountBusinesses($userAccount["accountId"]);
     include_once $_SERVER['DOCUMENT_ROOT'] . "/views/businessesViews/businessesCrudReadAll.view.php";
 }
 
@@ -88,14 +84,20 @@ function postBusinessesCrudAdd(): void {
 
         persistBusiness($userAccount["accountId"], $name, $description, $category, $contacts, $addresses);
         header("Location: /businesses/crud/all", true, 303);
-    } catch (PDOException $exception) {
-        if ($exception->getCode() == 23000) {
-            $feedback = "Ya existe un negocio con ese nombre. Elige otro";
+    } catch (Exception $exception) {
+        if (str_contains("Invalid parameter", $exception->getMessage())) {
+            http_response_code(400);
+            include_once $_SERVER["DOCUMENT_ROOT"] . "/views/errorViews/error_400_.view.php";
+            die();
+        }
+        if (str_contains("Business name is not unique", $exception->getMessage())) {
+            $feedback = "Ya existe un negocio con ese nombre.";
             $businessCategories = getAllBusinessCategories();
             include_once $_SERVER["DOCUMENT_ROOT"] . "/views/businessesViews/businessesCrudAdd.view.php";
-        } else include_once $_SERVER["DOCUMENT_ROOT"] . "/views/error_400_.view.php";
-    } catch (RuntimeException $exception) {
-        header("Location: /login", true, 303);
+            die();
+        }
+        http_response_code(500);
+        include_once $_SERVER["DOCUMENT_ROOT"] . "/views/errorViews/error_500_.view.php";
     }
 }
 

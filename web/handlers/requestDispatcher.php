@@ -15,11 +15,8 @@ function validateRequiredParameters(array $parameters, $source = "POST"): void {
 
 
 startSession();
-try {
-    $userAccount = getUserAccountFromSession();
-} catch (RuntimeException $exception) {
-    $userAccount = null;
-}
+$userAccount = getUserAccountFromSession();
+
 
 $url = $_SERVER["REQUEST_URI"];
 $parsedUrl = parse_url($url);
@@ -184,7 +181,7 @@ $routeMapping = [
                 "authentication" => "authenticate",
                 "authorization" => [
                     "method" => "authorize",
-                    "role" => "publisher"
+                    "role" => "PUBLISHER"
                 ]
             ],
             "all" => [

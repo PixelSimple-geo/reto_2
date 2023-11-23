@@ -56,9 +56,7 @@
                             <div>
                                 <article id="<?=$review["reviewId"]?>">
                                     <!--TODO: esta bugeado, userAccount te coje la cuenta que esta iniciada, no la cuenta que ha hecho la review -->
-                                    <?php if(isset($userAccount["username"])):?>
-                                    <h2><?=$userAccount["username"]?></h2>
-                                    <?php endif; ?>
+
                                     <p>Valoración: <?=$review["rating"]?></p>
                                     <h2><?=$review["title"]?></h2>
                                     <p><?=$review["description"]?></p>

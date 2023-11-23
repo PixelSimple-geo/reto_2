@@ -108,6 +108,8 @@ function persistBusiness($accountId, $name, $description, $categoryId, array $co
         $connection->rollBack();
         if ($exception->getCode() == 22001 || str_contains("No category id",$exception))
             throw new Exception("Invalid parameter");
+        if ($exception->getCode() == 23000)
+            throw new Exception("Business name is not unique");
         throw new Exception("Internal server error");
     }
 }
@@ -164,7 +166,7 @@ function updateBusiness($businessId, $name, $description, $categoryId, array $co
         $connection->commit();
     } catch (PDOException $exception) {
         $connection->rollBack();
-        throw $exception;
+        throw new Exception("Database error");
     }
 }
 
@@ -176,52 +178,34 @@ function deleteBusiness($business_id) :void {
         $statement->execute();
         if ($statement->rowCount() === 0) throw new PDOException("Could not delete business");
     } catch (PDOException $exception) {
-        error_log("Database error: [$business_id] " . $exception->getMessage());
-        throw $exception;
+        throw new Exception("Failed to delete business");
     }
 }
 
 function getAllBusinessCategories() :array {
-    try {
-        $sql = "SELECT category_id AS categoryId, name FROM businesses_categories;";
-        $statement = getConnection()->query($sql);
-        return $statement->fetchAll();
-    } catch (PDOException $exception) {
-        error_log("Database error: " . $exception->getMessage());
-        throw $exception;
-    }
+    $sql = "SELECT category_id AS categoryId, name FROM businesses_categories;";
+    $statement = getConnection()->query($sql);
+    return $statement->fetchAll();
 }
 
 function getAllBusinessesByCategory($categoryId): array {
-    try {
-        $sql = "SELECT b.business_id AS businessId, b.name, b.description 
-                FROM businesses b
-                INNER JOIN businesses_categories_mapping bcm ON b.business_id = bcm.business_id
-                WHERE bcm.category_id = :category_id";
-
-        $statement = getConnection()->prepare($sql);
-        $statement->bindValue("category_id", $categoryId, PDO::PARAM_INT);
-        $statement->execute();
-
-        return $statement->fetchAll(PDO::FETCH_ASSOC);
-    } catch (PDOException $exception) {
-        error_log("Database error: [$categoryId] " . $exception->getMessage());
-        throw $exception;
-    }
+    $sql = "SELECT b.business_id AS businessId, b.name, b.description 
+            FROM businesses b
+            INNER JOIN businesses_categories_mapping bcm ON b.business_id = bcm.business_id
+            WHERE bcm.category_id = :category_id";
+    $statement = getConnection()->prepare($sql);
+    $statement->bindValue("category_id", $categoryId, PDO::PARAM_INT);
+    $statement->execute();
+    return $statement->fetchAll();
 }
 
 function getAllBusinessAdvertCategories($businessId): array {
-    try {
-        $sql = "SELECT category_id AS categoryId, name FROM businesses_advert_categories 
-                                       WHERE business_id = :business_id";
-        $statement = getConnection()->prepare($sql);
-        $statement->bindValue("business_id", $businessId, PDO::PARAM_INT);
-        $statement->execute();
-        return $statement->fetchAll();
-    } catch (PDOException $exception) {
-        error_log("Database error: " . $exception->getMessage());
-        throw $exception;
-    }
+    $sql = "SELECT category_id AS categoryId, name FROM businesses_advert_categories 
+                                   WHERE business_id = :business_id";
+    $statement = getConnection()->prepare($sql);
+    $statement->bindValue("business_id", $businessId, PDO::PARAM_INT);
+    $statement->execute();
+    return $statement->fetchAll();
 }
 
 function persistBusinessAdvertCategory($businessId, $name): void {
@@ -231,20 +215,18 @@ function persistBusinessAdvertCategory($businessId, $name): void {
         $statement->bindValue("business_id", $businessId, PDO::PARAM_INT);
         $statement->bindValue("name", $name);
         $statement->execute();
+        if ($statement->rowCount() === 0) throw new PDOException("Could not persist category");
     } catch (PDOException $exception) {
-        error_log("Database error [$businessId, $name]: " . $exception->getMessage());
-        throw $exception;
+        if (str_contains("Could not persist category", $exception->getMessage()))
+            throw new Exception("Internal error");
+        throw new Exception("Server error");
     }
 }
 
 function deleteBusinessAdvertCategory($categoryId): void {
-    try {
-        $sql = "DELETE FROM businesses_advert_categories WHERE category_id = :category_id";
-        $statement = getConnection()->prepare($sql);
-        $statement->bindValue("category_id", $categoryId, PDO::PARAM_INT);
-        $statement->execute();
-    } catch (PDOException $exception) {
-        error_log("Database error [$categoryId]" . $exception->getMessage());
-        throw $exception;
-    }
+    $sql = "DELETE FROM businesses_advert_categories WHERE category_id = :category_id";
+    $statement = getConnection()->prepare($sql);
+    $statement->bindValue("category_id", $categoryId, PDO::PARAM_INT);
+    $statement->execute();
+    if ($statement->rowCount() === 0) throw new Exception("Could not delete category");
 }

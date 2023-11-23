@@ -1,8 +1,8 @@
 /* Login y registro*/
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     var submitReg = document.getElementById('submitReg');
     if (submitReg) {
-        submitReg.addEventListener('click', function(event) {
+        submitReg.addEventListener('click', function (event) {
             var usuarioInput = document.getElementById('usuario');
             var passwordInput = document.getElementById('password');
             var conpasswordInput = document.getElementById('conpassword');
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     var submitLog = document.getElementById('submitLog');
     if (submitLog) {
-        submitLog.addEventListener('click', function(event) {
+        submitLog.addEventListener('click', function (event) {
             var usuarioInput = document.getElementById('usuario');
 
             if (!/^[a-zA-Z0-9_-]+$/.test(usuarioInput.value)) {
@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (localStorage.getItem('dark-mode') === 'enabled') {
         body.classList.add('dark');
-        modeIcon.textContent = '🌙'; 
+        modeIcon.textContent = '🌙';
     }
 
     toggleDarkModeButton.addEventListener('click', function () {
@@ -58,10 +58,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (body.classList.contains('dark')) {
             localStorage.setItem('dark-mode', 'enabled');
-            modeIcon.textContent = '🌙'; 
+            modeIcon.textContent = '🌙';
         } else {
             localStorage.setItem('dark-mode', 'disabled');
-            modeIcon.textContent = '☀️'; 
+            modeIcon.textContent = '☀️';
         }
     });
 });
@@ -69,11 +69,11 @@ document.addEventListener('DOMContentLoaded', function () {
 /* Business needs */
 function agregarContacto() {
     let nuevoContacto = document.createElement('div');
-  
+
     let tipoLabel = document.createElement('label');
     tipoLabel.textContent = 'Tipo de contacto:';
-    tipoLabel.htmlFor = 'tipoInput'; 
-  
+    tipoLabel.htmlFor = 'tipoInput';
+
     let tipoInput = document.createElement('input');
     tipoInput.type = 'text';
     tipoInput.placeholder = 'Tipo de contacto';
@@ -81,11 +81,11 @@ function agregarContacto() {
     tipoInput.pattern = '^.{1,100}$';
     tipoInput.title = 'Inserte un máximo de 100 caracteres';
     tipoInput.id = 'tipoInput';
-  
+
     let direccionLabel = document.createElement('label');
     direccionLabel.textContent = 'Dirección de medio:';
-    direccionLabel.htmlFor = 'direccionInput'; 
-  
+    direccionLabel.htmlFor = 'direccionInput';
+
     let direccionInput = document.createElement('input');
     direccionInput.type = 'text';
     direccionInput.placeholder = 'Ejemplo de dirección';
@@ -93,29 +93,29 @@ function agregarContacto() {
     direccionInput.id = 'direccionInput';
     direccionInput.pattern = '^.{1,255}$';
     direccionInput.title = 'Inserte un máximo de 255 caracteres';
-  
+
     let eliminarButton = document.createElement('button');
     eliminarButton.textContent = 'Eliminar';
-    eliminarButton.addEventListener('click', function () {
-        eliminarContacto(nuevoContacto);
-        });
-  
+    eliminarButton.setAttribute("data-script-delete-con-dir", "");
+
     nuevoContacto.appendChild(tipoLabel);
     nuevoContacto.appendChild(tipoInput);
     nuevoContacto.appendChild(direccionLabel);
     nuevoContacto.appendChild(direccionInput);
     nuevoContacto.appendChild(eliminarButton);
-  
+
     document.getElementById('contactsContainer').appendChild(nuevoContacto);
-  }
-  
-  function agregarDireccion() {
+
+    delete_con_dir(eliminarButton);
+}
+
+function agregarDireccion() {
     let nuevaDireccion = document.createElement('div');
-  
+
     let direccionLabel = document.createElement('label');
     direccionLabel.textContent = 'Dirección:';
-    direccionLabel.htmlFor = 'direccionInput'; 
-  
+    direccionLabel.htmlFor = 'direccionInput';
+
     let direccionInput = document.createElement('input');
     direccionInput.type = 'text';
     direccionInput.placeholder = 'Ejemplo de dirección';
@@ -123,35 +123,44 @@ function agregarContacto() {
     direccionInput.id = 'direccionInput';
     direccionInput.pattern = '^.{1,100}$';
     direccionInput.title = 'Inserte un máximo de 100 caracteres';
-  
+
     let codigoLabel = document.createElement('label');
     codigoLabel.textContent = 'Código Postal:';
-    codigoLabel.htmlFor = 'codigoInput'; 
-  
+    codigoLabel.htmlFor = 'codigoInput';
+
     let codigoInput = document.createElement('input');
-    codigoInput.type = 'text'; 
+    codigoInput.type = 'text';
     codigoInput.name = 'postal_codes[]';
     codigoInput.required = true;
-    codigoInput.pattern = '[0-9]{5}'; 
+    codigoInput.pattern = '[0-9]{5}';
     codigoInput.title = 'Inserte un número de 5 dígitos';
     codigoInput.id = 'codigoInput';
-  
+
     let eliminarButton = document.createElement('button');
     eliminarButton.textContent = 'Eliminar';
-    eliminarButton.addEventListener('click', function () {
-      nuevaDireccion.remove();
-    });
-  
+    eliminarButton.setAttribute("data-script-delete-con-dir", "");
+
     nuevaDireccion.appendChild(direccionLabel);
     nuevaDireccion.appendChild(direccionInput);
     nuevaDireccion.appendChild(codigoLabel);
     nuevaDireccion.appendChild(codigoInput);
     nuevaDireccion.appendChild(eliminarButton);
-  
-    document.getElementById('addressesContainer').appendChild(nuevaDireccion);
-  }
 
-  function eliminarContacto(contacto) {
-    contacto.remove();
- }
-  
+    document.getElementById('addressesContainer').appendChild(nuevaDireccion);
+
+    delete_con_dir(eliminarButton);
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    let botones = document.querySelectorAll('[data-script-delete-con-dir]');
+    botones.forEach(function (boton) {
+        delete_con_dir(boton);
+    });
+});
+
+function delete_con_dir(boton) {
+    boton.addEventListener("click", function () {
+        boton.closest("div").remove();
+    });
+}
+

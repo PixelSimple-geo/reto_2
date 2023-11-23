@@ -4,7 +4,6 @@
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/head.php" ?>
     <title>Editar Negocio</title>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="/statics/js/editBusiness.js"></script>
 </head>
 <body class="structure">
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/navBar.php"; ?>
@@ -56,7 +55,7 @@
                                 <input id='value_<?= $contact['contactId'] ?>' value='<?= $contact['value'] ?>' name='contact_value[]'
                                     pattern="^.{1,255}$" title="Ingresa entre 1 y 255 caracteres para la dirección de medio">
                                 
-                                <button>Eliminar</button>
+                                <button data-script-delete-con-dir>Eliminar</button>
                             </div>
                         <?php endforeach; ?>
                         <?php if (!empty($contacts)): ?>
@@ -86,7 +85,7 @@
                                 <input id='postal_code_<?= $address['addressId'] ?>' value='<?= $address['postalCode'] ?>' name='postal_codes[]'
                                     pattern="[0-9]{5}" title="Ingresa un número de 5 dígitos para el código postal">
                                 
-                                <button>Eliminar</button>
+                                <button data-script-delete-con-dir>Eliminar</button>
                             </div>
                         <?php endforeach; ?>
                         <?php if (!empty($addresses)): ?>

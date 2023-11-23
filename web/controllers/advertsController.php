@@ -183,6 +183,7 @@ function getAdvertPage() :void {
         $advertId = $_GET['advert_id'];
         $advert = getAdvert($advertId);
         $advertImages = getAdvertImages($advertId);
+        $categories = getAdvertCategories($advertId);
     } catch (PDOException $exception) {
         $errorMessage = "Hubo un error al intentar extraer tus productos";
     } catch (RuntimeException $exception) {

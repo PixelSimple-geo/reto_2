@@ -33,11 +33,13 @@
 
             if (isset($pagedProducts) && !empty($pagedProducts)) {
                 foreach ($pagedProducts as $product) {
+                    echo '<a href="/adverts/advert?advert_id=' . $product['advertId'] . '">';
                     echo '<div>';
                     echo "<img src='$product[coverImg]' alt='Product Image'>";
                     echo '<h3>' . $product['title'] . '</h3>';
                     echo '<p>Description: ' . $product['description'] . '</p>';
                     echo '</div>';
+                    echo '</a>';
                 }
 
                 $totalPages = ceil($totalProducts / $itemsPerPage);

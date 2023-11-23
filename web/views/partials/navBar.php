@@ -31,7 +31,7 @@
             </div>
         <?php endif; ?>
     </div>
-    
+
     <!--Navegator-->
     <nav class="navbar">
         <a href="/index">Inicio</a>

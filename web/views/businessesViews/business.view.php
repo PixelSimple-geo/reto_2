@@ -21,13 +21,15 @@
             <div class="contents">
                 <?php if(isset($adverts)):?>
                     <?php foreach ($adverts as $advert): ?>
-                        <div>
-                            <?php if(isset($advert["coverImg"])): ?>
-                                <img src="<?= $advert['coverImg']?>" alt="Portada del anuncio">
-                            <?php endif; ?>
-                            <h3><?= $advert['title'] ?></h3>
-                            <p>Description: <?= $advert['description'] ?></p>
-                        </div>
+                        <?php echo '<a href="/adverts/advert?advert_id=' . $advert['advertId'] . '">'; ?>
+                            <div>
+                                <?php if(isset($advert["coverImg"])): ?>
+                                    <img src="<?= $advert['coverImg']?>" alt="Portada del anuncio">
+                                <?php endif; ?>
+                                <h3><?= $advert['title'] ?></h3>
+                                <p>Description: <?= $advert['description'] ?></p>
+                            </div>
+                        </a>
                     <?php endforeach; ?>
                 <?php endif; ?>
             </div>

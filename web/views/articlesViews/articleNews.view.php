@@ -22,14 +22,15 @@
 
             if (isset($pagedArticles) && !empty($pagedArticles)) {
                 foreach ($pagedArticles as $article) {
-                    echo '<a href="/articles/article?articleId=' . urlencode($article['articleId']) . '">';
                     echo '<div class="article">';
+                    echo '<a href="/articles/article?articleId=' . urlencode($article['articleId']) . '">';
                     echo '<h2>' . htmlspecialchars($article['title']) . '</h2>';
                     echo '<p>' . htmlspecialchars($article['description']) . '</p>';
                     echo '<p>' . htmlspecialchars($article['createdDate']) . '</p>';
-                    echo '</div>';
                     echo '</a>';
+                    echo '</div>';
                 }
+                
 
                 // Paginación
                 $totalPages = ceil($totalItems / $itemsPerPage);

@@ -8,35 +8,62 @@
     
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/navBar.php"; ?>
 
-   
-
     <div class="contentsContainer">
 
-        <form action="/products" method="GET" class="search">
-            <input type="text" name="search" placeholder="¿Qué deseas buscar?">
-            <button type="submit" name="submitSearch"><img src="/statics/media/search.svg" alt="search"></button>
-        </form>
+        <form action="/products" method="GET">
+            <div class="search">
+                <input type="text" name="search" placeholder="¿Qué deseas buscar?">
+                <button type="submit" name="submitSearch"><img src="/statics/media/search.svg" alt="search"></button>
+            </div>
+            <div class="search filter">
+            <?php
+                foreach ($advertCategories as $category) {
+                    echo '<label>';
+                    echo $category['name'];
+                    echo '<input type="checkbox" name="categories[]" value="' . $category['category_id'] . '"';
 
+                    if (isset($_GET['categories']) && in_array($category['category_id'], $_GET['categories'])) {
+                        echo ' checked';
+                    }
+
+                    echo '>';
+                    echo '</label>';
+                }
+                ?>
+            </div>
+            
+        </form>       
         
         <br>
         
         <h2>Products:</h2>
 
         <div class="contents">
-            <?php
+            <?php           
             $itemsPerPage = 6;
             $totalProducts = count($adverts);
 
             $currentPage = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1;
             $offset = ($currentPage - 1) * $itemsPerPage;
 
-            $pagedProducts = array_slice($adverts, $offset, $itemsPerPage);
+            $selectedCategories = isset($_GET['categories']) ? $_GET['categories'] : [];
+
+            $pagedProducts = [];
+
+            if (!empty($selectedCategories)) {
+                foreach ($adverts as $product) {
+                    if (isset($product['categories']) && array_intersect($selectedCategories, $product['categories'])) {
+                        $pagedProducts[] = $product;
+                    }
+                }
+            } else {
+                $pagedProducts = array_slice($adverts, $offset, $itemsPerPage);
+            }
 
             if (isset($pagedProducts) && !empty($pagedProducts)) {
                 $searchTerm = isset($_GET['search']) ? trim($_GET['search']) : '';
 
                 foreach ($pagedProducts as $product) {
-                    // Si hay un término de búsqueda y el producto no coincide, salta a la próxima iteración
                     if (!empty($searchTerm) && stripos($product['title'], $searchTerm) === false) {
                         continue;
                     }
@@ -50,7 +77,7 @@
                     echo '</a>';
                 }
 
-                $totalPages = ceil($totalProducts / $itemsPerPage);
+                $totalPages = ceil(count($pagedProducts) / $itemsPerPage);
             } else {
                 echo '<p>No products available.</p>';
             }
@@ -58,7 +85,7 @@
         </div>
 
         <?php
-        $totalPages = ceil($totalProducts / $itemsPerPage);
+        $totalPages = isset($totalPages) ? $totalPages : ceil($totalProducts / $itemsPerPage);
 
         if ($totalPages > 1) {
             echo '<ul class="paginas">';

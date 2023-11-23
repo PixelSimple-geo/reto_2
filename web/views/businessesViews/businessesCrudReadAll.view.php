@@ -4,11 +4,11 @@
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/head.php" ?>
     <title>Mis Negocios</title>
 </head>
-<body>
+<body class="structure">
 
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/navBar.php"; ?>
 
-    <main class="structure">
+    <main>
             <?php if(isset($errorMessage)): ?>
                 <p style="color:red;"><?=($errorMessage)?></p>
             <?php endif; ?>

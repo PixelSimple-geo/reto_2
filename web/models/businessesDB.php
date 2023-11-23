@@ -114,10 +114,10 @@ function persistBusiness($accountId, $name, $description, $categoryId, array $co
     }
 }
 
-function updateBusiness($businessId, $name, $description, $categoryId, array $contacts, array $addresses) :void {
+function updateBusiness($businessId, $name, $description, $categoryId, array $contacts, array $addresses): void {
     $sqlBusiness = "UPDATE businesses SET name = :name, description = :description 
                   WHERE business_id = :business_id";
-    $sqlBusinessCategory = "UPDATE businesses_categories_mapping SET category_id = :category_id 
+    $sqlCategory = "UPDATE businesses_categories_mapping SET category_id = :category_id 
                                      WHERE business_id = :business_id";
     $sqlContactsDelete = "DELETE FROM business_contacts WHERE business_id = :business_id";
     $sqlContacts = "INSERT INTO business_contacts(business_id, type, value) 
@@ -128,40 +128,40 @@ function updateBusiness($businessId, $name, $description, $categoryId, array $co
     $connection = getConnection();
     try {
         $connection->beginTransaction();
-        $statement = $connection->prepare($sqlBusiness);
-        $statementCategory = $connection->prepare($sqlBusinessCategory);
-        $statementContactsDelete = $connection->prepare($sqlContactsDelete);
-        $statementContacts = $connection->prepare($sqlContacts);
-        $statementAddressesDelete = $connection->prepare($sqlAddressesDelete);
-        $statementAddresses = $connection->prepare($sqlAddresses);
+        $stBusiness = $connection->prepare($sqlBusiness);
+        $stCategory = $connection->prepare($sqlCategory);
+        $stContactsDelete = $connection->prepare($sqlContactsDelete);
+        $stContacts = $connection->prepare($sqlContacts);
+        $stAddressesDelete = $connection->prepare($sqlAddressesDelete);
+        $stAddresses = $connection->prepare($sqlAddresses);
 
-        $statement->bindValue("business_id", $businessId, PDO::PARAM_INT);
-        $statement->bindValue("name", $name);
-        $statement->bindValue("description", $description);
-        $statement->execute();
+        $stBusiness->bindValue("business_id", $businessId, PDO::PARAM_INT);
+        $stBusiness->bindValue("name", $name);
+        $stBusiness->bindValue("description", $description);
+        $stBusiness->execute();
 
-        $statementCategory->bindValue("category_id", $categoryId, PDO::PARAM_INT);
-        $statementCategory->bindValue("business_id", $businessId, PDO::PARAM_INT);
-        $statementCategory->execute();
+        $stCategory->bindValue("category_id", $categoryId, PDO::PARAM_INT);
+        $stCategory->bindValue("business_id", $businessId, PDO::PARAM_INT);
+        $stCategory->execute();
 
-        $statementContactsDelete->bindValue("business_id", $businessId, PDO::PARAM_INT);
-        $statementContactsDelete->execute();
+        $stContactsDelete->bindValue("business_id", $businessId, PDO::PARAM_INT);
+        $stContactsDelete->execute();
 
         foreach ($contacts as $contact) {
-            $statementContacts->bindValue("business_id", $businessId, PDO::PARAM_INT);
-            $statementContacts->bindValue("type", $contact["type"]);
-            $statementContacts->bindValue("value", $contact["value"]);
-            $statementContacts->execute();
+            $stContacts->bindValue("business_id", $businessId, PDO::PARAM_INT);
+            $stContacts->bindValue("type", $contact["type"]);
+            $stContacts->bindValue("value", $contact["value"]);
+            $stContacts->execute();
         }
 
-        $statementAddressesDelete->bindValue("business_id", $businessId, PDO::PARAM_INT);
-        $statementAddressesDelete->execute();
+        $stAddressesDelete->bindValue("business_id", $businessId, PDO::PARAM_INT);
+        $stAddressesDelete->execute();
 
         foreach ($addresses as $address) {
-            $statementAddresses->bindValue("business_id", $businessId, PDO::PARAM_INT);
-            $statementAddresses->bindValue("address", $address["address"]);
-            $statementAddresses->bindValue("postal_code", $address["postalCode"], PDO::PARAM_INT);
-            $statementAddresses->execute();
+            $stAddresses->bindValue("business_id", $businessId, PDO::PARAM_INT);
+            $stAddresses->bindValue("address", $address["address"]);
+            $stAddresses->bindValue("postal_code", $address["postalCode"], PDO::PARAM_INT);
+            $stAddresses->execute();
         }
         $connection->commit();
     } catch (PDOException $exception) {

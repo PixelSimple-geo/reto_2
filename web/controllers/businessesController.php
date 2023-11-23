@@ -111,7 +111,6 @@ function getBusinessesCrudEdit(): void {
 function postBusinessesCrudEdit(): void {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/models/businessesDB.php";
     validateRequiredParameters(["business_id", "name", "description", "business_category"]);
-    //TODO there is a problem with business_category parameter
     try {
         $userAccount = getUserAccountFromSession();
 
@@ -124,17 +123,14 @@ function postBusinessesCrudEdit(): void {
 
         updateBusiness($businessId, $name, $description, $category, $contacts, $addresses);
         header("Location: /businesses/crud/all", true, 303);
-    } catch (PDOException $exception) {
+    } catch (Exception $exception) {
         if ($exception->getCode() == 23000) {
             $feedback = "Ya existe un negocio con ese nombre. Elige otro";
             $categories = getAllBusinessCategories();
             $business = ["businessId" => $businessId, "name" => $name, "description" => $description,
                 "category" => ["categoryId" => $category], "contacts" => $contacts, "addresses" => $addresses];
             include_once $_SERVER["DOCUMENT_ROOT"] . "/views/businessesViews/businessesCrudEdit.view.php";
-        } else include_once $_SERVER["DOCUMENT_ROOT"] . "/views/error_400_.view.php";
-    } catch (RuntimeException $exception) {
-        header("Location: /login", true, 303);
-        include_once $_SERVER["DOCUMENT_ROOT"] . "/views/businessesViews/businessesCrudEdit.view.php";
+        } else include_once $_SERVER["DOCUMENT_ROOT"] . "/views/errorViews/error_400_.view.php";
     }
 }
 

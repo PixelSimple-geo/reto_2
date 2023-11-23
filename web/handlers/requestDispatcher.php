@@ -288,23 +288,19 @@ foreach ($requestedRoute as $index => $routeFragment) {
     if (array_key_exists("security", $currentRoute)) {
         require_once $_SERVER['DOCUMENT_ROOT'] . "/handlers/securityHandler.php";
         $security = $currentRoute["security"];
-        if (array_key_exists("authentication", $security)) {
+        if (array_key_exists("authentication", $security))
             call_user_func($security["authentication"]);
-        }
 
-        if (array_key_exists("authorization", $security)) {
+        if (array_key_exists("authorization", $security))
             call_user_func($security["authorization"]["method"], $security["authorization"]["role"]);
-        }
     }
 
-    if (array_key_exists("controller", $currentRoute)) {
+    if (array_key_exists("controller", $currentRoute))
         $controller = $currentRoute["controller"] . ".php";
-    }
 
     if ($index === count($requestedRoute) - 1 && array_key_exists("methods", $currentRoute) &&
-        array_key_exists($requestMethod, $currentRoute["methods"])) {
+        array_key_exists($requestMethod, $currentRoute["methods"]))
         $delegateFunction = $currentRoute["methods"][$requestMethod];
-    }
 }
 
 if ($isInvalidRequest || $controller === null || $delegateFunction === null) {

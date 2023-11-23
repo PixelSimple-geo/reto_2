@@ -8,7 +8,7 @@ function validateRequiredParameters(array $parameters, $source = "POST"): void {
     $requestData = ($source === "GET") ? $_GET : $_POST;
     foreach ($parameters as $parameter)
         if (empty($requestData[$parameter])) {
-            include_once $_SERVER["DOCUMENT_ROOT"] . "/views/error_400_.view.php";
+            include_once $_SERVER["DOCUMENT_ROOT"] . "/views/errorViews/error_400_.view.php";
             die();
         }
 }

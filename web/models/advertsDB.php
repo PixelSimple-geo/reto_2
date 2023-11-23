@@ -209,7 +209,6 @@ function getAdvertCategories($advertId): array {
     return $statement->fetchAll();
 }
 
-<<<<<<< HEAD
 function getAllAdvertCategories() :array {
     try {
         $sql = "SELECT * FROM businesses_advert_categories";
@@ -221,10 +220,7 @@ function getAllAdvertCategories() :array {
     }
 }
 
-function getAdvertImages($advertId) :array {
-=======
 function getAdvertImages($advertId): array {
->>>>>>> eb00972cdfd4fe2f3ab505a5fc3f5bcdb39aa012
     try {
         $sql = "SELECT image_id, advert_id, url
                 FROM images

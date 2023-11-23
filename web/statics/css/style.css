@@ -242,7 +242,7 @@ input, textarea{
 /*Noticias*/
 .articles {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-gap: 1rem;
 }
 
@@ -336,6 +336,12 @@ input, textarea{
 
 .home img {
     height: 5rem;
+}
+
+/* Placeholder */
+input::placeholder {
+    color: rgb(157, 157, 157);
+    font-style: italic; 
 }
 
 /* Historia*/

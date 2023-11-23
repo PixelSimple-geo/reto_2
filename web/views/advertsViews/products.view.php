@@ -12,10 +12,11 @@
 
     <div class="contentsContainer">
 
-        <form action="/index" method="POST" class="search">
-            <input type="text" name="search" placeholder="¿Que deseas buscar?">
-            <button type="submit"><img src="/statics/media/search.svg" alt="search"></button>
-        </form> 
+        <form action="/products" method="GET" class="search">
+            <input type="text" name="search" placeholder="¿Qué deseas buscar?">
+            <button type="submit" name="submitSearch"><img src="/statics/media/search.svg" alt="search"></button>
+        </form>
+
         
         <br>
         
@@ -32,7 +33,14 @@
             $pagedProducts = array_slice($adverts, $offset, $itemsPerPage);
 
             if (isset($pagedProducts) && !empty($pagedProducts)) {
+                $searchTerm = isset($_GET['search']) ? trim($_GET['search']) : '';
+
                 foreach ($pagedProducts as $product) {
+                    // Si hay un término de búsqueda y el producto no coincide, salta a la próxima iteración
+                    if (!empty($searchTerm) && stripos($product['title'], $searchTerm) === false) {
+                        continue;
+                    }
+                
                     echo '<a href="/adverts/advert?advert_id=' . $product['advertId'] . '">';
                     echo '<div>';
                     echo "<img src='$product[coverImg]' alt='Product Image'>";

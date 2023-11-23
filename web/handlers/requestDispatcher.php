@@ -184,7 +184,7 @@ $routeMapping = [
                 "authentication" => "authenticate",
                 "authorization" => [
                     "method" => "authorize",
-                    "role" => "publisher"
+                    "role" => "PUBLISHER"
                 ]
             ],
             "all" => [

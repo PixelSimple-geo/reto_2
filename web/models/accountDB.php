@@ -28,7 +28,6 @@ function getAccountByUsername($username) :array {
         if ($statement->rowCount() === 0)
             throw new PDOException("No account found");
         $userAccount = $statement->fetch();
-
         $statementAuthorities = $connection->prepare($sqlAuthorities);
         $statementAuthorities->bindValue("account_id", $userAccount["accountId"], PDO::PARAM_INT);
         $statementAuthorities->execute();

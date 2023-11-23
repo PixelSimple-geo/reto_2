@@ -12,8 +12,8 @@
 
         <!--Sesion-->
         <?php
-        if (!isset($userAccount)) :
-            ?>
+            if (!isset($userAccount)) :
+        ?>
             <a href="/login">
                 <img src="/statics/media/profile.svg" alt="Profile">
             </a>
@@ -25,11 +25,17 @@
                 <div class="dropdown-content">
                     <a href="/account">Editar Perfil</a>
                     <a href="/businesses/crud/all">Ver Negocios</a>
-                    <a href="/articles/crud/all">Ver tus artículos</a>
-                    <a href="/logout">Cerrar Sesion</a>
+                    <?php if (in_array('PUBLISHER', array_column($userAccount['authorities'], 'role'))) : ?>
+                        <a href="/articles/crud/all">Ver tus artículos</a>
+                    <?php endif; ?>
+                    <?php if (in_array('ADMIN', array_column($userAccount['authorities'], 'role'))) : ?>
+                        <a href="/admin-panel">Panel Admin</a>
+                    <?php endif; ?>
+                    <a href="/logout">Cerrar Sesión</a>
                 </div>
             </div>
         <?php endif; ?>
+    
     </div>
 
     <!--Navegator-->

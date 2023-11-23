@@ -170,7 +170,7 @@ function updateBusiness($businessId, $name, $description, $categoryId, array $co
     }
 }
 
-function deleteBusiness($business_id) :void {
+function deleteBusiness($business_id): void {
     try {
         $sql = "DELETE FROM businesses WHERE business_id = :business_id";
         $statement = getConnection()->prepare($sql);
@@ -182,7 +182,7 @@ function deleteBusiness($business_id) :void {
     }
 }
 
-function getAllBusinessCategories() :array {
+function getAllBusinessCategories(): array {
     $sql = "SELECT category_id AS categoryId, name FROM businesses_categories;";
     $statement = getConnection()->query($sql);
     return $statement->fetchAll();

@@ -19,7 +19,7 @@
             <p style="color: red"><?=($feedback)?></p>
             <?php endif; ?>
         </div>
-
+ 
         <div class="formulario">
             <?php if (isset($business)): ?>
                 <form method="POST">
@@ -32,8 +32,20 @@
                     <label for="descripcion">Descripción del Negocio:</label>
                     <textarea id="descripcion" name="description" rows="4" required minlength="5" maxlength="1500"><?= $business['description'] ?></textarea>
 
-                    <fieldset>
-                        <legend>Contacto</legend>
+                    <label for="category">Categoría</label>
+                    <select id="category" name="business_category">
+                        <?php foreach ($businessCategories as $businessCategory): ?>
+                            <?php $selected = ($category == $businessCategory["categoryId"]) ? "selected" : ""; ?>
+                            <option value="<?= $businessCategory["categoryId"] ?>" <?= $selected ?>>
+                                <?= $businessCategory["name"] ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+
+                <fieldset>
+                    <legend>Contacto</legend>
+                    <button type="button" onclick="agregarContacto()">+</button>
+                    <div id="contactsContainer">
                         <?php foreach ($business['contacts'] as $contact): ?>
                             <div>
                                 <label for='type_<?= $contact['contactId'] ?>'>Tipo de contacto</label>
@@ -44,13 +56,26 @@
                                 <input id='value_<?= $contact['contactId'] ?>' value='<?= $contact['value'] ?>' name='contact_value[]'
                                     pattern="^.{1,255}$" title="Ingresa entre 1 y 255 caracteres para la dirección de medio">
                                 
-                                <button type='button' class='eliminarContacto'>Eliminar</button>
+                                <button>Eliminar</button>
                             </div>
                         <?php endforeach; ?>
-                    </fieldset>
+                        <?php if (!empty($contacts)): ?>
+                            <?php foreach ($contacts as $index => $value): ?>
+                            <div>
+                                <label for=<?=$index . "_type"?>>Tipo de contacto</label>
+                                <input id=<?=$index . "_type"?> value='<?=$value["type"]?>' name="contact_type[]">
+                                <label for=<?=$index . "_value"?>>Dirección de medio</label>
+                                <input id=<?=$index . "_value"?> value='<?=$value["value"]?>' name="contact_value[]">
+                            </div>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </div>
+                </fieldset>
 
-                    <fieldset>
-                        <legend>Dirección</legend>
+                <fieldset>
+                    <legend>Dirección</legend>
+                    <button type="button" onclick="agregarDireccion()">+</button>
+                    <div id="addressesContainer">
                         <?php foreach ($business['addresses'] as $address): ?>
                             <div>
                                 <label for='address_<?= $address['addressId'] ?>'>Dirección</label>
@@ -61,11 +86,21 @@
                                 <input id='postal_code_<?= $address['addressId'] ?>' value='<?= $address['postalCode'] ?>' name='postal_codes[]'
                                     pattern="[0-9]{5}" title="Ingresa un número de 5 dígitos para el código postal">
                                 
-                                <button type='button' class='eliminarDireccion'>Eliminar</button>
+                                <button>Eliminar</button>
                             </div>
                         <?php endforeach; ?>
-                    </fieldset>
-                    <button type="button" id="agregarDireccion">Agregar Dirección</button>
+                        <?php if (!empty($addresses)): ?>
+                            <?php foreach ($addresses as $index => $value): ?>
+                                <div>
+                                    <label for=<?=$index . "_address"?>>Dirección</label>
+                                    <input id=<?=$index . "_address"?> value='<?=$value["address"]?>' name="addresses[]">
+                                    <label for=<?=$index . "_postal_code"?>>Código postal de medio</label>
+                                    <input id=<?=$index . "_postal_code"?> value='<?=$value["postalCode"]?>' name="postal_codes[]">
+                                </div>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </div>
+                </fieldset>
                     <br>
                     <button type="submit">Guardar Cambios</button>
                 </form>

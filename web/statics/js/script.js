@@ -97,8 +97,8 @@ function agregarContacto() {
     let eliminarButton = document.createElement('button');
     eliminarButton.textContent = 'Eliminar';
     eliminarButton.addEventListener('click', function () {
-      nuevoContacto.remove();
-    });
+        eliminarContacto(nuevoContacto);
+        });
   
     nuevoContacto.appendChild(tipoLabel);
     nuevoContacto.appendChild(tipoInput);
@@ -150,3 +150,8 @@ function agregarContacto() {
   
     document.getElementById('addressesContainer').appendChild(nuevaDireccion);
   }
+
+  function eliminarContacto(contacto) {
+    contacto.remove();
+ }
+  

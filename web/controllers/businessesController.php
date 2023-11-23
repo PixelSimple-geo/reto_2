@@ -105,7 +105,7 @@ function getBusinessesCrudEdit(): void {
     try {
         $businessId = $_GET["business_id"];
         $business = getBusiness($businessId);
-        $categories = getAllBusinessCategories();
+        $businessCategories = getAllBusinessCategories();
     } catch (PDOException $exception) {
         $errorMessage = $exception->getMessage();
         header("Location: /businesses/crud/all?feedback=$errorMessage", true, 303);

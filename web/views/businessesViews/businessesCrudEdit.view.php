@@ -32,14 +32,17 @@
                     <textarea id="descripcion" name="description" rows="4" required minlength="5" maxlength="1500"><?= $business['description'] ?></textarea>
 
                     <label for="category">Categoría</label>
-                    <select id="category" name="business_category">
-                        <?php foreach ($businessCategories as $businessCategory): ?>
-                            <?php $selected = ($category == $businessCategory["categoryId"]) ? "selected" : ""; ?>
-                            <option value="<?= $businessCategory["categoryId"] ?>" <?= $selected ?>>
-                                <?= $businessCategory["name"] ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
+                    <?php if(isset($categories)): ?>
+                        <select id="category" name="business_category">
+                            <?php foreach ($categories as $category): ?>
+                                <?php $selected = $category["categoryId"] == $business["category"]["categoryId"]
+                                    ? "selected" : ""; ?>
+                                <option value="<?= $category["categoryId"] ?>" <?= $selected ?>>
+                                    <?= $category["name"] ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    <?php endif; ?>
 
                 <fieldset>
                     <legend>Contacto</legend>
@@ -106,7 +109,6 @@
             <?php endif; ?>
         </div>        
     </main>
-
 
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/footer.php" ?>
 </body>

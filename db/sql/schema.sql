@@ -62,7 +62,7 @@ CREATE TABLE article_categories (
 CREATE TABLE businesses_categories_mapping (
     category_id INT NOT NULL,
     business_id INT NOT NULL,
-    CONSTRAINT bcm_cat_bus_pk PRIMARY KEY (category_id, business_id),
+    CONSTRAINT bcm_cat_bus_pk PRIMARY KEY (business_id),
     CONSTRAINT bcm_cat_fk FOREIGN KEY (category_id) REFERENCES businesses_categories (category_id) ON DELETE CASCADE ,
     CONSTRAINT bcm_bus_fk FOREIGN KEY (business_id) REFERENCES businesses (business_id) ON DELETE CASCADE
 ) ENGINE=InnoDB;

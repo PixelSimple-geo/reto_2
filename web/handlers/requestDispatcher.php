@@ -265,6 +265,12 @@ $routeMapping = [
                 ]
             ]
         ]
+    ],
+    "cookiePolicy" => [
+        "controller" => "mainController",
+        "methods" => [
+            "GET" => "showCookiePolicy"
+        ]
     ]
 ];
 

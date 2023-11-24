@@ -7,11 +7,11 @@
 	<title>Aviso de Privacidad</title>
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"> 
-	<link rel="stylesheet" href="./css/estilos.css">
+    <?php require "partials/head.php" ?>
 </head>
 <body>
-	<main>
-		<a href="index.view.php">Regresar</a>
+	<main class="historia">
+		<a href="/index">Regresar</a>
 		<h1>Aviso de Cookies</h1>
 		<h3>¿Qué son las cookies?</h3>
 		<p>Una cookie es un fichero que se descarga en su ordenador al acceder a determinadas páginas web. Las cookies permiten a una página web, entre otras cosas, almacenar y recuperar información sobre los hábitos de navegación de un usuario o de su equipo y, dependiendo de la información que contengan y de la forma en que utilice su equipo, pueden utilizarse para reconocer al usuario.</p>

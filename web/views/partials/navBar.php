@@ -24,9 +24,7 @@
                     </button>
                     <div class="dropdown-content">
                         <a href="/account">Editar Perfil</a>
-                        <?php if (in_array('USER', array_column($userAccount['authorities'], 'role'))) : ?>
-                            <a href="/businesses/crud/all">Ver Negocios</a>
-                        <?php endif; ?>
+                        <a href="/businesses/crud/all">Ver Negocios</a>
                         <?php if (in_array('PUBLISHER', array_column($userAccount['authorities'], 'role'))) : ?>
                             <a href="/articles/crud/all">Ver Artículos</a>
                         <?php endif; ?>

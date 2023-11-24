@@ -24,4 +24,6 @@ function contact(): void {
     include_once $_SERVER["DOCUMENT_ROOT"] . "/views/contact.view.php";
 }
 
-
+function showCookiePolicy(){
+    include_once $_SERVER["DOCUMENT_ROOT"] . "/views/cookiePolicy.php";
+}

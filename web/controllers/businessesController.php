@@ -24,10 +24,11 @@ function getBusinessPage(): void {
 function getBusinesses(): void {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/models/businessesDB.php";
     $categories = getAllBusinessCategories();
-    if (!empty($_GET["categories"])) $businesses = getAllBusinessesByCategory($_GET["categories"]);
+    if (!empty($_GET["category_id"])) $businesses = getAllBusinessesByCategory($_GET["category_id"]);
     else $businesses = getAllBusinesses();
     include_once $_SERVER['DOCUMENT_ROOT'] . "/views/businessesViews/businesses.view.php";
 }
+
 
 function getBusinessesCrudRead(): void {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/models/businessesDB.php";

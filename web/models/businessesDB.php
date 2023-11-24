@@ -195,18 +195,13 @@ function getAllBusinessCategories(): array {
         ->fetchAll();
 }
 
-function getAllBusinessesByCategory($categoriesIds): array {
-    $placeholders = implode(',', array_fill(0, count($categoriesIds), '?'));
-    $sql = "SELECT b.business_id AS businessId, b.name, b.description 
+function getAllBusinessesByCategory($categoryId): array {
+    $sql = "SELECT b.business_id AS businessId, b.name, b.description, b.cover_img AS coverImg 
             FROM businesses b
             INNER JOIN businesses_categories_mapping bcm ON b.business_id = bcm.business_id
-            WHERE bcm.category_id IN ($placeholders)";
+            WHERE bcm.category_id = :category_id";
     $statement = getConnection()->prepare($sql);
-    foreach($categoriesIds as $index => $categoryId) {
-        $statement->bindValue(($index + 1), $categoryId, PDO::PARAM_INT);
-    }
-    echo $sql;
-    echo $statement->debugDumpParams();
+    $statement->bindValue("category_id", $categoryId, PDO::PARAM_INT);
     $statement->execute();
     return $statement->fetchAll();
 }

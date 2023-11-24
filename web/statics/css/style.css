@@ -52,15 +52,19 @@ body.dark {
 
 input, textarea{
     background-color: var(--color-inputs);
+    border-width: 2px   ;
+    border-style: inset;
+    border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
 }
 
 .search {
-    background-color: var(--color-primario);
+    background-color: var(--color-fondo);
     display: flex;
     align-items: center;
+    border: 2px solid var(--color-borde);
     border-radius: 60px;
-    width: auto;
-    margin-top: 0;
+    width: 50%;
+    margin: 1rem auto;
 }
 
 .search input {
@@ -70,7 +74,7 @@ input, textarea{
     outline: none;
     padding: 0.1rem 1rem;
     font-size: 1rem;
-    color: var(--color-secundario);
+    color: var(--color-letra);
     font-size: 2rem;
 }
 
@@ -80,9 +84,16 @@ input, textarea{
     width: 60px;
     height: 60px;
     cursor: pointer;
-    background-color: var(--color-primario);
+    background-color: var(--color-f);
 }
- 
+.search button:hover {
+    background-color: var(--color-borde);
+}
+
+.search.filter{
+    border-radius: 10px;
+}
+
 /* Dropdown */
 .dropbtn {
     background-color: var(--color-secundario);
@@ -242,7 +253,7 @@ input, textarea{
 /*Noticias*/
 .articles {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-gap: 1rem;
 }
 
@@ -257,13 +268,10 @@ input, textarea{
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
 }
 
-.articles a {
+.article a {
+    display: block;
     text-decoration: none;
-    height: auto;
-}
-
-.articles a:hover {
-    background-color: var(--color-borde);
+    height: 100%;
 }
 
 .article p:last-child {
@@ -336,6 +344,12 @@ input, textarea{
 
 .home img {
     height: 5rem;
+}
+
+/* Placeholder */
+input::placeholder {
+    color: rgb(157, 157, 157);
+    font-style: italic; 
 }
 
 /* Historia*/
@@ -719,6 +733,14 @@ footer>p {
         width: 50%;
     }
 
+    .contents {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .search{
+        width: 80%;
+    }
+
     .contacto{
         width: 60%;
     }
@@ -736,7 +758,11 @@ footer>p {
     }
 
     .contents {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr;
+    }
+
+    .search{
+        width: 100%;
     }
 
     .formulario{
@@ -765,11 +791,8 @@ footer>p {
         width: 20rem;
     }
 
-    .contents {
-        grid-template-columns: 1fr;
-    }
-
     .formulario{
-        width: 8    0%;
+        width: 90%;
+        padding: .5 rem;
     }
 }

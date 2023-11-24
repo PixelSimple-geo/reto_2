@@ -9,26 +9,29 @@ function getAccounts(): array {
     return $statement->fetchAll();
 }
 
-function getAccountByUsername($username): array {
-    $sqlAccount = "SELECT account_id AS accountId, username, email, password, creation_date AS creationDate FROM accounts
-    WHERE username = :username";
-    $sqlAuthorities = "SELECT a.authority_id authorityId, role FROM authorities_granted ag
-    INNER JOIN authorities a ON ag.authority_id = a.authority_id
-    WHERE account_id = :account_id";
-
-    $connection = getConnection();
-    $stAccount = $connection->prepare($sqlAccount);
-    $stAuthorities = $connection->prepare($sqlAuthorities);
-
-    $stAccount->bindValue("username", $username);
-    $stAccount->execute();
-    if ($stAccount->rowCount() === 0) throw new PDOException("No account found");
-    $userAccount = $stAccount->fetch();
-
-    $stAuthorities->bindValue("account_id", $userAccount["accountId"], PDO::PARAM_INT);
-    $stAuthorities->execute();
-    $userAccount["authorities"] = $stAuthorities->fetchAll();
-    return $userAccount;
+function getAccountByUsername($username) :array {
+    try {
+        $sql = "SELECT account_id AS accountId, username, email, password, creation_date AS creationDate FROM accounts
+        WHERE username = :username";
+        $sqlAuthorities = "SELECT a.authority_id authorityId, role FROM authorities_granted ag
+        INNER JOIN authorities a ON ag.authority_id = a.authority_id
+        WHERE account_id = :account_id";
+        $connection = getConnection();
+        $statement = $connection->prepare($sql);
+        $statement->bindValue("username", $username);
+        $statement->execute();
+        if ($statement->rowCount() === 0)
+            throw new PDOException("No account found");
+        $userAccount = $statement->fetch();
+        $statementAuthorities = $connection->prepare($sqlAuthorities);
+        $statementAuthorities->bindValue("account_id", $userAccount["accountId"], PDO::PARAM_INT);
+        $statementAuthorities->execute();
+        $userAccount["authorities"] = $statementAuthorities->fetchAll();
+        return $userAccount;
+    } catch (PDOException $exception) {
+        error_log("Database error: [$username] " . $exception->getMessage());
+        throw $exception;
+    }
 }
 
 function persistAccount($username, $email, $password): void {

@@ -210,6 +210,17 @@ function getAdvertCategories($advertId): array {
     return $statement->fetchAll();
 }
 
+function getAllAdvertCategories() :array {
+    try {
+        $sql = "SELECT * FROM businesses_advert_categories";
+        $statement = getConnection()->query($sql);
+        return $statement->fetchAll();
+    } catch (PDOException $exception) {
+        error_log("Database error: " . $exception->getMessage());
+        throw $exception;
+    }
+}
+
 function getAdvertImages($advertId): array {
     try {
         $sql = "SELECT image_id, advert_id, url

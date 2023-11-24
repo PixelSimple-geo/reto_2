@@ -167,6 +167,7 @@ function getAdverts() :void {
     $errorMessage = null;
     try {
         $adverts = getAllAdverts();
+        $advertCategories = getAllAdvertCategories();
     } catch (PDOException $exception) {
         $errorMessage = "Hubo un error al intentar extraer tus productos";
     } catch (RuntimeException $exception) {

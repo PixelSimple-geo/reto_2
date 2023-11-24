@@ -15,23 +15,6 @@
                 <input type="text" name="search" placeholder="¿Qué deseas buscar?">
                 <button type="submit" name="submitSearch"><img src="/statics/media/search.svg" alt="search"></button>
             </div>
-            <div class="search filter">
-            <?php
-                foreach ($advertCategories as $category) {
-                    echo '<label>';
-                    echo $category['name'];
-                    echo '<input type="checkbox" name="categories[]" value="' . $category['category_id'] . '"';
-
-                    if (isset($_GET['categories']) && in_array($category['category_id'], $_GET['categories'])) {
-                        echo ' checked';
-                    }
-
-                    echo '>';
-                    echo '</label>';
-                }
-                ?>
-            </div>
-            
         </form>       
         
         <br>

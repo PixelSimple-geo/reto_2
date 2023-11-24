@@ -9,14 +9,13 @@
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/navBar.php"; ?>
 
     <div class="contentsContainer">
-        <?php print_r($categories) ?>
         <?php
         if ($advert) {
             echo '<div class="">';
             echo '<h3>' . $advert['title'] . '</h3>';   
             echo "<img src='{$advert['coverImg']}' alt='Product Image'>";
             echo '<p>Descripcion: </p>';
-            echo '<p>' . $advert['description'] . '</p>';
+            echo '<span>' . $advert['description'] . '</span>';
             echo '</div>';
         } else {
             echo '<p>Product not found.</p>';

@@ -14,7 +14,7 @@
            <main>
                 <div class="principal">
                     <div id="map"></div>
-                    <div class="contents">
+                    <div class="contents images">
                         <?php
                             if ($adverts) {
                                 $advertsCount = count($adverts); 

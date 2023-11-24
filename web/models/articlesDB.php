@@ -112,3 +112,20 @@ function deleteArticle($accountId, $articleId) :void {
 function getAllArticlesCategories(): array {
     return getConnection()->query("SELECT category_id as categoryId, name FROM article_categories")->fetchAll();
 }
+
+function getAllArticlesByCategory($categoryId): array {
+    $sql = "SELECT articles.article_id AS articleId, articles.account_id AS accountId, 
+                    title, description, DATE(created_date) AS createdDate, 
+                    DATE(modified_date) AS modifiedDate, 
+                    ac.category_id AS categoryId, ac.name AS categoryName 
+            FROM articles 
+            LEFT JOIN articles_categories_mapping acm ON articles.article_id = acm.article_id
+            LEFT JOIN article_categories ac ON acm.category_id = ac.category_id
+            WHERE ac.category_id = :category_id";
+    
+    $statement = getConnection()->prepare($sql);
+    $statement->bindValue("category_id", $categoryId, PDO::PARAM_INT);
+    $statement->execute();
+    
+    return $statement->fetchAll();
+}

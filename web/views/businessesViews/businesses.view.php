@@ -24,7 +24,7 @@
         <div class="contentsContainer">
             <div class="contents">
                 <?php
-                $itemsPerPage = 6; // Adjust the number of items per page as needed
+                $itemsPerPage = 6;
                 $totalItems = count($businesses);
 
                 $currentPage = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1;

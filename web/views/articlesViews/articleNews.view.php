@@ -12,15 +12,13 @@
 
         <nav class="navbar">
             <a href="/articles/all"><h2>Todas</h2></a>
-            <?php
-            $uniqueCategories = array_unique(array_column($articles, 'categoryName'));
-
-            foreach ($uniqueCategories as $categoryName) {
-                echo '<a href="/articles/all?category=' . urlencode($categoryName) . '">';
-                echo '<h2>' . htmlspecialchars($categoryName) . '</h2>';
-                echo '</a>';
-            }
-            ?>
+            <?php if (isset($categories)): ?>
+                <?php foreach ($categories as $category): ?>
+                    <a href="/articles/all?category_id=<?= $category["categoryId"] ?>">
+                        <h2><?= htmlspecialchars($category['name']) ?></h2>
+                    </a>
+                <?php endforeach; ?>
+            <?php endif; ?>
         </nav>
     
         <div class="articles">

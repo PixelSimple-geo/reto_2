@@ -2,14 +2,9 @@
 
 function getArticles() :void {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/models/articlesDB.php";
-    $errorMessage = null;
-    try {
-        $articles = getAllArticles();
-    } catch (PDOException $exception) {
-        $errorMessage = "Hubo un error al intentar extraer tus articulos";
-    } catch (RuntimeException $exception) {
-        $errorMessage = "No se ha encontrado ninguna sesión";
-    }
+    $categories = getAllArticlesCategories();
+    if (!empty($_GET["category_id"])) $articles = getAllArticlesByCategory($_GET["category_id"]);
+    else $articles = getAllArticles();
     include_once $_SERVER['DOCUMENT_ROOT'] . "/views/articlesViews/articleNews.view.php";
 }
 

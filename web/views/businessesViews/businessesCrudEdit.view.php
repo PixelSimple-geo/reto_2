@@ -46,7 +46,6 @@
 
                     <fieldset>
                         <legend>Contacto</legend>
-                        <   button type="button" onclick="agregarContacto()">+</button>
                         <div id="contactsContainer">
                             <?php foreach ($business['contacts'] as $contact): ?>
                                 <div>

@@ -82,6 +82,7 @@ function postBusinessesCrudAdd(): void {
         else throw new ValueError("not a valid number");
         $contacts = processContacts($_POST["contact_type"] ?? [], $_POST["contact_value"] ?? []);
         $addresses = processAddresses($_POST["addresses"] ?? [], $_POST["postal_codes"] ?? []);
+        $coverURI = null;
 
         if ($_FILES["cover_img"]["error"] === UPLOAD_ERR_OK) $coverURI = saveImage();
 
@@ -119,7 +120,7 @@ function getBusinessesCrudEdit(): void {
 
 function postBusinessesCrudEdit(): void {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/models/businessesDB.php";
-    validateRequiredParameters(["business_id", "name", "description", "business_category", "cover_img"]);
+    validateRequiredParameters(["business_id", "name", "description", "business_category"]);
     try {
         $userAccount = getUserAccountFromSession();
 
@@ -131,7 +132,10 @@ function postBusinessesCrudEdit(): void {
         else throw new ValueError("not a valid number");
         $contacts = processContacts($_POST["contact_type"] ?? [], $_POST["contact_value"] ?? []);
         $addresses = processAddresses($_POST["addresses"] ?? [], $_POST["postal_codes"] ?? []);
-        if ($_FILES["cover_img"]["error"] === UPLOAD_ERR_OK) $coverURI = saveImage();
+        $coverURI = null;
+
+        if(!empty($_POST["old_cover_img"])) $coverURI = $_POST["old_cover_img"];
+        else if ($_FILES["cover_img"]["error"] === UPLOAD_ERR_OK) $coverURI = saveImage();
 
         updateBusiness($businessId, $name, $description, $coverURI, $categoryId, $contacts, $addresses);
         header("Location: /businesses/crud/all", true, 303);

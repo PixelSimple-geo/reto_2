@@ -2,8 +2,8 @@ INSERT INTO authorities (role) VALUES ('ADMIN');
 INSERT INTO authorities (role) VALUES ('USER');
 
 INSERT INTO accounts (username, email, password, creation_date, last_login, verified, active) VALUES
-('user1', 'user1@example.com', 'password1', NOW(), NOW(), 1, 1),
-('user2', 'user2@example.com', 'password2', NOW(), NOW(), 1, 1);
+('user1', 'user1@example.com', '$2y$10$6jLrRrOZD8ryJlx905t/1uT8Yh1FfOdemHf3Ho02ZhLz0.xVKko6i', NOW(), NOW(), 1, 1),
+('user2', 'user2@example.com', '$2y$10$sq6SMouNo86RnNnqAqKhc.6G5p1d2ZcVDJ7TRe8Ioj1NsFeiOQFja', NOW(), NOW(), 1, 1);
 
 INSERT INTO businesses (account_id, name, description) VALUES
 (1, 'Business1', 'Description for Business1'),

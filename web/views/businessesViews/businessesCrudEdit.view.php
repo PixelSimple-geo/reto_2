@@ -21,7 +21,7 @@
  
         <div class="formulario">
             <?php if (isset($business)): ?>
-                <form method="POST">
+                <form method="POST" enctype="multipart/form-data">
                     <input type='hidden' name='business_id' value='<?= $business['businessId'] ?>'>
                     <label for="nombre">Nombre del Negocio:</label>
                     <input type="text" id="nombre" name="name" value="<?= $business['name'] ?>" required
@@ -104,10 +104,10 @@
                     </div>
                     <fieldset>
                         <?php if(isset($business["coverImg"])):?>
+                            <input type="hidden" name="old_cover_img" value="<?=$business["coverImg"]?>">
                             <img src="<?=$business["coverImg"]?>">
-                        <?php else: ?>
-                            <input type="file" accept=".gif, .png, .jpeg, .jpg" name="cover_img" id="cover_img">
                         <?php endif;?>
+                        <input type="file" accept=".gif, .png, .jpeg, .jpg" name="cover_img" id="cover_img">
                     </fieldset>
                 </fieldset>
                     <br>

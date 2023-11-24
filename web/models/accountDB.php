@@ -9,7 +9,6 @@ function getAccounts(): array {
     return $statement->fetchAll();
 }
 
-<<<<<<< HEAD
 function getAccountByUsername($username) :array {
     try {
         $sql = "SELECT account_id AS accountId, username, email, password, creation_date AS creationDate FROM accounts
@@ -33,28 +32,6 @@ function getAccountByUsername($username) :array {
         error_log("Database error: [$username] " . $exception->getMessage());
         throw $exception;
     }
-=======
-function getAccountByUsername($username): array {
-    $sqlAccount = "SELECT account_id AS accountId, username, email, password, creation_date AS creationDate FROM accounts
-    WHERE username = :username";
-    $sqlAuthorities = "SELECT a.authority_id authorityId, role FROM authorities_granted ag
-    INNER JOIN authorities a ON ag.authority_id = a.authority_id
-    WHERE account_id = :account_id";
-
-    $connection = getConnection();
-    $stAccount = $connection->prepare($sqlAccount);
-    $stAuthorities = $connection->prepare($sqlAuthorities);
-
-    $stAccount->bindValue("username", $username);
-    $stAccount->execute();
-    if ($stAccount->rowCount() === 0) throw new PDOException("No account found");
-    $userAccount = $stAccount->fetch();
-
-    $stAuthorities->bindValue("account_id", $userAccount["accountId"], PDO::PARAM_INT);
-    $stAuthorities->execute();
-    $userAccount["authorities"] = $stAuthorities->fetchAll();
-    return $userAccount;
->>>>>>> eb00972cdfd4fe2f3ab505a5fc3f5bcdb39aa012
 }
 
 function persistAccount($username, $email, $password): void {

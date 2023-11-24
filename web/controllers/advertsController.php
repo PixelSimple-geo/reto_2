@@ -110,7 +110,7 @@ function postAdvertsCrudEdit(): void {
         updateAdvert($advertId, $title, $description, $coverURI, $categoryId,
             $characteristic, $imagesURI, $imagesToDelete);
         header("Location: /businesses/crud/business?business_id=$businessId", true, 303);
-    } catch (PDOException $exception) {
+    } catch (Exception $exception) {
         echo $exception->getMessage();
     }
 }

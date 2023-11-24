@@ -20,12 +20,14 @@
                 <?php endforeach; ?>
             <?php endif; ?>
         </nav>
+
         <div class="contentsContainer">
             <div class="contents">
                 <?php if(isset($businesses)):?>
                     <?php foreach ($businesses as $business): ?>
                         <a href="/businesses/business?business_id=<?=$business['businessId']?>">
                             <div>
+                                <img src="<?=$business["coverImg"]?>">
                                 <h3><?= $business['name'] ?></h3>
                                 <p>Descripción: <?= $business['description'] ?></p>
                             </div>

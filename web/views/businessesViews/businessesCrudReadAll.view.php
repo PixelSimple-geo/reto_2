@@ -23,6 +23,7 @@
                     <?php if (isset($businesses)): ?>
                         <?php foreach ($businesses as $business): ?>
                             <div>
+                                <img src="<?=$business["coverImg"]?>">
                                 <h3><?= htmlspecialchars($business['name']) ?></h3>
                                 <p><?= htmlspecialchars($business['description']) ?></p>
                                 <a href="/businesses/crud/business?business_id=<?= $business['businessId'] ?>">

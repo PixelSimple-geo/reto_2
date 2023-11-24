@@ -43,12 +43,12 @@ function getBusiness($businessId): array {
 }
 
 function getAllBusinesses(): array {
-    return getConnection()->query("SELECT business_id AS businessId, name, description FROM businesses")
+    return getConnection()->query("SELECT business_id AS businessId, name, description, cover_img AS coverImg FROM businesses")
         ->fetchAll();
 }
 
 function getAllAccountBusinesses($accountId): array {
-    $sql = "SELECT business_id AS businessId, name, description FROM businesses WHERE account_id = :account_id";
+    $sql = "SELECT business_id AS businessId, name, description, cover_img AS coverImg FROM businesses WHERE account_id = :account_id";
     $statement = getConnection()->prepare($sql);
     $statement->bindValue("account_id", $accountId, PDO::PARAM_INT);
     $statement->execute();

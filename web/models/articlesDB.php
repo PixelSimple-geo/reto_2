@@ -86,6 +86,7 @@ function updateArticle($articleId, $title, $description, $categoryId): void {
         $stCategory->bindValue("category_id", $categoryId);
         $stCategory->bindValue("article_id", $articleId);
         $stCategory->execute();
+        $connection->commit();
     } catch (PDOException $exception) {
         $connection->rollBack();
         throw new Exception("Could not update article");

@@ -11,9 +11,7 @@
         <a href="/index"><img src="/statics/media/comvit.png" alt="logo"></a>
 
         <!--Sesion-->
-        <?php
-            if (!isset($userAccount)) :
-        ?>
+        <?php if (!isset($userAccount)):?>
             <a href="/login">
                 <img src="/statics/media/profile.svg" alt="Profile">
             </a>
@@ -24,9 +22,7 @@
                     </button>
                     <div class="dropdown-content">
                         <a href="/account">Editar Perfil</a>
-                        <?php if (in_array('USER', array_column($userAccount['authorities'], 'role'))) : ?>
-                            <a href="/businesses/crud/all">Ver Negocios</a>
-                        <?php endif; ?>
+                        <a href="/businesses/crud/all">Ver Negocios</a>
                         <?php if (in_array('PUBLISHER', array_column($userAccount['authorities'], 'role'))) : ?>
                             <a href="/articles/crud/all">Ver Artículos</a>
                         <?php endif; ?>
@@ -37,8 +33,6 @@
                     </div>
                 </div>
             <?php endif; ?>
-
-    
     </div>
 
     <!--Navegator-->

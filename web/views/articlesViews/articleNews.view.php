@@ -32,7 +32,6 @@
                 }
                 
 
-                // Paginación
                 $totalPages = ceil($totalItems / $itemsPerPage);
                 
                 if ($totalPages > 1) {

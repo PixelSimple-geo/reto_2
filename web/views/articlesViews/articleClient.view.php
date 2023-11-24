@@ -12,9 +12,9 @@
             <h1><?php echo $article['title'] ?? "Sin título"; ?></h1>
 
             <?php if (!empty($article['description'])): ?>
-                <p><?php echo $article['description']; ?></p>
+                <h4><?php echo $article['description']; ?></h4>
             <?php endif; ?>
-
+            
             <?php if (!empty($article['creationDate'])): ?>
                 <p>Created Date: <?php echo $article['creationDate']; ?></p>
             <?php endif; ?>

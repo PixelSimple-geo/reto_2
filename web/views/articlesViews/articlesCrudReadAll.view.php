@@ -16,11 +16,6 @@
                     <?php foreach ($articles as $article):?>
                         <div>
                             <article>
-                                <?php if(isset($article["modifiedDate"])):?>
-                                    <p><?=$article["modifiedDate"]?></p>
-                                <?php else: ?>
-                                    <p><?=$article["createdDate"]?></p>
-                                <?php endif; ?>
                                 <h1><?=$article["title"]?></h1>
                                 <?php if(isset($article["categoryName"])):?>
                                     <p><?=$article["categoryName"]?></p>

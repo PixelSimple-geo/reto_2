@@ -246,3 +246,12 @@ function deleteBusinessAdvertCategory($categoryId): void {
         throw new Exception("internal server error");
     }
 }
+
+function doesAccountOwnBusiness($userAccount, $businessId): bool {
+    $sql = "SELECT business_id FROM businesses WHERE account_id = :account_id AND business_id = :business_id";
+    $statement = getConnection()->prepare($sql);
+    $statement->bindValue("account_id", $userAccount["accountId"], PDO::PARAM_INT);
+    $statement->bindValue("business_id", $businessId, PDO::PARAM_INT);
+    $statement->execute();
+    return $statement->rowCount() > 0;
+}

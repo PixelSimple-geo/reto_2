@@ -21,7 +21,7 @@ function getBusiness($businessId): array {
 
     $stBusiness->bindValue("business_id", $businessId, PDO::PARAM_INT);
     $stBusiness->execute();
-    if ($stBusiness->rowCount() === 0) throw new Exception("No record found");
+    if ($stBusiness->rowCount() === 0) throw new Exception("no record found");
     $business = $stBusiness->fetch();
 
     $stCategory->bindValue("business_id", $businessId, PDO::PARAM_INT);
@@ -187,9 +187,8 @@ function deleteBusiness($business_id): void {
 }
 
 function getAllBusinessCategories(): array {
-    $sql = "SELECT category_id AS categoryId, name FROM businesses_categories;";
-    $statement = getConnection()->query($sql);
-    return $statement->fetchAll();
+    return getConnection()->query("SELECT category_id AS categoryId, name FROM businesses_categories")
+        ->fetchAll();
 }
 
 function getAllBusinessesByCategory($categoryId): array {
@@ -213,24 +212,32 @@ function getAllBusinessAdvertCategories($businessId): array {
 }
 
 function persistBusinessAdvertCategory($businessId, $name): void {
+    $sql = "INSERT INTO businesses_advert_categories(business_id, name) VALUES(:business_id, :name)";
     try {
-        $sql = "INSERT INTO businesses_advert_categories(business_id, name) VALUES(:business_id, :name)";
         $statement = getConnection()->prepare($sql);
         $statement->bindValue("business_id", $businessId, PDO::PARAM_INT);
         $statement->bindValue("name", $name);
         $statement->execute();
-        if ($statement->rowCount() === 0) throw new PDOException("Could not persist category");
+        if ($statement->rowCount() === 0) throw new Exception("could not persist record");
     } catch (PDOException $exception) {
-        if (str_contains("Could not persist category", $exception->getMessage()))
-            throw new Exception("Internal error");
-        throw new Exception("Server error");
+        if ($exception->getCode() === "22001") throw new ValueError("invalid parameter");
+        if ($exception->getCode() === "23000") {
+            if (str_contains("foreign key", $exception->getMessage()))
+                throw new ValueError("foreign key constraint violation");
+            throw new ValueError("constraint violation");
+        }
+        throw new Exception("internal server error");
     }
 }
 
 function deleteBusinessAdvertCategory($categoryId): void {
     $sql = "DELETE FROM businesses_advert_categories WHERE category_id = :category_id";
-    $statement = getConnection()->prepare($sql);
-    $statement->bindValue("category_id", $categoryId, PDO::PARAM_INT);
-    $statement->execute();
-    if ($statement->rowCount() === 0) throw new Exception("Could not delete category");
+    try {
+        $statement = getConnection()->prepare($sql);
+        $statement->bindValue("category_id", $categoryId, PDO::PARAM_INT);
+        $statement->execute();
+        if ($statement->rowCount() === 0) throw new Exception("no row was deleted");
+    } catch (PDOException $exception) {
+        throw new Exception("internal server error");
+    }
 }

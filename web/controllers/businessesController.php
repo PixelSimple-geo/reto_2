@@ -13,10 +13,11 @@ function getBusinessPage(): void {
         $reviews = getAllBusinessReviews($businessId, $userAccount);
         include_once $_SERVER['DOCUMENT_ROOT'] . "/views/businessesViews/business.view.php";
     } catch (Exception $exception) {
-        if (str_contains("No record found", $exception->getMessage())) {
+        if (str_contains("no record found", $exception->getMessage())) {
             include_once $_SERVER['DOCUMENT_ROOT'] . "/views/errorViews/error_404_.view.php";
             die();
         }
+        include_once $_SERVER['DOCUMENT_ROOT'] . "/views/errorViews/error_500_.view.php";
     }
 }
 
@@ -41,16 +42,18 @@ function getBusinessesCrudRead(): void {
         $adverts = getAdvertsByBusinessId($business["businessId"]);
         include_once $_SERVER['DOCUMENT_ROOT'] . "/views/businessesViews/businessesCrudRead.view.php";
     } catch (Exception $exception) {
-        if (str_contains("No record found", $exception->getMessage())) {
+        if (str_contains("no record found", $exception->getMessage())) {
             include_once $_SERVER['DOCUMENT_ROOT'] . "/views/errorViews/error_404_.view.php";
             die();
         }
+        include_once $_SERVER['DOCUMENT_ROOT'] . "/views/errorViews/error_500_.view.php";
     }
 }
 
 function getBusinessesCrudReadAll(): void {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/models/businessesDB.php";
     if (isset($_GET["feedback"])) $feedback = $_GET["feedback"];
+    if (isset($_GET["errorMessage"])) $errorMessage = $_GET["errorMessage"];
     $userAccount = getUserAccountFromSession();
     $businesses = getAllAccountBusinesses($userAccount["accountId"]);
     include_once $_SERVER['DOCUMENT_ROOT'] . "/views/businessesViews/businessesCrudReadAll.view.php";
@@ -104,6 +107,10 @@ function getBusinessesCrudEdit(): void {
         $categories = getAllBusinessCategories();
         include_once $_SERVER["DOCUMENT_ROOT"] . "/views/businessesViews/businessesCrudEdit.view.php";
     } catch (Exception $exception) {
+        if (str_contains("no record found", $exception->getMessage())) {
+            include_once $_SERVER['DOCUMENT_ROOT'] . "/views/errorViews/error_404_.view.php";
+            die();
+        }
         include_once $_SERVER["DOCUMENT_ROOT"] . "/views/errorViews/error_500_.view.php";
     }
 }
@@ -148,6 +155,11 @@ function getBusinessesCrudDelete(): void {
         deleteBusiness($businessId);
         header("Location: /businesses/crud/all", true, 303);
     } catch (Exception $exception) {
+        if (str_contains("no row was deleted", $exception->getMessage())) {
+            $error = "No se ha podido eliminar tu negocio. Si el error persiste contacta con soporte";
+            header("Location: /businesses/crud/all?errorMessage=$error", true, 303);
+            die();
+        }
         include_once $_SERVER["DOCUMENT_ROOT"] . "/views/errorViews/error_500_.view.php";
     }
 }
@@ -160,8 +172,10 @@ function postBusinessesAdvertCategoryCrudAdd(): void {
     try {
         persistBusinessAdvertCategory($businessId, $name);
         header("Location: /businesses/crud/business?business_id=$businessId", true, 303);
+    } catch (ValueError $exception) {
+        include_once $_SERVER["DOCUMENT_ROOT"] . "/views/errorViews/error_400_.view.php";
     } catch (Exception $exception) {
-        include_once $_SERVER["DOCUMENT_ROOT"] . "/views/error_500_.view.php";
+        include_once $_SERVER["DOCUMENT_ROOT"] . "/views/errorViews/error_500_.view.php";
     }
 }
 

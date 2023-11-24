@@ -4,10 +4,18 @@ function getAdvertBusinessAccount(): void {
     if (empty($_GET["business_id"])) include_once $_SERVER['DOCUMENT_ROOT'] . "/views/error_400_.view.php";
     require_once $_SERVER['DOCUMENT_ROOT'] . "/models/advertsDB.php";
     require_once $_SERVER['DOCUMENT_ROOT'] . "/models/businessesDB.php";
-    $userAccount = getUserAccountFromSession();
-    $business = getBusiness($_GET["business_id"]);
-    $adverts = getAdvertsByBusinessId($_GET["business_id"]);
-    include_once $_SERVER['DOCUMENT_ROOT'] . "/views/advertsViews/adverts.view.php";
+    try {
+        $userAccount = getUserAccountFromSession();
+        $business = getBusiness($_GET["business_id"]);
+        $adverts = getAdvertsByBusinessId($_GET["business_id"]);
+        include_once $_SERVER['DOCUMENT_ROOT'] . "/views/advertsViews/adverts.view.php";
+    } catch (Exception $exception) {
+        if (str_contains("no record found", $exception->getMessage())) {
+            include_once $_SERVER['DOCUMENT_ROOT'] . "/views/errorViews/error_404_.view.php";
+            die();
+        }
+        include_once $_SERVER["DOCUMENT_ROOT"] . "/views/errorViews/error_500_.view.php";
+    }
 }
 
 function getAdvertsCrudAdd(): void {

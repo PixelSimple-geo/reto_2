@@ -49,10 +49,10 @@
                 </fieldset>
 
                 <label for="imagen_portada">Imagen de Portada:</label>
-                <input type="file" id="imagen_portada" name="cover_img" accept="image/*">
+                <input type="file" id="imagen_portada" name="cover_img" accept=".gif, .png, .jpeg, .jpg">
 
                 <label for="imagenes_anuncio">Imágenes del Anuncio:</label>
-                <input type="file" id="imagenes_anuncio" name="images[]" accept="image/*" multiple>
+                <input type="file" id="imagenes_anuncio" name="images[]" accept=".gif, .png, .jpeg, .jpg" multiple>
 
                 <button type="submit">Crear Anuncio</button>
             </form>

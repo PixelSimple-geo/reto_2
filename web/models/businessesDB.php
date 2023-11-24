@@ -3,7 +3,7 @@
 require_once $_SERVER["DOCUMENT_ROOT"] . "/models/driverManager.php";
 
 function getBusiness($businessId): array {
-    $sqlBusiness = "SELECT business_id businessId, name, description FROM businesses WHERE business_id = :business_id";
+    $sqlBusiness = "SELECT business_id businessId, name, description, cover_img coverImg FROM businesses WHERE business_id = :business_id";
     $sqlCategory = "SELECT bcm.category_id categoryId, name FROM businesses_categories_mapping bcm
     LEFT JOIN businesses_categories bc ON bcm.category_id = bc.category_id WHERE business_id = :business_id";
     $sqlContacts = "SELECT contact_id contactId, type, value FROM business_contacts WHERE business_id = :business_id";
@@ -55,9 +55,10 @@ function getAllAccountBusinesses($accountId): array {
     return $statement->fetchAll();
 }
 
-function persistBusiness($accountId, $name, $description, $categoryId, array $contacts, array $addresses): void {
-    $sqlBusiness = "INSERT INTO businesses(business_id, account_id, name, description) 
-    VALUES (DEFAULT, :account_id, :name, :description)";
+function persistBusiness($accountId, $name, $description, $coverImg, $categoryId, array $contacts,
+                         array $addresses): void {
+    $sqlBusiness = "INSERT INTO businesses(business_id, account_id, name, description, cover_img) 
+    VALUES (DEFAULT, :account_id, :name, :description, :cover_img)";
     $sqlBusinessCategory = "INSERT INTO businesses_categories_mapping(category_id, business_id) 
     VALUES (:category_id, :business_id)";
     $sqlContacts = "INSERT INTO business_contacts(business_id, type, value) VALUES(:business_id, :type, :value)";
@@ -74,6 +75,7 @@ function persistBusiness($accountId, $name, $description, $categoryId, array $co
         $stBusiness->bindValue("account_id", $accountId, PDO::PARAM_INT);
         $stBusiness->bindValue("name", $name);
         $stBusiness->bindValue("description", $description);
+        $stBusiness->bindValue("cover_img", $coverImg);
         $stBusiness->execute();
         $businessId = $connection->lastInsertId();
 
@@ -111,8 +113,9 @@ function persistBusiness($accountId, $name, $description, $categoryId, array $co
     }
 }
 
-function updateBusiness($businessId, $name, $description, $categoryId, array $contacts, array $addresses): void {
-    $sqlBusiness = "UPDATE businesses SET name = :name, description = :description WHERE business_id = :business_id";
+function updateBusiness($businessId, $name, $description, $coverImg, $categoryId,
+                        array $contacts, array $addresses): void {
+    $sqlBusiness = "UPDATE businesses SET name = :name, description = :description, cover_img = :cover_img WHERE business_id = :business_id";
     $sqlCategory = "UPDATE businesses_categories_mapping SET category_id = :category_id 
     WHERE business_id = :business_id";
     $sqlContactsDelete = "DELETE FROM business_contacts WHERE business_id = :business_id";
@@ -133,6 +136,7 @@ function updateBusiness($businessId, $name, $description, $categoryId, array $co
         $stBusiness->bindValue("business_id", $businessId, PDO::PARAM_INT);
         $stBusiness->bindValue("name", $name);
         $stBusiness->bindValue("description", $description);
+        $stBusiness->bindValue("cover_img", $coverImg);
         $stBusiness->execute();
 
         if (empty($categoryId)) throw new ValueError("No id");

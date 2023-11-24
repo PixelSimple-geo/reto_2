@@ -44,6 +44,7 @@ CREATE TABLE businesses (
     account_id INT NOT NULL,
     name VARCHAR(100) NOT NULL UNIQUE,
     description VARCHAR(1500),
+    cover_img varchar(255),
     CONSTRAINT bus_acc_fk FOREIGN KEY (account_id) REFERENCES accounts (account_id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 

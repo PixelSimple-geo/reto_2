@@ -34,6 +34,7 @@ function getBusinessesCrudRead(): void {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/models/advertsDB.php";
     try {
         validateRequiredParameters(["business_id"], "GET");
+        verifyBusinessOwnership($_GET["business_id"]);
         $business = getBusiness($_GET["business_id"]);
         $contacts = $business["contacts"];
         $addresses = $business["addresses"];
@@ -106,6 +107,7 @@ function getBusinessesCrudEdit(): void {
     validateRequiredParameters(["business_id"], "GET");
     try {
         $businessId = $_GET["business_id"];
+        verifyBusinessOwnership($businessId);
         $business = getBusiness($businessId);
         $categories = getAllBusinessCategories();
         include_once $_SERVER["DOCUMENT_ROOT"] . "/views/businessesViews/businessesCrudEdit.view.php";
@@ -122,9 +124,8 @@ function postBusinessesCrudEdit(): void {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/models/businessesDB.php";
     validateRequiredParameters(["business_id", "name", "description", "business_category"]);
     try {
-        $userAccount = getUserAccountFromSession();
-
         $businessId = $_POST["business_id"];
+        verifyBusinessOwnership($businessId);
         $name = $_POST["name"];
         $description = $_POST["description"];
         if (preg_match("/^\d$/", $_POST["business_category"]) === 1)
@@ -159,6 +160,7 @@ function getBusinessesCrudDelete(): void {
     validateRequiredParameters(["business_id"], "GET");
     try {
         $businessId = $_GET["business_id"];
+        verifyBusinessOwnership($businessId);
         deleteBusiness($businessId);
         header("Location: /businesses/crud/all", true, 303);
     } catch (Exception $exception) {
@@ -177,6 +179,7 @@ function postBusinessesAdvertCategoryCrudAdd(): void {
     $businessId = $_POST["business_id"];
     $name = $_POST["name"];
     try {
+        verifyBusinessOwnership($businessId);
         persistBusinessAdvertCategory($businessId, $name);
         header("Location: /businesses/crud/business?business_id=$businessId", true, 303);
     } catch (ValueError $exception) {
@@ -192,6 +195,7 @@ function deleteBusinessesAdvertCategoryCrudDelete(): void {
     $categoryId = $_GET["category_id"];
     $businessId = $_GET["business_id"];
     try {
+        verifyBusinessOwnership($businessId);
         deleteBusinessAdvertCategory($categoryId);
         header("Location: /businesses/crud/business?business_id=$businessId", true, 303);
     } catch (Exception $exception) {
@@ -237,4 +241,12 @@ function saveImage(): string {
         move_uploaded_file($_FILES["cover_img"]["tmp_name"], $targetFile);
     }
     return "/statics/uploads/$fileName";
+}
+
+function verifyBusinessOwnership($businessId): void {
+    $userAccount = getUserAccountFromSession();
+    if (!doesAccountOwnBusiness($userAccount, $businessId)) {
+        include_once $_SERVER['DOCUMENT_ROOT'] . "/views/errorViews/error_403_.view.php";
+        die();
+    }
 }

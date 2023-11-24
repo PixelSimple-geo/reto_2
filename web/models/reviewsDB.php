@@ -3,10 +3,12 @@
 require_once $_SERVER["DOCUMENT_ROOT"] . "/models/driverManager.php";
 
 function getAllBusinessReviews($businessId, $userAccount): array {
-    $sqlReviews = "SELECT r.review_id reviewId, account_id accountId, business_id businessId, title, description, 
-    creation_date creationDate, modified_date modifiedDate, rating,
+    $sqlReviews = "SELECT r.review_id reviewId, ac.account_id accountId, ac.username, 
+    business_id businessId, title, description, r.creation_date creationDate, modified_date modifiedDate, rating,
     COUNT(CASE WHEN is_liked = 1 THEN 1 END) likeCount, COUNT(CASE WHEN is_liked = 0 THEN 1 END) dislikeCount
-    FROM reviews r LEFT JOIN reviews_likes rl ON r.review_id = rl.review_id WHERE business_id = :business_id
+    FROM reviews r
+    INNER JOIN accounts ac ON r.account_id = ac.account_id 
+    LEFT JOIN reviews_likes rl ON r.review_id = rl.review_id WHERE business_id = :business_id
     GROUP BY r.review_id";
     $sqlReviewsLike = "SELECT is_liked liked FROM reviews_likes WHERE review_id = :review_id 
                        AND commentator_id = :account_id";

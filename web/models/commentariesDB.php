@@ -4,9 +4,11 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/models/driverManager.php";
 
 function getAllArticleCommentaries($articleId, $userAccount): array {
     $sqlCommentaries = "SELECT c.commentary_id commentaryId, article_id articleId, commentator_id commentatorId, 
-        title, description, creation_date creationDate, modified_date modifiedDate, 
+        ac.username, title, description, c.creation_date creationDate, modified_date modifiedDate, 
         COUNT(CASE WHEN is_liked = 1 THEN 1 END) likeCount, COUNT(CASE WHEN is_liked = 0 THEN 1 END) dislikeCount
-        FROM commentaries c LEFT JOIN commentaries_likes cl ON c.commentary_id = cl.commentary_id
+        FROM commentaries c
+        INNER JOIN accounts ac ON c.commentator_id = ac.account_id
+        LEFT JOIN commentaries_likes cl ON c.commentary_id = cl.commentary_id
         WHERE article_id = :article_id GROUP BY c.commentary_id";
     $sqlCommentariesLikes = "SELECT is_liked isLiked FROM commentaries_likes 
                         WHERE commentary_id = :commentary_id AND liker_id = :account_id";

@@ -166,6 +166,7 @@ function updateAdvert($advertId, $title, $description, $coverImg, $categoryId, a
             $stImages->bindValue("url", $image);
             $stImages->execute();
         }
+        $connection->commit();
     } catch (PDOException $exception) {
         $connection->rollBack();
         throw new Exception("Could not persist advert");

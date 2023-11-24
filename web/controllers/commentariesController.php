@@ -21,22 +21,19 @@ function postCommentaryLikeCrudAdd(): void {
     $commentaryId = $_POST["commentary_id"];
     $articleId = $_POST["article_id"];
     if (!empty($_POST["new_reaction"])) {
-        if ($_POST["new_reaction"] == "true") {
-            $isLiked = 2;
-        } else if ($_POST["new_reaction"] == "false")
-            $isLiked = 1;
+        if ($_POST["new_reaction"] == "true") $isLiked = 2;
+        else if ($_POST["new_reaction"] == "false") $isLiked = 1;
     } else $isLiked = 0;
     try {
         $userAccount = getUserAccountFromSession();
-        if (!empty($_POST["old_reaction"]) && !empty($_POST["new_reaction"])) {
+        if (!empty($_POST["old_reaction"]) && !empty($_POST["new_reaction"]))
             updateCommentaryLike($userAccount["accountId"], $commentaryId, $isLiked == 2);
-        } else if (!empty($_POST["new_reaction"])) persistCommentaryLike($userAccount["accountId"],
-            $commentaryId, $isLiked == 2);
-        else if (!empty($_POST["old_reaction"])) deleteCommentaryLike($userAccount["accountId"], $commentaryId);
+        else if (!empty($_POST["new_reaction"]))
+            persistCommentaryLike($userAccount["accountId"], $commentaryId, $isLiked == 2);
+        else if (!empty($_POST["old_reaction"]))
+            deleteCommentaryLike($userAccount["accountId"], $commentaryId);
         header("Location: /articles/article?articleId=$articleId", true, 303);
-    } catch (PDOException $exception) {
-        echo $exception->getMessage();
-    } catch (RuntimeException $exception) {
+    } catch (Exception $exception) {
         echo $exception->getMessage();
     }
 }

@@ -3,17 +3,14 @@
 require_once $_SERVER["DOCUMENT_ROOT"] . "/models/driverManager.php";
 
 function getBusiness($businessId): array {
-    $sqlBusiness = "SELECT business_id AS businessId, name, description FROM businesses 
-                                                WHERE business_id = :business_id";
-    $sqlCategory = "SELECT bcm.category_id AS categoryId, name FROM businesses_categories_mapping AS bcm
-    LEFT JOIN businesses_categories AS bbc ON bcm.category_id = bbc.category_id 
-                                       WHERE business_id = :business_id";
-    $sqlContacts = "SELECT contact_id AS contactId, type, value FROM business_contacts 
-                                        WHERE business_id = :business_id";
-    $sqlAddresses = "SELECT address_id AS addressId, address, postal_code AS postalCode FROM addresses 
-                                                               WHERE business_id = :business_id";
-    $sqlAdvertCategories = "SELECT category_id AS categoryId, name 
-    FROM businesses_advert_categories WHERE business_id = :business_id";
+    $sqlBusiness = "SELECT business_id businessId, name, description FROM businesses WHERE business_id = :business_id";
+    $sqlCategory = "SELECT bcm.category_id categoryId, name FROM businesses_categories_mapping bcm
+    LEFT JOIN businesses_categories bc ON bcm.category_id = bc.category_id WHERE business_id = :business_id";
+    $sqlContacts = "SELECT contact_id contactId, type, value FROM business_contacts WHERE business_id = :business_id";
+    $sqlAddresses = "SELECT address_id addressId, address, postal_code postalCode FROM addresses 
+    WHERE business_id = :business_id";
+    $sqlAdvertCategories = "SELECT category_id categoryId, name FROM businesses_advert_categories 
+    WHERE business_id = :business_id";
 
     $connection = getConnection();
     $stBusiness = $connection->prepare($sqlBusiness);
@@ -24,7 +21,7 @@ function getBusiness($businessId): array {
 
     $stBusiness->bindValue("business_id", $businessId, PDO::PARAM_INT);
     $stBusiness->execute();
-    if ($stBusiness->rowCount() === 0) throw new Exception("No business found");
+    if ($stBusiness->rowCount() === 0) throw new Exception("No record found");
     $business = $stBusiness->fetch();
 
     $stCategory->bindValue("business_id", $businessId, PDO::PARAM_INT);
@@ -46,10 +43,8 @@ function getBusiness($businessId): array {
 }
 
 function getAllBusinesses(): array {
-    $sql = "SELECT business_id AS businessId, name, description FROM businesses";
-    $statement = getConnection()->prepare($sql);
-    $statement->execute();
-    return $statement->fetchAll();
+    return getConnection()->query("SELECT business_id AS businessId, name, description FROM businesses")
+        ->fetchAll();
 }
 
 function getAllAccountBusinesses($accountId): array {
@@ -62,13 +57,12 @@ function getAllAccountBusinesses($accountId): array {
 
 function persistBusiness($accountId, $name, $description, $categoryId, array $contacts, array $addresses): void {
     $sqlBusiness = "INSERT INTO businesses(business_id, account_id, name, description) 
-        VALUES (DEFAULT, :account_id, :name, :description)";
+    VALUES (DEFAULT, :account_id, :name, :description)";
     $sqlBusinessCategory = "INSERT INTO businesses_categories_mapping(category_id, business_id) 
-        VALUES (:category_id, :business_id)";
-    $sqlContacts = "INSERT INTO business_contacts(business_id, type, value) 
-        VALUES(:business_id, :type, :value)";
+    VALUES (:category_id, :business_id)";
+    $sqlContacts = "INSERT INTO business_contacts(business_id, type, value) VALUES(:business_id, :type, :value)";
     $sqlAddresses = "INSERT INTO addresses(business_id, address, postal_code) 
-        VALUES(:business_id, :address, :postal_code)";
+    VALUES(:business_id, :address, :postal_code)";
     $connection = getConnection();
     try {
         $connection->beginTransaction();
@@ -83,7 +77,7 @@ function persistBusiness($accountId, $name, $description, $categoryId, array $co
         $stBusiness->execute();
         $businessId = $connection->lastInsertId();
 
-        if (empty($categoryId)) throw new PDOException("No category id");
+        if (empty($categoryId)) throw new ValueError("No id");
         $stCategory->bindValue("category_id", $categoryId, PDO::PARAM_INT);
         $stCategory->bindValue("business_id", $businessId, PDO::PARAM_INT);
         $stCategory->execute();
@@ -98,33 +92,34 @@ function persistBusiness($accountId, $name, $description, $categoryId, array $co
         foreach ($addresses as $address) {
             $stAddresses->bindValue("business_id", $businessId, PDO::PARAM_INT);
             $stAddresses->bindValue("address", $address["address"]);
-            $stAddresses->bindValue("postal_code", $address["postalCode"], PDO::PARAM_INT);
+            $stAddresses->bindValue("postal_code", $address["postalCode"]);
             $stAddresses->execute();
         }
 
         $connection->commit();
-        if ($stBusiness->rowCount() === 0) throw new PDOException("Failed to update");
     } catch (PDOException $exception) {
         $connection->rollBack();
-        if ($exception->getCode() == 22001 || str_contains("No category id",$exception))
-            throw new Exception("Invalid parameter");
-        if ($exception->getCode() == 23000)
-            throw new Exception("Business name is not unique");
-        throw new Exception("Internal server error");
+        if ($exception->getCode() === "22001") throw new ValueError("invalid parameter");
+        if ($exception->getCode() === "23000") {
+            if (str_contains("name", $exception->getMessage()))
+                throw new Exception("[name] unique constraint violation");
+            if (str_contains("foreign key", $exception->getMessage()))
+                throw new ValueError("foreign key constraint violation");
+            throw new ValueError("constraint violation");
+        }
+        throw new Exception("internal server error");
     }
 }
 
 function updateBusiness($businessId, $name, $description, $categoryId, array $contacts, array $addresses): void {
-    $sqlBusiness = "UPDATE businesses SET name = :name, description = :description 
-                  WHERE business_id = :business_id";
+    $sqlBusiness = "UPDATE businesses SET name = :name, description = :description WHERE business_id = :business_id";
     $sqlCategory = "UPDATE businesses_categories_mapping SET category_id = :category_id 
-                                     WHERE business_id = :business_id";
+    WHERE business_id = :business_id";
     $sqlContactsDelete = "DELETE FROM business_contacts WHERE business_id = :business_id";
-    $sqlContacts = "INSERT INTO business_contacts(business_id, type, value) 
-        VALUES(:business_id, :type, :value)";
+    $sqlContacts = "INSERT INTO business_contacts(business_id, type, value) VALUES(:business_id, :type, :value)";
     $sqlAddressesDelete = "DELETE FROM addresses WHERE business_id = :business_id";
     $sqlAddresses = "INSERT INTO addresses(business_id, address, postal_code) 
-        VALUES(:business_id, :address, :postal_code)";
+    VALUES(:business_id, :address, :postal_code)";
     $connection = getConnection();
     try {
         $connection->beginTransaction();
@@ -140,6 +135,7 @@ function updateBusiness($businessId, $name, $description, $categoryId, array $co
         $stBusiness->bindValue("description", $description);
         $stBusiness->execute();
 
+        if (empty($categoryId)) throw new ValueError("No id");
         $stCategory->bindValue("category_id", $categoryId, PDO::PARAM_INT);
         $stCategory->bindValue("business_id", $businessId, PDO::PARAM_INT);
         $stCategory->execute();
@@ -166,7 +162,15 @@ function updateBusiness($businessId, $name, $description, $categoryId, array $co
         $connection->commit();
     } catch (PDOException $exception) {
         $connection->rollBack();
-        throw new Exception("Database error");
+        if ($exception->getCode() === "22001") throw new ValueError("invalid parameter");
+        if ($exception->getCode() === "23000") {
+            if (str_contains("name", $exception->getMessage()))
+                throw new Exception("[name] unique constraint violation");
+            if (str_contains("foreign key", $exception->getMessage()))
+                throw new ValueError("foreign key constraint violation");
+            throw new ValueError("constraint violation");
+        }
+        throw new Exception("internal server error");
     }
 }
 
@@ -176,9 +180,9 @@ function deleteBusiness($business_id): void {
         $statement = getConnection()->prepare($sql);
         $statement->bindValue("business_id", $business_id, PDO::PARAM_INT);
         $statement->execute();
-        if ($statement->rowCount() === 0) throw new PDOException("Could not delete business");
+        if ($statement->rowCount() === 0) throw new Exception("no row was deleted");
     } catch (PDOException $exception) {
-        throw new Exception("Failed to delete business");
+        throw new Exception("internal server error");
     }
 }
 

@@ -60,6 +60,7 @@
                                 <input id=<?=$index . "_type"?> value='<?=$value["type"]?>' name="contact_type[]">
                                 <label for=<?=$index . "_value"?>>Dirección de medio</label>
                                 <input id=<?=$index . "_value"?> value='<?=$value["value"]?>' name="contact_value[]">
+                                <button data-script-delete-con-dir>Eliminar</button>
                             </div>
                             <?php endforeach; ?>
                         <?php endif; ?>
@@ -77,6 +78,7 @@
                                     <input id=<?=$index . "_address"?> value='<?=$value["address"]?>' name="addresses[]">
                                     <label for=<?=$index . "_postal_code"?>>Código postal de medio</label>
                                     <input id=<?=$index . "_postal_code"?> value='<?=$value["postalCode"]?>' name="postal_codes[]">
+                                    <button data-script-delete-con-dir>Eliminar</button>
                                 </div>
                             <?php endforeach; ?>
                         <?php endif; ?>

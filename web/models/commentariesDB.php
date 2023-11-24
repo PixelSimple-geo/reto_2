@@ -53,16 +53,13 @@ function persistCommentary($commentatorId, $articleId, $title, $description): vo
 function persistCommentaryLike($likerId, $commentaryId, $isLiked): void {
     $sql = "INSERT INTO commentaries_likes(liker_id, commentary_id, is_liked) 
     VALUES(:liker_id, :commentary_id, :is_liked)";
-    $connection = getConnection();
     try {
-        $connection->beginTransaction();
-        $statement = $connection->prepare($sql);
+        $statement = getConnection()->prepare($sql);
         $statement->bindValue("liker_id", $likerId, PDO::PARAM_INT);
         $statement->bindValue("commentary_id", $commentaryId, PDO::PARAM_INT);
         $statement->bindValue("is_liked", $isLiked, PDO::PARAM_BOOL);
         $statement->execute();
     } catch (PDOException $exception) {
-        $connection->rollBack();
         throw new Exception("Could not persist commentary like");
     }
 }
@@ -70,25 +67,21 @@ function persistCommentaryLike($likerId, $commentaryId, $isLiked): void {
 function updateCommentaryLike($likerId, $commentaryId, $isLiked): void {
     $sql = "UPDATE commentaries_likes SET is_liked = :is_liked 
                           WHERE liker_id = :liker_id AND commentary_id = :commentary_id";
-    $connection = getConnection();
     try {
-        $connection->beginTransaction();
-        $statement = $connection->prepare($sql);
+        $statement = getConnection()->prepare($sql);
         $statement->bindValue("is_liked", $isLiked, PDO::PARAM_BOOL);
         $statement->bindValue("liker_id", $likerId, PDO::PARAM_INT);
         $statement->bindValue("commentary_id", $commentaryId, PDO::PARAM_INT);
         $statement->execute();
     } catch (PDOException $exception) {
-        $connection->rollBack();
         throw new Exception("Could not update commentary like");
     }
 }
 
 function deleteCommentaryLike($likerId, $commentaryId): void {
     $sql = "DELETE FROM commentaries_likes WHERE liker_id = :liker_id AND commentary_id = :commentary_id";
-    $connection = getConnection();
     try {
-        $statement = $connection->prepare($sql);
+        $statement = getConnection()->prepare($sql);
         $statement->bindValue("liker_id", $likerId, PDO::PARAM_INT);
         $statement->bindValue("commentary_id", $commentaryId, PDO::PARAM_INT);
         $statement->execute();

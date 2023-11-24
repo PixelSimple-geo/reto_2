@@ -13,8 +13,8 @@ function getBusinessPage(): void {
         $reviews = getAllBusinessReviews($businessId, $userAccount);
         include_once $_SERVER['DOCUMENT_ROOT'] . "/views/businessesViews/business.view.php";
     } catch (Exception $exception) {
-        if (str_contains("No business found", $exception->getMessage())) {
-            include_once $_SERVER['DOCUMENT_ROOT'] . "/views/errorViews/error_400_.view.php";
+        if (str_contains("No record found", $exception->getMessage())) {
+            include_once $_SERVER['DOCUMENT_ROOT'] . "/views/errorViews/error_404_.view.php";
             die();
         }
     }
@@ -41,8 +41,8 @@ function getBusinessesCrudRead(): void {
         $adverts = getAdvertsByBusinessId($business["businessId"]);
         include_once $_SERVER['DOCUMENT_ROOT'] . "/views/businessesViews/businessesCrudRead.view.php";
     } catch (Exception $exception) {
-        if (str_contains("No business found", $exception->getMessage())) {
-            include_once $_SERVER['DOCUMENT_ROOT'] . "/views/errorViews/error_400_.view.php";
+        if (str_contains("No record found", $exception->getMessage())) {
+            include_once $_SERVER['DOCUMENT_ROOT'] . "/views/errorViews/error_404_.view.php";
             die();
         }
     }
@@ -74,24 +74,24 @@ function postBusinessesCrudAdd(): void {
 
         $name = $_POST["name"];
         $description = $_POST["description"];
-        $category = $_POST["business_category"];
+        if (preg_match("/^\d$/", $_POST["business_category"]) === 1)
+            $categoryId = $_POST["business_category"];
+        else throw new ValueError("not a valid number");
         $contacts = processContacts($_POST["contact_type"] ?? [], $_POST["contact_value"] ?? []);
         $addresses = processAddresses($_POST["addresses"] ?? [], $_POST["postal_codes"] ?? []);
 
-        persistBusiness($userAccount["accountId"], $name, $description, $category, $contacts, $addresses);
+        persistBusiness($userAccount["accountId"], $name, $description, $categoryId, $contacts, $addresses);
         header("Location: /businesses/crud/all", true, 303);
+    } catch (ValueError $exception) {
+        include_once $_SERVER['DOCUMENT_ROOT'] . "/views/errorViews/error_400_.view.php";
     } catch (Exception $exception) {
-        if (str_contains("Invalid parameter", $exception->getMessage())) {
-            http_response_code(400);
-            include_once $_SERVER["DOCUMENT_ROOT"] . "/views/errorViews/error_400_.view.php";
-            die();
-        }
-        if (str_contains("Business name is not unique", $exception->getMessage())) {
+        if (str_contains("[name] unique constraint violation", $exception->getMessage())) {
             $feedback = "Ya existe un negocio con ese nombre.";
             $businessCategories = getAllBusinessCategories();
             include_once $_SERVER["DOCUMENT_ROOT"] . "/views/businessesViews/businessesCrudAdd.view.php";
             die();
         }
+        include_once $_SERVER['DOCUMENT_ROOT'] . "/views/errorViews/error_500_.view.php";
     }
 }
 
@@ -117,20 +117,26 @@ function postBusinessesCrudEdit(): void {
         $businessId = $_POST["business_id"];
         $name = $_POST["name"];
         $description = $_POST["description"];
-        $category = $_POST["business_category"];
+        if (preg_match("/^\d$/", $_POST["business_category"]) === 1)
+            $categoryId = $_POST["business_category"];
+        else throw new ValueError("not a valid number");
         $contacts = processContacts($_POST["contact_type"] ?? [], $_POST["contact_value"] ?? []);
         $addresses = processAddresses($_POST["addresses"] ?? [], $_POST["postal_codes"] ?? []);
 
-        updateBusiness($businessId, $name, $description, $category, $contacts, $addresses);
+        updateBusiness($businessId, $name, $description, $categoryId, $contacts, $addresses);
         header("Location: /businesses/crud/all", true, 303);
+    } catch (ValueError $exception) {
+        include_once $_SERVER['DOCUMENT_ROOT'] . "/views/errorViews/error_400_.view.php";
     } catch (Exception $exception) {
-        if ($exception->getCode() == 23000) {
-            $feedback = "Ya existe un negocio con ese nombre. Elige otro";
-            $categories = getAllBusinessCategories();
+        if (str_contains("[name] unique constraint violation", $exception->getMessage())) {
+            $feedback = "Ya existe un negocio con ese nombre.";
+            $businessCategories = getAllBusinessCategories();
             $business = ["businessId" => $businessId, "name" => $name, "description" => $description,
-                "category" => ["categoryId" => $category], "contacts" => $contacts, "addresses" => $addresses];
-            include_once $_SERVER["DOCUMENT_ROOT"] . "/views/businessesViews/businessesCrudEdit.view.php";
-        } else include_once $_SERVER["DOCUMENT_ROOT"] . "/views/errorViews/error_400_.view.php";
+                "category" => ["categoryId" => $categoryId], "contacts" => $contacts, "addresses" => $addresses];
+            include_once $_SERVER["DOCUMENT_ROOT"] . "/views/businessesViews/businessesCrudAdd.view.php";
+            die();
+        }
+        include_once $_SERVER['DOCUMENT_ROOT'] . "/views/errorViews/error_500_.view.php";
     }
 }
 
@@ -186,12 +192,13 @@ function processContacts(array $types, array $values): array {
 
 function processAddresses(array $addresses, array $postalCodes): array {
     $processedAddresses = [];
-    if (count($addresses) === count($postalCodes)) {
-        foreach ($addresses as $index => $address) {
+    if (count($addresses) === count($postalCodes))
+        foreach ($addresses as $index => $address)
             if (!empty($address) && !empty($postalCodes[$index])) {
-                $processedAddresses[] = ["address" => $address, "postalCode" => $postalCodes[$index]];
+                if (preg_match("/^\d{5}$/", $postalCodes[$index]) === 1)
+                    $processedAddresses[] = ["address" => $address, "postalCode" => $postalCodes[$index]];
+                else throw new ValueError("not a valid number");
             }
-        }
-    }
+
     return $processedAddresses;
 }

@@ -11,9 +11,7 @@
         <a href="/index"><img src="/statics/media/comvit.png" alt="logo"></a>
 
         <!--Sesion-->
-        <?php
-            if (!isset($userAccount)) :
-        ?>
+        <?php if (!isset($userAccount)):?>
             <a href="/login">
                 <img src="/statics/media/profile.svg" alt="Profile">
             </a>
@@ -35,8 +33,6 @@
                     </div>
                 </div>
             <?php endif; ?>
-
-    
     </div>
 
     <!--Navegator-->

@@ -15,7 +15,7 @@ function postLogin() :void {
     $password = $_POST["password"];
     try {
         $userAccount = getAccountByUsername($username);
-        if ($password === $userAccount["password"]) {
+        if (password_verify($password, $userAccount["password"])) {
             startSession();
             addUserAccountToSession($userAccount);
             header("Location: /index", true, 303);
@@ -40,7 +40,7 @@ function postSignIn() :void {
         return;
     }
     $username = $_POST["username"];
-    $password = $_POST["password"];
+    $password = password_hash($_POST["password"], PASSWORD_BCRYPT);
     $email = $_POST["email"];
     try {
         persistAccount($username, $email, $password);

@@ -3,7 +3,8 @@
 require_once $_SERVER["DOCUMENT_ROOT"] . "/models/driverManager.php";
 
 function getBusiness($businessId): array {
-    $sqlBusiness = "SELECT business_id businessId, name, description, cover_img coverImg FROM businesses WHERE business_id = :business_id";
+    $sqlBusiness = "SELECT business_id businessId, name, description, cover_img coverImg 
+    FROM businesses WHERE business_id = :business_id";
     $sqlCategory = "SELECT bcm.category_id categoryId, name FROM businesses_categories_mapping bcm
     LEFT JOIN businesses_categories bc ON bcm.category_id = bc.category_id WHERE business_id = :business_id";
     $sqlContacts = "SELECT contact_id contactId, type, value FROM business_contacts WHERE business_id = :business_id";

@@ -21,7 +21,7 @@
  
         <div class="formulario">
             <?php if (isset($business)): ?>
-                <form method="POST" enctype='multipart/form-data' id="form">
+                <form method="POST" enctype="multipart/form-data">
                     <input type='hidden' name='business_id' value='<?= $business['businessId'] ?>'>
                     <label for="nombre">Nombre del Negocio:</label>
                     <input type="text" id="nombre" name="name" value="<?= $business['name'] ?>" required
@@ -75,45 +75,11 @@
                     </fieldset>
 
                     <fieldset>
-                        <legend>Dirección</legend>
-                        <button type="button" onclick="agregarDireccion()">+</button>
-                        <div id="addressesContainer">
-                            <?php foreach ($business['addresses'] as $address): ?>
-                                <div>
-                                    <label for='address_<?= $address['addressId'] ?>'>Dirección</label>
-                                    <input id='address_<?= $address['addressId'] ?>' value='<?= $address['address'] ?>' name='addresses[]'
-                                        pattern="^.{1,100}$" title="Ingresa entre 1 y 100 caracteres para la dirección">
-                                    
-                                    <label for='postal_code_<?= $address['addressId'] ?>'>Código Postal</label>
-                                    <input id='postal_code_<?= $address['addressId'] ?>' value='<?= $address['postalCode'] ?>' name='postal_codes[]'
-                                        pattern="[0-9]{5}" title="Ingresa un número de 5 dígitos para el código postal">
-                                    
-                                    <button data-script-delete-con-dir>Eliminar</button>
-                                </div>
-                            <?php endforeach; ?>
-                            <?php if (!empty($addresses)): ?>
-                                <?php foreach ($addresses as $index => $value): ?>
-                                    <div>
-                                        <label for=<?=$index . "_address"?>>Dirección</label>
-                                        <input id=<?=$index . "_address"?> value='<?=$value["address"]?>' name="addresses[]">
-                                        <label for=<?=$index . "_postal_code"?>>Código postal de medio</label>
-                                        <input id=<?=$index . "_postal_code"?> value='<?=$value["postalCode"]?>' name="postal_codes[]">
-                                    </div>
-                                <?php endforeach; ?>
-                            <?php endif; ?>
-                        </div>
-                    </fieldset>
-
-                    <fieldset>
-                        <?php if(isset($business["coverImg"])): ?>
-                        <div data-img>   
-                            <img src="<?= $business["coverImg"] ?>" alt='Imagen de portada'>
-                            <input type="hidden" name="cover_img_url" value="<?= $business['coverImg'] ?>">
-                            <button type="button" data-delete_img>Eliminar</button>
-                        </div> 
-                        <?php else: ?>
-                            <input type="file" accept=".gif, .png, .jpeg, .jpg" name="cover_img" id="cover_img">
-                        <?php endif; ?>
+                        <?php if(isset($business["coverImg"])):?>
+                            <input type="hidden" name="old_cover_img" value="<?=$business["coverImg"]?>">
+                            <img src="<?=$business["coverImg"]?>">
+                        <?php endif;?>
+                        <input type="file" accept=".gif, .png, .jpeg, .jpg" name="cover_img" id="cover_img">
                     </fieldset>
 
                     <br>

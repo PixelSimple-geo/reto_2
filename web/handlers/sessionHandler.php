@@ -16,8 +16,8 @@ function addUserAccountToSession(array $userAccount) :void {
     $_SESSION["userAccount"] = $userAccount;
 }
 
-function getUserAccountFromSession() :array {
-    if (!isset($_SESSION["userAccount"])) throw new RuntimeException("No user account found");
+function getUserAccountFromSession(): array | null {
+    if (!isset($_SESSION["userAccount"])) return null;
     return $_SESSION["userAccount"];
 }
 

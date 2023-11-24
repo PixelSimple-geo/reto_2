@@ -12,7 +12,7 @@
             <h1><?php echo $article['title'] ?? "Sin título"; ?></h1>
 
             <?php if (!empty($article['description'])): ?>
-                <p>Description: <?php echo $article['description']; ?></p>
+                <p><?php echo $article['description']; ?></p>
             <?php endif; ?>
 
             <?php if (!empty($article['creationDate'])): ?>
@@ -46,6 +46,7 @@
                     <?php foreach ($commentaries as $commentary):?>
                     <div>
                         <article id="<?=$commentary["commentaryId"]?>">
+                            <h1><?=$commentary["username"]?></h1>
                             <h2><?=$commentary["title"]?></h2>
                             <p><?=$commentary["description"]?></p>
                             <form action="/commentariesLikes/crud/add" method="POST">

@@ -5,9 +5,6 @@
 
     <?php require "partials/head.php" ?>
 
-    <!--JS-->
-    <script src="/statics/js/logreg.js" defer></script>
-
 </head>
 <body>
 
@@ -24,7 +21,10 @@
             <input type="text" id="usuario" required name="username">
 
             <label for="password">Contraseña</label>
-            <input type="password" id="password" required name="password">
+            <div class="passwordContainer">
+                <input type="password" id="password" required name="password">
+                <span id="togglePassword">👁️</span>
+            </div>
 
             <button id="submitLog" type="submit">Iniciar Sesión</button>
 

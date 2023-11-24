@@ -42,6 +42,22 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
+document.addEventListener("DOMContentLoaded", function() {
+    var togglePasswordButton = document.getElementById("togglePassword");
+
+    if (togglePasswordButton) {
+        togglePasswordButton.addEventListener("click", function() {
+            var passwordField = document.getElementById("password");
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+            } else {
+                passwordField.type = "password";
+            }
+        });
+    }
+});
+
+
 /* Modo */
 document.addEventListener('DOMContentLoaded', function () {
     const toggleDarkModeButton = document.getElementById('toggleDarkMode');

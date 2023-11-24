@@ -5,14 +5,11 @@
  
     <?php require "partials/head.php" ?>
 
-    <!--JS-->
-    <script src="../statics/js/logreg.js" defer></script>
-
 </head>
 <body>
 
         <a href="/index" class="home">
-            <img src= "../statics/media/logo2.png" alt="Volver al Home">
+            <img src= "/statics/media/comvit.png" alt="Volver al Home">
         </a>
 
     <div class="register_container">

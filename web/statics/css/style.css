@@ -315,7 +315,8 @@ input, textarea{
 }
 
 .login_container input,
-.register_container input {
+.register_container input, 
+#togglePassword{
     padding: 8px;
     margin-bottom: 10px;
     box-sizing: border-box;
@@ -341,6 +342,16 @@ input, textarea{
     color: var(--color-h);
     display: block;
     margin-top: 10px;
+}
+
+.passwordContainer{
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+}
+
+#togglePassword{
+    cursor: pointer;
 }
 
 .home img {

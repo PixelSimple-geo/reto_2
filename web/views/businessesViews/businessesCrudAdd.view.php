@@ -20,7 +20,7 @@
         </div>
         <div class="formulario">
 
-            <form method="POST">
+            <form method="POST" enctype="multipart/form-data">
                 <label for="name">Nombre del Negocio:</label>
                 <?php if(!empty($name)): ?>
                 <input id="name" name="name" pattern="([\u{00C0}-\u{00FF}]|\w)([\u{00C0}-\u{00FF}]|\w|\s){3,100}" required
@@ -83,6 +83,11 @@
                             <?php endforeach; ?>
                         <?php endif; ?>
                     </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Imagen de portada</legend>
+                    <input type="file" accept=".gif, .png, .jpeg, .jpg" name="cover_img" id="cover_img">
                 </fieldset>
 
                 <button type="submit">Crear Negocio</button>

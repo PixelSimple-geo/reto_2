@@ -29,7 +29,7 @@ function getAdvertsCrudAdd(): void {
 }
 
 function postAdvertsCrudAdd(): void {
-    validateRequiredParameters(["title", "description", "business_id"]);
+    validateRequiredParameters(["title", "description", "business_id", "cover_img", "images"]);
     include_once $_SERVER['DOCUMENT_ROOT'] . "/models/advertsDB.php";
 
     $businessId = $_POST["business_id"];

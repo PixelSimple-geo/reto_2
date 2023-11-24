@@ -83,7 +83,9 @@ function postBusinessesCrudAdd(): void {
         $contacts = processContacts($_POST["contact_type"] ?? [], $_POST["contact_value"] ?? []);
         $addresses = processAddresses($_POST["addresses"] ?? [], $_POST["postal_codes"] ?? []);
 
-        persistBusiness($userAccount["accountId"], $name, $description, $categoryId, $contacts, $addresses);
+        if ($_FILES["cover_img"]["error"] === UPLOAD_ERR_OK) $coverURI = saveImage();
+
+        persistBusiness($userAccount["accountId"], $name, $description, $coverURI, $categoryId, $contacts, $addresses);
         header("Location: /businesses/crud/all", true, 303);
     } catch (ValueError $exception) {
         include_once $_SERVER['DOCUMENT_ROOT'] . "/views/errorViews/error_400_.view.php";
@@ -117,7 +119,7 @@ function getBusinessesCrudEdit(): void {
 
 function postBusinessesCrudEdit(): void {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/models/businessesDB.php";
-    validateRequiredParameters(["business_id", "name", "description", "business_category"]);
+    validateRequiredParameters(["business_id", "name", "description", "business_category", "cover_img"]);
     try {
         $userAccount = getUserAccountFromSession();
 
@@ -129,8 +131,9 @@ function postBusinessesCrudEdit(): void {
         else throw new ValueError("not a valid number");
         $contacts = processContacts($_POST["contact_type"] ?? [], $_POST["contact_value"] ?? []);
         $addresses = processAddresses($_POST["addresses"] ?? [], $_POST["postal_codes"] ?? []);
+        if ($_FILES["cover_img"]["error"] === UPLOAD_ERR_OK) $coverURI = saveImage();
 
-        updateBusiness($businessId, $name, $description, $categoryId, $contacts, $addresses);
+        updateBusiness($businessId, $name, $description, $coverURI, $categoryId, $contacts, $addresses);
         header("Location: /businesses/crud/all", true, 303);
     } catch (ValueError $exception) {
         include_once $_SERVER['DOCUMENT_ROOT'] . "/views/errorViews/error_400_.view.php";
@@ -215,4 +218,19 @@ function processAddresses(array $addresses, array $postalCodes): array {
             }
 
     return $processedAddresses;
+}
+
+function saveImage(): string {
+    $targetDirectory = $_SERVER["DOCUMENT_ROOT"] . "/statics/uploads/";
+    $fileName = uniqid() . "_" . basename($_FILES["cover_img"]["name"]);
+    $targetFile = $targetDirectory . $fileName;
+    $uploadOk = 1;
+    $imageFileType = strtolower(pathinfo($targetFile,PATHINFO_EXTENSION));
+    if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
+        $uploadOk = 0;
+    }
+    if ($uploadOk == 1) {
+        move_uploaded_file($_FILES["cover_img"]["tmp_name"], $targetFile);
+    }
+    return "/statics/uploads/$fileName";
 }

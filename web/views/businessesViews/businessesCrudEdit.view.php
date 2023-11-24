@@ -102,6 +102,13 @@
                             <?php endforeach; ?>
                         <?php endif; ?>
                     </div>
+                    <fieldset>
+                        <?php if(isset($business["coverImg"])):?>
+                            <img src="<?=$business["coverImg"]?>">
+                        <?php else: ?>
+                            <input type="file" accept=".gif, .png, .jpeg, .jpg" name="cover_img" id="cover_img">
+                        <?php endif;?>
+                    </fieldset>
                 </fieldset>
                     <br>
                     <button type="submit">Guardar Cambios</button>

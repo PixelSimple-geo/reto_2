@@ -526,9 +526,11 @@ fieldset {
 .contentsContainer div p{
     width: 100%;
     margin: 0 auto;
+    color: var(--color-letra);
 }
 
-.contentsContainer div span {
+.contentsContainer div h4,  .contentsContainer div ul, .contentsContainer div li, .contentsContainer h4{
+    list-style-type:circle;
     display: flex;
     text-align: left;
     width: 60%;
@@ -545,7 +547,7 @@ fieldset {
     color: var(--color-texto);
 }
 
-.contents h2 {
+.contents h2, .contents h3 {
     color: var(--color-letra);
 }
 

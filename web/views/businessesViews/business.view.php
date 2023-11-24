@@ -16,7 +16,7 @@
 
             <h1><?=$business['name']?></h1>
 
-            <p><?=$business['description']?></p>
+            <h4><?=$business['description']?></h4>
             <h2>Adverts:</h2>
             <div class="contents">
                 <?php if(isset($adverts)):?>
@@ -27,7 +27,7 @@
                                     <img src="<?= $advert['coverImg']?>" alt="Portada del anuncio">
                                 <?php endif; ?>
                                 <h3><?= $advert['title'] ?></h3>
-                                <p>Description: <?= $advert['description'] ?></p>
+                                <p><?= $advert['description'] ?></p>
                             </div>
                         </a>
                     <?php endforeach; ?>

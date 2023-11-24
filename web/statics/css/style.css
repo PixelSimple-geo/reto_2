@@ -563,6 +563,19 @@ fieldset {
     overflow: hidden;
 }
 
+.contents div .enlaces{
+    display: flex;
+    flex-direction: row;
+    border: none;
+    padding: 0;
+    text-align: center;
+}
+
+.enlaces a{
+    width: 100%;
+}
+
+
 .contents.images a div {
     background-color: var(--color-imgcontenidos);
 }
@@ -740,6 +753,12 @@ footer>p {
     border-radius: 5px;
     text-align: center;
     margin: 1rem;
+}
+
+@media screen and (max-width: 1500px) {
+    .contents div .enlaces{
+        flex-direction: column;
+    }
 }
 
 @media screen and (max-width: 1300px) {

@@ -26,15 +26,17 @@
                                 <img src="<?=$business["coverImg"]?>">
                                 <h3><?= htmlspecialchars($business['name']) ?></h3>
                                 <p><?= htmlspecialchars($business['description']) ?></p>
-                                <a href="/businesses/crud/business?business_id=<?= $business['businessId'] ?>">
-                                    Ver Anuncios
-                                </a>
-                                <a href="/businesses/crud/edit?business_id=<?= $business['businessId'] ?>">
-                                    Editar Negocio
-                                </a>
-                                <a href="/businesses/crud/delete?business_id=<?= $business['businessId'] ?>">
-                                    Eliminar negocio
-                                </a>
+                                <div class="enlaces">
+                                    <a href="/businesses/crud/business?business_id=<?= $business['businessId'] ?>">
+                                        Ver Anuncios
+                                    </a>
+                                    <a href="/businesses/crud/edit?business_id=<?= $business['businessId'] ?>">
+                                        Editar Negocio
+                                    </a>
+                                    <a href="/businesses/crud/delete?business_id=<?= $business['businessId'] ?>">
+                                        Eliminar negocio
+                                    </a>
+                                </div>
                             </div>
                         <?php endforeach; ?>
                     <?php endif; ?>

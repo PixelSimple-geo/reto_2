@@ -79,12 +79,14 @@
                             <img src='<?= htmlspecialchars($advert['coverImg']) ?>' alt='Portada del anuncio'>
                             <h2><?= htmlspecialchars($advert['title']) ?></h2>
                             <p><?= htmlspecialchars($advert['description']) ?></p>
-                            <a href='/adverts/crud/edit?advert_id=<?= $advert['advertId'] ?>&business_id=<?=$business["businessId"]?>'>
-                                Editar anuncio
-                            </a>
-                            <a href="/adverts/crud/delete?advert_id=<?=$advert["advertId"]?>&business_id=<?=$business["businessId"]?>">
-                                Eliminar anuncio
-                            </a>
+                            <div class="enlaces">
+                                <a href='/adverts/crud/edit?advert_id=<?= $advert['advertId'] ?>&business_id=<?=$business["businessId"]?>'>
+                                    Editar anuncio
+                                </a>
+                                <a href="/adverts/crud/delete?advert_id=<?=$advert["advertId"]?>&business_id=<?=$business["businessId"]?>">
+                                    Eliminar anuncio
+                                </a>
+                            </div>
                     </div>
                     <?php endforeach; ?>
                 </div>

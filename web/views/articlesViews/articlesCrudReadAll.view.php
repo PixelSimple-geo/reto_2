@@ -21,14 +21,14 @@
                                     <p><?=$article["categoryName"]?></p>
                                 <?php endif; ?>
                                 <p><?=$article["description"]?></p>
-                                <nav>
+                                <div class="enlaces">
                                     <a href="/articles/crud/edit?article_id=<?=$article["articleId"]?>">
                                         Editar artículo
                                     </a>
                                     <a href="/articles/crud/delete?article_id=<?=$article["articleId"]?>">
                                         Eliminar anuncio
                                     </a>
-                                </nav>
+                                </div>
                             </article>
                         </div>
                     <?php endforeach ?>

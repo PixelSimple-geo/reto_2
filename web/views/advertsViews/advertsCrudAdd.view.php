@@ -18,7 +18,7 @@
             <form method="POST" enctype="multipart/form-data">
                 <?php
                 if (isset($businessId))
-                    echo "<input name='business_id' value='$businessId'>";
+                    echo "<input type='hidden' name='business_id' value='$businessId'>";
                 ?>
 
                 <label for="titulo">Titulo del Anuncio:</label>

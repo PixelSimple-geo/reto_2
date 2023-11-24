@@ -10,6 +10,19 @@
     
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/navBar.php"; ?>
 
+        <nav class="navbar">
+            <a href="/articles/all"><h2>Todas</h2></a>
+            <?php
+            $uniqueCategories = array_unique(array_column($articles, 'categoryName'));
+
+            foreach ($uniqueCategories as $categoryName) {
+                echo '<a href="/articles/all?category=' . urlencode($categoryName) . '">';
+                echo '<h2>' . htmlspecialchars($categoryName) . '</h2>';
+                echo '</a>';
+            }
+            ?>
+        </nav>
+    
         <div class="articles">
             <?php
             $itemsPerPage = 6;

@@ -20,6 +20,7 @@
                 
                 <div class="search filter">
                     <?php
+                        print_r($adverts);
                         $selectedCategories = isset($_GET['categories']) ? $_GET['categories'] : [];
 
                         if (isset($business['advertCategories']) && is_array($business['advertCategories'])) {
@@ -42,7 +43,6 @@
                     <button type="submit">Filtrar</button>
                 </div>
             </form>
-
 
             <h2>Adverts:</h2>
             <div class="contents">

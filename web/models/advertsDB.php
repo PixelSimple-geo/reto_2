@@ -1,41 +1,37 @@
 <?php
 function getAdvert($advertId): array {
-    try {
-        $sqlAdverts = "SELECT advert_id AS advertId, business_id AS businessId, title, description, 
-        cover_img AS coverImg, active, creation_date AS creationDate, modified_date AS modifiedDate FROM adverts 
-        WHERE advert_id = :advert_id";
-        $sqlImages = "SELECT image_id AS imageId, advert_id AS advertId, url FROM images WHERE advert_id = :advert_id";
-        $sqlCharacteristics = "SELECT characteristic_id AS characteristicId, advert_id AS advertId, type, value 
-        FROM adverts_characteristics WHERE advert_id = :advert_id";
-        $sqlCategories = "SELECT category_id AS categoryId, name FROM businesses_advert_categories WHERE category_id IN 
-                                            (SELECT category_id FROM advert_categories WHERE advert_id = :advert_id)";
+    $sqlAdverts = "SELECT advert_id AS advertId, business_id AS businessId, title, description, 
+    cover_img AS coverImg, active, creation_date AS creationDate, modified_date AS modifiedDate FROM adverts 
+    WHERE advert_id = :advert_id";
+    $sqlImages = "SELECT image_id AS imageId, advert_id AS advertId, url FROM images WHERE advert_id = :advert_id";
+    $sqlCharacteristics = "SELECT characteristic_id AS characteristicId, advert_id AS advertId, type, value 
+    FROM adverts_characteristics WHERE advert_id = :advert_id";
+    $sqlCategories = "SELECT category_id AS categoryId, name FROM businesses_advert_categories WHERE category_id IN 
+                                        (SELECT category_id FROM advert_categories WHERE advert_id = :advert_id)";
 
-        $connection = getConnection();
-        $stAdverts = $connection->prepare($sqlAdverts);
-        $stImages = $connection->prepare($sqlImages);
-        $stCharacteristics = $connection->prepare($sqlCharacteristics);
-        $stCategories = $connection->prepare($sqlCategories);
+    $connection = getConnection();
+    $stAdverts = $connection->prepare($sqlAdverts);
+    $stImages = $connection->prepare($sqlImages);
+    $stCharacteristics = $connection->prepare($sqlCharacteristics);
+    $stCategories = $connection->prepare($sqlCategories);
 
-        $stAdverts->bindValue("advert_id", $advertId, PDO::PARAM_INT);
-        $stAdverts->execute();
-        if ($stAdverts->rowCount() === 0) throw new PDOException("No advert found");
-        $advert = $stAdverts->fetch();
+    $stAdverts->bindValue("advert_id", $advertId, PDO::PARAM_INT);
+    $stAdverts->execute();
+    if ($stAdverts->rowCount() === 0) throw new Exception("no record was found");
+    $advert = $stAdverts->fetch();
 
-        $stImages->bindValue("advert_id", $advertId, PDO::PARAM_INT);
-        $stImages->execute();
-        $advert["images"] = $stImages->fetchAll();
+    $stImages->bindValue("advert_id", $advertId, PDO::PARAM_INT);
+    $stImages->execute();
+    $advert["images"] = $stImages->fetchAll();
 
-        $stCharacteristics->bindValue("advert_id", $advertId, PDO::PARAM_INT);
-        $stCharacteristics->execute();
-        $advert["characteristics"] = $stCharacteristics->fetchAll();
+    $stCharacteristics->bindValue("advert_id", $advertId, PDO::PARAM_INT);
+    $stCharacteristics->execute();
+    $advert["characteristics"] = $stCharacteristics->fetchAll();
 
-        $stCategories->bindValue("advert_id", $advertId, PDO::PARAM_INT);
-        $stCategories->execute();
-        $advert["categories"] = $stCategories->fetchAll();
-        return $advert;
-    } catch (PDOException $exception) {
-        throw new Exception("No advert found");
-    }
+    $stCategories->bindValue("advert_id", $advertId, PDO::PARAM_INT);
+    $stCategories->execute();
+    $advert["categories"] = $stCategories->fetchAll();
+    return $advert;
 }
 
 function getAllAdverts(): array {
@@ -102,7 +98,9 @@ function persistAdvert($businessId, $title, $description, $coverImg, $active, $c
         $connection->commit();
     } catch (PDOException $exception) {
         $connection->rollBack();
-        throw new Exception("Could not persist advert");
+        if ($exception->getCode() === "22001") throw new ValueError("invalid parameter");
+        if ($exception->getCode() === "23000") throw new ValueError("constraint violation");
+        throw new Exception("internal server error");
     }
 }
 
@@ -169,35 +167,28 @@ function updateAdvert($advertId, $title, $description, $coverImg, $categoryId, a
         $connection->commit();
     } catch (PDOException $exception) {
         $connection->rollBack();
-        throw new Exception("Could not persist advert");
+        if ($exception->getCode() === "22001") throw new ValueError("invalid parameter");
+        if ($exception->getCode() === "23000") throw new ValueError("constraint violation");
+        throw new Exception("internal server error");
     }
 }
 
 function deleteAdvert($advertId): void {
-    try {
-        $sql = "DELETE FROM adverts WHERE advert_id = :advert_id";
-        $statement = getConnection()->prepare($sql);
-        $statement->bindValue("advert_id", $advertId, PDO::PARAM_INT);
-        $statement->execute();
-        if ($statement->rowCount() === 0) throw new PDOException("Could not delete advert");
-    } catch (PDOException $exception) {
-        throw new Exception("Could not delete advert");
-    }
+    $sql = "DELETE FROM adverts WHERE advert_id = :advert_id";
+    $statement = getConnection()->prepare($sql);
+    $statement->bindValue("advert_id", $advertId, PDO::PARAM_INT);
+    $statement->execute();
+    if ($statement->rowCount() === 0) throw new Exception("no row was affected");
 }
 
 function getAdvertCharacteristics($advertId): array {
-    try {
-        $sql = "SELECT characteristic_id, advert_id, type, value
-                FROM adverts_characteristics
-                WHERE advert_id = :advert_id";
-        $statement = getConnection()->prepare($sql);
-        $statement->bindValue("advert_id", $advertId, PDO::PARAM_INT);
-        $statement->execute();
-        return $statement->fetchAll();
-    } catch (PDOException $exception) {
-        error_log("Database error: [$advertId] " . $exception->getMessage());
-        throw $exception;
-    }
+    $sql = "SELECT characteristic_id, advert_id, type, value
+            FROM adverts_characteristics
+            WHERE advert_id = :advert_id";
+    $statement = getConnection()->prepare($sql);
+    $statement->bindValue("advert_id", $advertId, PDO::PARAM_INT);
+    $statement->execute();
+    return $statement->fetchAll();
 }
 
 function getAdvertCategories($advertId): array {
@@ -211,27 +202,27 @@ function getAdvertCategories($advertId): array {
 }
 
 function getAllAdvertCategories(): array {
-    try {
-        $sql = "SELECT * FROM businesses_advert_categories";
-        $statement = getConnection()->query($sql);
-        return $statement->fetchAll();
-    } catch (PDOException $exception) {
-        error_log("Database error: " . $exception->getMessage());
-        throw $exception;
-    }
+    $sql = "SELECT * FROM businesses_advert_categories";
+    $statement = getConnection()->query($sql);
+    return $statement->fetchAll();
 }
 
 function getAdvertImages($advertId): array {
-    try {
-        $sql = "SELECT image_id, advert_id, url
-                FROM images
-                WHERE advert_id = :advert_id";
-        $statement = getConnection()->prepare($sql);
-        $statement->bindValue("advert_id", $advertId, PDO::PARAM_INT);
-        $statement->execute();
-        return $statement->fetchAll();
-    } catch (PDOException $exception) {
-        error_log("Database error: [$advertId] " . $exception->getMessage());
-        throw $exception;
-    }
+    $sql = "SELECT image_id, advert_id, url
+            FROM images
+            WHERE advert_id = :advert_id";
+    $statement = getConnection()->prepare($sql);
+    $statement->bindValue("advert_id", $advertId, PDO::PARAM_INT);
+    $statement->execute();
+    return $statement->fetchAll();
+}
+
+function doesAccountOwnAdvert($accountId, $advertId): bool {
+    $sql = "SELECT COUNT(advert_id) FROM adverts a INNER JOIN businesses b ON a.business_id = b.business_id
+    WHERE b.account_id = :account_id AND a.advert_id = :advert_id";
+    $statement = getConnection()->prepare($sql);
+    $statement->bindValue("account_id", $accountId, PDO::PARAM_INT);
+    $statement->bindValue("advert_id", $advertId, PDO::PARAM_INT);
+    $statement->execute();
+    return $statement->rowCount() > 0;
 }

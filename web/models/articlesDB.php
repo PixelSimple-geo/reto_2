@@ -3,20 +3,13 @@ function getArticle($articleId): array {
     $sql = "SELECT articles.article_id articleId, account_id accountId, title, description, 
                         DATE(created_date) creationDate, DATE(modified_date) modifiedDate, 
                         ac.category_id categoryId, ac.name categoryName 
-                FROM articles 
-                LEFT JOIN articles_categories_mapping acm ON articles.article_id = acm.article_id
-                LEFT JOIN article_categories ac ON acm.category_id = ac.category_id
-                WHERE articles.article_id = :article_id";
-    try {
-        $connection = getConnection();
-        $statement = $connection->prepare($sql);
-        $statement->bindValue("article_id", $articleId, PDO::PARAM_INT);
-        $statement->execute();
-        if ($statement->rowCount() === 0) throw new PDOException("No article found");
-        return $statement->fetch();
-    } catch (PDOException $exception) {
-        throw new Exception("No article found");
-    }
+    FROM articles LEFT JOIN articles_categories_mapping acm ON articles.article_id = acm.article_id
+    LEFT JOIN article_categories ac ON acm.category_id = ac.category_id WHERE articles.article_id = :article_id";
+    $statement = getConnection()->prepare($sql);
+    $statement->bindValue("article_id", $articleId, PDO::PARAM_INT);
+    $statement->execute();
+    if ($statement->rowCount() === 0) throw new ("no record was found");
+    return $statement->fetch();
 }
 
 function getAllArticles(): array {
@@ -66,7 +59,9 @@ function persistArticle($accountId, $title, $description, $categoryId): void {
         $connection->commit();
     } catch (PDOException $exception) {
         $connection->rollBack();
-        throw new Exception("Could not persist article");
+        if ($exception->getCode() === "22001") throw new ValueError("invalid parameter");
+        if ($exception->getCode() === "23000") throw new ValueError("constraint violation");
+        throw new Exception("internal server error");
     }
 }
 
@@ -92,21 +87,19 @@ function updateArticle($articleId, $title, $description, $categoryId): void {
         $connection->commit();
     } catch (PDOException $exception) {
         $connection->rollBack();
-        throw new Exception("Could not update article");
+        if ($exception->getCode() === "22001") throw new ValueError("invalid parameter");
+        if ($exception->getCode() === "23000") throw new ValueError("constraint violation");
+        throw new Exception("internal server error");
     }
 }
 
 function deleteArticle($accountId, $articleId): void {
     $sql = "DELETE FROM articles WHERE account_id = :account_id AND article_id = :article_id";
-    try {
-        $statement = getConnection()->prepare($sql);
-        $statement->bindValue("account_id", $accountId, PDO::PARAM_INT);
-        $statement->bindValue("article_id", $articleId, PDO::PARAM_INT);
-        $statement->execute();
-        if ($statement->rowCount() === 0) throw new PDOException("Could not delete article");
-    } catch (PDOException $exception) {
-        throw new Exception("Could not delete article");
-    }
+    $statement = getConnection()->prepare($sql);
+    $statement->bindValue("account_id", $accountId, PDO::PARAM_INT);
+    $statement->bindValue("article_id", $articleId, PDO::PARAM_INT);
+    $statement->execute();
+    if ($statement->rowCount() === 0) throw new Exception("no row was deleted");
 }
 
 function getAllArticlesCategories(): array {
@@ -122,10 +115,17 @@ function getAllArticlesByCategory($categoryId): array {
             LEFT JOIN articles_categories_mapping acm ON articles.article_id = acm.article_id
             LEFT JOIN article_categories ac ON acm.category_id = ac.category_id
             WHERE ac.category_id = :category_id";
-    
     $statement = getConnection()->prepare($sql);
     $statement->bindValue("category_id", $categoryId, PDO::PARAM_INT);
     $statement->execute();
-    
     return $statement->fetchAll();
+}
+
+function doesAccountOwnArticle($accountId, $articleId): bool {
+    $sql = "SELECT COUNT(article_id) FROM articles WHERE account_id = :account_id AND article_id = :article_id";
+    $statement = getConnection()->prepare($sql);
+    $statement->bindValue("account_id", $accountId, PDO::PARAM_INT);
+    $statement->bindValue("article_id", $articleId, PDO::PARAM_INT);
+    $statement->execute();
+    return $statement->rowCount() > 0;
 }

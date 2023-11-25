@@ -105,6 +105,7 @@
                                     <section data-check>
                                         <input type="hidden" name="old_reaction" value="<?=isset($review["userFeedback"])?>">
                                         <input type="hidden" name="new_reaction" value="">
+                                        <?php if(isset($userAccount)): ?>
                                         <button type="submit" data-reaction="true"
                                             <?php if (isset($review["userFeedback"]) && $review["userFeedback"]) echo "checked"?>>
                                             <?=$review["likeCount"]?>
@@ -116,6 +117,19 @@
                                             <?=$review["dislikeCount"]?>
                                             <img src="/statics/media/thumb_down.svg" class="review-icon">
                                         </button>
+                                        <?php else: ?>
+                                            <button type="button"
+                                                <?php if (isset($review["userFeedback"]) && $review["userFeedback"]) echo "checked"?>>
+                                                <?=$review["likeCount"]?>
+                                                <img src="/statics/media/thumb_up.svg" class="review-icon">
+                                            </button>
+                                            <button type="button"
+                                                <?php if (isset($review["userFeedback"]) && !$review["userFeedback"])
+                                                    echo "checked"?>>
+                                                <?=$review["dislikeCount"]?>
+                                                <img src="/statics/media/thumb_down.svg" class="review-icon">
+                                            </button>
+                                        <?php endif; ?>
                                     </section>
                                 </form>
                                 <?php if(isset($review["modifiedDate"])):?>

@@ -248,8 +248,5 @@ function saveImage(): string {
 
 function verifyBusinessOwnership($businessId): void {
     $userAccount = getUserAccountFromSession();
-    if (!doesAccountOwnBusiness($userAccount, $businessId)) {
-        include_once $_SERVER['DOCUMENT_ROOT'] . "/views/errorViews/error_403_.view.php";
-        die();
-    }
+    if (!doesAccountOwnBusiness($userAccount["accountId"], $businessId)) error_401_Unauthorized();
 }

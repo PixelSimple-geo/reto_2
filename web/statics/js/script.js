@@ -44,18 +44,23 @@ document.addEventListener('DOMContentLoaded', function () {
 
 document.addEventListener("DOMContentLoaded", function() {
     var togglePasswordButton = document.getElementById("togglePassword");
+    var eyeIcon = document.getElementById("togglePassword").getElementsByTagName("img")[0];
 
     if (togglePasswordButton) {
         togglePasswordButton.addEventListener("click", function() {
             var passwordField = document.getElementById("password");
+
             if (passwordField.type === "password") {
                 passwordField.type = "text";
+                eyeIcon.src = '../statics/media/noeye.svg'; 
             } else {
                 passwordField.type = "password";
+                eyeIcon.src = '../statics/media/eye.svg';
             }
         });
     }
 });
+
 
 
 /* Modo */

@@ -61,6 +61,17 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
+/* Eliminar imagen portada negocio */
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll("[data-delete_img]").forEach(element => {
+        element.addEventListener("click", () => {
+            const url = element.getAttribute("data-delete_img");
+            document.getElementById("form")
+                .insertAdjacentHTML("beforeend", `<input type="hidden" name="images_ids[]" value="${url}">`)
+            element.closest("[data-img]").remove()
+        });
+    });
+});
 
 
 /* Modo */

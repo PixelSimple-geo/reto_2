@@ -36,13 +36,13 @@
                     foreach ($pagedBusinesses as $business) {
                         echo '<a href="/businesses/business?business_id=' . urlencode($business['businessId']) . '">';
                         echo '<div>';
-                        echo '<img src="' . htmlspecialchars($business["coverImg"]) . '">';
+                        if (!empty($business["coverImg"]))
+                            echo '<img src="' . htmlspecialchars($business["coverImg"]) . '">';
                         echo '<h3>' . htmlspecialchars($business['name']) . '</h3>';
                         echo '<p>Descripción: ' . htmlspecialchars($business['description']) . '</p>';
                         echo '</div>';
                         echo '</a>';
                     }
-
                 } else {
                     echo '<p>No se encontraron comercios.</p>';
                 }

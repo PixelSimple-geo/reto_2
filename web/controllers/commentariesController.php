@@ -4,12 +4,11 @@ function postCommentaryCrudAdd(): void {
     validateRequiredParameters(["title", "description", "article_id"]);
     require_once $_SERVER["DOCUMENT_ROOT"] . "/models/commentariesDB.php";
     $userAccount = getUserAccountFromSession();
-    if (isset($userAccount))
-        $commentatorId = $userAccount["accountId"];
+    if (isset($userAccount)) $commentatorId = $userAccount["accountId"];
     else error_401_Unauthorized();
+    $articleId = $_POST["article_id"];
     $title = $_POST["title"];
     $description = $_POST["description"];
-    $articleId = $_POST["article_id"];
     try {
         persistCommentary($commentatorId, $articleId, $title, $description);
         header("Location: /articles/article?articleId=$articleId", true, 303);
@@ -20,7 +19,7 @@ function postCommentaryCrudAdd(): void {
     }
 }
 
-function postCommentaryLikeCrudAdd(): void {
+function postCommentaryLikeCrudAddEditDelete(): void {
     validateRequiredParameters(["commentary_id", "article_id"]);
     require_once $_SERVER['DOCUMENT_ROOT'] . "/models/commentariesDB.php";
     $commentaryId = $_POST["commentary_id"];

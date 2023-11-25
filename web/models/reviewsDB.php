@@ -2,7 +2,7 @@
 
 require_once $_SERVER["DOCUMENT_ROOT"] . "/models/driverManager.php";
 
-function getAllBusinessReviews($businessId, $userAccount): array {
+function getAllBusinessReviews($businessId, $accountId): array {
     $sqlReviews = "SELECT r.review_id reviewId, ac.account_id accountId, ac.username, 
     business_id businessId, title, description, r.creation_date creationDate, modified_date modifiedDate, rating,
     COUNT(CASE WHEN is_liked = 1 THEN 1 END) likeCount, COUNT(CASE WHEN is_liked = 0 THEN 1 END) dislikeCount
@@ -20,13 +20,14 @@ function getAllBusinessReviews($businessId, $userAccount): array {
     $stReviews->execute();
     $reviews = $stReviews->fetchAll();
 
-    foreach ($reviews as &$review) {
-        $stReviewsLike->bindValue("review_id", $review["reviewId"], PDO::PARAM_INT);
-        $stReviewsLike->bindValue("account_id", $userAccount["accountId"], PDO::PARAM_INT);
-        $stReviewsLike->execute();
-        $record = $stReviewsLike->fetch();
-        $review["userFeedback"] = !empty($record) ? $record['liked'] : null;
-    }
+    if (!empty($accountId))
+        foreach ($reviews as &$review) {
+            $stReviewsLike->bindValue("review_id", $review["reviewId"], PDO::PARAM_INT);
+            $stReviewsLike->bindValue("account_id", $accountId, PDO::PARAM_INT);
+            $stReviewsLike->execute();
+            $record = $stReviewsLike->fetch();
+            $review["userFeedback"] = !empty($record) ? $record['liked'] : null;
+        }
     return $reviews;
 }
 
@@ -42,7 +43,9 @@ function persistBusinessReview($businessId, $accountId, $title, $description, $r
         $statement->bindValue("rating", $rating);
         $statement->execute();
     } catch (PDOException $exception) {
-        throw new Exception("Could not persist review");
+        if ($exception->getCode() === "22001") throw new ValueError("invalid parameter");
+        if ($exception->getCode() === "23000") throw new ValueError("constraint violation");
+        throw new Exception("internal server error");
     }
 }
 
@@ -56,7 +59,9 @@ function persistReviewLike($userAccount, $reviewId, $isLiked): void {
         $statement->bindValue("is_liked", $isLiked, PDO::PARAM_BOOL);
         $statement->execute();
     } catch (PDOException $exception) {
-        throw new Exception("Could not persist review like");
+        if ($exception->getCode() === "22001") throw new ValueError("invalid parameter");
+        if ($exception->getCode() === "23000") throw new ValueError("constraint violation");
+        throw new Exception("internal server error");
     }
 }
 
@@ -70,7 +75,9 @@ function updateReviewLike($userAccount, $reviewId, $isLiked): void {
         $statement->bindValue("account_id", $userAccount["accountId"], PDO::PARAM_INT);
         $statement->execute();
     } catch (PDOException $exception) {
-        throw new Exception("Could not update review like");
+        if ($exception->getCode() === "22001") throw new ValueError("invalid parameter");
+        if ($exception->getCode() === "23000") throw new ValueError("constraint violation");
+        throw new Exception("internal server error");
     }
 }
 

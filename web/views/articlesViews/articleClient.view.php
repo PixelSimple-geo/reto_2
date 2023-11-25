@@ -12,7 +12,7 @@
             <h1><?php echo $article['title'] ?? "Sin título"; ?></h1>
 
             <?php if (!empty($article['description'])): ?>
-                <h4><?php echo $article['description']; ?></h4>
+                <p><?php echo $article['description']; ?></p>
             <?php endif; ?>
             
             <?php if (!empty($article['creationDate'])): ?>
@@ -50,7 +50,7 @@
                             <h1><?=$commentary["username"]?></h1>
                             <h2><?=$commentary["title"]?></h2>
                             <p><?=$commentary["description"]?></p>
-                            <form action="/commentariesLikes/crud/add" method="POST">
+                            <form action="/commentariesLikes/crud" method="POST">
                                 <input type="hidden" name="article_id" value="<?= $article["articleId"] ?>">
                                 <input type="hidden" name="commentary_id" value="<?= $commentary["commentaryId"] ?>">
                                 <section data-check>

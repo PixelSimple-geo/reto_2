@@ -10,7 +10,9 @@ function getBusinessPage(): void {
         $businessId = $_GET['business_id'];
         $business = getBusiness($businessId);
         $adverts = getAdvertsByBusinessId($businessId);
-        $reviews = getAllBusinessReviews($businessId, $userAccount);
+        if (isset($userAccount))
+            $reviews = getAllBusinessReviews($businessId, $userAccount["accountId"]);
+        else $reviews = getAllBusinessReviews($businessId, null);
         include_once $_SERVER['DOCUMENT_ROOT'] . "/views/businessesViews/business.view.php";
     } catch (Exception $exception) {
         if (str_contains("no record found", $exception->getMessage())) {

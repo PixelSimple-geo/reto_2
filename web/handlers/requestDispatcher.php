@@ -253,16 +253,14 @@ $routeMapping = [
             ]
         ]
     ],
-    "likes" => [
+    "reviewsLikes" => [
         "controller" => "reviewsController",
         "crud" => [
             "security" => [
               "authentication" => "authenticate"
             ],
-            "add" => [
-                "methods" => [
-                    "POST" => "postReviewLikeCrudAdd"
-                ]
+            "methods" => [
+                "POST" => "postReviewLikeCrudAddEditDelete"
             ]
         ]
     ],
@@ -291,10 +289,8 @@ $routeMapping = [
             "security" => [
               "authentication" => "authenticate"
             ],
-            "add" => [
-                "methods" => [
-                    "POST" => "postCommentaryLikeCrudAdd"
-                ]
+            "methods" => [
+                "POST" => "postCommentaryLikeCrudAddEditDelete"
             ]
         ]
     ],

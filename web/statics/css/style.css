@@ -78,6 +78,11 @@ input, textarea{
     font-size: 2rem;
 }
 
+input:-webkit-autofill{
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: var(--color-letra);
+}
+
 .search button {
     border: 0;
     border-radius: 50%;
@@ -86,6 +91,7 @@ input, textarea{
     cursor: pointer;
     background-color: var(--color-f);
 }
+
 .search button:hover {
     background-color: var(--color-borde);
 }

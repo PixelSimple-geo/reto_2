@@ -74,29 +74,28 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 
-/* Modo */
 document.addEventListener('DOMContentLoaded', function () {
     const toggleDarkModeButton = document.getElementById('toggleDarkMode');
     const body = document.body;
     const modeIcon = document.getElementById('modeIcon');
 
-    if (localStorage.getItem('dark-mode') === 'enabled') {
+    const darkModeEnabled = localStorage.getItem('dark-mode') === 'enabled';
+
+    if (darkModeEnabled) {
         body.classList.add('dark');
         modeIcon.textContent = '🌙';
     }
 
     toggleDarkModeButton.addEventListener('click', function () {
         body.classList.toggle('dark');
+        const isDarkMode = body.classList.contains('dark');
 
-        if (body.classList.contains('dark')) {
-            localStorage.setItem('dark-mode', 'enabled');
-            modeIcon.textContent = '🌙';
-        } else {
-            localStorage.setItem('dark-mode', 'disabled');
-            modeIcon.textContent = '☀️';
-        }
+        localStorage.setItem('dark-mode', isDarkMode ? 'enabled' : 'disabled');
+
+        modeIcon.textContent = isDarkMode ? '🌙' : '☀️';
     });
 });
+
 
 /* Business needs */
 function agregarContacto() {

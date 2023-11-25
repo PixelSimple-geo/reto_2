@@ -93,10 +93,9 @@ function updateArticle($articleId, $title, $description, $categoryId): void {
     }
 }
 
-function deleteArticle($accountId, $articleId): void {
-    $sql = "DELETE FROM articles WHERE account_id = :account_id AND article_id = :article_id";
+function deleteArticle($articleId): void {
+    $sql = "DELETE FROM articles WHERE article_id = :article_id";
     $statement = getConnection()->prepare($sql);
-    $statement->bindValue("account_id", $accountId, PDO::PARAM_INT);
     $statement->bindValue("article_id", $articleId, PDO::PARAM_INT);
     $statement->execute();
     if ($statement->rowCount() === 0) throw new Exception("no row was deleted");

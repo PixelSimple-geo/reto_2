@@ -73,8 +73,7 @@ function getArticlesCrudDelete(): void {
     $articleId = $_GET["article_id"];
     try {
         verifyArticleOwnership($articleId);
-        $userAccount = getUserAccountFromSession();
-        deleteArticle($userAccount["accountId"], $articleId);
+        deleteArticle($articleId);
         header("Location: /articles/crud/all", true, 303);
     } catch (Exception $exception) {error_500_InternalServerError();}
 }

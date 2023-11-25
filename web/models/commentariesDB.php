@@ -2,6 +2,12 @@
 
 require_once $_SERVER["DOCUMENT_ROOT"] . "/models/driverManager.php";
 
+function getAllCommentaries(): array {
+    $sql = "SELECT commentary_id commentaryId, article_id articleId, commentator_id commentatorId, title, 
+       description, creation_date creationDate, modified_date FROM commentaries";
+    return getConnection()->query($sql)->fetchAll();
+}
+
 function getAllArticleCommentaries($articleId, $accountId): array {
     $sqlCommentaries = "SELECT c.commentary_id commentaryId, article_id articleId, commentator_id commentatorId, 
         ac.username, title, description, c.creation_date creationDate, modified_date modifiedDate, 
@@ -92,4 +98,12 @@ function deleteCommentaryLike($likerId, $commentaryId): void {
     } catch (PDOException $exception) {
         throw new Exception("Could not delete commentary like");
     }
+}
+
+function deleteCommentary($commentaryId): void {
+    $sql = "DELETE FROM commentaries WHERE commentary_id = :commentary_id";
+    $statement = getConnection()->prepare($sql);
+    $statement->bindValue("commentary_id", $commentaryId, PDO::PARAM_INT);
+    $statement->execute();
+    if ($statement->rowCount() === 0) throw new Exception("no record was affected");
 }

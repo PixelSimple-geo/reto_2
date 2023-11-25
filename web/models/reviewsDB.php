@@ -2,6 +2,12 @@
 
 require_once $_SERVER["DOCUMENT_ROOT"] . "/models/driverManager.php";
 
+function getAllReviews(): array {
+    $sql = "SELECT review_id reviewId, account_id accountId, business_id businessId, title, description, 
+       creation_date creationDate, modified_date modifiedDate, rating FROM reviews";
+    return getConnection()->query($sql)->fetchAll();
+}
+
 function getAllBusinessReviews($businessId, $accountId): array {
     $sqlReviews = "SELECT r.review_id reviewId, ac.account_id accountId, ac.username, 
     business_id businessId, title, description, r.creation_date creationDate, modified_date modifiedDate, rating,
@@ -79,6 +85,14 @@ function updateReviewLike($userAccount, $reviewId, $isLiked): void {
         if ($exception->getCode() === "23000") throw new ValueError("constraint violation");
         throw new Exception("internal server error");
     }
+}
+
+function deleteReview($reviewId): void {
+    $sql = "DELETE FROM reviews WHERE review_id = :review_id";
+    $statement = getConnection()->prepare($sql);
+    $statement->bindValue("review_id", $reviewId, PDO::PARAM_INT);
+    $statement->execute();
+    if ($statement->rowCount() === 0) throw new Exception("no row was affected");
 }
 
 function deleteReviewLike($userAccount, $reviewId): void {

@@ -65,9 +65,7 @@ $routeMapping = [
     ],
     "logout" => [
         "controller" => "accountController",
-        "methods" => [
-            "GET" => "logout"
-        ]
+        "methods" => ["GET" => "logout"]
     ],
     "signIn" => [
         "controller" => "accountController",
@@ -78,27 +76,19 @@ $routeMapping = [
     ],
     "history" => [
         "controller" => "mainController",
-        "methods" => [
-            "GET" => "history"
-        ]
+        "methods" => ["GET" => "history"]
     ],
     "contact" => [
         "controller" => "mainController",
-        "methods" => [
-            "GET" => "contact"
-        ]
+        "methods" => ["GET" => "contact"]
     ],
     "index" => [
         "controller" => "mainController",
-        "methods" => [
-            "GET" => "index"
-        ]
+        "methods" => ["GET" => "index"]
     ],
     "account" => [
         "controller" => "accountController",
-        "security" => [
-            "authentication" => "authenticate"
-        ],
+        "security" => ["authentication" => "authenticate"],
         "methods" => [
             "GET" => "getProfile",
             "POST" => "postProfile",
@@ -108,28 +98,18 @@ $routeMapping = [
     "businesses" => [
         "controller" => "businessesController",
         "business" => [
-            "methods" => [
-                "GET" => "getBusinessPage"
-            ]
+            "methods" => ["GET" => "getBusinessPage"]
         ],
         "all" => [
-            "methods" => [
-                "GET" => "getBusinesses"
-            ]
+            "methods" => ["GET" => "getBusinesses"]
         ],
         "crud" => [
-            "security" => [
-              "authentication" => "authenticate"
-            ],
+            "security" => ["authentication" => "authenticate"],
             "all" => [
-                "methods" => [
-                    "GET" => "getBusinessesCrudReadAll"
-                ]
+                "methods" => ["GET" => "getBusinessesCrudReadAll"]
             ],
             "business" => [
-                "methods" => [
-                    "GET" => "getBusinessesCrudRead"
-                ]
+                "methods" => ["GET" => "getBusinessesCrudRead"]
             ],
             "add" => [
                 "methods" => [
@@ -144,39 +124,27 @@ $routeMapping = [
                 ]
             ],
             "delete" => [
-                "methods" => [
-                    "GET" => "getBusinessesCrudDelete"
-                ]
+                "methods" => ["GET" => "getBusinessesCrudDelete"]
             ]
         ],
         "advertCategory" => [
-            "security" => [
-              "authentication" => "authenticate"
-            ],
+            "security" => ["authentication" => "authenticate"],
             "add" => [
-                "methods" => [
-                    "POST" => "postBusinessesAdvertCategoryCrudAdd"
-                ]
+                "methods" => ["POST" => "postBusinessesAdvertCategoryCrudAdd"]
             ],
             "delete" => [
-                "methods" => [
-                    "GET" => "deleteBusinessesAdvertCategoryCrudDelete"
-                ]
+                "methods" => ["GET" => "deleteBusinessesAdvertCategoryCrudDelete"]
             ]
         ]
     ],
     "adverts" => [
         "controller" => "advertsController",
         "advert" => [
-            "methods" => [
-                "GET" => "getAdvertPage"
-            ]
+            "methods" => ["GET" => "getAdvertPage"]
         ],
         "all" => [],
         "crud" => [
-            "security" => [
-                "authentication" => "authenticate"
-            ],
+            "security" => ["authentication" => "authenticate"],
             "add" => [
                 "methods" => [
                     "GET" => "getAdvertsCrudAdd",
@@ -190,23 +158,17 @@ $routeMapping = [
                 ]
             ],
             "delete" => [
-                "methods" => [
-                    "GET" => "getAdvertsCrudDelete"
-                ]
+                "methods" => ["GET" => "getAdvertsCrudDelete"]
             ]
         ]
     ],
     "articles" => [
         "controller" => "articlesController",
         "article" => [
-            "methods" => [
-                "GET" => "getArticleById"
-            ]
+            "methods" => ["GET" => "getArticleById"]
         ],
         "all" => [
-            "methods" => [
-                "GET" => "getArticles"
-            ]
+            "methods" => ["GET" => "getArticles"]
         ],
         "crud" => [
             "security" => [
@@ -217,9 +179,7 @@ $routeMapping = [
                 ]
             ],
             "all" => [
-                "methods" => [
-                    "GET" => "getArticlesCrudReadAll"
-                ]
+                "methods" => ["GET" => "getArticlesCrudReadAll"]
             ],
             "add" => [
                 "methods" => [
@@ -234,71 +194,81 @@ $routeMapping = [
                 ]
             ],
             "delete" => [
-                "methods" => [
-                    "GET" => "getArticlesCrudDelete"
-                ]
+                "methods" => ["GET" => "getArticlesCrudDelete"]
             ]
         ]
     ],
     "reviews" => [
         "controller" => "reviewsController",
         "crud" => [
-            "security" => [
-                "authentication" => "authenticate"
-            ],
+            "security" => ["authentication" => "authenticate"],
             "add" => [
-                "methods" => [
-                    "POST" => "postReviewCrudAdd"
-                ]
+                "methods" => ["POST" => "postReviewCrudAdd"]
             ]
         ]
     ],
     "reviewsLikes" => [
         "controller" => "reviewsController",
         "crud" => [
-            "security" => [
-              "authentication" => "authenticate"
-            ],
-            "methods" => [
-                "POST" => "postReviewLikeCrudAddEditDelete"
-            ]
+            "security" => ["authentication" => "authenticate"],
+            "methods" => ["POST" => "postReviewLikeCrudAddEditDelete"]
         ]
     ],
     "products" => [
         "controller" => "advertsController",
-        "methods" => [
-            "GET" => "getAdverts"
-        ]
+        "methods" => ["GET" => "getAdverts"]
     ],
     "commentaries" => [
         "controller" => "commentariesController",
         "crud" => [
-            "security" => [
-              "authentication" => "authenticate"
-            ],
+            "security" => ["authentication" => "authenticate"],
             "add" => [
-                "methods" => [
-                    "POST" => "postCommentaryCrudAdd"
-                ]
+                "methods" => ["POST" => "postCommentaryCrudAdd"]
             ]
         ]
     ],
     "commentariesLikes" => [
         "controller" => "commentariesController",
         "crud" => [
-            "security" => [
-              "authentication" => "authenticate"
-            ],
-            "methods" => [
-                "POST" => "postCommentaryLikeCrudAddEditDelete"
-            ]
+            "security" => ["authentication" => "authenticate"],
+            "methods" => ["POST" => "postCommentaryLikeCrudAddEditDelete"]
         ]
     ],
     "cookiePolicy" => [
         "controller" => "mainController",
-        "methods" => [
-            "GET" => "showCookiePolicy"
-        ]
+        "methods" => ["GET" => "showCookiePolicy"]
+    ],
+    "admin" => [
+        "adverts" => [
+            "controller" => "adminControllers/adverts",
+            "read" => ["methods" => ["GET" => "adminReadAdverts"]],
+            "delete" => ["methods" => ["GET" => "adminDeleteAdvert"]]
+        ],
+        "articles" => [
+            "controller" => "adminControllers/articles",
+            "read" => ["methods" => ["GET" => "adminReadArticles"]],
+            "delete" => ["methods" => ["GET" => "adminDeleteArticle"]]
+        ],
+        "reviews" => [
+            "controller" => "adminControllers/reviews",
+            "read" => ["methods" => ["GET" => "adminReadReviews"]],
+            "delete" => ["methods" => ["GET" => "adminDeleteReview"]]
+        ],
+        "commentaries" => [
+            "controller" => "adminControllers/commentaries",
+            "read" => ["methods" => ["GET" => "adminReadCommentaries"]],
+            "delete" => ["methods" => ["GET" => "adminDeleteCommentary"]]
+        ],
+        "businesses" => [
+            "controller" => "adminControllers/businesses",
+            "read" => ["methods" => ["GET" => "adminReadBusinesses"]],
+            "delete" => ["methods" => ["GET" => "adminDeleteBusiness"]]
+        ],
+        "adminPanel" => [
+            "controller" => "adminControllers/main",
+            "methods" => ["GET" => "getPanel"]
+        ],
+
     ]
 ];
 

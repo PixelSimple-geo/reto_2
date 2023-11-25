@@ -44,7 +44,7 @@ function getBusiness($businessId): array {
 }
 
 function getAllBusinesses(): array {
-    return getConnection()->query("SELECT business_id AS businessId, name, description, cover_img AS coverImg FROM businesses")
+    return getConnection()->query("SELECT business_id AS businessId, account_id accountId, name, description, cover_img AS coverImg FROM businesses")
         ->fetchAll();
 }
 

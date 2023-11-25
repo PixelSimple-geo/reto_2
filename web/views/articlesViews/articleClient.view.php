@@ -83,24 +83,5 @@
     
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/footer.php" ?>
 </body>
-<script>
-    document.querySelectorAll("[data-check] button").forEach((element => {
-        element.addEventListener("click", (event) => {
-            const element = event.target;
-            const parent = event.target.parentNode;
-            const input = parent.querySelector("input[name='new_reaction']")
-            parent.querySelectorAll("button").forEach((element => {
-                if (element !== event.target) element.removeAttribute("checked")
-            }))
-            if (element.hasAttribute("checked")) {
-                element.removeAttribute("checked")
-                input.value = "";
-            } else {
-                input.value =  element.getAttribute("data-reaction")
-                element.setAttribute("checked", "");
-            }
-            console.log(input.value);
-        });
-    }));
-</script>
+
 </html>

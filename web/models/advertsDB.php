@@ -46,9 +46,14 @@ function getAllAdverts(): array {
 }
 
 function getAdvertsByBusinessId($businessId): array {
-    $sql = "SELECT advert_id AS advertId, business_id AS businessId, title, description, cover_img AS coverImg, 
-    active, creation_date AS creationDate, modified_date AS modifiedDate FROM adverts 
-    WHERE business_id = :business_id";
+    $sql = "SELECT a.advert_id AS advertId, a.business_id AS businessId, a.title, a.description, 
+                   a.cover_img AS coverImg, a.active, a.creation_date AS creationDate, 
+                   a.modified_date AS modifiedDate, c.category_id AS categoryId, c.name AS categoryName
+            FROM adverts a
+            LEFT JOIN advert_categories ac ON a.advert_id = ac.advert_id
+            LEFT JOIN businesses_advert_categories c ON ac.category_id = c.category_id
+            WHERE a.business_id = :business_id";
+
     $statement = getConnection()->prepare($sql);
     $statement->bindValue("business_id", $businessId, PDO::PARAM_INT);
     $statement->execute();

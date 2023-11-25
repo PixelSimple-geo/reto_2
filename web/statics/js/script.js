@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-
+/* Modo */
 document.addEventListener('DOMContentLoaded', function () {
     const toggleDarkModeButton = document.getElementById('toggleDarkMode');
     const body = document.body;
@@ -195,3 +195,22 @@ function delete_con_dir(boton) {
     });
 }
 
+/* Check */
+document.querySelectorAll("[data-check] button").forEach((element => {
+    element.addEventListener("click", (event) => {
+        const element = event.target;
+        const parent = event.target.parentNode;
+        const input = parent.querySelector("input[name='new_reaction']")
+        parent.querySelectorAll("button").forEach((element => {
+            if (element !== event.target) element.removeAttribute("checked")
+        }))
+        if (element.hasAttribute("checked")) {
+            element.removeAttribute("checked")
+            input.value = "";
+        } else {
+            input.value =  element.getAttribute("data-reaction")
+            element.setAttribute("checked", "");
+        }
+        console.log(input.value);
+    });
+}));

@@ -1,22 +1,54 @@
 <?php
 
+use JetBrains\PhpStorm\NoReturn;
+
 require_once $_SERVER["DOCUMENT_ROOT"] . "/models/driverManager.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/handlers/sessionHandler.php";
+
+#[NoReturn] function error_400_BadRequest(): void {
+    http_response_code(400);
+    include_once $_SERVER["DOCUMENT_ROOT"] . "/views/errorViews/error_400_.view.php";
+    die();
+}
+
+#[NoReturn] function error_401_Unauthorized(): void {
+    http_response_code(401);
+    include_once $_SERVER["DOCUMENT_ROOT"] . "/views/errorViews/error_401_.view.php";
+    die();
+}
+
+#[NoReturn] function error_403_Forbidden(): void {
+    http_response_code(403);
+    include_once $_SERVER["DOCUMENT_ROOT"] . "/views/errorViews/error_403_.view.php";
+    die();
+}
+
+#[NoReturn] function error_404_NotFound(): void {
+    http_response_code(404);
+    include_once $_SERVER["DOCUMENT_ROOT"] . "/views/errorViews/error_404_.view.php";
+    die();
+}
+
+#[NoReturn] function error_405_MethodNotAllowed(): void {
+    http_response_code(405);
+    include_once $_SERVER["DOCUMENT_ROOT"] . "/views/errorViews/error_405_.view.php";
+    die();
+}
+
+#[NoReturn] function error_500_InternalServerError(): void {
+    http_response_code(500);
+    include_once $_SERVER["DOCUMENT_ROOT"] . "/views/errorViews/error_500_.view.php";
+    die();
+}
 
 function validateRequiredParameters(array $parameters, $source = "POST"): void {
     $source = strtoupper($source);
     $requestData = ($source === "GET") ? $_GET : $_POST;
-    foreach ($parameters as $parameter)
-        if (empty($requestData[$parameter])) {
-            include_once $_SERVER["DOCUMENT_ROOT"] . "/views/errorViews/error_400_.view.php";
-            die();
-        }
+    foreach ($parameters as $parameter) if (empty($requestData[$parameter])) error_400_BadRequest();
 }
-
 
 startSession();
 $userAccount = getUserAccountFromSession();
-
 
 $url = $_SERVER["REQUEST_URI"];
 $parsedUrl = parse_url($url);
@@ -32,7 +64,7 @@ $routeMapping = [
         ]
     ],
     "logout" => [
-        "controller" => "mainController",
+        "controller" => "accountController",
         "methods" => [
             "GET" => "logout"
         ]
@@ -291,26 +323,22 @@ foreach ($requestedRoute as $index => $routeFragment) {
     if (array_key_exists("security", $currentRoute)) {
         require_once $_SERVER['DOCUMENT_ROOT'] . "/handlers/securityHandler.php";
         $security = $currentRoute["security"];
-        if (array_key_exists("authentication", $security))
-            call_user_func($security["authentication"]);
+        if (array_key_exists("authentication", $security)) call_user_func($security["authentication"]);
 
         if (array_key_exists("authorization", $security))
             call_user_func($security["authorization"]["method"], $security["authorization"]["role"]);
     }
 
-    if (array_key_exists("controller", $currentRoute))
-        $controller = $currentRoute["controller"] . ".php";
+    if (array_key_exists("controller", $currentRoute)) $controller = $currentRoute["controller"] . ".php";
 
     if ($index === count($requestedRoute) - 1 && array_key_exists("methods", $currentRoute) &&
         array_key_exists($requestMethod, $currentRoute["methods"]))
         $delegateFunction = $currentRoute["methods"][$requestMethod];
 }
 
-if ($isInvalidRequest || $controller === null || $delegateFunction === null) {
-    http_response_code(404);
-    include_once $_SERVER["DOCUMENT_ROOT"] . "/views/errorViews/error_404_.view.php";
-    die();
-}
+if ($delegateFunction === null) error_405_MethodNotAllowed();
+
+if ($isInvalidRequest || $controller === null) error_404_NotFound();
 
 require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/$controller";
 call_user_func($delegateFunction);

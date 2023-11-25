@@ -3,84 +3,80 @@
 require_once $_SERVER["DOCUMENT_ROOT"] . "/models/driverManager.php";
 
 function getAccounts(): array {
-    $sql = "SELECT account_id AS accountId, username, email, password, creation_date AS creationDate, 
-    last_login AS lastLogin, verified, active FROM accounts";
-    $statement = getConnection()->query($sql);
-    return $statement->fetchAll();
+    return getConnection()->query("SELECT account_id accountId, username, email, password, creation_date 
+    creationDate, last_login lastLogin, verified, active FROM accounts")->fetchAll();
 }
 
 function getAccountByUsername($username) :array {
-    try {
-        $sql = "SELECT account_id AS accountId, username, email, password, creation_date AS creationDate FROM accounts
-        WHERE username = :username";
-        $sqlAuthorities = "SELECT a.authority_id authorityId, role FROM authorities_granted ag
-        INNER JOIN authorities a ON ag.authority_id = a.authority_id
-        WHERE account_id = :account_id";
-        $connection = getConnection();
-        $statement = $connection->prepare($sql);
-        $statement->bindValue("username", $username);
-        $statement->execute();
-        if ($statement->rowCount() === 0)
-            throw new PDOException("No account found");
-        $userAccount = $statement->fetch();
-        $statementAuthorities = $connection->prepare($sqlAuthorities);
-        $statementAuthorities->bindValue("account_id", $userAccount["accountId"], PDO::PARAM_INT);
-        $statementAuthorities->execute();
-        $userAccount["authorities"] = $statementAuthorities->fetchAll();
-        return $userAccount;
-    } catch (PDOException $exception) {
-        error_log("Database error: [$username] " . $exception->getMessage());
-        throw $exception;
-    }
+    $sql = "SELECT account_id accountId, username, email, password, creation_date creationDate FROM accounts
+    WHERE username = :username";
+    $sqlAuthorities = "SELECT a.authority_id authorityId, role FROM authorities_granted ag
+    INNER JOIN authorities a ON ag.authority_id = a.authority_id WHERE account_id = :account_id";
+
+    $connection = getConnection();
+    $statement = $connection->prepare($sql);
+    $statementAuthorities = $connection->prepare($sqlAuthorities);
+
+    $statement->bindValue("username", $username);
+    $statement->execute();
+    if ($statement->rowCount() === 0) throw new Exception("no row was affected");
+    $userAccount = $statement->fetch();
+
+    $statementAuthorities->bindValue("account_id", $userAccount["accountId"], PDO::PARAM_INT);
+    $statementAuthorities->execute();
+    $userAccount["authorities"] = $statementAuthorities->fetchAll();
+    return $userAccount;
 }
 
 function persistAccount($username, $email, $password): void {
+    $sql = "INSERT INTO accounts(username, email, password) VALUES(:username, :email, :password)";
     try {
-        $sql = "INSERT INTO accounts(username, email, password) VALUES(:username, :email, :password)";
         $statement = getConnection()->prepare($sql);
-        $statement->bindValue('username', $username, PDO::PARAM_STR);
-        $statement->bindValue('email', $email, PDO::PARAM_STR);
-        $statement->bindValue('password', $password, PDO::PARAM_STR);
+        $statement->bindValue('username', $username);
+        $statement->bindValue('email', $email);
+        $statement->bindValue('password', $password);
         $statement->execute();
-        if ($statement->rowCount() === 0)
-            throw new PDOException("Could not add account");
     } catch (PDOException $exception) {
-        error_log("Database error: [$username, $email]" . $exception->getMessage());
-        throw $exception;
+        if ($exception->getCode() === "22001") throw new ValueError("invalid parameter");
+        if ($exception->getCode() === "23000") {
+            if (str_contains($exception->getMessage(), "username")) {
+                throw new Exception("[username] unique constraint violation");
+            }
+            if (str_contains($exception->getMessage(), "email"))
+                throw new Exception("[email] unique constraint violation");
+            throw new ValueError("constraint violation");
+        }
+        throw new Exception("internal server error");
     }
 }
 
 function updateAccount($accountId, $username, $email, $password): void {
-    try {
-        $sql = "UPDATE accounts set username = :username, email = :email, password = :password 
+    $sql = "UPDATE accounts set username = :username, email = :email, password = :password 
                 WHERE account_id = :account_id";
+    try {
         $statement = getConnection()->prepare($sql);
         $statement->bindValue('username', $username);
         $statement->bindValue('email', $email);
         $statement->bindValue('password', $password);
         $statement->bindValue('account_id', $accountId, PDO::PARAM_INT);
         $statement->execute();
-        if ($statement->rowCount() === 0) throw new PDOException("Could not add account");
     } catch (PDOException $exception) {
-        if ($exception->getCode() == 23000) {
-            if (str_contains("username", $exception->getMessage()))
-                throw new Exception("Username not unique");
-            if (str_contains("email", $exception->getMessage()))
-                throw new Exception("Email not unique");
+        if ($exception->getCode() === "22001") throw new ValueError("invalid parameter");
+        if ($exception->getCode() === "23000") {
+            if (str_contains($exception->getMessage(), "username")) {
+                throw new Exception("[username] unique constraint violation");
+            }
+            if (str_contains($exception->getMessage(), "email"))
+                throw new Exception("[email] unique constraint violation");
+            throw new ValueError("constraint violation");
         }
-        throw new Exception("Could not update account");
+        throw new Exception("internal server error");
     }
 }
 
 function deleteAccount($accountId): void {
-    try {
-        $sql = "DELETE FROM accounts WHERE account_id = :accountId";
-        $statement = getConnection()->prepare($sql);
-        $statement->bindValue('accountId', $accountId, PDO::PARAM_INT);
-        $statement->execute();
-        if ($statement->rowCount() === 0)
-            throw new PDOException("Could not delete account");
-    } catch (PDOException $exception) {
-        throw new Exception("Could not delete account");
-    }
+    $sql = "DELETE FROM accounts WHERE account_id = :accountId";
+    $statement = getConnection()->prepare($sql);
+    $statement->bindValue('accountId', $accountId, PDO::PARAM_INT);
+    $statement->execute();
 }

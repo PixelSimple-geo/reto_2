@@ -80,7 +80,7 @@ function persistBusiness($accountId, $name, $description, $coverImg, $categoryId
         $stBusiness->execute();
         $businessId = $connection->lastInsertId();
 
-        if (empty($categoryId)) throw new ValueError("No id");
+        if (empty($categoryId)) throw new ValueError("no id");
         $stCategory->bindValue("category_id", $categoryId, PDO::PARAM_INT);
         $stCategory->bindValue("business_id", $businessId, PDO::PARAM_INT);
         $stCategory->execute();

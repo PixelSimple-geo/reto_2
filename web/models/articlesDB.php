@@ -96,7 +96,7 @@ function updateArticle($articleId, $title, $description, $categoryId): void {
     }
 }
 
-function deleteArticle($accountId, $articleId) :void {
+function deleteArticle($accountId, $articleId): void {
     $sql = "DELETE FROM articles WHERE account_id = :account_id AND article_id = :article_id";
     try {
         $statement = getConnection()->prepare($sql);

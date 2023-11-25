@@ -109,7 +109,8 @@ function getArticleById() {
             $userAccount = getUserAccountFromSession();
             $articleId = $_GET['articleId'];
             $article = getArticle($articleId);
-            $commentaries = getAllArticleCommentaries($articleId, $userAccount);
+            if (!empty($userAccount)) $commentaries = getAllArticleCommentaries($articleId, $userAccount["accountId"]);
+            else $commentaries = getAllArticleCommentaries($articleId, null);
         }
     } catch (PDOException $exception) {
         $errorMessage = "Hubo un error al intentar obtener el artículo.";

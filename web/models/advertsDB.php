@@ -210,7 +210,7 @@ function getAdvertCategories($advertId): array {
     return $statement->fetchAll();
 }
 
-function getAllAdvertCategories() :array {
+function getAllAdvertCategories(): array {
     try {
         $sql = "SELECT * FROM businesses_advert_categories";
         $statement = getConnection()->query($sql);

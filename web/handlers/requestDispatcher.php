@@ -239,6 +239,13 @@ $routeMapping = [
         "methods" => ["GET" => "showCookiePolicy"]
     ],
     "admin" => [
+        "security" => [
+            "authentication" => "authenticate",
+            "authorization" => [
+                "method" => "authorize",
+                "role" => "ADMIN"
+            ]
+        ],
         "adverts" => [
             "controller" => "adminControllers/adverts",
             "read" => ["methods" => ["GET" => "adminReadAdverts"]],

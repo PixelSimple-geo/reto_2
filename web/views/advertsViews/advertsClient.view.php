@@ -17,15 +17,28 @@
                 <br>
 
                 <?php if (!empty($advert['characteristics'])): ?>
-                    <h4>Características:</h4>
-                    <ul>
-                        <?php foreach ($advert['characteristics'] as $char): ?>
-                            <li><strong><?= $char['type'] ?>: &nbsp; </strong> <?= $char['value'] ?></li>
-                        <?php endforeach; ?>
-                    </ul>
-                <?php endif; ?>
+                    <?php $hasNonEmptyCharacteristics = false; ?>
 
+                    <?php foreach ($advert['characteristics'] as $char): ?>
+                        <?php if (!empty(trim($char['value']))): ?>
+                            <?php $hasNonEmptyCharacteristics = true; ?>
+                            <?php break; ?>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+
+                    <?php if ($hasNonEmptyCharacteristics): ?>
+                        <h4>Características:</h4>
+                        <ul>
+                            <?php foreach ($advert['characteristics'] as $char): ?>
+                                <?php if (!empty(trim($char['value']))): ?>
+                                    <li><strong><?= $char['type'] ?>: &nbsp; </strong> <?= $char['value'] ?></li>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        </ul>
+                    <?php endif; ?>
+                <?php endif; ?>
             </div>
+
         <?php else: ?>
             <h4>Product not found.</h4>
         <?php endif; ?>

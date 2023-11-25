@@ -631,6 +631,12 @@ fieldset {
     margin: 0 auto;
 }
 
+.formulario .imgAdvertsCrud div{
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    height: 100%;
+}
+
 /* Crear Negocio*/
 .formulario {
     width: 40%;

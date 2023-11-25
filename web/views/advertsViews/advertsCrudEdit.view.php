@@ -71,7 +71,7 @@
                     <?php if(isset($advert["images"])): ?>
                         <section class="imgAdvertsCrud">
                             <?php foreach ($advert['images'] as $index => $image) : ?>
-                            <div data-img>
+                            <div data-img >
                                 <img src='<?= $image['url'] ?>' alt='Imagen de anuncio'>
                                 <button type="button" data-delete_img="<?=$image["imageId"]?>">Eliminar</button>
                             </div>

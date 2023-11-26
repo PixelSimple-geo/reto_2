@@ -54,6 +54,6 @@ El diseño de la aplicación se centrará en una interfaz limpia y fácil de usa
 
 ## Contribuciones y Reporte de Problemas
 
-Se alienta a la comunidad a contribuir y reportar problemas. Para hacerlo, siga las pautas establecidas en el archivo CONTRIBUTING.md.
+Se alienta a la comunidad a contribuir y reportar problemas. Para hacerlo, es.
 
 ¡Esperamos que este proyecto sea un éxito y satisfaga las expectativas de la Asociación de Comerciantes de Vitoria!

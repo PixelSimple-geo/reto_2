@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/head.php" ?>
+    <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/head.php"; ?>
     <title>Product Details</title>
 </head>
 <body class="structure">
@@ -9,50 +9,57 @@
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/navBar.php"; ?>
 
     <div class="contentsContainer">
-        <?php
-            if ($advert) {
-                echo '<div class="">';
-                echo '<h3>' . $advert['title'] . '</h3>';
-                echo "<img src='{$advert['coverImg']}' alt='Product Image'>";
-                echo '<h4>' . $advert['description'] . '</h4>';
+        <?php if ($advert): ?>
+            <div class="">
+                <h3><?= $advert['title'] ?></h3>
+                <img src="<?= $advert['coverImg'] ?>" alt="Product Image">
+                <h4><?= $advert['description'] ?></h4>
+                <br>
 
-                if (!empty($advert['characteristics'])) {
-                    echo '<h4>Características:</h4>';
-                    echo '<ul>';
-                    foreach ($advert['characteristics'] as $char) {
-                        echo '<li><strong>' . $char['type'] . ': &nbsp; </strong> ' . $char['value'] . '</li>';
-                    }
-                    echo '</ul>';
-                }
+                <?php if (!empty($advert['characteristics'])): ?>
+                    <?php $hasNonEmptyCharacteristics = false; ?>
 
-                echo '</div>';
-            } else {
-                echo '<h4>Product not found.</h4>';
-            }
-        ?>
-        <?php 
-            if (!empty($advert['categories'])) {
-                echo '<div class="categories">';
-                echo '<h4>Categories:</h4>';
-                echo '<ul>';
+                    <?php foreach ($advert['characteristics'] as $char): ?>
+                        <?php if (!empty(trim($char['value']))): ?>
+                            <?php $hasNonEmptyCharacteristics = true; ?>
+                            <?php break; ?>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
 
-                foreach ($advert['categories'] as $category) {
-                    if (is_array($category) && isset($category['name'])) {
-                        echo '<li>' . $category['name'] . '</li>';
-                    } else {
-                    }
-                }
+                    <?php if ($hasNonEmptyCharacteristics): ?>
+                        <h4>Características:</h4>
+                        <ul>
+                            <?php foreach ($advert['characteristics'] as $char): ?>
+                                <?php if (!empty(trim($char['value']))): ?>
+                                    <li><strong><?= $char['type'] ?>: &nbsp; </strong> <?= $char['value'] ?></li>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        </ul>
+                    <?php endif; ?>
+                <?php endif; ?>
+            </div>
 
-                echo '</ul>';
-                echo '</div>';
-            }
-            ?>
+        <?php else: ?>
+            <h4>Product not found.</h4>
+        <?php endif; ?>
+
+        <?php if (!empty($advert['categories'])): ?>
+            <div class="categories">
+                <h4>Categories:</h4>
+                <ul>
+                    <?php foreach ($advert['categories'] as $category): ?>
+                        <?php if (is_array($category) && isset($category['name'])): ?>
+                            <li><?= $category['name'] ?></li>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        <?php endif; ?>
     </div>
 
-    
-    <?php if(isset($advert["images"])): ?>
+    <?php if (isset($advert["images"])): ?>
         <section class="contents">
-            <?php foreach ($advert['images'] as $index => $image) : ?>
+            <?php foreach ($advert['images'] as $index => $image): ?>
                 <div>
                     <img src='<?= $image['url'] ?>' alt='Imagen de anuncio'>
                 </div>
@@ -60,9 +67,7 @@
         </section>
     <?php endif; ?>
 
-    
-
-    <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/footer.php" ?>
+    <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/footer.php"; ?>
 
 </body>
 </html>

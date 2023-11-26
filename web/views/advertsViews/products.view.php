@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/head.php" ?>
+    <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/head.php"; ?>
     <title>Products - Product Details</title>
 </head>
 <body class="structure">
@@ -46,19 +46,20 @@
             if (isset($pagedProducts) && !empty($pagedProducts)) {
                 $searchTerm = isset($_GET['search']) ? trim($_GET['search']) : '';
 
-                foreach ($pagedProducts as $product) {
-                    if (!empty($searchTerm) && stripos($product['title'], $searchTerm) === false) {
+                foreach ($pagedProducts as $product):
+                    if (!empty($searchTerm) && stripos($product['title'], $searchTerm) === false):
                         continue;
-                    }
-                
-                    echo '<a href="/adverts/advert?advert_id=' . $product['advertId'] . '">';
-                    echo '<div>';
-                    echo "<img src='$product[coverImg]' alt='Product Image'>";
-                    echo '<h3>' . $product['title'] . '</h3>';
-                    echo '<p>Description: ' . $product['description'] . '</p>';
-                    echo '</div>';
-                    echo '</a>';
-                }
+                    endif;
+                    ?>
+                    <a href="/adverts/advert?advert_id=<?= $product['advertId'] ?>">
+                        <div>
+                            <img src="<?= $product['coverImg'] ?>" alt="Product Image">
+                            <h3><?= $product['title'] ?></h3>
+                            <p>Description: <?= $product['description'] ?></p>
+                        </div>
+                    </a>
+                    <?php
+                endforeach;
 
                 $totalPages = ceil(count($pagedProducts) / $itemsPerPage);
             } else {
@@ -70,16 +71,18 @@
         <?php
         $totalPages = isset($totalPages) ? $totalPages : ceil($totalProducts / $itemsPerPage);
 
-        if ($totalPages > 1) {
-            echo '<ul class="paginas">';
-            for ($i = 1; $i <= $totalPages; $i++) {
-                $class = ($i == $currentPage) ? 'current' : '';
-                $queryParams = http_build_query(array_merge($_GET, ['page' => $i]));
-                echo '<li><a href="?'.$queryParams.'" class="' . $class . '">' . $i . '</a></li>';
-            }
-            echo '</ul>';
-        }
-        ?>         
+        if ($totalPages > 1):
+            ?>
+            <ul class="paginas">
+                <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                    <?php
+                    $class = ($i == $currentPage) ? 'current' : '';
+                    $queryParams = http_build_query(array_merge($_GET, ['page' => $i]));
+                    ?>
+                    <li><a href="?<?= $queryParams ?>" class="<?= $class ?>"><?= $i ?></a></li>
+                <?php endfor; ?>
+            </ul>
+        <?php endif; ?>
     </div>
     
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/footer.php" ?>

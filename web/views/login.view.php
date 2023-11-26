@@ -23,7 +23,7 @@
             <label for="password">Contraseña</label>
             <div class="passwordContainer">
                 <input type="password" id="password" required name="password">
-                <span id="togglePassword">👁️</span>
+                <span id="togglePassword"><img src="../statics/media/eye.svg"></span>
             </div>
 
             <button id="submitLog" type="submit">Iniciar Sesión</button>
@@ -34,5 +34,6 @@
         <a href="/signIn">¿No tienes cuenta? Registrate</a>
         
     </div>
+
 </body>
 </html>

@@ -108,6 +108,7 @@
                         <?php if(isset($business["coverImg"])):?>
                             <input type="hidden" name="old_cover_img" value="<?=$business["coverImg"]?>">
                             <img src="<?=$business["coverImg"]?>">
+                            <button type="button" data-delete_img>Eliminar</button>
                         <?php endif;?>
                         <input type="file" accept=".gif, .png, .jpeg, .jpg" name="cover_img" id="cover_img">
                     </fieldset>

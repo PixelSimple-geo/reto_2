@@ -214,3 +214,10 @@ document.querySelectorAll("[data-check] button").forEach((element => {
         console.log(input.value);
     });
 }));
+
+
+// Exporta las funciones para que puedan ser probadas
+module.exports = {
+    agregarDireccion,
+    delete_con_dir
+};

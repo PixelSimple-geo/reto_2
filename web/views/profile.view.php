@@ -9,19 +9,19 @@
 
     <main>
 
-        <?php if(isset($errorMessage)) echo "<p style='color: red'>$errorMessage</p>" ?>
+        <?php if (isset($errorMessage)) : ?>
+            <p style="color: red"><?= $errorMessage ?></p>
+        <?php endif; ?>
 
         <div class="formulario">
             <h2>Editar Perfil</h2>
-            <?php if (isset($userAccount)): ?>
+            <?php if (isset($userAccount)) : ?>
                 <form action="/account" method="POST">
                     <label for="nombre">Nombre:</label>
-                    <input type="text" id="nombre" name="username"
-                           placeholder="<?= htmlspecialchars($userAccount["username"]) ?>">
+                    <input type="text" id="nombre" name="username" placeholder="<?= $userAccount["username"] ?>">
 
                     <label for="email">Correo Electrónico:</label>
-                    <input type="email" id="email" name="email"
-                           placeholder="<?= htmlspecialchars($userAccount["email"]) ?>">
+                    <input type="email" id="email" name="email" placeholder="<?= $userAccount["email"] ?>">
 
                     <label for="password_actual">Contraseña Actual:</label>
                     <input type="password" id="password_actual" name="password" required>
@@ -37,8 +37,7 @@
             <?php endif; ?>
         </div>
 
-    
-</main>
+    </main>
 
     <?php require "partials/footer.php" ?>
 

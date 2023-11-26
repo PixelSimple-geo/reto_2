@@ -296,8 +296,9 @@ input, textarea{
     margin: 10rem auto;
     padding: 1rem;
     border: 1px solid var(--color-borde);
+    color: var(--color-texto);
     border-radius: 10px;
-    background-color: var(--color-fondo);
+    background-color: var(--color-contenidos);
     text-align: center;
 }
 
@@ -327,7 +328,7 @@ input, textarea{
     padding: 10px;
     background-color: #4caf50;
     color: var(--color-letra);
-    border: none;
+    border: 1px solid var(--color-borde);
     cursor: pointer;
 }
 
@@ -630,6 +631,12 @@ fieldset {
     margin: 0 auto;
 }
 
+.formulario .imgAdvertsCrud div{
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    height: 100%;
+}
+
 /* Crear Negocio*/
 .formulario {
     width: 40%;
@@ -657,6 +664,11 @@ fieldset {
 
 .formulario button {
     margin: 1rem auto;
+    border: 1px solid var(--color-borde);
+}
+
+.formulario img{
+    margin: 0 auto;
 }
 
 form section{

@@ -44,17 +44,33 @@ document.addEventListener('DOMContentLoaded', function () {
 
 document.addEventListener("DOMContentLoaded", function() {
     var togglePasswordButton = document.getElementById("togglePassword");
+    var eyeIcon = document.getElementById("togglePassword").getElementsByTagName("img")[0];
 
     if (togglePasswordButton) {
         togglePasswordButton.addEventListener("click", function() {
             var passwordField = document.getElementById("password");
+
             if (passwordField.type === "password") {
                 passwordField.type = "text";
+                eyeIcon.src = '../statics/media/noeye.svg'; 
             } else {
                 passwordField.type = "password";
+                eyeIcon.src = '../statics/media/eye.svg';
             }
         });
     }
+});
+
+/* Eliminar imagen portada negocio */
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll("[data-delete_img]").forEach(element => {
+        element.addEventListener("click", () => {
+            const url = element.getAttribute("data-delete_img");
+            document.getElementById("form")
+                .insertAdjacentHTML("beforeend", `<input type="hidden" name="images_ids[]" value="${url}">`)
+            element.closest("[data-img]").remove()
+        });
+    });
 });
 
 

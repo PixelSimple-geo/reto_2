@@ -32,38 +32,43 @@
 
                 $pagedBusinesses = array_slice($businesses, $offset, $itemsPerPage);
 
-                if (isset($pagedBusinesses) && !empty($pagedBusinesses)) {
-                    foreach ($pagedBusinesses as $business) {
-                        echo '<a href="/businesses/business?business_id=' . urlencode($business['businessId']) . '">';
-                        echo '<div>';
-                        if (!empty($business["coverImg"]))
-                            echo '<img src="' . htmlspecialchars($business["coverImg"]) . '">';
-                        echo '<h3>' . htmlspecialchars($business['name']) . '</h3>';
-                        echo '<p>Descripción: ' . htmlspecialchars($business['description']) . '</p>';
-                        echo '</div>';
-                        echo '</a>';
-                    }
-                } else {
+                if (isset($pagedBusinesses) && !empty($pagedBusinesses)):
+                    foreach ($pagedBusinesses as $business):
+                        ?>
+                        <a href="/businesses/business?business_id=<?= urlencode($business['businessId']) ?>">
+                            <div>
+                                <?php if(isset($business["coverImg"])): ?>
+                                <img src="<?= htmlspecialchars($business["coverImg"]) ?>">
+                                <?php endif;?>
+                                <h3><?= htmlspecialchars($business['name']) ?></h3>
+                                <p>Descripción: <?= htmlspecialchars($business['description']) ?></p>
+                            </div>
+                        </a>
+                        <?php
+                    endforeach;
+                else:
                     echo '<p>No se encontraron comercios.</p>';
-                }
+                endif;
                 ?>
             </div>
             <?php
-                $totalPages = ceil($totalItems / $itemsPerPage);
+            $totalPages = ceil($totalItems / $itemsPerPage);
 
-                        if ($totalPages > 1) {
-                            echo '<ul class="paginas">';
-                            for ($i = 1; $i <= $totalPages; $i++) {
-                                $class = ($i == $currentPage) ? 'current' : '';
-                                echo '<li><a href="?page=' . $i . '" class="' . $class . '">' . $i . '</a></li>';
-                            }
-                            echo '</ul>';
-                        }
-            ?>
+            if ($totalPages > 1):
+                ?>
+                <ul class="paginas">
+                    <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                        <?php
+                        $class = ($i == $currentPage) ? 'current' : '';
+                        ?>
+                        <li><a href="?page=<?= $i ?>" class="<?= $class ?>"><?= $i ?></a></li>
+                    <?php endfor; ?>
+                </ul>
+            <?php endif; ?>
         </div>
     </div>
 
-    <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/footer.php" ?>
+    <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/footer.php"; ?>
 
 </body>
 

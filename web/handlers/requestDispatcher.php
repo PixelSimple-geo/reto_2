@@ -82,11 +82,7 @@ $routeMapping = [
         "controller" => "mainController",
         "methods" => ["GET" => "contact"]
     ],
-    "" => [
-        "controller" => "mainController",
-        "methods" => ["GET" => "index"]
-    ],
-    "index.html" => [
+    "index" => [
         "controller" => "mainController",
         "methods" => ["GET" => "index"]
     ],

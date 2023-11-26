@@ -8,7 +8,9 @@
 
 <body class="structure">
 <?php require_once $_SERVER["DOCUMENT_ROOT"] . "/views/partials/navBar.php"; ?>
+
 <main>
+    <a href="/admin/adminPanel">Volver</a>
     <table>
         <thead>
             <tr>

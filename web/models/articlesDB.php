@@ -120,6 +120,27 @@ function getAllArticlesByCategory($categoryId): array {
     return $statement->fetchAll();
 }
 
+function persistArticleCategory($name): void {
+    $sql = "INSERT INTO article_categories(category_id, name) VALUES (DEFAULT, :name)";
+    try {
+        $statement = getConnection()->prepare($sql);
+        $statement->bindValue("name", $name);
+        $statement->execute();
+    } catch (PDOException $exception) {
+        if ($exception->getCode() === "22001") throw new ValueError("invalid parameter");
+        if ($exception->getCode() === "23000") throw new ValueError("constraint violation");
+        throw new Exception("internal server error");
+    }
+}
+
+function deleteArticleCategory($categoryId): void {
+    $sql = "DELETE FROM article_categories WHERE category_id = :category_id";
+    $statement = getConnection()->prepare($sql);
+    $statement->bindValue("category_id", $categoryId, PDO::PARAM_INT);
+    $statement->execute();
+    if ($statement->rowCount() === 0) throw new Exception("no row was affected");
+}
+
 function doesAccountOwnArticle($accountId, $articleId): bool {
     $sql = "SELECT COUNT(article_id) FROM articles WHERE account_id = :account_id AND article_id = :article_id";
     $statement = getConnection()->prepare($sql);
@@ -128,3 +149,4 @@ function doesAccountOwnArticle($accountId, $articleId): bool {
     $statement->execute();
     return $statement->rowCount() > 0;
 }
+

@@ -82,7 +82,11 @@ $routeMapping = [
         "controller" => "mainController",
         "methods" => ["GET" => "contact"]
     ],
-    "index" => [
+    "" => [
+        "controller" => "mainController",
+        "methods" => ["GET" => "index"]
+    ],
+    "index.html" => [
         "controller" => "mainController",
         "methods" => ["GET" => "index"]
     ],
@@ -246,6 +250,12 @@ $routeMapping = [
                 "role" => "ADMIN"
             ]
         ],
+        "accounts" => [
+            "controller" => "adminControllers/accounts",
+            "read" => ["methods" => ["GET" => "adminReadAccounts"]],
+            "updateAuthorities" => ["methods" => ["POST" => "adminUpdateAccountAuthorities"]],
+            "delete" => ["methods" => ["GET" => "adminDeleteAccount"]]
+        ],
         "adverts" => [
             "controller" => "adminControllers/adverts",
             "read" => ["methods" => ["GET" => "adminReadAdverts"]],
@@ -255,6 +265,12 @@ $routeMapping = [
             "controller" => "adminControllers/articles",
             "read" => ["methods" => ["GET" => "adminReadArticles"]],
             "delete" => ["methods" => ["GET" => "adminDeleteArticle"]]
+        ],
+        "articlesCategories" => [
+            "controller" => "adminControllers/articleCategories",
+            "read" => ["methods" => ["GET" => "adminReadArticlesCategories"]],
+            "add" => ["methods" => ["POST" => "adminAddArticlesCategories"]],
+            "delete" => ["methods" => ["GET" => "adminDeleteArticleCategory"]]
         ],
         "reviews" => [
             "controller" => "adminControllers/reviews",
@@ -270,6 +286,12 @@ $routeMapping = [
             "controller" => "adminControllers/businesses",
             "read" => ["methods" => ["GET" => "adminReadBusinesses"]],
             "delete" => ["methods" => ["GET" => "adminDeleteBusiness"]]
+        ],
+        "businessesCategories" => [
+            "controller" => "adminControllers/businessesCategories",
+            "read" => ["methods" => ["GET" => "adminReadBusinessesCategories"]],
+            "add" => ["methods" => ["POST" => "adminAddBusinessesCategories"]],
+            "delete" => ["methods" => ["GET" => "adminDeleteBusinessCategory"]]
         ],
         "adminPanel" => [
             "controller" => "adminControllers/main",

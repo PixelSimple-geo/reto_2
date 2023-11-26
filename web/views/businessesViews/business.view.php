@@ -14,8 +14,8 @@
         <div class="contentsContainer">
             <a href="/businesses/all">Volver a los comercios</a>
 
-            <h1><?=$business['name']?></h1>
-            <p><?=$business['description']?></p>
+            <h1><?= $business['name'] ?></h1>
+            <p><?= $business['description'] ?></p>
 
             <form id="filter-form" action="/businesses/business" method="get">
                 <input type="hidden" name="business_id" value="<?= rawurlencode($business['businessId']) ?>">
@@ -24,14 +24,12 @@
                     <button type="submit"><img src="/statics/media/search.svg" alt="search"></button>
 
                     <?php
-                        $selectedCategories = isset($_GET['categories']) ? $_GET['categories'] : [];
-
-                    if (!empty($businessCategories)) :
-                        foreach ($businessCategories as $category) :
+                    if (!empty($business['advertCategories'])) :
+                        foreach ($business['advertCategories'] as $category) :
                     ?>
                             <label>
                                 <?= $category['name'] ?>
-                                <input type="checkbox" name="categories[]" value="<?= $category['categoryId'] ?>" <?= in_array($category['categoryId'], $selectedCategories) ? ' checked' : '' ?>>
+                                <input type="checkbox" name="categories[]" value="<?= $category['categoryId'] ?>" <?= in_array($category['categoryId'], $_GET['categories'] ?? []) ? ' checked' : '' ?>>
                             </label>
                     <?php
                         endforeach;
@@ -48,18 +46,20 @@
                 if (isset($adverts)) {
                     foreach ($adverts as $advert) {
                         $advertCategories = isset($advert['categories']) ? $advert['categories'] : [];
-                        $hasSelectedCategory = empty($selectedCategories) || count(array_intersect($selectedCategories, $advertCategories)) > 0;
 
-                            echo '<a href="/adverts/advert?advert_id=' . $advert['advertId'] . '">';
-                            echo '<div class="ad ' . (isset($advert['categories']) && is_array($advert['categories']) ? implode(' ', $advert['categories']) : '') . '">';
-                            if (isset($advert["coverImg"])) {
-                                echo '<img src="' . $advert['coverImg'] . '" alt="Portada del anuncio">';
-                            }
-                            echo '<h3>' . $advert['title'] . '</h3>';
-                            echo '<p>' . $advert['description'] . '</p>';
-                            echo '</div>';
-                            echo '</a>';
-                        
+                        if (empty($_GET['categories']) || count(array_intersect($_GET['categories'], $advertCategories)) > 0) {
+                ?>
+                            <a href="/adverts/advert?advert_id=<?= $advert['advertId'] ?>">
+                                <div class="ad <?= (isset($advert['categories']) && is_array($advert['categories']) ? implode(' ', $advert['categories']) : '') ?>">
+                                    <?php if (isset($advert["coverImg"])) : ?>
+                                        <img src="<?= $advert['coverImg'] ?>" alt="Portada del anuncio">
+                                    <?php endif; ?>
+                                    <h3><?= $advert['title'] ?></h3>
+                                    <p><?= $advert['description'] ?></p>
+                                </div>
+                            </a>
+                <?php
+                        }
                     }
                 }
                 ?>

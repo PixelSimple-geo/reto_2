@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Login</title>
+    <title>403</title>
 
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/head.php" ?>
 

@@ -74,6 +74,10 @@ $routeMapping = [
             "POST" => "postSignIn"
         ]
     ],
+    "recover" => [
+        "controller" => "accountController",
+        "methods" => ["GET" => "getRecover"]
+    ],
     "history" => [
         "controller" => "mainController",
         "methods" => ["GET" => "history"]

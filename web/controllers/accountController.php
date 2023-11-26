@@ -109,3 +109,7 @@ function logout(): void {
     destroySession();
     header("Location: /index", true, 303);
 }
+
+function getRecover(): void {
+    include_once $_SERVER['DOCUMENT_ROOT'] . "/views/recover.view.php";
+}

@@ -97,7 +97,7 @@ input, textarea{
     font-size: 2rem;
 }
 
-input:-webkit-autofill{
+form[action="/products"] input:-webkit-autofill{
     -webkit-background-clip: text;
     -webkit-text-fill-color: var(--color-letra);
 }

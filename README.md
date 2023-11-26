@@ -20,14 +20,17 @@ Este proyecto consiste en el desarrollo de una aplicación web para la Asociaci�
 
 ## Funcionalidades Adicionales
 
-- **Sugerencias de Categorías:**
-  - Implementación de un sistema inteligente que sugiere categorías basadas en el contenido del anuncio.
+- **Reviews**
+  - Implementación de un sistema para crear reviews de noticias y comercios.
 
+- **Likes**
+  - Implementación de un sistema para valorar positiva o negativamente las reviews de los usuarios.
+    
 - **Filtros Avanzados:**
   - Opciones de filtrado avanzado para facilitar la búsqueda de productos.
 
-- **Notificaciones Instantáneas:**
-  - Sistema de notificaciones en tiempo real para mantener a los usuarios actualizados sobre nuevos anuncios o interacciones.
+- **Contacto al gmail:**
+  - Sistema de envio de gmails en caso de perdidad de contraseña o reseña.
 
 - **Integración de Mapas:**
   - Inclusión de mapas interactivos para ubicar fácilmente la tienda asociada al anuncio.
@@ -39,14 +42,12 @@ El diseño de la aplicación se centrará en una interfaz limpia y fácil de usa
 ## Enlaces Relevantes
 
 - Trello: https://trello.com/b/G5C3YzfF/reto-2
-
-## Requisitos Previos
-
+  
 ## Instrucciones de Instalación y Ejecución
 
 1. Clonar el repositorio: `git clone https://github.com/tu-usuario/nombre-del-repositorio.git`.
 2. Ejecutar el docker.compose `docker compose up -d`.
-3. Ejecutar los scripts en la carpeta db en el siguiente orden: 'squema.db' => 'inserts.db'
+3. Ejecutar los scripts en la carpeta sql, dentro de la carpeta db en el siguiente orden: 'squema.sql' => 'inserts.sql'
 
 ¡La aplicación estará disponible en [http://localhost:8080/index](http://localhost:8080/index)!
 

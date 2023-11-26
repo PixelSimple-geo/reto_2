@@ -23,7 +23,6 @@
                 <div class="search filter">
                     <button type="submit"><img src="/statics/media/search.svg" alt="search"></button>
 
-                    <!-- Mostrar categorías del negocio -->
                     <?php
                         $selectedCategories = isset($_GET['categories']) ? $_GET['categories'] : [];
 
@@ -50,25 +49,20 @@
                     foreach ($adverts as $advert) {
                         $advertCategories = isset($advert['categories']) ? $advert['categories'] : [];
                         $hasSelectedCategory = empty($selectedCategories) || count(array_intersect($selectedCategories, $advertCategories)) > 0;
-                        /*
-                        print_r($selectedCategories);
-                        print_r($advertCategories);
-                        */
 
-                        <?php if ($showAdvert): ?>
-                            <?='<a href="/adverts/advert?advert_id=' . $advert['advertId'] . '">'; ?>
-                                <div class="ad <?= isset($advert['categories']) && is_array($advert['categories']) ? implode(' ', $advert['categories']) : '' ?>">
-                                    <?php if (isset($advert["coverImg"])): ?>
-                                        <img src="<?= $advert['coverImg'] ?>" alt="Portada del anuncio">
-                                    <?php endif; ?>
-                                    <h3><?= $advert['title'] ?></h3>
-                                    <p><?= $advert['description'] ?></p>
-                                </div>
-                        <?="</a>"?>
-                        <?php endif; ?>
-
-                    <?php endforeach; ?>
-                <?php endif; ?>
+                            echo '<a href="/adverts/advert?advert_id=' . $advert['advertId'] . '">';
+                            echo '<div class="ad ' . (isset($advert['categories']) && is_array($advert['categories']) ? implode(' ', $advert['categories']) : '') . '">';
+                            if (isset($advert["coverImg"])) {
+                                echo '<img src="' . $advert['coverImg'] . '" alt="Portada del anuncio">';
+                            }
+                            echo '<h3>' . $advert['title'] . '</h3>';
+                            echo '<p>' . $advert['description'] . '</p>';
+                            echo '</div>';
+                            echo '</a>';
+                        
+                    }
+                }
+                ?>
             </div>
 
             <?php if(isset($userAccount)): ?>

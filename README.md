@@ -41,8 +41,8 @@ El diseño de la aplicación se centrará en una interfaz limpia y fácil de usa
 
 ## Enlaces Relevantes
 
-- Trello: https://trello.com/b/G5C3YzfF/reto-2
-- Presentacion PPT: [PowerPoint](https://docs.google.com/presentation/d/1SulVOuc7DfTa0T44dLDKJ1cIJfRbZQ7G3F2Vu60TOIk/edit?usp=sharing)
+- [Trello](https://trello.com/b/G5C3YzfF/reto-2)
+- [Presentacion PPT](https://docs.google.com/presentation/d/1SulVOuc7DfTa0T44dLDKJ1cIJfRbZQ7G3F2Vu60TOIk/edit?usp=sharing)
   
 ## Instrucciones de Instalación y Ejecución
 
@@ -50,7 +50,7 @@ El diseño de la aplicación se centrará en una interfaz limpia y fácil de usa
 2. Ejecutar el docker.compose `docker compose up -d`.
 3. Ejecutar los scripts en la carpeta sql, dentro de la carpeta db en el siguiente orden: 'squema.sql' => 'inserts.sql'
 
-¡La aplicación estará disponible en [http://localhost:8080/index](http://localhost:8080/index)!
+¡La aplicación estará disponible [AQUI](http://localhost:8080/index)!
 
 ## Contribuciones y Reporte de Problemas
 

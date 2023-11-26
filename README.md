@@ -47,6 +47,7 @@ El diseño de la aplicación se centrará en una interfaz limpia y fácil de usa
 - [Testing](https://docs.google.com/document/d/11YNI7cVwhFBX660Y-JXOz8q-hwb7OZrBj3xx0NgLKtc/edit?usp=sharing)
 - [Git Development Model](https://docs.google.com/document/d/1I_BJXBjnAkVzJ2k73ACLUSaPiZPJT8Pk27OZ4HjXkMQ/edit?usp=sharing)
 - [Asistencias](https://docs.google.com/spreadsheets/d/14Ex61KH6oQZl8CqoJBDRoFS2aQ4fLCNeoPJeGZbDByA/edit?usp=sharing)
+- [Hoja de estilos](https://docs.google.com/document/d/10GAVH6GPm0QMjte5Kln4ocE381c21jDlrcvZszOvkMg/edit?usp=sharing)
   
 ## Instrucciones de Instalación y Ejecución
 

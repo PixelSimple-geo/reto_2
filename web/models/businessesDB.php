@@ -44,7 +44,7 @@ function getBusiness($businessId): array {
 }
 
 function getAllBusinesses(): array {
-    return getConnection()->query("SELECT business_id AS businessId, name, description, cover_img AS coverImg FROM businesses")
+    return getConnection()->query("SELECT business_id AS businessId, account_id accountId, name, description, cover_img AS coverImg FROM businesses")
         ->fetchAll();
 }
 
@@ -80,7 +80,7 @@ function persistBusiness($accountId, $name, $description, $coverImg, $categoryId
         $stBusiness->execute();
         $businessId = $connection->lastInsertId();
 
-        if (empty($categoryId)) throw new ValueError("No id");
+        if (empty($categoryId)) throw new ValueError("no id");
         $stCategory->bindValue("category_id", $categoryId, PDO::PARAM_INT);
         $stCategory->bindValue("business_id", $businessId, PDO::PARAM_INT);
         $stCategory->execute();
@@ -247,10 +247,35 @@ function deleteBusinessAdvertCategory($categoryId): void {
     }
 }
 
-function doesAccountOwnBusiness($userAccount, $businessId): bool {
+function persistBusinessCategory($name): void {
+    $sql = "INSERT INTO businesses_categories(category_id, name) VALUES(DEFAULT, :name)";
+    try {
+        $statement = getConnection()->prepare($sql);
+        $statement->bindValue("name", $name);
+        $statement->execute();
+    } catch (PDOException $exception) {
+        if ($exception->getCode() === "22001") throw new ValueError("invalid parameter");
+        if ($exception->getCode() === "23000") {
+            if (str_contains("foreign key", $exception->getMessage()))
+                throw new ValueError("foreign key constraint violation");
+            throw new ValueError("constraint violation");
+        }
+        throw new Exception("internal server error");
+    }
+}
+
+function deleteBusinessCategory($categoryId): void {
+    $sql = "DELETE FROM businesses_categories WHERE category_id = :category_id";
+    $statement = getConnection()->prepare($sql);
+    $statement->bindValue("category_id", $categoryId, PDO::PARAM_INT);
+    $statement->execute();
+    if ($statement->rowCount() === 0) throw new Exception("no row was affected");
+}
+
+function doesAccountOwnBusiness($accountId, $businessId): bool {
     $sql = "SELECT business_id FROM businesses WHERE account_id = :account_id AND business_id = :business_id";
     $statement = getConnection()->prepare($sql);
-    $statement->bindValue("account_id", $userAccount["accountId"], PDO::PARAM_INT);
+    $statement->bindValue("account_id", $accountId, PDO::PARAM_INT);
     $statement->bindValue("business_id", $businessId, PDO::PARAM_INT);
     $statement->execute();
     return $statement->rowCount() > 0;

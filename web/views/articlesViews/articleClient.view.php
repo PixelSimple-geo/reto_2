@@ -12,7 +12,7 @@
             <h1><?php echo $article['title'] ?? "Sin título"; ?></h1>
 
             <?php if (!empty($article['description'])): ?>
-                <h4><?php echo $article['description']; ?></h4>
+                <p><?php echo $article['description']; ?></p>
             <?php endif; ?>
             
             <?php if (!empty($article['creationDate'])): ?>
@@ -28,13 +28,14 @@
             <?php if(isset($userAccount)): ?>
                 <form action="/commentaries/crud/add" method="POST">
                     <input type="hidden" name="article_id" value="<?=$article["articleId"]?>">
-                    <input type="hidden" name="commentator_id" value="<?=$userAccount["accountId"]?>">
                     <label for="title">Title</label>
                     <input id="title" name="title" required>
                     <label for="description">Description</label>
                     <textarea id="description" name="description" minlength="5" maxlength="500" required></textarea>
                     <button type="submit">Publicar comentario</button>
                 </form>
+            <?php else: ?>
+                <p>Si inicias sesión puedes publicar comentarios</p>
             <?php endif; ?>
         </div>
 
@@ -49,14 +50,16 @@
                             <h1><?=$commentary["username"]?></h1>
                             <h2><?=$commentary["title"]?></h2>
                             <p><?=$commentary["description"]?></p>
-                            <form action="/commentariesLikes/crud/add" method="POST">
+                            <form action="/commentariesLikes/crud" method="POST">
                                 <input type="hidden" name="article_id" value="<?= $article["articleId"] ?>">
                                 <input type="hidden" name="commentary_id" value="<?= $commentary["commentaryId"] ?>">
                                 <section data-check>
                                     <input type="hidden" name="old_reaction" value="<?=isset($commentary["userFeedback"])?>">
                                     <input type="hidden" name="new_reaction" value="">
+                                    <?php if(isset($userAccount)): ?>
                                     <button type="submit" data-reaction="true"
-                                        <?php if ($commentary["userFeedback"]) echo "checked"?>>
+                                        <?php if (isset($commentary["userFeedback"]) && $commentary["userFeedback"])
+                                            echo "checked"?>>
                                         <?=$commentary["likeCount"]?>
                                         <img src="/statics/media/thumb_up.svg" class="review-icon">
                                     </button>
@@ -66,6 +69,20 @@
                                         <?=$commentary["dislikeCount"]?>
                                         <img src="/statics/media/thumb_down.svg" class="review-icon">
                                     </button>
+                                    <?php else: ?>
+                                        <button type="button"
+                                            <?php if (isset($commentary["userFeedback"]) && $commentary["userFeedback"])
+                                                echo "checked"?>>
+                                            <?=$commentary["likeCount"]?>
+                                            <img src="/statics/media/thumb_up.svg" class="review-icon">
+                                        </button>
+                                        <button type="button"
+                                            <?php if (isset($commentary["userFeedback"]) && !$commentary["userFeedback"])
+                                                echo "checked"?>>
+                                            <?=$commentary["dislikeCount"]?>
+                                            <img src="/statics/media/thumb_down.svg" class="review-icon">
+                                        </button>
+                                    <?php endif; ?>
                                 </section>
                             </form>
                             <?php if(!empty($commentary["creationDate"])): ?>

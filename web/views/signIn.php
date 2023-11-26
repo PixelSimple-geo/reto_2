@@ -20,7 +20,11 @@
         <form id="reg_form" action="/signIn" method="POST">
 
             <label for="usuario">Usuario</label>
-            <input type="text" id="usuario" required name="username">
+            <?php if(isset($username)): ?>
+                <input type="text" id="usuario" required name="username" value="<?=$username?>">
+            <?php else: ?>
+                <input type="text" id="usuario" required name="username">
+            <?php endif; ?>
 
             <label for="password">Contraseña</label>
             <input type="password" id="password" required name="password">
@@ -29,7 +33,11 @@
             <input type="password" id="conpassword" required>
 
             <label for="email">Email</label>
-            <input type="email" id="email" required name="email">
+            <?php if(isset($email)): ?>
+                <input type="email" id="email" required name="email" value="<?=$email?>">
+            <?php else: ?>
+                <input type="email" id="email" required name="email">
+            <?php endif; ?>
 
             <div>
                 <input id="terminos" type="checkbox" required>

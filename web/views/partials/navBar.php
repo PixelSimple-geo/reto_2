@@ -27,7 +27,7 @@
                             <a href="/articles/crud/all">Ver Artículos</a>
                         <?php endif; ?>
                         <?php if (in_array('ADMIN', array_column($userAccount['authorities'], 'role'))) : ?>
-                            <a href="/admin-panel">Panel Admin</a>
+                            <a href="/admin/adminPanel">Panel Admin</a>
                         <?php endif; ?>
                         <a href="/logout">Cerrar Sesión</a>
                     </div>

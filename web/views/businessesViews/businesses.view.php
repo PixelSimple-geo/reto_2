@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/head.php"; ?>
+    <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/head.php" ?>
     <title>Comercios | Reto 2</title>
 </head>
 
@@ -37,7 +37,9 @@
                         ?>
                         <a href="/businesses/business?business_id=<?= urlencode($business['businessId']) ?>">
                             <div>
+                                <?php if(isset($business["coverImg"])): ?>
                                 <img src="<?= htmlspecialchars($business["coverImg"]) ?>">
+                                <?php endif;?>
                                 <h3><?= htmlspecialchars($business['name']) ?></h3>
                                 <p>Descripción: <?= htmlspecialchars($business['description']) ?></p>
                             </div>

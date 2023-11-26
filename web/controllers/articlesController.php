@@ -1,6 +1,6 @@
 <?php
 
-function getArticles() :void {
+function getArticles(): void {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/models/articlesDB.php";
     $categories = getAllArticlesCategories();
     if (!empty($_GET["category_id"])) $articles = getAllArticlesByCategory($_GET["category_id"]);
@@ -10,27 +10,15 @@ function getArticles() :void {
 
 function getArticlesCrudReadAll(): void {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/models/articlesDB.php";
-    try {
-        $userAccount = getUserAccountFromSession();
-        $articles = getArticlesByAccountId($userAccount["accountId"]);
-        include_once $_SERVER['DOCUMENT_ROOT'] . "/views/articlesViews/articlesCrudReadAll.view.php";
-    } catch (PDOException $exception) {
-        //TODO
-        echo $exception->getMessage();
-    } catch (RuntimeException $exception) {
-        echo $exception->getMessage();
-    }
+    $userAccount = getUserAccountFromSession();
+    $articles = getArticlesByAccountId($userAccount["accountId"]);
+    include_once $_SERVER['DOCUMENT_ROOT'] . "/views/articlesViews/articlesCrudReadAll.view.php";
 }
 
 function getArticlesCrudAdd(): void {
     include_once $_SERVER['DOCUMENT_ROOT'] . "/models/articlesDB.php";
-    try {
-        $categories = getAllArticlesCategories();
-        include_once $_SERVER['DOCUMENT_ROOT'] . "/views/articlesViews/articlesCrudAdd.view.php";
-    } catch (PDOException $exception) {
-        //TODO
-    }
-
+    $categories = getAllArticlesCategories();
+    include_once $_SERVER['DOCUMENT_ROOT'] . "/views/articlesViews/articlesCrudAdd.view.php";
 }
 
 function postArticlesCrudAdd(): void {
@@ -43,12 +31,9 @@ function postArticlesCrudAdd(): void {
         $userAccount = getUserAccountFromSession();
         persistArticle($userAccount["accountId"], $title, $description, $categoryId);
         header("Location: /articles/crud/all", true, 303);
-    } catch (PDOException $exception) {
-        //TODO
-        echo $exception->getMessage();
-    } catch (RuntimeException $exception){
-        echo $exception->getMessage();
-    }
+    } catch (ValueError $exception) {
+        error_400_BadRequest();
+    } catch (Exception $exception) {error_500_InternalServerError();}
 }
 
 function getArticlesCrudEdit(): void {
@@ -56,12 +41,13 @@ function getArticlesCrudEdit(): void {
     include_once $_SERVER['DOCUMENT_ROOT'] . "/models/articlesDB.php";
     $articleId = $_GET["article_id"];
     try {
+        verifyArticleOwnership($articleId);
         $article = getArticle($articleId);
         $categories = getAllArticlesCategories();
         include_once $_SERVER['DOCUMENT_ROOT'] . "/views/articlesViews/articlesCrudEdit.view.php";
-    } catch (PDOException $exception) {
-        //TODO
-        echo $exception->getMessage();
+    } catch (Exception $exception) {
+        if (str_contains($exception->getMessage(), "no record was found")) error_404_NotFound();
+        error_500_InternalServerError();
     }
 }
 
@@ -72,14 +58,13 @@ function postArticlesCrudEdit(): void {
     $title = $_POST["title"];
     $description = $_POST["description"];
     $categoryId = $_POST["category_id"];
-
     try {
+        verifyArticleOwnership($articleId);
         updateArticle($articleId, $title, $description, $categoryId);
         header("Location: /articles/crud/all", true, 303);
-    } catch (PDOException $exception) {
-        echo $exception->getMessage();
-    }
-
+    } catch (ValueError $exception) {
+        error_400_BadRequest();
+    } catch (Exception $exception) {error_500_InternalServerError();}
 }
 
 function getArticlesCrudDelete(): void {
@@ -87,34 +72,30 @@ function getArticlesCrudDelete(): void {
     include_once $_SERVER['DOCUMENT_ROOT'] . "/models/articlesDB.php";
     $articleId = $_GET["article_id"];
     try {
-        $userAccount = getUserAccountFromSession();
-        deleteArticle($userAccount["accountId"], $articleId);
+        verifyArticleOwnership($articleId);
+        deleteArticle($articleId);
         header("Location: /articles/crud/all", true, 303);
-    } catch (PDOException $exception) {
-        echo $exception->getMessage();
-    } catch (RuntimeException $exception) {
-        echo $exception->getMessage();
-    }
-    include_once $_SERVER['DOCUMENT_ROOT'] . "/views/articlesView/articleNews.view.php";
+    } catch (Exception $exception) {error_500_InternalServerError();}
 }
 
-function getArticleById() {
+function getArticleById(): void {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/models/articlesDB.php";
     require_once $_SERVER['DOCUMENT_ROOT'] . "/models/commentariesDB.php";
-    $errorMessage = null;
-    $article = null;
-
+    validateRequiredParameters(["articleId"], "GET");
     try {
-        if (isset($_GET['articleId'])) {
-            $userAccount = getUserAccountFromSession();
-            $articleId = $_GET['articleId'];
-            $article = getArticle($articleId);
-            $commentaries = getAllArticleCommentaries($articleId, $userAccount);
-        }
-    } catch (PDOException $exception) {
-        $errorMessage = "Hubo un error al intentar obtener el artículo.";
-    } catch (RuntimeException $exception) {
-        $errorMessage = "No se ha encontrado ninguna sesión.";
+        $userAccount = getUserAccountFromSession();
+        $articleId = $_GET['articleId'];
+        $article = getArticle($articleId);
+        if (!empty($userAccount)) $commentaries = getAllArticleCommentaries($articleId, $userAccount["accountId"]);
+        else $commentaries = getAllArticleCommentaries($articleId, null);
+        include_once $_SERVER['DOCUMENT_ROOT'] . "/views/articlesViews/articleClient.view.php";
+    } catch (Exception $exception) {
+        if (str_contains($exception->getMessage(), "no record was found")) error_404_NotFound();
+        error_500_InternalServerError();
     }
-    include_once $_SERVER['DOCUMENT_ROOT'] . "/views/articlesViews/articleClient.view.php";
+}
+
+function verifyArticleOwnership($articleId): void {
+    $userAccount = getUserAccountFromSession();
+    if (!doesAccountOwnArticle($userAccount["accountId"], $articleId)) error_401_Unauthorized();
 }

@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-    <?php require "partials/head.php"; ?>
+    <?php require "partials/head.php" ?>
     <title>Editar Perfil</title>
 </head>
-
 <body>
     <?php require "partials/navBar.php"; ?>
 
@@ -41,8 +39,7 @@
 
     </main>
 
-    <?php require "partials/footer.php"; ?>
+    <?php require "partials/footer.php" ?>
 
 </body>
-
 </html>

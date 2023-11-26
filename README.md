@@ -42,7 +42,7 @@ El diseño de la aplicación se centrará en una interfaz limpia y fácil de usa
 ## Enlaces Relevantes
 
 - Trello: https://trello.com/b/G5C3YzfF/reto-2
-- Presentacion PPT:[ https://docs.google.com/presentation/d/1SulVOuc7DfTa0T44dLDKJ1cIJfRbZQ7G3F2Vu60TOIk/edit#slide=id.p](https://docs.google.com/presentation/d/1SulVOuc7DfTa0T44dLDKJ1cIJfRbZQ7G3F2Vu60TOIk/edit?usp=sharing)
+- Presentacion PPT: [PowerPoint](https://docs.google.com/presentation/d/1SulVOuc7DfTa0T44dLDKJ1cIJfRbZQ7G3F2Vu60TOIk/edit?usp=sharing)
   
 ## Instrucciones de Instalación y Ejecución
 

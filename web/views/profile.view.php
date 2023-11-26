@@ -4,7 +4,7 @@
     <?php require "partials/head.php" ?>
     <title>Editar Perfil</title>
 </head>
-<body>
+<body class="structure">
     <?php require "partials/navBar.php"; ?>
 
     <main>

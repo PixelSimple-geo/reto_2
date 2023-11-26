@@ -50,7 +50,7 @@ El diseño de la aplicación se centrará en una interfaz limpia y fácil de usa
   
 ## Instrucciones de Instalación y Ejecución
 
-1. Clonar el repositorio: `git clone [https://github.com/PixelSimple-geo/reto_2](https://github.com/PixelSimple-geo/reto_2/blob/main/README.md)`.
+1. Clonar el repositorio: `git clone [https://github.com/PixelSimple-geo/reto_2]`.
 2. Ejecutar el docker.compose `docker compose up -d`.
 3. Ejecutar los scripts en la carpeta sql, dentro de la carpeta db en el siguiente orden: 'squema.sql' => 'inserts.sql'
 

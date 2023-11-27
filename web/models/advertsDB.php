@@ -41,7 +41,7 @@ function getAllAdverts(): array {
     return $statement->fetchAll();
 }
 
-function getAdvertsByBusinessId($businessId): array {
+function getAdvertsByBusinessId($businessId, array $categories = null): array {
     $sql = "SELECT a.advert_id AS advertId, a.business_id AS businessId, a.title, a.description, 
                    a.cover_img AS coverImg, a.active, a.creation_date AS creationDate, 
                    a.modified_date AS modifiedDate, c.category_id AS categoryId, c.name AS categoryName
@@ -50,11 +50,13 @@ function getAdvertsByBusinessId($businessId): array {
             LEFT JOIN businesses_advert_categories c ON ac.category_id = c.category_id
             WHERE a.business_id = :business_id";
 
+    if (!empty($categories)) $sql .= " AND c.category_id IN (" . implode(',', $categories) . ")";
     $statement = getConnection()->prepare($sql);
     $statement->bindValue("business_id", $businessId, PDO::PARAM_INT);
     $statement->execute();
     return $statement->fetchAll();
 }
+
 
 function persistAdvert($businessId, $title, $description, $coverImg, $active, $categoryId,
                        array $characteristics, array $images): void {

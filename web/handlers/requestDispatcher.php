@@ -74,17 +74,16 @@ $routeMapping = [
             "POST" => "postSignIn"
         ]
     ],
-    "recover" => [
-        "controller" => "accountController",
-        "methods" => ["GET" => "getRecover"]
-    ],
     "history" => [
         "controller" => "mainController",
         "methods" => ["GET" => "history"]
     ],
     "contact" => [
         "controller" => "mainController",
-        "methods" => ["GET" => "contact"]
+        "methods" => [
+            "GET" => "contact",
+            "POST" => "postContact"
+        ]
     ],
     "index" => [
         "controller" => "mainController",
@@ -293,10 +292,6 @@ $routeMapping = [
             "add" => ["methods" => ["POST" => "adminAddBusinessesCategories"]],
             "delete" => ["methods" => ["GET" => "adminDeleteBusinessCategory"]]
         ],
-        "adminPanel" => [
-            "controller" => "adminControllers/main",
-            "methods" => ["GET" => "getPanel"]
-        ],
 
     ]
 ];
@@ -331,9 +326,8 @@ foreach ($requestedRoute as $index => $routeFragment) {
         $delegateFunction = $currentRoute["methods"][$requestMethod];
 }
 
-if ($delegateFunction === null) error_405_MethodNotAllowed();
-
 if ($isInvalidRequest || $controller === null) error_404_NotFound();
+if ($delegateFunction === null) error_405_MethodNotAllowed();
 
 require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/$controller";
 call_user_func($delegateFunction);

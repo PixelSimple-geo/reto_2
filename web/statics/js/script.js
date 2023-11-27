@@ -96,7 +96,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-
 /* Business needs */
 function agregarContacto() {
     let nuevoContacto = document.createElement('div');
@@ -196,25 +195,57 @@ function delete_con_dir(boton) {
 }
 
 /* Check */
-document.querySelectorAll("[data-check] button").forEach((element => {
-    element.addEventListener("click", (event) => {
-        const element = event.target;
-        const parent = event.target.parentNode;
-        const input = parent.querySelector("input[name='new_reaction']")
-        parent.querySelectorAll("button").forEach((element => {
-            if (element !== event.target) element.removeAttribute("checked")
-        }))
-        if (element.hasAttribute("checked")) {
-            element.removeAttribute("checked")
-            input.value = "";
-        } else {
-            input.value =  element.getAttribute("data-reaction")
-            element.setAttribute("checked", "");
-        }
-        console.log(input.value);
-    });
-}));
 
+function changeButtonReactionState(button) {
+    const numberCount = button.querySelector("span");
+    const parent = button.parentNode;
+    const input = parent.querySelector("input[name='new_reaction']")
+    parent.querySelectorAll("button").forEach((element => {
+        if (element !== button && element.hasAttribute("checked")) {
+            element.removeAttribute("checked");
+            let numberCount = element.querySelector("span");
+            numberCount.innerText = parseInt(numberCount.innerText) - 1;
+        }
+    }));
+    if (button.hasAttribute("checked")) {
+        button.removeAttribute("checked")
+        input.value = "";
+        numberCount.innerText = parseInt(numberCount.innerText) - 1;
+    } else {
+        input.value =  button.getAttribute("data-reaction")
+        button.setAttribute("checked", "");
+        numberCount.innerText = parseInt(numberCount.innerText) + 1;
+    }
+    console.log(input.value);
+}
+
+console.log("Hello");
+
+document.addEventListener("DOMContentLoaded", (event) => {
+    document.querySelectorAll("button[data-reaction]").forEach((element) => {
+        element.addEventListener("click", (event) => {
+            changeButtonReactionState(event.target)
+            handleReaction(element);
+        });
+    });
+});
+
+async function handleReaction(element) {
+    const form = element.closest("form");
+    const data = new FormData(form);
+    try {
+        const response = await fetch(form.getAttribute("action"), {
+            method: "POST",
+            body: data,
+            headers: {
+                "Accept": "application/json",
+            },
+        });
+
+        if (!response.ok) throw new Error(`Error: ${response.status} - ${response.statusText}`);
+        const responseData = await response.text();
+    } catch (error) {console.error("Error making request:", error.message);}
+}
 
 // Exporta las funciones para que puedan ser probadas
 /* Comentado para que no de errores en el navegador, descomentar para hacer testing

@@ -22,8 +22,11 @@ services:
       MYSQL_DATABASE: reto_2
       MYSQL_USER: admin
       MYSQL_PASSWORD: admin
+      TZ: "Europe/Madrid"  # Set the time zone to Madrid
     volumes:
       - persistent:/var/lib/mysql
+      - ./sql-scripts:/docker-entrypoint-initdb.d
+    command: --init-file /docker-entrypoint-initdb.d/init.sql
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin

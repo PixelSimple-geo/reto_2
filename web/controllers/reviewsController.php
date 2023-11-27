@@ -37,7 +37,7 @@ function postReviewLikeCrudAddEditDelete(): void {
             persistReviewLike($userAccount, $reviewId, $isLiked == 2);
         else if (!empty($_POST["old_reaction"]))
             deleteReviewLike($userAccount, $reviewId);
-        header("Location: /businesses/business?business_id=$businessId", true, 303);
+        http_response_code(200);
     } catch (ValueError $exception) {
         error_400_BadRequest();
     } catch (Exception $exception) {

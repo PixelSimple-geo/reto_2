@@ -36,7 +36,7 @@ function postCommentaryLikeCrudAddEditDelete(): void {
             persistCommentaryLike($userAccount["accountId"], $commentaryId, $isLiked == 2);
         else if (!empty($_POST["old_reaction"]))
             deleteCommentaryLike($userAccount["accountId"], $commentaryId);
-        header("Location: /articles/article?articleId=$articleId", true, 303);
+        http_response_code(200);
     } catch (ValueError $exception) {
         error_400_BadRequest();
     } catch (Exception $exception) {

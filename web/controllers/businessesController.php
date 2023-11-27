@@ -5,13 +5,15 @@ function getBusinessPage(): void {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/models/businessesDB.php";
     require_once $_SERVER['DOCUMENT_ROOT'] . "/models/advertsDB.php";
     require_once $_SERVER['DOCUMENT_ROOT'] . "/models/reviewsDB.php";
+    if (isset($_GET["categories"])) print_r($_GET["categories"]);
+    else echo "no categories";
     try {
         $userAccount = getUserAccountFromSession();
         $businessId = $_GET['business_id'];
         $business = getBusiness($businessId);
-        $adverts = getAdvertsByBusinessId($businessId);
-        if (isset($userAccount))
-            $reviews = getAllBusinessReviews($businessId, $userAccount["accountId"]);
+        if (!empty($_GET["categories"])) $adverts = getAdvertsByBusinessId($businessId, $_GET["categories"]);
+        else $adverts = getAdvertsByBusinessId($businessId);
+        if (isset($userAccount)) $reviews = getAllBusinessReviews($businessId, $userAccount["accountId"]);
         else $reviews = getAllBusinessReviews($businessId, null);
         include_once $_SERVER['DOCUMENT_ROOT'] . "/views/businessesViews/business.view.php";
     } catch (Exception $exception) {

@@ -31,14 +31,22 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!getCookie('cookies-aceptadas')) {
         avisoCookies.classList.add('activo');
         fondoAvisoCookies.classList.add('activo');
-		avisoCookies.style.cursor = "pointer";
-		fondoAvisoCookies.style.cursor = "not-allowed";
+        avisoCookies.style.cursor = "pointer";
+        fondoAvisoCookies.style.cursor = "not-allowed";
+
+        avisoCookies.classList.add('aparecer');
     } else {
         dataLayer.push({ 'event': 'cookies-aceptadas' });
     }
 
     botonAceptarCookies.addEventListener('click', () => {
-        avisoCookies.classList.remove('activo');
+        avisoCookies.classList.remove('aparecer');
+        avisoCookies.classList.add('desaparecer');
+
+        setTimeout(function () {
+            avisoCookies.style.display = 'none';
+        }, 500);
+
         fondoAvisoCookies.classList.remove('activo');
 
         setCookie('cookies-aceptadas', 'true', 30);

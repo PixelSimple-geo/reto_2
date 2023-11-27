@@ -3,6 +3,7 @@
 
 <head>
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/head.php" ?>
+    <script src="/statics/js/ckUnchecked.js" defer></script>
     <title><?= $business['name']; ?> - Business Details</title>
 </head>
 
@@ -18,7 +19,7 @@
             <p><?= $business['description'] ?></p>
 
             <form id="filter-form" action="/businesses/business" method="get">
-                <input type="hidden" name="business_id" value="<?= rawurlencode($business['businessId']) ?>">
+                <input type="hidden" name="business_id" value="<?= $business['businessId'] ?>">
 
                 <div class="search filter">
                     <button type="submit"><img src="/statics/media/search.svg" alt="search"></button>
@@ -38,17 +39,20 @@
                             <p>No hay categorías disponibles.</p>
                         <?php endif; ?>
                     </div>
+                    <button type="button" id="uncheck-all"><img src="/statics/media/x.svg" alt="desmarcar"></button>
                 </div>
+            </form>
             </form>
 
             <h2>Adverts:</h2>
             <div class="contents">
                 <?php
+
                 if (isset($adverts)) {
+
                     foreach ($adverts as $advert) {
                         $advertCategories = isset($advert['categories']) ? $advert['categories'] : [];
 
-                        if (empty($_GET['categories']) || count(array_intersect($_GET['categories'], $advertCategories)) > 0) {
                 ?>
                             <a href="/adverts/advert?advert_id=<?= $advert['advertId'] ?>">
                                 <div class="ad <?= (isset($advert['categories']) && is_array($advert['categories']) ? implode(' ', $advert['categories']) : '') ?>">
@@ -60,8 +64,7 @@
                                 </div>
                             </a>
                 <?php
-                        }
-                    }
+                                            }
                 }
                 ?>
             </div>
@@ -138,15 +141,15 @@
                                         <input type="hidden" name="old_reaction" value="<?=isset($review["userFeedback"])?>">
                                         <input type="hidden" name="new_reaction" value="">
                                         <?php if(isset($userAccount)): ?>
-                                        <button type="submit" data-reaction="true"
+                                        <button type="button" data-reaction="true"
                                             <?php if (isset($review["userFeedback"]) && $review["userFeedback"]) echo "checked"?>>
-                                            <?=$review["likeCount"]?>
+                                            <span><?=$review["likeCount"]?></span>
                                             <img src="/statics/media/thumb_up.svg" class="review-icon">
                                         </button>
-                                        <button type="submit" data-reaction="false"
+                                        <button type="button" data-reaction="false"
                                             <?php if (isset($review["userFeedback"]) && !$review["userFeedback"])
                                                 echo "checked"?>>
-                                            <?=$review["dislikeCount"]?>
+                                            <span><?=$review["dislikeCount"]?></span>
                                             <img src="/statics/media/thumb_down.svg" class="review-icon">
                                         </button>
                                         <?php else: ?>
@@ -179,7 +182,7 @@
     </main>
 
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/footer.php" ?>
-
+    
 </body>
 
 </html>

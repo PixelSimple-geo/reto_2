@@ -52,7 +52,7 @@ El diseño de la aplicación se centrará en una interfaz limpia y fácil de usa
   
 ## Instrucciones de Instalación y Ejecución
 
-1. Clonar el repositorio: `git clone https://github.com/PixelSimple-geo/reto_2`.
+1. Clonar el repositorio: `git clone https://github.com/PixelSimple-geo/reto_2`. <button onclick="copyToClipboard('git clone https://github.com/PixelSimple-geo/reto_2')">Copy</button>
 2. Ejecutar el docker.compose `docker compose up -d`.
 
 ¡La aplicación estará disponible [AQUI](http://localhost:8080/index)!

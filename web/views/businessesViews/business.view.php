@@ -103,15 +103,15 @@
                                         <input type="hidden" name="old_reaction" value="<?=isset($review["userFeedback"])?>">
                                         <input type="hidden" name="new_reaction" value="">
                                         <?php if(isset($userAccount)): ?>
-                                        <button type="submit" data-reaction="true"
+                                        <button type="button" data-reaction="true"
                                             <?php if (isset($review["userFeedback"]) && $review["userFeedback"]) echo "checked"?>>
-                                            <?=$review["likeCount"]?>
+                                            <span><?=$review["likeCount"]?></span>
                                             <img src="/statics/media/thumb_up.svg" class="review-icon">
                                         </button>
-                                        <button type="submit" data-reaction="false"
+                                        <button type="button" data-reaction="false"
                                             <?php if (isset($review["userFeedback"]) && !$review["userFeedback"])
                                                 echo "checked"?>>
-                                            <?=$review["dislikeCount"]?>
+                                            <span><?=$review["dislikeCount"]?></span>
                                             <img src="/statics/media/thumb_down.svg" class="review-icon">
                                         </button>
                                         <?php else: ?>

@@ -50,23 +50,23 @@
                             <h1><?=$commentary["username"]?></h1>
                             <h2><?=$commentary["title"]?></h2>
                             <p><?=$commentary["description"]?></p>
-                            <form action="/commentariesLikes/crud" method="POST">
+                            <form action="/commentariesLikes/crud" method="POST" data-form-reaction>
                                 <input type="hidden" name="article_id" value="<?= $article["articleId"] ?>">
                                 <input type="hidden" name="commentary_id" value="<?= $commentary["commentaryId"] ?>">
                                 <section data-check>
                                     <input type="hidden" name="old_reaction" value="<?=isset($commentary["userFeedback"])?>">
                                     <input type="hidden" name="new_reaction" value="">
                                     <?php if(isset($userAccount)): ?>
-                                    <button type="submit" data-reaction="true"
+                                    <button type="button" data-reaction="true"
                                         <?php if (isset($commentary["userFeedback"]) && $commentary["userFeedback"])
                                             echo "checked"?>>
-                                        <?=$commentary["likeCount"]?>
+                                        <span><?=$commentary["likeCount"]?></span>
                                         <img src="/statics/media/thumb_up.svg" class="review-icon">
                                     </button>
-                                    <button type="submit" data-reaction="false"
+                                    <button type="button" data-reaction="false"
                                         <?php if (isset($commentary["userFeedback"]) && !$commentary["userFeedback"])
                                             echo "checked"?>>
-                                        <?=$commentary["dislikeCount"]?>
+                                        <span><?=$commentary["dislikeCount"]?></span>
                                         <img src="/statics/media/thumb_down.svg" class="review-icon">
                                     </button>
                                     <?php else: ?>
@@ -84,7 +84,6 @@
                                         </button>
                                     <?php endif; ?>
                                 </section>
-                            </form>
                             <?php if(!empty($commentary["creationDate"])): ?>
                             <p><?=$commentary["creationDate"]?></p>
                             <?php elseif(!empty($commentary["modifiedDate"])): ?>
@@ -100,5 +99,7 @@
     
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/footer.php" ?>
 </body>
+<script>
 
+</script>
 </html>

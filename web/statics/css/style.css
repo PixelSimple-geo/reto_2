@@ -705,11 +705,11 @@ button[type="submit"][data-reaction="false"], button[type="submit"][data-reactio
     grid-template-columns: 1fr 1fr;
 }
 
-button[type="submit"][data-reaction="false"][checked] {
+button[data-reaction="false"][checked] {
     background-color: rgb(239, 136, 151);
 }
 
-button[type="submit"][data-reaction="true"][checked] {
+button[data-reaction="true"][checked] {
     background-color: rgb(110, 219, 110);
 }
 

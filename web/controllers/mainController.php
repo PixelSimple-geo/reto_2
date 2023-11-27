@@ -21,6 +21,20 @@ function contact(): void {
     include_once $_SERVER["DOCUMENT_ROOT"] . "/views/contact.view.php";
 }
 
+function postContact(): void {
+    validateRequiredParameters(["name", "email", "subject", "message"]);
+    $name = $_POST["name"];
+    $email = $_POST["email"];
+    $subject = $_POST["subject"];
+    $message = $_POST["message"];
+    $message .= "<br><br>" . $email;
+    require_once $_SERVER["DOCUMENT_ROOT"] . "/handlers/emailHandler.php";
+    try {
+        sendEmail($subject, $message);
+        header("Location: /contact", true, 303);
+    } catch (Exception $exception){error_500_InternalServerError();}
+}
+
 function showCookiePolicy(){
     include_once $_SERVER["DOCUMENT_ROOT"] . "/views/cookiePolicy.php";
 }

@@ -113,3 +113,10 @@ function logout(): void {
 function getRecover(): void {
     include_once $_SERVER['DOCUMENT_ROOT'] . "/views/recover.view.php";
 }
+
+//TODO acabar
+function postRecover(): void {
+    require_once $_SERVER["DOCUMENT_ROOT"] . "/handlers/emailHandler.php";
+    $email = $_POST["email"];
+    sendEmail(null, "Recuperar contraseña");
+}

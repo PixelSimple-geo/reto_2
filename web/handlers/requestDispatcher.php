@@ -76,7 +76,10 @@ $routeMapping = [
     ],
     "recover" => [
         "controller" => "accountController",
-        "methods" => ["GET" => "getRecover"]
+        "methods" => [
+            "GET" => "getRecover",
+            "POST" => "postRecover"
+        ]
     ],
     "history" => [
         "controller" => "mainController",
@@ -84,7 +87,10 @@ $routeMapping = [
     ],
     "contact" => [
         "controller" => "mainController",
-        "methods" => ["GET" => "contact"]
+        "methods" => [
+            "GET" => "contact",
+            "POST" => "postContact"
+        ]
     ],
     "index" => [
         "controller" => "mainController",

@@ -18,7 +18,7 @@
             <p><?= $business['description'] ?></p>
 
             <form id="filter-form" action="/businesses/business" method="get">
-                <input type="hidden" name="business_id" value="<?= rawurlencode($business['businessId']) ?>">
+                <input type="hidden" name="business_id" value="<?=$business['businessId']?>">
 
                 <div class="search filter">
                     <button type="submit"><img src="/statics/media/search.svg" alt="search"></button>
@@ -29,7 +29,8 @@
                         ?>
                                 <label>
                                     <?= $category['name'] ?>
-                                    <input type="checkbox" name="categories[]" value="<?= $category['categoryId'] ?>" <?= in_array($category['categoryId'], $_GET['categories'] ?? []) ? ' checked' : '' ?>>
+                                    <input type="checkbox" name="categories[]" value="<?= $category['categoryId'] ?>"
+                                        <?= in_array($category['categoryId'], $_GET['categories'] ?? []) ? ' checked' : '' ?>>
                                 </label>
                         <?php
                             endforeach;
@@ -44,11 +45,12 @@
             <h2>Adverts:</h2>
             <div class="contents">
                 <?php
+
                 if (isset($adverts)) {
+
                     foreach ($adverts as $advert) {
                         $advertCategories = isset($advert['categories']) ? $advert['categories'] : [];
 
-                        if (empty($_GET['categories']) || count(array_intersect($_GET['categories'], $advertCategories)) > 0) {
                 ?>
                             <a href="/adverts/advert?advert_id=<?= $advert['advertId'] ?>">
                                 <div class="ad <?= (isset($advert['categories']) && is_array($advert['categories']) ? implode(' ', $advert['categories']) : '') ?>">
@@ -60,8 +62,7 @@
                                 </div>
                             </a>
                 <?php
-                        }
-                    }
+                                            }
                 }
                 ?>
             </div>

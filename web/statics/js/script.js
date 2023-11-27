@@ -217,7 +217,9 @@ document.querySelectorAll("[data-check] button").forEach((element => {
 
 
 // Exporta las funciones para que puedan ser probadas
+/* Comentado para que no de errores en el navegador, descomentar para hacer testing
 module.exports = {
     agregarDireccion,
     delete_con_dir
 };
+*/

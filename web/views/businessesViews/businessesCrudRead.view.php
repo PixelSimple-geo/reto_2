@@ -19,7 +19,7 @@
         
         <div class="formulario">
             <?php if(!empty($feedback)): ?>
-            <p style="color: red"><?=$feedback?></p>
+            <p class="feedbackMessage"><?=$feedback?></p>
             <?php endif; ?>
 
             <?php if(!empty($business)): ?>

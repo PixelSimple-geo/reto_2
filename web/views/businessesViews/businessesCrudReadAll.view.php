@@ -10,10 +10,10 @@
 
     <main>
             <?php if(isset($errorMessage)): ?>
-                <p style="color:red;"><?=($errorMessage)?></p>
+                <p class="errorMessage"><?=($errorMessage)?></p>
             <?php endif; ?>
             <?php if(isset($feedback)): ?>
-                <p style="color:orange;"><?=($feedback)?></p>
+                <p class="feedbackMessage"><?=($feedback)?></p>
             <?php endif; ?>
             
             <div class="contentsContainer">

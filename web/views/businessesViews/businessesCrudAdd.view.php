@@ -15,7 +15,7 @@
             <h2>Crear Nuevo Negocio</h2>
 
             <?php if(isset($feedback)): ?>
-                <p style="color: red"><?=($feedback)?></p>
+                <p class="feedbackMessage"><?=($feedback)?></p>
             <?php endif; ?>
         </div>
         <div class="formulario">

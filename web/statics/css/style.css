@@ -118,6 +118,10 @@ form[action="/products"] input:-webkit-autofill{
 .search.filter{
     border-radius: 10px;
 }
+
+.search.filter label{
+width: 100%;}
+
 .search.filter div{
     width: 100%;
     border-radius: 10px;
@@ -182,6 +186,10 @@ form[action="/products"] input:-webkit-autofill{
     overflow-x: auto;
     margin: 1rem;
     margin-top: 0;
+}
+
+.navbar div{
+    width: 100%;
 }
 
 .navbar a {

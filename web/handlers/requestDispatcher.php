@@ -293,10 +293,6 @@ $routeMapping = [
             "add" => ["methods" => ["POST" => "adminAddBusinessesCategories"]],
             "delete" => ["methods" => ["GET" => "adminDeleteBusinessCategory"]]
         ],
-        "adminPanel" => [
-            "controller" => "adminControllers/main",
-            "methods" => ["GET" => "getPanel"]
-        ],
 
     ]
 ];

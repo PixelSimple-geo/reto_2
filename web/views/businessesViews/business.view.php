@@ -18,7 +18,7 @@
             <p><?= $business['description'] ?></p>
 
             <form id="filter-form" action="/businesses/business" method="get">
-                <input type="hidden" name="business_id" value="<?=$business['businessId']?>">
+                <input type="hidden" name="business_id" value="<?= $business['businessId'] ?>">
 
                 <div class="search filter">
                     <button type="submit"><img src="/statics/media/search.svg" alt="search"></button>
@@ -29,8 +29,7 @@
                         ?>
                                 <label>
                                     <?= $category['name'] ?>
-                                    <input type="checkbox" name="categories[]" value="<?= $category['categoryId'] ?>"
-                                        <?= in_array($category['categoryId'], $_GET['categories'] ?? []) ? ' checked' : '' ?>>
+                                    <input type="checkbox" name="categories[]" value="<?= $category['categoryId'] ?>" <?= in_array($category['categoryId'], $_GET['categories'] ?? []) ? ' checked' : '' ?>>
                                 </label>
                         <?php
                             endforeach;
@@ -39,8 +38,9 @@
                             <p>No hay categorías disponibles.</p>
                         <?php endif; ?>
                     </div>
-                    <button type="reset"><img src="/statics/media/x.svg" alt="resetear"></button>
+                    <button type="button" id="uncheck-all"><img src="/statics/media/x.svg" alt="desmarcar"></button>
                 </div>
+            </form>
             </form>
 
             <h2>Adverts:</h2>
@@ -181,7 +181,7 @@
     </main>
 
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/footer.php" ?>
-
+    
 </body>
 
 </html>

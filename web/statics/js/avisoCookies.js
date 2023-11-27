@@ -1,3 +1,4 @@
+/* Funciones para manejar las cookies */
 document.addEventListener('DOMContentLoaded', function () {
     const botonAceptarCookies = document.getElementById('btn-aceptar-cookies');
     const avisoCookies = document.getElementById('aviso-cookies');
@@ -5,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     dataLayer = [];
 
+    /* Aplica el nombre valor y dias de caducidad */
     function setCookie(name, value, days) {
         const date = new Date();
         date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
@@ -12,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
         document.cookie = name + "=" + value + ";" + expires + ";path=/";
     }
 
+    /* Recibe la cookie para saber si ya esta aceptada o no */
     function getCookie(name) {
         const cname = name + "=";
         const decodedCookie = decodeURIComponent(document.cookie);
@@ -28,6 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
         return "";
     }
 
+    /* En caso de no tenerla aceptada aplica unas clases sino no */
     if (!getCookie('cookies-aceptadas')) {
         avisoCookies.classList.add('activo');
         fondoAvisoCookies.classList.add('activo');
@@ -39,6 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
         dataLayer.push({ 'event': 'cookies-aceptadas' });
     }
 
+    /* Pulsar el boton aceptar para aceptarlas */
     botonAceptarCookies.addEventListener('click', () => {
         avisoCookies.classList.remove('aparecer');
         avisoCookies.classList.add('desaparecer');

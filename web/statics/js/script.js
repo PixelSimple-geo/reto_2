@@ -42,6 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
+/* Ojo para poder ver la contraseña */
 document.addEventListener("DOMContentLoaded", function() {
     var togglePasswordButton = document.getElementById("togglePassword");
     var eyeIcon = document.getElementById("togglePassword").getElementsByTagName("img")[0];

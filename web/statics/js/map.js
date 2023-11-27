@@ -1,3 +1,4 @@
+/* Mapa del index */
 function initMap() {
     var center = { lat: 42.84998, lng: -2.67268}; 
 

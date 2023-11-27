@@ -333,9 +333,8 @@ foreach ($requestedRoute as $index => $routeFragment) {
         $delegateFunction = $currentRoute["methods"][$requestMethod];
 }
 
-if ($delegateFunction === null) error_405_MethodNotAllowed();
-
 if ($isInvalidRequest || $controller === null) error_404_NotFound();
+if ($delegateFunction === null) error_405_MethodNotAllowed();
 
 require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/$controller";
 call_user_func($delegateFunction);

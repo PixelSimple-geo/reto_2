@@ -1,5 +1,5 @@
 INSERT INTO authorities (role) VALUES ('ADMIN');
-INSERT INTO authorities (role) VALUES ('USER');
+INSERT INTO authorities (role) VALUES ('PUBLISHER');
 
 INSERT INTO accounts (username, email, password, creation_date, last_login, verified, active) VALUES
 ('user1', 'user1@example.com', '$2y$10$6jLrRrOZD8ryJlx905t/1uT8Yh1FfOdemHf3Ho02ZhLz0.xVKko6i', NOW(), NOW(), 1, 1),

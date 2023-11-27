@@ -52,7 +52,7 @@ El diseño de la aplicación se centrará en una interfaz limpia y fácil de usa
   
 ## Instrucciones de Instalación y Ejecución
 
-1. Clonar el repositorio: `git clone https://github.com/PixelSimple-geo/reto_2`. <button onclick="copyToClipboard('git clone https://github.com/PixelSimple-geo/reto_2')">Copy</button>
+1. Clonar el repositorio: `git clone https://github.com/PixelSimple-geo/reto_2`.
 2. Ejecutar el docker.compose `docker compose up -d`.
 
 ¡La aplicación estará disponible [AQUI](http://localhost:8080/index)!
@@ -62,15 +62,3 @@ El diseño de la aplicación se centrará en una interfaz limpia y fácil de usa
 Se alienta a la comunidad a contribuir y reportar problemas. Para hacerlo, es.
 
 ¡Esperamos que este proyecto sea un éxito y satisfaga las expectativas de la Asociación de Comerciantes de Vitoria!
-
-<script>
-function copyToClipboard(text) {
-  const el = document.createElement('textarea');
-  el.value = text;
-  document.body.appendChild(el);
-  el.select();
-  document.execCommand('copy');
-  document.body.removeChild(el);
-  alert('Copied to clipboard!');
-}
-</script>

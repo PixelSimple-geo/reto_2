@@ -10,7 +10,7 @@
     <main>
 
         <?php if (isset($errorMessage)) : ?>
-            <p style="color: red"><?= $errorMessage ?></p>
+            <p class="feedbackMessage"><?= $errorMessage ?></p>
         <?php endif; ?>
 
         <div class="formulario">

@@ -118,7 +118,23 @@ form[action="/products"] input:-webkit-autofill{
 .search.filter{
     border-radius: 10px;
 }
+.search.filter div{
+    width: 100%;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-around;
+}
 
+.search.filter button{
+    background-color: var(--color-borde);
+    border-radius: 0;
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+}
+
+.search.filter button:hover{
+    background-color: var(--color-inputs);  
+}
 /* Dropdown */
 .dropbtn {
     background-color: var(--color-secundario);
@@ -193,10 +209,19 @@ form[action="/products"] input:-webkit-autofill{
 }
 
 /* Aviso Cookies*/
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        display: none;
+    }
+}
+
 .aviso-cookies {
-	display: none;
 	background: #fff;
-	padding: 20px;
+	padding: 1.8rem;
 	width: calc(100% - 40px);
 	max-width: 300px;
 	line-height: 150%;
@@ -209,10 +234,13 @@ form[action="/products"] input:-webkit-autofill{
 	padding-top: 60px;
 	box-shadow: 0px 2px 20px 10px rgba(222,222,222,.25);
 	text-align: center;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
 }
 
 .aviso-cookies.activo {
-	display: block;
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .aviso-cookies img {
@@ -265,10 +293,13 @@ form[action="/products"] input:-webkit-autofill{
 	height: 100vh;
 	top: 0;
 	left: 0;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
 }
 
 .fondo-aviso-cookies.activo {
 	display: block;
+    opacity: 1; 
 }
 
 /*Noticias*/
@@ -813,6 +844,15 @@ footer>p {
     border-radius: 10px;
     background-color: var(--color-contenidos);
     color: var(--color-texto);
+}
+
+/* Error & Feedback messages*/
+.errorMessage{
+    color: red;
+}
+
+.feedbackMessage{
+    color: orange;
 }
 
 @media screen and (max-width: 1500px) {

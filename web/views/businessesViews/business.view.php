@@ -22,21 +22,22 @@
 
                 <div class="search filter">
                     <button type="submit"><img src="/statics/media/search.svg" alt="search"></button>
-
-                    <?php
-                    if (!empty($business['advertCategories'])) :
-                        foreach ($business['advertCategories'] as $category) :
-                    ?>
-                            <label>
-                                <?= $category['name'] ?>
-                                <input type="checkbox" name="categories[]" value="<?= $category['categoryId'] ?>" <?= in_array($category['categoryId'], $_GET['categories'] ?? []) ? ' checked' : '' ?>>
-                            </label>
-                    <?php
-                        endforeach;
-                    else :
-                    ?>
-                        <p>No hay categorías disponibles.</p>
-                    <?php endif; ?>
+                    <div>
+                        <?php
+                        if (!empty($business['advertCategories'])) :
+                            foreach ($business['advertCategories'] as $category) :
+                        ?>
+                                <label>
+                                    <?= $category['name'] ?>
+                                    <input type="checkbox" name="categories[]" value="<?= $category['categoryId'] ?>" <?= in_array($category['categoryId'], $_GET['categories'] ?? []) ? ' checked' : '' ?>>
+                                </label>
+                        <?php
+                            endforeach;
+                        else :
+                        ?>
+                            <p>No hay categorías disponibles.</p>
+                        <?php endif; ?>
+                    </div>
                 </div>
             </form>
 
@@ -91,11 +92,45 @@
                 <?php if(isset($reviews)): ?>
                     <?php foreach ($reviews as $review): ?>
                         <div>
-                            <article id="<?=$review["reviewId"]?>">
-                                <h1>Usuario: <?=$review["username"]?></h1>
-                                <p>Valoración: <?=$review["rating"]?></p>
-                                <h2><?=$review["title"]?></h2>
-                                <p><?=$review["description"]?></p>
+                        <article id="<?= $review["reviewId"] ?>">
+                            <h1>Usuario: <?= $review["username"] ?></h1>
+                            
+                            <?php
+                                $rating = $review["rating"];
+                                $ratingText = "";
+                                $ratingColor = "";
+
+                                switch ($rating) {
+                                    case 1:
+                                        $ratingText = "Muy Mala";
+                                        $ratingColor = "red";
+                                        break;
+                                    case 2:
+                                        $ratingText = "Mala";
+                                        $ratingColor = "orange";
+                                        break;
+                                    case 3:
+                                        $ratingText = "Media";
+                                        $ratingColor = "yellow";
+                                        break;
+                                    case 4:
+                                        $ratingText = "Buena";
+                                        $ratingColor = "lightgreen";
+                                        break;
+                                    case 5:
+                                        $ratingText = "Muy Buena";
+                                        $ratingColor = "green";
+                                        break;
+                                    default:
+                                        $ratingText = "Desconocida";
+                                        $ratingColor = "black";
+                                }
+                            ?>
+
+                            <p style="color: <?= $ratingColor ?>">Valoración: <?= $ratingText ?></p>
+
+                            <h2><?= $review["title"] ?></h2>
+                            <p><?= $review["description"] ?></p>
                                 <form action="/reviewsLikes/crud" method="POST">
                                     <input type="hidden" name="business_id" value="<?= $review["businessId"] ?>">
                                     <input type="hidden" name="review_id" value="<?= $review["reviewId"] ?>">

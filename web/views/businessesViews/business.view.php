@@ -39,6 +39,7 @@
                             <p>No hay categorías disponibles.</p>
                         <?php endif; ?>
                     </div>
+                    <button type="reset"><img src="/statics/media/x.svg" alt="resetear"></button>
                 </div>
             </form>
 

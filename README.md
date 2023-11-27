@@ -56,7 +56,8 @@ El diseño de la aplicación se centrará en una interfaz limpia y fácil de usa
    ```
    git clone https://github.com/PixelSimple-geo/reto_2
    ```
-2. Colocate en el directorio docker-compose y ejecuta el docker.compose
+2. Colocate en el directorio docker-compose y ejecuta el docker.compose:
+
    ```
    docker compose up -d
    ```

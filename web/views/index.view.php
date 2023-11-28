@@ -25,7 +25,7 @@
                         ?>
                         <a href="/adverts/advert?advert_id=<?= $advert['advertId'] ?>">
                             <div>
-                                <img src="<?= $advert['coverImg'] ?>" alt="Portada del anuncio">
+                                <img src="<?= htmlspecialchars($advert['coverImg']) ?>" alt="Portada del anuncio">
                                 <h2><?= htmlspecialchars($advert['title']) ?></h2>
                                 <p><?= htmlspecialchars($advert['description']) ?></p>
                             </div>

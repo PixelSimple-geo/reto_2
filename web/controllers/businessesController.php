@@ -6,7 +6,6 @@ function getBusinessPage(): void {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/models/advertsDB.php";
     require_once $_SERVER['DOCUMENT_ROOT'] . "/models/reviewsDB.php";
     if (isset($_GET["categories"])) print_r($_GET["categories"]);
-    else echo "no categories";
     try {
         $userAccount = getUserAccountFromSession();
         $businessId = $_GET['business_id'];

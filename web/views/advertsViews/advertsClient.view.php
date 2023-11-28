@@ -11,9 +11,9 @@
     <div class="contentsContainer">
         <?php if ($advert): ?>
             <div class="">
-                <h3><?= $advert['title'] ?></h3>
-                <img src="<?= $advert['coverImg'] ?>" alt="Product Image">
-                <h4><?= $advert['description'] ?></h4>
+                <h3><?= htmlspecialchars($advert['title']) ?></h3>
+                <img src="<?= htmlspecialchars($advert['coverImg']) ?>" alt="Product Image">
+                <h4><?= htmlspecialchars($advert['description']) ?>
                 <br>
 
                 <?php if (!empty($advert['characteristics'])): ?>
@@ -31,7 +31,7 @@
                         <ul>
                             <?php foreach ($advert['characteristics'] as $char): ?>
                                 <?php if (!empty(trim($char['value']))): ?>
-                                    <li><strong><?= $char['type'] ?>: &nbsp; </strong> <?= $char['value'] ?></li>
+                                    <li><strong><?= htmlspecialchars($char['type']) ?>: &nbsp; </strong> <?= htmlspecialchars($char['value']) ?></li>
                                 <?php endif; ?>
                             <?php endforeach; ?>
                         </ul>
@@ -49,7 +49,7 @@
                 <ul>
                     <?php foreach ($advert['categories'] as $category): ?>
                         <?php if (is_array($category) && isset($category['name'])): ?>
-                            <li><?= $category['name'] ?></li>
+                            <li><?= htmlspecialchars($category['name']) ?></li>
                         <?php endif; ?>
                     <?php endforeach; ?>
                 </ul>
@@ -61,7 +61,7 @@
         <section class="contents">
             <?php foreach ($advert['images'] as $index => $image): ?>
                 <div>
-                    <img src='<?= $image['url'] ?>' alt='Imagen de anuncio'>
+                    <img src='<?= htmlspecialchars($image['url'])?>' alt='Imagen de anuncio'>
                 </div>
             <?php endforeach; ?>
         </section>

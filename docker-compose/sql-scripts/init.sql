@@ -197,63 +197,105 @@ CREATE TABLE reviews_likes (
                                CONSTRAINT rel_comm_fk FOREIGN KEY (commentator_id) REFERENCES accounts (account_id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
-INSERT INTO authorities (role) VALUES ('ADMIN');
-INSERT INTO authorities (role) VALUES ('USER');
+-- Inserting authorities
+INSERT INTO authorities (role) VALUES
+('ADMIN'),
+('PUBLISHER');
 
-INSERT INTO accounts (username, email, password, creation_date, last_login, verified, active) VALUES
-                                                                                                  ('user1', 'user1@example.com', '$2y$10$6jLrRrOZD8ryJlx905t/1uT8Yh1FfOdemHf3Ho02ZhLz0.xVKko6i', NOW(), NOW(), 1, 1),
-                                                                                                  ('user2', 'user2@example.com', '$2y$10$sq6SMouNo86RnNnqAqKhc.6G5p1d2ZcVDJ7TRe8Ioj1NsFeiOQFja', NOW(), NOW(), 1, 1);
+-- Inserting accounts
+INSERT INTO accounts (username, email, password) VALUES
+('john_doe', 'john.doe@example.com', '$2y$10$gUJnHTwf61th6eHwNQWTV.R05Fq8wNAIHnb2e6sP0V6pN2Z5DCoaC'),
+('jane_smith', 'jane.smith@example.com', '$2y$10$RPIi1kazG4NCm1rxK7y8UOKKem32ie5M8KaDY79/ahMBCeAFMisXu'),
+('admin_user', 'admin@example.com', '$2y$10$CQyNDQxwJsyOfWmi1/rtCOBBFXMWYW50TwQ4wMvKBkpR9Qycu.dhC');
 
-INSERT INTO businesses (account_id, name, description) VALUES
-                                                           (1, 'Business1', 'Description for Business1'),
-                                                           (2, 'Business2', 'Description for Business2');
+-- Inserting businesses
+INSERT INTO businesses (account_id, name, description, cover_img) VALUES
+(1, 'Awesome Tech Solutions', 'Providing cutting-edge technology solutions.', 'tech_solutions.jpg'),
+(2, 'Fashion Paradise', 'Your one-stop shop for the latest fashion trends.', 'fashion_paradise.jpg');
 
-INSERT INTO businesses_categories (name) VALUES ('Category1'), ('Category2');
+-- Inserting businesses_categories
+INSERT INTO businesses_categories (name) VALUES
+('Technology'),
+('Fashion'),
+('Food & Dining');
 
-INSERT INTO article_categories (name) VALUES ('CategoryA'), ('CategoryB');
+-- Inserting businesses_categories_mapping
+INSERT INTO businesses_categories_mapping (category_id, business_id) VALUES
+(1, 1),
+(2, 2);
 
-INSERT INTO businesses_categories_mapping (category_id, business_id) VALUES (1, 1), (2, 2);
-
+-- Inserting business_contacts
 INSERT INTO business_contacts (business_id, type, value) VALUES
-                                                             (1, 'Phone', '123-456-7890'),
-                                                             (2, 'Email', 'business2@example.com');
+(1, 'Phone', '123-456-7890'),
+(1, 'Email', 'info@awesome-tech.com'),
+(2, 'Phone', '555-123-4567'),
+(2, 'Email', 'info@fashion-paradise.com');
 
-INSERT INTO businesses_advert_categories (business_id, name) VALUES (1, 'AdvertCategory1'), (2, 'AdvertCategory2');
+-- Inserting businesses_advert_categories
+INSERT INTO businesses_advert_categories (business_id, name) VALUES
+(1, 'Tech Gadgets'),
+(2, 'Clothing'),
+(2, 'Accessories');
 
-INSERT INTO authorities_granted (authority_id, account_id) VALUES (1, 1), (2, 2);
+-- Inserting authorities_granted
+INSERT INTO authorities_granted (authority_id, account_id) VALUES
+(1, 1),
+(2, 2),
+(3, 3);
 
+-- Inserting articles
 INSERT INTO articles (account_id, title, description, created_date, modified_date) VALUES
-                                                                                       (1, 'Article1', 'Description for Article1', NOW(), NULL),
-                                                                                       (2, 'Article2', 'Description for Article2', NOW(), NULL);
+(1, 'Introduction to Artificial Intelligence', 'Exploring the basics of AI and machine learning.', NOW(), NOW()),
+(2, 'Summer Fashion Trends 2023', 'Discover the hottest trends for the summer season.', NOW(), NOW());
 
-INSERT INTO articles_categories_mapping (article_id, category_id) VALUES (1, 1), (2, 2);
+-- Inserting articles_categories_mapping
+INSERT INTO articles_categories_mapping (article_id, category_id) VALUES
+(1, 1),
+(2, 2);
 
+-- Inserting addresses
 INSERT INTO addresses (business_id, address, postal_code) VALUES
-                                                              (1, '123 Main St', 12345),
-                                                              (2, '456 Oak St', 67890);
+(1, '123 Tech Street', 56789),
+(2, '456 Fashion Avenue', 12345);
 
-INSERT INTO commentaries (article_id, commentator_id, title, description, creation_date, modified_date) VALUES
-                                                                                                            (1, 1, 'Commentary1', 'Description for Commentary1', NOW(), NULL),
-                                                                                                            (2, 2, 'Commentary2', 'Description for Commentary2', NOW(), NULL);
+-- Inserting commentaries
+INSERT INTO commentaries (article_id, commentator_id, title, description, creation_date) VALUES
+(1, 2, 'Great Article!', 'I enjoyed reading about AI. Very informative.', NOW()),
+(2, 1, 'Love the Trends!', 'These fashion trends are amazing. Cant wait for summer!', NOW());
 
-INSERT INTO commentaries_likes (liker_id, commentary_id, is_liked) VALUES (1, 1, 1), (2, 2, 1);
+-- Inserting commentaries_likes
+INSERT INTO commentaries_likes (liker_id, commentary_id, is_liked) VALUES
+(1, 1, 1),
+(2, 2, 1);
 
+-- Inserting adverts
 INSERT INTO adverts (business_id, title, description, cover_img, active, creation_date, modified_date) VALUES
-                                                                                                           (1, 'Advert1', 'Description for Advert1', 'img1.jpg', 1, NOW(), NULL),
-                                                                                                           (2, 'Advert2', 'Description for Advert2', 'img2.jpg', 1, NOW(), NULL);
+(1, 'Latest Tech Gadgets Sale', 'Get the newest gadgets at unbeatable prices!', 'tech_sale.jpg', 1, NOW(), NOW()),
+(2, 'Summer Fashion Sale', 'Enjoy discounts on the latest summer fashion items.', 'fashion_sale.jpg', 1, NOW(), NOW());
 
+-- Inserting adverts_characteristics
 INSERT INTO adverts_characteristics (advert_id, type, value) VALUES
-                                                                 (1, 'Characteristic1', 'Value1'),
-                                                                 (2, 'Characteristic2', 'Value2');
+(1, 'Discount Percentage', '20% off'),
+(2, 'Discount Percentage', '30% off');
 
-INSERT INTO advert_categories (advert_id, category_id) VALUES (1, 1), (2, 2);
+-- Inserting advert_categories
+INSERT INTO advert_categories (advert_id, category_id) VALUES
+(1, 1),
+(2, 2);
 
+-- Inserting images
 INSERT INTO images (advert_id, url) VALUES
-                                        (1, 'img1.jpg'),
-                                        (2, 'img2.jpg');
+(1, 'gadget_image_1.jpg'),
+(1, 'gadget_image_2.jpg'),
+(2, 'fashion_image_1.jpg'),
+(2, 'fashion_image_2.jpg');
 
-INSERT INTO reviews (account_id, business_id, title, description, creation_date, modified_date, rating) VALUES
-                                                                                                            (1, 1, 'Review1', 'Description for Review1', NOW(), NULL, 4),
-                                                                                                            (2, 2, 'Review2', 'Description for Review2', NOW(), NULL, 5);
+-- Inserting reviews
+INSERT INTO reviews (account_id, business_id, title, description, creation_date, rating) VALUES
+(1, 1, 'Excellent Service!', 'Awesome Tech Solutions provides top-notch service.', NOW(), 5),
+(2, 2, 'Great Fashion Store', 'Fashion Paradise has the latest trends and great prices.', NOW(), 4);
 
-INSERT INTO reviews_likes (commentator_id, review_id, is_liked) VALUES (1, 1, 1), (2, 2, 1);
+-- Inserting reviews_likes
+INSERT INTO reviews_likes (commentator_id, review_id, is_liked) VALUES
+(2, 1, 1),
+(1, 2, 1);

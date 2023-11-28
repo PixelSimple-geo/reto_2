@@ -204,9 +204,15 @@ INSERT INTO authorities (role) VALUES
 
 -- Inserción de cuentas
 INSERT INTO accounts (username, email, password) VALUES
-                                                     ('john_doe', 'john.doe@example.com', 'hashed_password_123'),
-                                                     ('jane_smith', 'jane.smith@example.com', 'hashed_password_456'),
-                                                     ('admin_user', 'admin@example.com', 'hashed_admin_password');
+                                                     ('user1', 'john.doe@example.com', '$2y$10$Z1zr/2AsdDBl/vfHLUDjjOgHH9JATlKJLL9Bj.LmMkZ7.QIKbzdL2'),
+                                                     ('user2', 'jane.smith@example.com', '$2y$10$Z1zr/2AsdDBl/vfHLUDjjOgHH9JATlKJLL9Bj.LmMkZ7.QIKbzdL2'),
+                                                     ('admin', 'admin@example.com', '$2y$10$Z1zr/2AsdDBl/vfHLUDjjOgHH9JATlKJLL9Bj.LmMkZ7.QIKbzdL2');
+
+-- Inserción de autorizaciones otorgadas
+INSERT INTO authorities_granted (authority_id, account_id) VALUES
+                                                               (2, 2),
+                                                               (1,3),
+                                                               (2,3);
 
 -- Inserción de negocios
 INSERT INTO reto_2.businesses (business_id, account_id, name, description, cover_img) VALUES (1, 1, 'Awesome Tech Solutions', 'Proporcionando soluciones tecnológicas de vanguardia.', '/statics/uploads/pickawood-_l9Znw_mxgs-unsplash.jpg');
@@ -285,13 +291,6 @@ INSERT INTO businesses_advert_categories (business_id, name) VALUES
 (9, 'Clases de Grupo'),
 (10, 'Arreglos Florales'),
 (10, 'Flores para Eventos');
-
--- Inserción de autorizaciones otorgadas
-INSERT INTO authorities_granted (authority_id, account_id) VALUES
-(1, 1),
-(2, 2),
-(1,3),
-(2,3);
 
 -- Inserción de artículos
 INSERT INTO articles (account_id, title, description, created_date, modified_date) VALUES
@@ -459,18 +458,18 @@ INSERT INTO images (advert_id, url) VALUES
 (11, 'innovacion_tech_1.jpg'),
 (11, 'innovacion_tech_2.jpg'),
 (12, 'fashion_paradise_1.jpeg'),
-(12, 'fashion_paradise_2.jpg'),
+(12, 'fashion_paradise_2.jpg');
 
 -- Inserción de revisiones
 INSERT INTO reviews (account_id, business_id, title, description, creation_date, rating) VALUES
                                                                                  (1, 1, '¡Excelente Servicio!', 'Awesome Tech Solutions ofrece un servicio de primera.', NOW(), 5),
-                                                                                 (2, 2, 'Gran Tienda de Moda', 'Fashion Paradise tiene las últimas tendencias y excelentes precios.', NOW(), 1),
-                                                                                 (3, 3, 'Repostería de Alta Calidad', 'Dulces Delicias Panadería siempre sorprende con sus exquisitos pasteles y panes.', NOW(), 2),
+                                                                                 (2, 2, 'Gran Tienda de Moda', 'Fashion Paradise tiene las últimas tendencias y excelentes precios.', NOW(), 5),
+                                                                                 (3, 3, 'Repostería de Alta Calidad', 'Dulces Delicias Panadería siempre sorprende con sus exquisitos pasteles y panes.', NOW(), 5),
                                                                                  (1, 4, 'Sabor Tradicional Inigualable', 'Artesanos del Sabor Panadería mantiene viva la auténtica tradición en cada producto.', NOW(), 5),
                                                                                  (2, 5, 'Experiencia Gastronómica Única', 'Sabor Urbano Restaurant ofrece una fusión de sabores que te transporta a lugares únicos.', NOW(), 4),
                                                                                  (2, 6, 'Delicias del Mar', 'Los platillos de Delicias del Mar Restaurante son frescos y deliciosos, una experiencia marina única.', NOW(), 3),
                                                                                  (1, 7, 'Aromas Irresistibles', 'Café Aromático te envuelve con sus aromas deliciosos y postres irresistibles.', NOW(), 3),
-                                                                                 (3, 8, 'Rinconcito Acogedor', 'Rincón del Café ofrece una experiencia cálida donde el buen gusto y el café se fusionan.', NOW(), 1),
+                                                                                 (3, 8, 'Rinconcito Acogedor', 'Rincón del Café ofrece una experiencia de mierda.', NOW(), 1),
                                                                                  (3, 9, 'Transformación Total', 'Gimnasio Vitalidad me ha ayudado a transformar mi cuerpo y mente. ¡Recomendado!', NOW(), 4),
                                                                                  (1, 10, 'Flores Elegantes', 'Florería Elegante tiene arreglos florales que expresan emociones de manera elegante y única.', NOW(), 5);
 

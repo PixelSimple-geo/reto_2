@@ -16,7 +16,7 @@ function sendEmail($subject, $message, $to = "theonblack90102002@gmail.com") {
         $mail->Host = "smtp.gmail.com";
         $mail->SMTPAuth = true;
         $mail->Username = "theonblack90102002@gmail.com";
-        $mail->Password = "nxxhplllttqwkscw";
+        $mail->Password = "";
         $mail->SMTPSecure = "ssl";
         $mail->Port = "465";
 

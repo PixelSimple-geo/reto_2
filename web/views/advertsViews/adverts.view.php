@@ -23,9 +23,9 @@
                                 ?>
                                 <div>
                                     <img src='<?= $advert['coverImg'] ?>' alt='Portada del anuncio'>
-                                    <?= "<h2>{$advert['title']}</h2>" ?>
-                                    <?= "<p>{$advert['description']}</p>" ?>
-                                    <?= "<a href='/adverts/account/business/edit?advert_id={$advert['advertId']}'>Edit anuncio</a>" ?>
+                                    <h2><?=$advert['title']?></h2>
+                                    <p><?=$advert['description']?></p>
+                                    <a href='/adverts/account/business/edit?advert_id=<?=$advert['advertId']?>'>Edit anuncio</a>
                                 </div>
                                 <?php
                             }

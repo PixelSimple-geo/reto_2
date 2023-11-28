@@ -53,9 +53,9 @@
                     ?>
                     <a href="/adverts/advert?advert_id=<?= $product['advertId'] ?>">
                         <div>
-                            <img src="<?= $product['coverImg'] ?>" alt="Product Image">
-                            <h3><?= $product['title'] ?></h3>
-                            <p>Description: <?= $product['description'] ?></p>
+                            <img src="<?= htmlspecialchars($product['coverImg']) ?>" alt="Product Image">
+                            <h3><?= htmlspecialchars($product['title']) ?></h3>
+                            <p>Description: <?= htmlspecialchars($product['description']) ?></p>
                         </div>
                     </a>
                     <?php

@@ -13,9 +13,8 @@
     <main>
         <div class="contentsContainer">
             <a href="/businesses/all">Volver a los comercios</a>
-
-            <h1><?= $business['name'] ?></h1>
-            <p><?= $business['description'] ?></p>
+            <h1><?= htmlspecialchars($business['name']) ?></h1>
+            <p><?= htmlspecialchars($business['description']) ?></p>
 
             <form id="filter-form" action="/businesses/business" method="get">
                 <input type="hidden" name="business_id" value="<?= $business['businessId'] ?>">
@@ -28,7 +27,7 @@
                             foreach ($business['advertCategories'] as $category) :
                         ?>
                                 <label>
-                                    <?= $category['name'] ?>
+                                    <?= htmlspecialchars($category['name']) ?>
                                     <input type="checkbox" name="categories[]" value="<?= $category['categoryId'] ?>" <?= in_array($category['categoryId'], $_GET['categories'] ?? []) ? ' checked' : '' ?>>
                                 </label>
                         <?php
@@ -48,18 +47,17 @@
                 <?php
 
                 if (isset($adverts)) {
-
                     foreach ($adverts as $advert) {
                         $advertCategories = isset($advert['categories']) ? $advert['categories'] : [];
-
                 ?>
                             <a href="/adverts/advert?advert_id=<?= $advert['advertId'] ?>">
-                                <div class="ad <?= (isset($advert['categories']) && is_array($advert['categories']) ? implode(' ', $advert['categories']) : '') ?>">
+                                <div class="ad <?= (isset($advert['categories']) && is_array($advert['categories'])
+                                    ? implode(' ', $advert['categories']) : '') ?>">
                                     <?php if (isset($advert["coverImg"])) : ?>
                                         <img src="<?= $advert['coverImg'] ?>" alt="Portada del anuncio">
                                     <?php endif; ?>
-                                    <h3><?= $advert['title'] ?></h3>
-                                    <p><?= $advert['description'] ?></p>
+                                    <h3><?= htmlspecialchars($advert['title']) ?></h3>
+                                    <p><?= htmlspecialchars($advert['description']) ?></p>
                                 </div>
                             </a>
                 <?php
@@ -95,7 +93,7 @@
                     <?php foreach ($reviews as $review): ?>
                         <div>
                         <article id="<?= $review["reviewId"] ?>">
-                            <h1>Usuario: <?= $review["username"] ?></h1>
+                            <h1>Usuario: <?= htmlspecialchars($review["username"]) ?></h1>
                             
                             <?php
                                 $rating = $review["rating"];
@@ -131,8 +129,8 @@
 
                             <p style="color: <?= $ratingColor ?>">Valoración: <?= $ratingText ?></p>
 
-                            <h2><?= $review["title"] ?></h2>
-                            <p><?= $review["description"] ?></p>
+                            <h2><?= htmlspecialchars($review["title"]) ?></h2>
+                            <p><?= htmlspecialchars($review["description"]) ?></p>
                                 <form action="/reviewsLikes/crud" method="POST">
                                     <input type="hidden" name="business_id" value="<?= $review["businessId"] ?>">
                                     <input type="hidden" name="review_id" value="<?= $review["reviewId"] ?>">

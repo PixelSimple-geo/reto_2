@@ -47,12 +47,12 @@
             <?php foreach ($commentaries as $commentary):?>
                 <div>
                     <article id="<?=$commentary["commentaryId"]?>">
-                        <h1><?=$commentary["username"]?></h1>
-                        <h2><?=$commentary["title"]?></h2>
-                        <p><?=$commentary["description"]?></p>
+                        <h1><?=htmlspecialchars($commentary["username"])?></h1>
+                        <h2><?=htmlspecialchars($commentary["title"])?></h2>
+                        <p><?=htmlspecialchars($commentary["description"])?></p>
                         <form action="/commentariesLikes/crud" method="POST" data-form-reaction>
-                            <input type="hidden" name="article_id" value="<?= $article["articleId"] ?>">
-                            <input type="hidden" name="commentary_id" value="<?= $commentary["commentaryId"] ?>">
+                            <input type="hidden" name="article_id" value="<?= htmlspecialchars($article["articleId"]) ?>">
+                            <input type="hidden" name="commentary_id" value="<?= htmlspecialchars($commentary["commentaryId"]) ?>">
                             <section data-check>
                                 <input type="hidden" name="old_reaction" value="<?=isset($commentary["userFeedback"])?>">
                                 <input type="hidden" name="new_reaction" value="">

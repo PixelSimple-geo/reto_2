@@ -1,4 +1,7 @@
 /* Estilos generales */
+*{
+    font-family: 'Roboto', sans-serif;}
+
 html {
     height: 100vh;
 }
@@ -30,6 +33,10 @@ td {
 
 td input {
     width: auto;
+}
+
+h1,h2,h3,h4,h5{
+    font-family: serif;
 }
 
 /* Estilos para el modo nocturno */

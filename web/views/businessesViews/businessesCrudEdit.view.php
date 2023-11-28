@@ -104,16 +104,18 @@
                     </div>
                 </fieldset>
 
-                    <fieldset>
-                        <?php if(isset($business["coverImg"])):?>
-                            <input type="hidden" name="old_cover_img" value="<?=$business["coverImg"]?>">
-                            <img src="<?=$business["coverImg"]?>">
-                            <button type="button" data-delete_img>Eliminar</button>
-                        <?php endif;?>
-                        <input type="file" accept=".gif, .png, .jpeg, .jpg" name="cover_img" id="cover_img">
-                    </fieldset>
+                <label for='cover_img'>Imagen de Portada:</label>
+                    <?php if(isset($business["coverImg"])): ?>
+                    <div data-img>
+                        <img src='<?= $business['coverImg'] ?>' alt='Imagen de portada'>
+                        <input type="hidden" name="cover_img_url" value="<?= $business['coverImg'] ?>">
+                        <button type="button" data-delete_img>Eliminar</button>
+                    </div>
+                    <?php endif; ?>
+                    <input type='file' id='cover_img' name='cover_img' accept='image/*'>
 
-                    <br>
+                    
+
 
                     <button type="submit">Guardar Cambios</button>
                 </form>

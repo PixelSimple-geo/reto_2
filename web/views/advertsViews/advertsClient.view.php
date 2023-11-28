@@ -61,7 +61,7 @@
         <section class="contents">
             <?php foreach ($advert['images'] as $index => $image): ?>
                 <div>
-                    <img src='<?= htmlspecialchars($image['url']) ?>' alt='Imagen de anuncio'>
+                    <img src='<?= htmlspecialchars($image['url'])?>' alt='Imagen de anuncio'>
                 </div>
             <?php endforeach; ?>
         </section>

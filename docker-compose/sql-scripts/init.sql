@@ -202,100 +202,99 @@ INSERT INTO authorities (role) VALUES
                                    ('ADMIN'),
                                    ('PUBLISHER');
 
--- Inserting accounts
+-- Inserción de cuentas
 INSERT INTO accounts (username, email, password) VALUES
                                                      ('john_doe', 'john.doe@example.com', 'hashed_password_123'),
                                                      ('jane_smith', 'jane.smith@example.com', 'hashed_password_456'),
                                                      ('admin_user', 'admin@example.com', 'hashed_admin_password');
 
--- Inserting businesses
-INSERT INTO businesses (account_id, name, description, cover_img) VALUES
-                                                                      (1, 'Awesome Tech Solutions', 'Providing cutting-edge technology solutions.', 'tech_solutions.jpg'),
-                                                                      (2, 'Fashion Paradise', 'Your one-stop shop for the latest fashion trends.', 'fashion_paradise.jpg');
+-- Inserción de negocios
+INSERT INTO reto_2.businesses (business_id, account_id, name, description, cover_img) VALUES (1, 1, 'Awesome Tech Solutions', 'Proporcionando soluciones tecnológicas de vanguardia.', '/statics/uploads/pickawood-_l9Znw_mxgs-unsplash.jpg');
+INSERT INTO reto_2.businesses (business_id, account_id, name, description, cover_img) VALUES (2, 2, 'Paraíso de la Moda', 'Tu tienda única para las últimas tendencias de moda.', '/statics/uploads/charlesdeluvio-kyD7I53MEuE-unsplash.jpg');
 
--- Inserting businesses_categories
+-- Inserción de categorías de negocios
 INSERT INTO businesses_categories (name) VALUES
-                                             ('Technology'),
-                                             ('Fashion'),
-                                             ('Food & Dining');
+                                             ('Tecnología'),
+                                             ('Moda'),
+                                             ('Comida y Cena');
 
--- Inserting businesses_categories_mapping
+-- Inserción de asignación de categorías de negocios
 INSERT INTO businesses_categories_mapping (category_id, business_id) VALUES
                                                                          (1, 1),
                                                                          (2, 2);
 
--- Inserting business_contacts
+-- Inserción de contactos de negocios
 INSERT INTO business_contacts (business_id, type, value) VALUES
-                                                             (1, 'Phone', '123-456-7890'),
-                                                             (1, 'Email', 'info@awesome-tech.com'),
-                                                             (2, 'Phone', '555-123-4567'),
-                                                             (2, 'Email', 'info@fashion-paradise.com');
+                                                             (1, 'Teléfono', '123-456-7890'),
+                                                             (1, 'Correo Electrónico', 'info@awesome-tech.com'),
+                                                             (2, 'Teléfono', '555-123-4567'),
+                                                             (2, 'Correo Electrónico', 'info@fashion-paradise.com');
 
--- Inserting businesses_advert_categories
+-- Inserción de categorías de anuncios de negocios
 INSERT INTO businesses_advert_categories (business_id, name) VALUES
-                                                                 (1, 'Tech Gadgets'),
-                                                                 (2, 'Clothing'),
-                                                                 (2, 'Accessories');
+                                                                 (1, 'Gadgets Tecnológicos'),
+                                                                 (2, 'Ropa'),
+                                                                 (2, 'Accesorios');
 
--- Inserting authorities_granted
+-- Inserción de autorizaciones otorgadas
 INSERT INTO authorities_granted (authority_id, account_id) VALUES
                                                                (1, 1),
-                                                               (2, 2),
-                                                               (3, 3);
+                                                               (2, 2);
 
--- Inserting articles
+-- Inserción de artículos
 INSERT INTO articles (account_id, title, description, created_date, modified_date) VALUES
-                                                                                       (1, 'Introduction to Artificial Intelligence', 'Exploring the basics of AI and machine learning.', NOW(), NOW()),
-                                                                                       (2, 'Summer Fashion Trends 2023', 'Discover the hottest trends for the summer season.', NOW(), NOW());
+                                                                                       (1, 'Introducción a la Inteligencia Artificial', 'Explorando los conceptos básicos de la IA y el aprendizaje automático.', NOW(), NOW()),
+                                                                                       (2, 'Tendencias de Moda Verano 2023', 'Descubre las tendencias más calientes para la temporada de verano.', NOW(), NOW());
 
--- Inserting articles_categories_mapping
+INSERT INTO article_categories(category_id, name) VALUES(DEFAULT, 'Noticias'), (DEFAULT, 'Campañas');
+
+-- Inserción de asignación de categorías de artículos
 INSERT INTO articles_categories_mapping (article_id, category_id) VALUES
                                                                       (1, 1),
                                                                       (2, 2);
 
--- Inserting addresses
+-- Inserción de direcciones
 INSERT INTO addresses (business_id, address, postal_code) VALUES
-                                                              (1, '123 Tech Street', 56789),
-                                                              (2, '456 Fashion Avenue', 12345);
+                                                              (1, '123 Calle Tech', 56789),
+                                                              (2, '456 Avenida de la Moda', 12345);
 
--- Inserting commentaries
+-- Inserción de comentarios
 INSERT INTO commentaries (article_id, commentator_id, title, description, creation_date) VALUES
-                                                                                             (1, 2, 'Great Article!', 'I enjoyed reading about AI. Very informative.', NOW()),
-                                                                                             (2, 1, 'Love the Trends!', 'These fashion trends are amazing. Can\'t wait for summer!', NOW());
+                                                                                             (1, 2, '¡Gran Artículo!', 'Disfruté leyendo sobre IA. Muy informativo.', NOW()),
+                                                                                             (2, 1, '¡Amo las Tendencias!', 'Estas tendencias de moda son increíbles. ¡No puedo esperar al verano!', NOW());
 
--- Inserting commentaries_likes
+-- Inserción de likes de comentarios
 INSERT INTO commentaries_likes (liker_id, commentary_id, is_liked) VALUES
                                                                        (1, 1, 1),
                                                                        (2, 2, 1);
 
--- Inserting adverts
-INSERT INTO adverts (business_id, title, description, cover_img, active, creation_date, modified_date) VALUES
-                                                                                                           (1, 'Latest Tech Gadgets Sale', 'Get the newest gadgets at unbeatable prices!', 'tech_sale.jpg', 1, NOW(), NOW()),
-                                                                                                           (2, 'Summer Fashion Sale', 'Enjoy discounts on the latest summer fashion items.', 'fashion_sale.jpg', 1, NOW(), NOW());
+-- Inserción de anuncios
+INSERT INTO reto_2.adverts (advert_id, business_id, title, description, cover_img, active, creation_date, modified_date) VALUES (1, 1, 'Última Venta de Gadgets Tecnológicos', 'Obtén los gadgets más nuevos a precios imbatibles.', '/statics/uploads/screen-post-vYxnwamt6HE-unsplash.jpg', 1, '2023-11-28 10:01:45', '2023-11-28 10:01:45');
+INSERT INTO reto_2.adverts (advert_id, business_id, title, description, cover_img, active, creation_date, modified_date) VALUES (2, 2, 'Venta de Moda Verano', 'Disfruta de descuentos en los últimos artículos de moda para el verano.', '/statics/uploads/hannah-busing-ut8l3-_S0c4-unsplash.jpg', 1, '2023-11-28 10:01:45', '2023-11-28 10:01:45');
 
--- Inserting adverts_characteristics
+-- Inserción de características de anuncios
 INSERT INTO adverts_characteristics (advert_id, type, value) VALUES
-                                                                 (1, 'Discount Percentage', '20% off'),
-                                                                 (2, 'Discount Percentage', '30% off');
+                                                                 (1, 'Porcentaje de Descuento', '20% de descuento'),
+                                                                 (2, 'Porcentaje de Descuento', '30% de descuento');
 
--- Inserting advert_categories
+-- Inserción de categorías de anuncios
 INSERT INTO advert_categories (advert_id, category_id) VALUES
                                                            (1, 1),
                                                            (2, 2);
 
--- Inserting images
+-- Inserción de imágenes
 INSERT INTO images (advert_id, url) VALUES
-                                        (1, 'gadget_image_1.jpg'),
-                                        (1, 'gadget_image_2.jpg'),
-                                        (2, 'fashion_image_1.jpg'),
-                                        (2, 'fashion_image_2.jpg');
+                                        (1, 'imagen_gadget_1.jpg'),
+                                        (1, 'imagen_gadget_2.jpg'),
+                                        (2, 'imagen_moda_1.jpg'),
+                                        (2, 'imagen_moda_2.jpg');
 
--- Inserting reviews
+-- Inserción de revisiones
 INSERT INTO reviews (account_id, business_id, title, description, creation_date, rating) VALUES
-                                                                                             (1, 1, 'Excellent Service!', 'Awesome Tech Solutions provides top-notch service.', NOW(), 5),
-                                                                                             (2, 2, 'Great Fashion Store', 'Fashion Paradise has the latest trends and great prices.', NOW(), 4);
+                                                                                             (1, 1, '¡Excelente Servicio!', 'Awesome Tech Solutions ofrece un servicio de primera.', NOW(), 5),
+                                                                                             (2, 2, 'Gran Tienda de Moda', 'Fashion Paradise tiene las últimas tendencias y excelentes precios.', NOW(), 4);
 
--- Inserting reviews_likes
+-- Inserción de likes de revisiones
 INSERT INTO reviews_likes (commentator_id, review_id, is_liked) VALUES
                                                                     (2, 1, 1),
                                                                     (1, 2, 1);

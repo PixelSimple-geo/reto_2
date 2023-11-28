@@ -204,9 +204,15 @@ INSERT INTO authorities (role) VALUES
 
 -- Inserción de cuentas
 INSERT INTO accounts (username, email, password) VALUES
-                                                     ('john_doe', 'john.doe@example.com', 'hashed_password_123'),
-                                                     ('jane_smith', 'jane.smith@example.com', 'hashed_password_456'),
-                                                     ('admin_user', 'admin@example.com', 'hashed_admin_password');
+                                                     ('user1', 'john.doe@example.com', '$2y$10$Z1zr/2AsdDBl/vfHLUDjjOgHH9JATlKJLL9Bj.LmMkZ7.QIKbzdL2'),
+                                                     ('user2', 'jane.smith@example.com', '$2y$10$Z1zr/2AsdDBl/vfHLUDjjOgHH9JATlKJLL9Bj.LmMkZ7.QIKbzdL2'),
+                                                     ('admin', 'admin@example.com', '$2y$10$Z1zr/2AsdDBl/vfHLUDjjOgHH9JATlKJLL9Bj.LmMkZ7.QIKbzdL2');
+
+-- Inserción de autorizaciones otorgadas
+INSERT INTO authorities_granted (authority_id, account_id) VALUES
+                                                               (2, 2),
+                                                               (1,3),
+                                                               (2,3);
 
 -- Inserción de negocios
 INSERT INTO reto_2.businesses (business_id, account_id, name, description, cover_img) VALUES (1, 1, 'Awesome Tech Solutions', 'Proporcionando soluciones tecnológicas de vanguardia.', '/statics/uploads/pickawood-_l9Znw_mxgs-unsplash.jpg');
@@ -285,13 +291,6 @@ INSERT INTO businesses_advert_categories (business_id, name) VALUES
 (9, 'Clases de Grupo'),
 (10, 'Arreglos Florales'),
 (10, 'Flores para Eventos');
-
--- Inserción de autorizaciones otorgadas
-INSERT INTO authorities_granted (authority_id, account_id) VALUES
-(1, 1),
-(2, 2),
-(1,3),
-(2,3);
 
 -- Inserción de artículos
 INSERT INTO articles (account_id, title, description, created_date, modified_date) VALUES
@@ -459,7 +458,7 @@ INSERT INTO images (advert_id, url) VALUES
 (11, 'innovacion_tech_1.jpg'),
 (11, 'innovacion_tech_2.jpg'),
 (12, 'fashion_paradise_1.jpeg'),
-(12, 'fashion_paradise_2.jpg'),
+(12, 'fashion_paradise_2.jpg');
 
 -- Inserción de revisiones
 INSERT INTO reviews (account_id, business_id, title, description, creation_date, rating) VALUES

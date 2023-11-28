@@ -20,6 +20,17 @@
             <?php endif; ?>
             <p><?= htmlspecialchars($business['description']) ?></p>
 
+            <br>
+
+            <div>
+            <h2>Contact Information:</h2>
+                <?php foreach ($business['contacts'] as $contact): ?>
+                    <p><?= $contact['type'] ?>: <?= $contact['value'] ?></p>
+                <?php endforeach; ?>
+            </div>
+            
+            <br>
+
             <form id="filter-form" action="/businesses/business" method="get">
                 <input type="hidden" name="business_id" value="<?= $business['businessId'] ?>">
 

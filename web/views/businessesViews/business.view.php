@@ -3,6 +3,7 @@
 
 <head>
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/views/partials/head.php" ?>
+    <script src="/statics/js/ckUnchecked.js" defer></script>
     <title><?= $business['name']; ?> - Business Details</title>
 </head>
 
@@ -14,6 +15,9 @@
         <div class="contentsContainer">
             <a href="/businesses/all">Volver a los comercios</a>
             <h1><?= htmlspecialchars($business['name']) ?></h1>
+            <?php if (isset($business["coverImg"])): ?>
+                <img src="<?=$business["coverImg"]?>" alt="Imagen de portada">
+            <?php endif; ?>
             <p><?= htmlspecialchars($business['description']) ?></p>
 
             <form id="filter-form" action="/businesses/business" method="get">

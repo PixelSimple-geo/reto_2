@@ -5,9 +5,9 @@ INSERT INTO authorities (role) VALUES
 
 -- Inserting accounts
 INSERT INTO accounts (username, email, password) VALUES
-('john_doe', 'john.doe@example.com', 'hashed_password_123'),
-('jane_smith', 'jane.smith@example.com', 'hashed_password_456'),
-('admin_user', 'admin@example.com', 'hashed_admin_password');
+('john_doe', 'john.doe@example.com', '$2y$10$gUJnHTwf61th6eHwNQWTV.R05Fq8wNAIHnb2e6sP0V6pN2Z5DCoaC'),
+('jane_smith', 'jane.smith@example.com', '$2y$10$RPIi1kazG4NCm1rxK7y8UOKKem32ie5M8KaDY79/ahMBCeAFMisXu'),
+('admin_user', 'admin@example.com', '$2y$10$CQyNDQxwJsyOfWmi1/rtCOBBFXMWYW50TwQ4wMvKBkpR9Qycu.dhC');
 
 -- Inserting businesses
 INSERT INTO businesses (account_id, name, description, cover_img) VALUES
@@ -62,7 +62,7 @@ INSERT INTO addresses (business_id, address, postal_code) VALUES
 -- Inserting commentaries
 INSERT INTO commentaries (article_id, commentator_id, title, description, creation_date) VALUES
 (1, 2, 'Great Article!', 'I enjoyed reading about AI. Very informative.', NOW()),
-(2, 1, 'Love the Trends!', 'These fashion trends are amazing. Can\'t wait for summer!', NOW());
+(2, 1, 'Love the Trends!', 'These fashion trends are amazing. Cant wait for summer!', NOW());
 
 -- Inserting commentaries_likes
 INSERT INTO commentaries_likes (liker_id, commentary_id, is_liked) VALUES

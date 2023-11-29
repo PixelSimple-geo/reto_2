@@ -156,7 +156,10 @@ function saveImages(): array {
 
 function getAdverts() :void {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/models/advertsDB.php";
-    $adverts = getAllAdverts();
+    if (!empty($_GET["q"]))
+        $searchParameter = $_GET["q"];
+    else $searchParameter = null;
+    $adverts = getAllAdverts($searchParameter);
     $advertCategories = getAllAdvertCategories();
     include_once $_SERVER['DOCUMENT_ROOT'] . "/views/advertsViews/products.view.php";
 }

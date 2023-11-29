@@ -34,12 +34,22 @@ function getAdvert($advertId): array {
     return $advert;
 }
 
-function getAllAdverts(): array {
+function getAllAdverts($searchParameter): array {
     $sql = "SELECT advert_id AS advertId, business_id AS businessId, title, description, cover_img AS coverImg, 
-    active, creation_date AS creationDate, modified_date AS modifiedDate FROM adverts";
-    $statement = getConnection()->query($sql);
+        active, creation_date AS creationDate, modified_date AS modifiedDate FROM adverts";
+
+    if (!empty($searchParameter)) {
+        $sql .= " WHERE title LIKE :searchParameter";
+    }
+
+    $statement = getConnection()->prepare($sql);
+    if (!empty($searchParameter)) 
+        $statement->bindValue("searchParameter", '%' . $searchParameter . '%');
+
+    $statement->execute();
     return $statement->fetchAll();
 }
+
 
 function getAdvertsByBusinessId($businessId, array $categories = null): array {
     $sql = "SELECT a.advert_id AS advertId, a.business_id AS businessId, a.title, a.description, 

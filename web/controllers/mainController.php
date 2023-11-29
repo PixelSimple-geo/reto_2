@@ -4,7 +4,7 @@ function index(): void {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/models/advertsDB.php";
 
     try {
-        $adverts = getAllAdverts();
+        $adverts = getAllAdverts(null);
     } catch (PDOException $exception) {
         //TODO
     }

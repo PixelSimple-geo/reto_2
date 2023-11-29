@@ -58,8 +58,7 @@
                         <?php endfor; ?>
                     </ul>
                 <?php endif;
-            else:
-                echo '<p>No se encontraron noticias.</p>';
+           
             endif;
             ?>
         </div>

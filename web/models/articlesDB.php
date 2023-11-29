@@ -15,8 +15,8 @@ function getArticle($articleId): array {
 function getAllArticles(): array {
     $sql = "SELECT a.article_id articleId, account_id accountId, title, description, ac.name categoryName, 
        ac.category_id categoryId, DATE(created_date) createdDate, DATE(modified_date) modifiedDate 
-    FROM articles a INNER JOIN articles_categories_mapping acm ON a.article_id = acm.article_id
-    INNER JOIN article_categories ac ON acm.category_id = ac.category_id";
+    FROM articles a LEFT JOIN articles_categories_mapping acm ON a.article_id = acm.article_id
+    LEFT JOIN article_categories ac ON acm.category_id = ac.category_id";
     return getConnection()->query($sql)->fetchAll();
 }
 

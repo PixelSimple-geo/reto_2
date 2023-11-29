@@ -126,7 +126,7 @@
                                         break;
                                     case 3:
                                         $ratingText = "Media";
-                                        $ratingColor = "yellow";
+                                        $ratingColor = "#dede00";
                                         break;
                                     case 4:
                                         $ratingText = "Buena";
